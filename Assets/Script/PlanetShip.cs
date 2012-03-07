@@ -22,11 +22,13 @@ public class PlanetShip : MonoBehaviour {
 		
 		for(int i = 0 ; i<nbShip ; i++){
 			
-			float x = Random.Range(0.8f,1.2f);
-			float z = Random.Range(0.8f,1.2f);
+			float x = Random.Range(10f,15f);
+			float z = Random.Range(10f,15f);
 			Vector3 vec = new Vector3(x,0,z);
 			vec = this.transform.position + vec ; 
-			GameObject instance = (GameObject) Instantiate(ship,vec, transform.rotation);
+			Quaternion rot = transform.rotation;
+			rot.w += 10;
+			GameObject instance = (GameObject) Instantiate(ship,vec, rot);
 			instance.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
 			((rotationShip)instance.GetComponent<rotationShip>()).planet = this.gameObject;
 			((rotationShip)instance.GetComponent<rotationShip>()).speed = Random.Range(0.5f,0.8f);

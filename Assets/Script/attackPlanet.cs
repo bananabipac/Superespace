@@ -26,7 +26,7 @@ public class attackPlanet : MonoBehaviour {
 	 void OnGUI() {
         Event e = Event.current;
 		
-		//Debug.Log(e.mousePosition.x);
+		Debug.Log(e.mousePosition.x);
 		
 	
 			
