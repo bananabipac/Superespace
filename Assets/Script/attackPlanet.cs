@@ -4,26 +4,34 @@ using System.Collections.Generic;
 
 public class attackPlanet : MonoBehaviour {
 	
-	public GameObject planetStart;
-	public GameObject planetEnd;
-	public List<GameObject> ships;
-	public bool triger ; 
-	public bool start;
-	public bool build;
-	public GameObject bul;
-	private int sizeHalo;
+//	public GameObject planetStart;
+//	public GameObject planetEnd;
+//	public List<GameObject> ships;
+//	public bool triger ; 
+//	public bool start;
+//	public bool build;
+//	public GameObject bul;
+//	private int sizeHalo;
 	
 
 	// Use this for initialization
 	void Start () {
-		triger = false;
-		start = false;
+//		triger = false;
+//		start = false;
 		
 		
 	
 	}
 	
-	 void OnGUI() {
+	void Update() {
+		
+		foreach(Touch touch in Input.touches) {
+			Debug.Log("x : "  +touch.position.x);
+			Debug.Log("y : " +touch.position.y);
+		}
+	}
+	
+	/* void OnGUI() {
         Event e = Event.current;
 		
 		//Debug.Log(e.mousePosition.x);
@@ -112,7 +120,7 @@ public class attackPlanet : MonoBehaviour {
 		
 		
 	
-	}
+	}*/
 	
 	
 }
