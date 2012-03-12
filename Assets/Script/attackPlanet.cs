@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class attackPlanet : MonoBehaviour {
 	
-//	public GameObject planetStart;
+	public GameObject planetStart;
 //	public GameObject planetEnd;
 //	public List<GameObject> ships;
 //	public bool triger ; 
@@ -26,8 +26,9 @@ public class attackPlanet : MonoBehaviour {
 	void Update() {
 		
 		foreach(Touch touch in Input.touches) {
-			Debug.Log("x : "  +touch.position.x);
-			Debug.Log("y : " +touch.position.y);
+			if(touch.phase == TouchPhase.Ended) 
+				//Instantiate (planetStart,Camera.main.ScreenToWorldPoint(touch.position),transform.rotation);
+				Debug.Log(Camera.main.ScreenToWorldPoint(touch.position));
 		}
 	}
 	
