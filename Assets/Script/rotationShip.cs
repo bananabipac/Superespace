@@ -13,9 +13,9 @@ public class rotationShip : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 vec = new Vector3(2f, 2f,0f);
 		
-		this.transform.RotateAround(planet.transform.position,vec, speed);
+		
+		this.transform.RotateAround(planet.transform.position,Vector3.forward, speed);
 		
 		
 		

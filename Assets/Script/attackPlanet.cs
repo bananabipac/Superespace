@@ -65,7 +65,14 @@ public class attackPlanet : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+		float scal = planetEnd.transform.localScale.x ;
+				
+		float min = scal/2.5f  ;
+		float max = scal/2.5f +5;
+		
 		if(triger){
+			
+			
 		
 			ships = ((PlanetShip)planetStart.GetComponent<PlanetShip>()).ships;
 		
@@ -81,7 +88,15 @@ public class attackPlanet : MonoBehaviour {
 		
 			for(int j = 0 ; j<ships.Count -1; j++){
 				
-				Vector3 vec = new Vector3(Random.Range(-1f,-0.4f), 0,Random.Range(-1f,-0.4f));
+				
+				
+				
+				
+			
+				float x = Random.Range(min,max);
+				float y = Random.Range(min,max);
+				Vector3 vec = new Vector3(x,y,0);
+				 
 				iTween.MoveTo(ships[j],iTween.Hash("position",planetEnd.transform.position+vec,"time",2f, "easetype", "linear"));	
 				
 				
@@ -92,7 +107,9 @@ public class attackPlanet : MonoBehaviour {
 				
 				
 			}
-			Vector3 vec1 = new Vector3(Random.Range(-1f,-0.4f), 0,Random.Range(-1f,-0.4f));
+			
+			
+			Vector3 vec1 = new Vector3((float)Random.Range(min,max),(float) Random.Range(min,max),0);
 			iTween.MoveTo(ships[ships.Count -1],iTween.Hash("position",planetEnd.transform.position+vec1,"time",2f,"oncomplete","fight","onCompleteTarget", gameObject, "easetype", "linear"));	
 				
 				
