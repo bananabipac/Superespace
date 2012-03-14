@@ -71,8 +71,8 @@ public class PlanetShip : MonoBehaviour {
 		float max = scal/2.5f +5;
 			
 		float x = Random.Range(min,max);
-		float y = Random.Range(min,max);
-		Vector3 vec = new Vector3(x,y,0);
+		float z = Random.Range(min,max);
+		Vector3 vec = new Vector3(x,0,z);
 		vec = this.transform.position + vec ; 
 			
 		
@@ -82,7 +82,7 @@ public class PlanetShip : MonoBehaviour {
 			
 			
 		GameObject instance = (GameObject) Instantiate(ship,vec, transform.rotation);
-		instance.transform.RotateAround(this.transform.position,Vector3.forward, Random.Range(0f,360f));
+		instance.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
 		((rotationShip)instance.GetComponent<rotationShip>()).planet = this.gameObject;
 		((rotationShip)instance.GetComponent<rotationShip>()).speed = Random.Range(0.5f,0.8f);
 		
