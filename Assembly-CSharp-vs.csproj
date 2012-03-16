@@ -47,6 +47,7 @@
      <Compile Include="Assets\Script\PlanetShip.cs" />
      <Compile Include="Assets\Script\attackPlanet.cs" />
      <Compile Include="Assets\Script\devellopBulding.cs" />
+     <Compile Include="Assets\Script\moveShips.cs" />
      <Compile Include="Assets\Script\rotationShip.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\Standard Assets\Glass Refraction (Pro Only)\Sources\Shaders\Glass-Stained-BumpDistort.shader" />

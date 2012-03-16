@@ -5,34 +5,34 @@ using System.Collections.Generic;
 public class attackPlanet : MonoBehaviour {
 	
 	public GameObject planetStart;
-//	public GameObject planetEnd;
-//	public List<GameObject> ships;
-//	public bool triger ; 
-//	public bool start;
-//	public bool build;
-//	public GameObject bul;
-//	private int sizeHalo;
+	public GameObject planetEnd;
+	public List<GameObject> ships;
+	public bool triger ; 
+	public bool start;
+	public bool build;
+	public GameObject bul;
+	private int sizeHalo;
 	
 
 	// Use this for initialization
 	void Start () {
-//		triger = false;
-//		start = false;
+		//triger = false;
+		//start = false;
 		
 		
 	
 	}
 	
-	void Update() {
+	/*void Update() {
 		
 		foreach(Touch touch in Input.touches) {
 			if(touch.phase == TouchPhase.Ended) 
 				//Instantiate (planetStart,Camera.main.ScreenToWorldPoint(touch.position),transform.rotation);
 				Debug.Log(Camera.main.ScreenToWorldPoint(touch.position));
 		}
-	}
+	}*/
 	
-	/* void OnGUI() {
+	 void OnGUI() {
         Event e = Event.current;
 		
 		//Debug.Log(e.mousePosition.x);
@@ -68,7 +68,7 @@ public class attackPlanet : MonoBehaviour {
 		float scal = planetEnd.transform.localScale.x ;
 				
 		float min = scal/2.5f  ;
-		float max = scal/2.5f +5;
+		float max = scal/2.5f +1;
 		
 		if(triger){
 			
@@ -138,7 +138,7 @@ public class attackPlanet : MonoBehaviour {
 		
 		
 	
-	}*/
+	}
 	
 	
 }
