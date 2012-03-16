@@ -30,7 +30,7 @@ public class moveShips : MonoBehaviour {
 					warnedAboutMaxTouches = true;
 				}
 			}
-			Ray cursorRay = Camera.ScreenPointToRay(touch.position);
+			Ray cursorRay = Camera.main.ScreenPointToRay(touch.position);
 			RaycastHit hit;
 			if(collider.Raycast(cursorRay, out hit, 1000.0f)) {
 				Debug.Log ( "Hit detected on object " + name + " at point " + hit.point );
