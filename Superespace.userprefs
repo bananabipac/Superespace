@@ -2,8 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\PlanetShip.cs">
     <Files>
-      <File FileName="Assets\Script\PlanetShip.cs" Line="113" Column="1" />
+      <File FileName="Assets\Script\PlanetShip.cs" Line="96" Column="3" />
       <File FileName="Assets\Script\attackPlanet.cs" Line="62" Column="3" />
+      <File FileName="Assets\Script\rotationShip.cs" Line="25" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
