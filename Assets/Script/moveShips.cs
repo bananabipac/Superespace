@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class moveShips : MonoBehaviour {
 	
-	public List<GameObject> planets;
+	//public List<GameObject> planets;
 	private bool warnedAboutMaxTouches = false;
 	private Vector2[] touchPos;
 	private TouchPhase[] touchPhase;
@@ -14,7 +14,7 @@ public class moveShips : MonoBehaviour {
 	
 	}
 	
-	// Update is called once per frame
+	
 	void Update () {
 		int count = Input.touchCount;
 		for(int i = 0;i < count; i++) {
@@ -32,14 +32,20 @@ public class moveShips : MonoBehaviour {
 			}
 			Ray cursorRay = Camera.main.ScreenPointToRay(touch.position);
 			RaycastHit hit;
+			//Pour connaitre la planète de départ, le gameobject est représenté par la variable collider.
 			if(touch.phase == TouchPhase.Began) {
 				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
-					Debug.Log ( "Hit detected on object Began " );
+					if (hit.collider.tag == "planet") {
+						Debug.Log ("Planete de départ");	
+					}
 				}
 			}
+			//Pour connaitre la planète de d'arrivée, le gameobject est représenté par la variable collider.
 			if(touch.phase == TouchPhase.Ended) {
 				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
-					Debug.Log ( "Hit detected on object End " );
+					if (hit.collider.tag == "planet") {
+						Debug.Log ("Planete d'arrivée");	
+					}
 				}
 			}
 		}
