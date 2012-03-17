@@ -15,7 +15,7 @@ public class moveShips : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		int count = Input.touchCount;
 		for(int i = 0;i < count; i++) {
 			Touch touch  = Input.GetTouch( i );
@@ -32,8 +32,15 @@ public class moveShips : MonoBehaviour {
 			}
 			Ray cursorRay = Camera.main.ScreenPointToRay(touch.position);
 			RaycastHit hit;
-			if(collider.Raycast(cursorRay, out hit, 1000.0f)) {
-				Debug.Log ( "Hit detected on object " + name + " at point " + hit.point );
+			if(touch.phase == TouchPhase.Began) {
+				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
+					Debug.Log ( "Hit detected on object Began " );
+				}
+			}
+			if(touch.phase == TouchPhase.Ended) {
+				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
+					Debug.Log ( "Hit detected on object End " );
+				}
 			}
 		}
 	}
