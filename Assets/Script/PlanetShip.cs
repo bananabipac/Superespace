@@ -20,11 +20,11 @@ public class PlanetShip : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		fights = false;
-		LimitPop =(int) this.transform.localScale.x * 2; 
+		//LimitPop =(int) this.transform.localScale.x * 2; 
 		count = 0;
 		timePop = 0;
 		vFight = 10;
-		repop = 100;
+		repop = 50;
 		//creation des vaisseaux au depart 
 		for(int i = 0 ; i<nbShip ; i++){
 			createShip();
@@ -45,6 +45,7 @@ public class PlanetShip : MonoBehaviour {
 			count ++;	
 			if(count >= vFight){
 				count = 0;
+				
 				startFights();
 			
 			}
@@ -52,7 +53,6 @@ public class PlanetShip : MonoBehaviour {
 			
 			
 		}else{
-			
 			
 			//partie creation de vaisseaux
 			if(ship != null){
@@ -123,27 +123,28 @@ public class PlanetShip : MonoBehaviour {
 	//fonction qui gere le combat entre les vaisseaux
 	void startFights(){
 		
-		
+	
 		
 		GameObject sb = shipsR[0];
 		GameObject sr = shipsB[0];	
 						
-							
+		
 		shipsB.RemoveAt(0);
 		shipsR.RemoveAt(0);
 		
-		Destroy(sb);
-		Destroy(sr);
+		
 		
 		if(shipsB.Count == 0 && shipsR.Count == 0){
 			ship = null;
 		}else if(shipsB.Count ==0){
-			ship = sr.gameObject;
+			ship = shipsR[0];
 			
 		}else if(shipsR.Count ==0){
-			ship = sb.gameObject;
+			ship = shipsB[0];
 		}
 		
+		Destroy(sb);
+		Destroy(sr);
 		
 								
 							
