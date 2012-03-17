@@ -7,7 +7,6 @@ public class attackPlanet : MonoBehaviour {
 	public GameObject planetStart;
 	public GameObject planetEnd;
 	public List<GameObject> ships;
-	private int sizeHalo;
 	
 
 	// Use this for initialization
@@ -28,12 +27,6 @@ public class attackPlanet : MonoBehaviour {
 	void OnGUI() {
         Event e = Event.current;
 		
-		//Debug.Log(e.mousePosition.x);
-		
-	
-			
-			//e.mousePosition.x
-	
         if (e.isKey){
 			
 			//deplacement ships
@@ -49,7 +42,7 @@ public class attackPlanet : MonoBehaviour {
 	
 	
 	
-	//ajoute les vaisseaux au tableau de la planete d'arrivÃ©
+	//ajoute les vaisseaux au tableau de la planete d'arrivé
 	void valideDeplacement(){
 		
 			
