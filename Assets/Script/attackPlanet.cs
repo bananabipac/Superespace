@@ -5,22 +5,14 @@ using System.Collections.Generic;
 public class attackPlanet : MonoBehaviour {
 	
 	public GameObject planetStart;
-//	public GameObject planetEnd;
-//	public List<GameObject> ships;
-//	public bool triger ; 
-//	public bool start;
-//	public bool build;
-//	public GameObject bul;
-//	private int sizeHalo;
+	public GameObject planetEnd;
+	public List<GameObject> ships;
+	private int sizeHalo;
 	
 
 	// Use this for initialization
 	void Start () {
-//		triger = false;
-//		start = false;
 		
-		
-	
 	}
 	
 	void Update() {
@@ -29,10 +21,11 @@ public class attackPlanet : MonoBehaviour {
 			if(touch.phase == TouchPhase.Ended) 
 				//Instantiate (planetStart,Camera.main.ScreenToWorldPoint(touch.position),transform.rotation);
 				Debug.Log(Camera.main.ScreenToWorldPoint(touch.position));
+			
 		}
 	}
 	
-	/* void OnGUI() {
+	void OnGUI() {
         Event e = Event.current;
 		
 		//Debug.Log(e.mousePosition.x);
@@ -46,99 +39,95 @@ public class attackPlanet : MonoBehaviour {
 			//deplacement ships
             if(e.keyCode == KeyCode.Space){
 				
-				triger = true;
+				deplacement();
 			}
-			//placement millitaire
-            if(e.keyCode == KeyCode.C){
-				
-				build = true;
-			}
+			
 			
 		}  
     }
 	
-	void fight(){
+	
+	
+	
+	//ajoute les vaisseaux au tableau de la planete d'arrivé
+	void valideDeplacement(){
 		
-		((PlanetShip)planetEnd.GetComponent<PlanetShip>()).fights = true;
+			
+		for(int i  = 0 ; i<ships.Count; i++){
+			
+			if(ships[i].tag == "red"){
+				
+			((PlanetShip)planetEnd.GetComponent<PlanetShip>()).shipsR.Add(ships[i]);
+			}else{
+				
+			((PlanetShip)planetEnd.GetComponent<PlanetShip>()).shipsR.Add(ships[i]);
+			}
+			
+		}
+	
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
+	//deplace les vaisseaux d'une planete a l'autre
+	void deplacement(){
+		ships = new List<GameObject>();
 		float scal = planetEnd.transform.localScale.x ;
 				
 		float min = scal/2.5f  ;
 		float max = scal/2.5f +5;
 		
-		if(triger){
-			
-			
+		int nbs ;
 		
-			ships = ((PlanetShip)planetStart.GetComponent<PlanetShip>()).ships;
 		
-			for(int i = 0 ; i<ships.Count ; i++){
+		if(((PlanetShip)planetStart.GetComponent<PlanetShip>()).ship.tag == "red"){
 			
-				((rotationShip)ships[i].GetComponent<rotationShip>()).speed = 0;
-				((rotationShip)ships[i].GetComponent<rotationShip>()).planet = planetEnd;
-			}
-			start = true;
+			nbs = ((PlanetShip)planetStart.GetComponent<PlanetShip>()).shipsR.Count/2;
+		
+		}else{
+			
+			nbs = ((PlanetShip)planetStart.GetComponent<PlanetShip>()).shipsB.Count/2;
 		}
 		
-		if(start){
 		
-			for(int j = 0 ; j<ships.Count -1; j++){
+		for(int j = 0 ; j<nbs; j++){
+			if(((PlanetShip)planetStart.GetComponent<PlanetShip>()).ship.tag == "red"){
 				
+				ships.Add(((PlanetShip)planetStart.GetComponent<PlanetShip>()).shipsR[j]);
+				((PlanetShip)planetStart.GetComponent<PlanetShip>()).shipsR.RemoveAt(j);
+					
+			}else{
 				
-				
-				
-				
-			
-				float x = Random.Range(min,max);
-				float y = Random.Range(min,max);
-				Vector3 vec = new Vector3(x,y,0);
-				 
-				iTween.MoveTo(ships[j],iTween.Hash("position",planetEnd.transform.position+vec,"time",2f, "easetype", "linear"));	
-				
-				
-				((rotationShip)ships[j].GetComponent<rotationShip>()).speed = Random.Range(0.5f,0.8f);
-				((PlanetShip)planetEnd.GetComponent<PlanetShip>()).ships.Add(ships[j]);
-				
-				
-				
+				ships.Add(((PlanetShip)planetStart.GetComponent<PlanetShip>()).shipsB[j]);
+				((PlanetShip)planetStart.GetComponent<PlanetShip>()).shipsB.RemoveAt(j);
 				
 			}
-			
-			
-			Vector3 vec1 = new Vector3((float)Random.Range(min,max),(float) Random.Range(min,max),0);
-			iTween.MoveTo(ships[ships.Count -1],iTween.Hash("position",planetEnd.transform.position+vec1,"time",2f,"oncomplete","fight","onCompleteTarget", gameObject, "easetype", "linear"));	
 				
+			
+			
+			((rotationShip)ships[j].GetComponent<rotationShip>()).speed = 0;
+			((rotationShip)ships[j].GetComponent<rotationShip>()).planet = planetEnd;
+		
 				
-			((rotationShip)ships[ships.Count -1].GetComponent<rotationShip>()).speed = Random.Range(0.5f,0.8f);
-			((PlanetShip)planetEnd.GetComponent<PlanetShip>()).ships.Add(ships[ships.Count -1]);
 			
-			start = false;
-			triger = false;
+			float x = Random.Range(min,max);
+			float z = Random.Range(min,max);
+			Vector3 vec = new Vector3(x,0,z);
+ 
+			if(j == nbs -1){
+				iTween.MoveTo(ships[j],iTween.Hash("position",planetEnd.transform.position+vec,"time",2f,"oncomplete","valideDeplacement","onCompleteTarget", gameObject, "easetype", "linear"));	
+				
+			}else{
+				iTween.MoveTo(ships[j],iTween.Hash("position",planetEnd.transform.position+vec,"time",2f, "easetype", "linear"));
+			}
+			
+			((rotationShip)ships[j].GetComponent<rotationShip>()).speed = Random.Range(0.5f,0.8f);
+		
+				
+							
 		}
-		
-		if(build){
-			
-			Vector3 vec = new Vector3(0.7f, 0,-0.7f);
-			
-			
-			//this.planetStart.i
-			
-			GameObject instance = (GameObject) Instantiate(bul,vec+planetStart.transform.position,transform.rotation);
-			//planetStart.AddComponent(GameObject) = instance; 
-		}
-			
-		
-			
-		
-		 
-		
 		
 	
-	}*/
+	}
+	
 	
 	
 }

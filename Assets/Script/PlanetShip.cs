@@ -6,8 +6,8 @@ public class PlanetShip : MonoBehaviour {
 	
 	
 	public int nbShip; //nombre de vaisseaux que possede le vaisseaux au debut de la partie
-	public List<GameObject> ships; //liste des vaisseaux sur la planete
-	
+	public List<GameObject> shipsR; //liste des vaisseaux rouge sur la planete
+	public List<GameObject> shipsB; //liste des vaisseaux bleu sur la planete
 	public GameObject ship; //Object vaisseaux correspondant au type de vaisseaux que doit construire la planete
 	public bool fights; //declanche le combat 
 	public int vFight ; //delai entre chaque resolution de combat
@@ -23,7 +23,8 @@ public class PlanetShip : MonoBehaviour {
 		LimitPop =(int) this.transform.localScale.x * 2; 
 		count = 0;
 		timePop = 0;
-		
+		vFight = 10;
+		repop = 100;
 		//creation des vaisseaux au depart 
 		for(int i = 0 ; i<nbShip ; i++){
 			createShip();
@@ -38,26 +39,50 @@ public class PlanetShip : MonoBehaviour {
 		this.transform.RotateAround(this.transform.position,Vector3.up, 0.2f);
 		
 		
-		//partie gestion du combat
-		if(fights){	
-			startFights();
-		}
 		
-		//partie creation de vaisseaux
-		if(ship != null){
-			timePop ++;
-		
-			if(timePop >= repop){
-		
-				timePop = 0;
+		if(shipsB.Count >0 && shipsR.Count >0){
 			
-				if(ships.Count < LimitPop){
+			count ++;	
+			if(count >= vFight){
+				count = 0;
+				startFights();
+			
+			}
+	
+			
+			
+		}else{
+			
+			
+			//partie creation de vaisseaux
+			if(ship != null){
+				timePop ++;
+		
+				if(timePop >= repop){
+		
+					timePop = 0;
+				
+					if(ship.tag == "red"){
 					
-					createShip();
+						if(shipsR.Count < LimitPop){
 					
+							createShip();
+					
+						}
+					}else{
+					
+						if(shipsB.Count < LimitPop){
+					
+							createShip();
+					
+						}
+					
+					}
+
 				}
 			}
 		}
+			
 			
 	
 	}
@@ -86,59 +111,55 @@ public class PlanetShip : MonoBehaviour {
 		((rotationShip)instance.GetComponent<rotationShip>()).planet = this.gameObject;
 		((rotationShip)instance.GetComponent<rotationShip>()).speed = Random.Range(0.5f,0.8f);
 		
-		ships.Add(instance);
+		if(ship.tag == "blue"){
+			shipsB.Add(instance);
+		}else{
+			shipsR.Add(instance);
+		}
+		
 		
 	}
 	
 	//fonction qui gere le combat entre les vaisseaux
 	void startFights(){
-
-		count ++;
-		if(count >= vFight){
-			count = 0;	
-			if(ships.Count >=2){
-				int i = 0;
-				bool end = false;
-				
-				while(i<ships.Count && end ==false){
-					int j = i+1;
-					while(j<ships.Count && end == false){
-						
-						if(ships[i].tag != ships[j].tag){
-							GameObject si = ships[i];
-							GameObject sj = ships[i];	
+		
+		
+		
+		GameObject sb = shipsR[0];
+		GameObject sr = shipsB[0];	
 						
 							
-							ships.RemoveAt(i);
-							ships.RemoveAt(j);
-								
-							
-							Vector3 vi = si.transform.position;
-							Quaternion ri = si.transform.rotation;
-								
-							Vector3 vj = sj.transform.position;
-							Quaternion rj = sj.transform.rotation;
-								
-							Destroy(si);
-							Destroy(sj);
-							Instantiate(explosion, vi, ri);
-							Instantiate(explosion, vj, rj);
-								
-							end = true;
-						}else{
-							j++;		
-						}
-						
-					}	
-				i++;
-				}	
-				
-			}
+		shipsB.RemoveAt(0);
+		shipsR.RemoveAt(0);
+		
+		Destroy(sb);
+		Destroy(sr);
+		
+		if(shipsB.Count == 0 && shipsR.Count == 0){
+			ship = null;
+		}else if(shipsB.Count ==0){
+			ship = sr.gameObject;
+			
+		}else if(shipsR.Count ==0){
+			ship = sb.gameObject;
 		}
 		
-		ship = ships[0].gameObject;
 		
-		fights = false ;
+								
+							
+		/*Vector3 vb = sb.transform.position;
+		Quaternion rb = sb.transform.rotation;
+							
+		Vector3 vr = sr.transform.position;
+		Quaternion rr = sr.transform.rotation;*/
+		
+								
+		
+		//Instantiate(explosion, vb, rb);
+		//Instantiate(explosion, vr, rr);
+		
 		
 	}
+	
+	
 }
