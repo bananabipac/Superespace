@@ -152,7 +152,7 @@ public class attackPlanet : MonoBehaviour {
 			}else{
 				iTween.MoveTo(ships[j],iTween.Hash("position",planetEnd.transform.position+vec,"time",2f, "easetype", "linear"));
 			}
-			
+			ships[j].transform.RotateAround(planetEnd.transform.position,Vector3.up, Random.Range(0f,360f));
 			((rotationShip)ships[j].GetComponent<rotationShip>()).speed = Random.Range(0.01f,0.1f);
 		
 				
