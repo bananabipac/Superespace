@@ -62,7 +62,9 @@ public class attackPlanet : MonoBehaviour {
 					if (hit.collider.tag == "planet") {
 						Debug.Log ("Planete d'arrivée");
 						planetEnd = hit.collider.gameObject;
-						deplacement();
+						if(planetStart != planetEnd) {
+							deplacement();
+						}
 					}
 				}
 			}

@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 96115cec20bef4873adb1fa0c47c0841
+labels:
+- Maya
+- Character
+- Animation
+- Pipeline
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
