@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class moveShips : MonoBehaviour {
+public class moveShips_origin : MonoBehaviour {
 	
 	//public List<GameObject> planets;
 	private bool warnedAboutMaxTouches = false;

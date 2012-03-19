@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PlanetShip : MonoBehaviour {
+public class PlanetScript : MonoBehaviour {
 	
 	
 	public int nbShip; //nombre de vaisseaux que possede le vaisseaux au debut de la partie
@@ -14,13 +14,14 @@ public class PlanetShip : MonoBehaviour {
 	public int repop; // delai entre chaque creation de vaiseaux
 	private int count; //timer entre chaque resolution de combat
 	private int timePop; //timer entre chaque creation de vaisseaux
-	public GameObject explosion; //object de l'explosion a instantié
+	//public GameObject explosion; //object de l'explosion a instantié
 	public int LimitPop ;//Limite de population
 
 	// Use this for initialization
 	void Start () {
-		fights = false;
+		
 		//LimitPop =(int) this.transform.localScale.x * 2; 
+		LimitPop = 50 ;
 		count = 0;
 		timePop = 0;
 		vFight = 10;
@@ -39,8 +40,8 @@ public class PlanetShip : MonoBehaviour {
 		this.transform.RotateAround(this.transform.position,Vector3.up, 0.1f);
 		
 		
-		
 		if(shipsB.Count >0 && shipsR.Count >0){
+			
 			
 			count ++;	
 			if(count >= vFight){
@@ -53,6 +54,20 @@ public class PlanetShip : MonoBehaviour {
 			
 			
 		}else{
+			
+			if(ship == null){
+				if(shipsB.Count >0){
+					
+					ship = shipsB[0];
+					//ship =(GameObject)  Resources.Load("Shipblue");
+				}else if(shipsR.Count >0){
+				
+					ship = shipsR[0];	
+					Debug.Log ( Resources.Load("Shipred") );
+				}
+				
+			}
+			 
 			
 			//partie creation de vaisseaux
 			if(ship != null){

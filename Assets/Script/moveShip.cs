@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class attackPlanet : MonoBehaviour {
+public class moveShip : MonoBehaviour {
 	
 	public GameObject planetStart;
 	public GameObject planetEnd;
@@ -88,11 +88,12 @@ public class attackPlanet : MonoBehaviour {
 			
 			if(ships[i].tag == "red"){
 				
-			((PlanetShip)planetEnd.GetComponent<PlanetShip>()).shipsR.Add(ships[i]);
+			((PlanetScript)planetEnd.GetComponent<PlanetScript>()).shipsR.Add(ships[i]);
 			}else{
 				
-			((PlanetShip)planetEnd.GetComponent<PlanetShip>()).shipsR.Add(ships[i]);
+			((PlanetScript)planetEnd.GetComponent<PlanetScript>()).shipsB.Add(ships[i]);
 			}
+			
 			
 		}
 	
@@ -103,35 +104,35 @@ public class attackPlanet : MonoBehaviour {
 		ships = new List<GameObject>();
 		float scal = planetEnd.transform.localScale.x ;
 				
-		float min = scal/2.5f  ;
+		float min =  -1 * (scal/2.5f+1)   ;
 		float max = scal/2.5f +1;
 		
 		int nbs ;
 		
 		
-		if(((PlanetShip)planetStart.GetComponent<PlanetShip>()).ship.tag == "red"){
+		if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag == "red"){
 			
-			nbs = ((PlanetShip)planetStart.GetComponent<PlanetShip>()).shipsR.Count/2;
+			nbs = ((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsR.Count/2;
 		
 		
 		}else{
 			
-			nbs = ((PlanetShip)planetStart.GetComponent<PlanetShip>()).shipsB.Count/2;
+			nbs = ((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsB.Count/2;
 		}
 		
 	
 		
 		
 		for(int j = 0 ; j<nbs; j++){
-			if(((PlanetShip)planetStart.GetComponent<PlanetShip>()).ship.tag == "red"){
+			if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag == "red"){
 				
-				ships.Add(((PlanetShip)planetStart.GetComponent<PlanetShip>()).shipsR[j]);
-				((PlanetShip)planetStart.GetComponent<PlanetShip>()).shipsR.RemoveAt(j);
+				ships.Add(((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsR[j]);
+				((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsR.RemoveAt(j);
 					
 			}else{
 				
-				ships.Add(((PlanetShip)planetStart.GetComponent<PlanetShip>()).shipsB[j]);
-				((PlanetShip)planetStart.GetComponent<PlanetShip>()).shipsB.RemoveAt(j);
+				ships.Add(((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsB[j]);
+				((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsB.RemoveAt(j);
 				
 			}
 				
@@ -144,6 +145,12 @@ public class attackPlanet : MonoBehaviour {
 			
 			float x = Random.Range(min,max);
 			float z = Random.Range(min,max);
+			while(x< scal/2.5f && x> -1* scal/2.5f && z< scal/2.5f && z> -1* scal/2.5f){
+				x = Random.Range(min,max);
+				z = Random.Range(min,max);
+			}
+			
+			
 			Vector3 vec = new Vector3(x,0,z);
  
 			if(j == nbs -1){
@@ -152,8 +159,10 @@ public class attackPlanet : MonoBehaviour {
 			}else{
 				iTween.MoveTo(ships[j],iTween.Hash("position",planetEnd.transform.position+vec,"time",2f, "easetype", "linear"));
 			}
-			ships[j].transform.RotateAround(planetEnd.transform.position,Vector3.up, Random.Range(0f,360f));
+			
+			//ships[j].transform.RotateAround(planetEnd.transform.position,Vector3.up, Random.Range(0f,360f));
 			((rotationShip)ships[j].GetComponent<rotationShip>()).speed = Random.Range(0.01f,0.1f);
+			
 		
 				
 							
