@@ -37,10 +37,10 @@
     <Reference Include="System.XML" />
 	<Reference Include="System.Core" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -50,7 +50,9 @@
      <Compile Include="Assets\MegaGrab\DOFCamera.cs" />
      <Compile Include="Assets\MegaGrab\JPGEncoder.cs" />
      <Compile Include="Assets\MegaGrab\MegaGrab.cs" />
+     <Compile Include="Assets\Script\Menu.cs" />
      <Compile Include="Assets\Script\PlanetScript.cs" />
+     <Compile Include="Assets\Script\PlanetScriptMenu.cs" />
      <Compile Include="Assets\Script\moveShip.cs" />
      <Compile Include="Assets\Script\moveShips_origin.cs" />
      <Compile Include="Assets\Script\rotationShip.cs" />
@@ -139,6 +141,7 @@
      <None Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Shaders\WaterInclude.cginc" />
      <None Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Shaders\FX-Water4.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SimpleClear.shader" />
+     <None Include="Assets\Standard Assets\Gem Rendering\diamond shader.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\EdgeDetectX.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAAPreset2.shader" />
      <None Include="Assets\MegaGrab\ReadMe.txt" />
