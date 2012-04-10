@@ -38,32 +38,21 @@ public class PlanetScript : MonoBehaviour {
 		
 		//rotation de la planete
 		this.transform.RotateAround(this.transform.position,Vector3.up, 0.1f);
-		
-		
 		if(shipsB.Count >0 && shipsR.Count >0){
-			
-			
 			count ++;	
 			if(count >= vFight){
 				count = 0;
-				
 				startFights();
-			
 			}
 	
-			
-			
 		}else{
 			
 			if(ship == null){
 				if(shipsB.Count >0){
-					
 					ship = shipsB[0];
 					//ship =(GameObject)  Resources.Load("Shipblue");
 				}else if(shipsR.Count >0){
-				
 					ship = shipsR[0];	
-					Debug.Log ( Resources.Load("Shipred") );
 				}
 				
 			}

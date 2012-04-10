@@ -8,11 +8,7 @@ public class moveShip : MonoBehaviour {
 	public GameObject planetEnd;
 	public List<GameObject> ships;
 	public int lvl;
-	public PlanetLink01 links;
-	
-	
-	//event touch
-	//public List<GameObject> planets;
+
 	private bool warnedAboutMaxTouches = false;
 	private Vector2[] touchPos;
 	private TouchPhase[] touchPhase;
@@ -20,29 +16,38 @@ public class moveShip : MonoBehaviour {
 	
 	
 	
+	private Hashtable link;
+	private string dS;
+	private string dE;
+	
+	
+	
 	// Use this for initialization
 	void Start () {
-		//debug
-		
-		//lvl = 1;
-		
+		link = ((GestionLink)GetComponent<GestionLink>()).link;	
 	}
 	
 	void Update() {
 		
 		if(Input.GetKeyDown(KeyCode.Space)){
-			Hashtable temp = (Hashtable)links.level[lvl];
-				try{//si il existe une route entre les 2 planetes
-					if((int)((Hashtable)temp[int.Parse(planetStart.name)])[int.Parse(planetEnd.name)] == 1){//si la route est ouverte
-						deplacement();	
-					}else{//la route est fermé			
-						Debug.Log("pas de route ouverte");
-					}
-				}catch(System.NullReferenceException e){//la route n'existe pas
-					Debug.Log("route impossible");	
+			link = ((GestionLink)GetComponent<GestionLink>()).link;
+			if(int.Parse(planetStart.name) > int.Parse(planetEnd.name)){
+				dS = planetEnd.name;
+				dE = planetStart.name;
+			}else{
+				dE = planetEnd.name;
+				dS = planetStart.name;
+			}
+			if(((Hashtable)link[dS])[dE] != null){//si il existe une route entre les 2 planetes
+				if((string)((Hashtable)link[dS])[dE] == "1"){//si la route est ouverte
+					deplacement();	
+				}else{//la route est fermé			
+					Debug.Log("pas de route ouverte");
 				}
-						
-		 	
+			}else{//la route n'existe pas
+				Debug.Log("route impossible");	
+			}
+			
 		}
 		
 		int count = Input.touchCount;
@@ -78,7 +83,7 @@ public class moveShip : MonoBehaviour {
 						planetEnd = hit.collider.gameObject;
 						if(planetStart != planetEnd) {
 							//verification que les planetes soit liées entre elles
-							Hashtable temp = (Hashtable)links.level[lvl];
+							/*Hashtable temp = (Hashtable)links.level[lvl];
 							try{//si il existe une route entre les 2 planetes
 								if((int)((Hashtable)temp[int.Parse(planetStart.name)])[int.Parse(planetEnd.name)] == 1){//si la route est ouverte
 									deplacement();	
@@ -87,7 +92,7 @@ public class moveShip : MonoBehaviour {
 								}
 							}catch(System.NullReferenceException e){//la route n'existe pas
 								Debug.Log("route impossible");	
-							}
+							}*/
 						}
 					}
 				}
@@ -100,6 +105,9 @@ public class moveShip : MonoBehaviour {
 				Debug.Log(Camera.main.ScreenToWorldPoint(touch.position));
 			
 		}*/
+		
+		//gestion fin de partie
+		
 	}
 	
 	
