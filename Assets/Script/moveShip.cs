@@ -33,7 +33,7 @@ public class moveShip : MonoBehaviour {
 	
 	void Update() {
 		
-		if(Input.GetKeyDown(KeyCode.Space)){
+		/*if(Input.GetKeyDown(KeyCode.Space)){
 			link = ((GestionLink)GetComponent<GestionLink>()).link;
 			if(int.Parse(planetStart.name) > int.Parse(planetEnd.name)){
 				dS = planetEnd.name;
@@ -44,7 +44,7 @@ public class moveShip : MonoBehaviour {
 			}
 			if(((Hashtable)link[dS])[dE] != null){//si il existe une route entre les 2 planetes
 				if((string)((Hashtable)link[dS])[dE] == "1"){//si la route est ouverte
-					deplacement();	
+					deplacement(planetStart,planetEnd);	
 				}else{//la route est fermé			
 					Debug.Log("pas de route ouverte");
 				}
@@ -52,7 +52,7 @@ public class moveShip : MonoBehaviour {
 				Debug.Log("route impossible");	
 			}
 			
-		}
+		}*/
 		
 		
 		foreach(Touch touch in Input.touches) {
@@ -90,18 +90,27 @@ public class moveShip : MonoBehaviour {
 						if(planetStart != planetEnd) {
 							listPlanetEnd.Add(fingerId,planetEnd);
 							//verification que les planetes soit liées entre elles
-							Hashtable temp = (Hashtable)links.level[lvl];
-							try{//si il existe une route entre les 2 planetes
-								//if((int)((Hashtable)temp[int.Parse(planetStart.name)])[int.Parse(planetEnd.name)] == 1){//si la route est ouverte
+							link = ((GestionLink)GetComponent<GestionLink>()).link;
+							if(int.Parse(listPlanetStart[fingerId].name) > int.Parse(listPlanetEnd[fingerId].name)){
+								dS = listPlanetEnd[fingerId].name;
+								dE = listPlanetStart[fingerId].name;
+							}else{
+								dE = listPlanetEnd[fingerId].name;
+								dS = listPlanetStart[fingerId].name;
+							}
+							if(((Hashtable)link[dS])[dE] != null){//si il existe une route entre les 2 planetes
+								if((string)((Hashtable)link[dS])[dE] == "1"){//si la route est ouverte
 									deplacement(listPlanetStart[fingerId],listPlanetEnd[fingerId]);	
-									listPlanetStart.Remove(fingerId);
-									listPlanetEnd.Remove(fingerId);
-								//}else{//la route est fermé			
-								//	Debug.Log("pas de route ouverte");
-								//}
-							}catch(System.NullReferenceException e){//la route n'existe pas
+									
+								}else{//la route est fermé			
+									Debug.Log("pas de route ouverte");
+								}
+							}else{//la route n'existe pas
 								Debug.Log("route impossible");	
 							}
+							listPlanetStart.Remove(fingerId);
+							listPlanetEnd.Remove(fingerId);	
+							
 						}
 					}
 				}
