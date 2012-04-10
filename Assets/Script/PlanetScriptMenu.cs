@@ -108,8 +108,8 @@ public class PlanetScriptMenu : MonoBehaviour {
 		
 		float scal = this.transform.localScale.x ;
 			
-		float min = scal/2.5f  ;
-		float max = scal/2.5f +1;
+		float min = scal/1.0f  ;
+		float max = scal/1.0f +1;
 			
 		float x = Random.Range(min,max);
 		float z = Random.Range(min,max);
