@@ -26,6 +26,8 @@ public class moveShip : MonoBehaviour {
 	
 	
 	
+	
+	
 	// Use this for initialization
 	void Start () {
 		link = ((GestionLink)GetComponent<GestionLink>()).link;	
@@ -33,7 +35,38 @@ public class moveShip : MonoBehaviour {
 	
 	void Update() {
 		
-		/*if(Input.GetKeyDown(KeyCode.Space)){
+		if(Input.GetKeyDown(KeyCode.Space)){
+			
+			/*GameObject[] test = GameObject.FindGameObjectsWithTag("planet");
+			int z =0;
+			
+			GameObject ps1 = new GameObject();
+			GameObject ps2 = new GameObject();
+			GameObject pse = new GameObject();
+			
+			while( z<6){
+				if(test[z].name == "2"){
+					//Debug.Log("2");
+					ps1 = test[z];	
+				}
+				if(test[z].name == "4"){
+					//Debug.Log("4");
+					pse = test[z];	
+				}
+				if(test[z].name == "5"){
+					//Debug.Log("5");
+					ps2 = test[z];
+					
+				}
+				z++;
+					
+			}
+			planetStart = ps1;
+			planetEnd = pse;
+			deplacement(ps1, pse);
+			planetStart = ps2;
+			planetEnd = pse;
+			deplacement(ps2,pse);*/
 			link = ((GestionLink)GetComponent<GestionLink>()).link;
 			if(int.Parse(planetStart.name) > int.Parse(planetEnd.name)){
 				dS = planetEnd.name;
@@ -51,8 +84,8 @@ public class moveShip : MonoBehaviour {
 			}else{//la route n'existe pas
 				Debug.Log("route impossible");	
 			}
-			
-		}*/
+		
+		}
 		
 		
 		foreach(Touch touch in Input.touches) {
@@ -100,6 +133,7 @@ public class moveShip : MonoBehaviour {
 							}
 							if(((Hashtable)link[dS])[dE] != null){//si il existe une route entre les 2 planetes
 								if((string)((Hashtable)link[dS])[dE] == "1"){//si la route est ouverte
+									Debug.Log("other fights");
 									deplacement(listPlanetStart[fingerId],listPlanetEnd[fingerId]);	
 									
 								}else{//la route est fermé			
@@ -117,6 +151,10 @@ public class moveShip : MonoBehaviour {
 			}
 		}
 		
+		if( verifEndGame()){
+			Application.LoadLevel("Menu");
+		}
+		
 		/*foreach(Touch touch in Input.touches) {
 			if(touch.phase == TouchPhase.Ended) 
 				//Instantiate (planetStart,Camera.main.ScreenToWorldPoint(touch.position),transform.rotation);
@@ -125,7 +163,42 @@ public class moveShip : MonoBehaviour {
 		}*/
 	}
 	
-	
+	//verifie si un des 2 joueurs a perdue
+	//@return true si un des 2 joueurs a perdu false sinon
+	bool verifEndGame(){
+		
+		GameObject[] planets = GameObject.FindGameObjectsWithTag("planet");
+		
+		bool redPlayer = false;
+		bool bluePlayer = false;
+		int x = 0;
+		
+		//on verifie si un des 2 joueurs n'a plus de vaisseaux ni de planete
+		while((redPlayer == false || bluePlayer == false	) && x < ((GameObject[] )planets).Length){
+			PlanetScript p = planets[x].GetComponent<PlanetScript>();
+			if(p.ship !=null){
+				if(p.ship.tag == "red"){
+					redPlayer = true;	
+				}
+				if(p.ship.tag == "blue"){
+					bluePlayer = true;
+				}		
+			}
+			if(p.shipsB.Count > 0 ){
+				bluePlayer = true;	
+			}
+			if(p.shipsR.Count > 0){
+				redPlayer = true;	
+			}
+			x++;
+		}
+		
+		if(redPlayer == false || bluePlayer == false){
+			return true;
+		}else{
+			return false;	
+		}
+	}
 	
 	//ajoute les vaisseaux au tableau de la planete d'arrivé
 	void valideDeplacement(){
@@ -153,69 +226,66 @@ public class moveShip : MonoBehaviour {
 				
 		float min =  -1 * (scal/2.5f+1)   ;
 		float max = scal/2.5f +1;
+	
+		int nbs ; 
+		PlanetScript p = (PlanetScript)start.GetComponent<PlanetScript>();
 		
-		int nbs ;
-		
-		
-		if(((PlanetScript)start.GetComponent<PlanetScript>()).ship.tag == "red"){
+		if(p.ship != null){
+			if(((PlanetScript)start.GetComponent<PlanetScript>()).ship.tag == "red"){
+				nbs = ((PlanetScript)start.GetComponent<PlanetScript>()).shipsR.Count/2;		
+			}else{
 			
-			nbs = ((PlanetScript)start.GetComponent<PlanetScript>()).shipsR.Count/2;
+				nbs = ((PlanetScript)start.GetComponent<PlanetScript>()).shipsB.Count/2;
+			}
+			
+			for(int j = 0 ; j<nbs; j++){
+				if(((PlanetScript)start.GetComponent<PlanetScript>()).ship.tag == "red"){
+				
+					ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsR[j]);
+					((PlanetScript)start.GetComponent<PlanetScript>()).shipsR.RemoveAt(j);
+					
+				}else{
+				
+					ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsB[j]);
+					((PlanetScript)start.GetComponent<PlanetScript>()).shipsB.RemoveAt(j);
+				
+				}
+				
+			
+			
+				((rotationShip)ships[j].GetComponent<rotationShip>()).speed = 0;
+				((rotationShip)ships[j].GetComponent<rotationShip>()).planet = end;
 		
+				
+				
+				float x = Random.Range(min,max);
+				float z = Random.Range(min,max);
+				while(x< scal/2.5f && x> -1* scal/2.5f && z< scal/2.5f && z> -1* scal/2.5f){
+					x = Random.Range(min,max);
+					z = Random.Range(min,max);
+				}
+				
+				
+				Vector3 vec = new Vector3(x,0,z);
+	 
+				if(j == nbs -1){
+					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",2f,"oncomplete","valideDeplacement","onCompleteTarget", gameObject, "easetype", "linear"));	
+					
+				}else{
+					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",2f, "easetype", "linear"));
+				}
+				
+				//ships[j].transform.RotateAround(planetEnd.transform.position,Vector3.up, Random.Range(0f,360f));
+				((rotationShip)ships[j].GetComponent<rotationShip>()).speed = Random.Range(0.01f,0.1f);
+				
+			
+					
+								
+			}
 		
 		}else{
-			
-			nbs = ((PlanetScript)start.GetComponent<PlanetScript>()).shipsB.Count/2;
+			Debug.Log("null");	
 		}
-		
-	
-		
-		
-		for(int j = 0 ; j<nbs; j++){
-			if(((PlanetScript)start.GetComponent<PlanetScript>()).ship.tag == "red"){
-				
-				ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsR[j]);
-				((PlanetScript)start.GetComponent<PlanetScript>()).shipsR.RemoveAt(j);
-					
-			}else{
-				
-				ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsB[j]);
-				((PlanetScript)start.GetComponent<PlanetScript>()).shipsB.RemoveAt(j);
-				
-			}
-				
-			
-			
-			((rotationShip)ships[j].GetComponent<rotationShip>()).speed = 0;
-			((rotationShip)ships[j].GetComponent<rotationShip>()).planet = end;
-		
-				
-			
-			float x = Random.Range(min,max);
-			float z = Random.Range(min,max);
-			while(x< scal/2.5f && x> -1* scal/2.5f && z< scal/2.5f && z> -1* scal/2.5f){
-				x = Random.Range(min,max);
-				z = Random.Range(min,max);
-			}
-			
-			
-			Vector3 vec = new Vector3(x,0,z);
- 
-			if(j == nbs -1){
-				iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",2f,"oncomplete","valideDeplacement","onCompleteTarget", gameObject, "easetype", "linear"));	
-				
-			}else{
-				iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",2f, "easetype", "linear"));
-			}
-			
-			//ships[j].transform.RotateAround(planetEnd.transform.position,Vector3.up, Random.Range(0f,360f));
-			((rotationShip)ships[j].GetComponent<rotationShip>()).speed = Random.Range(0.01f,0.1f);
-			
-		
-				
-							
-		}
-		
-	
 	}
 	
 	
