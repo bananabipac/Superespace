@@ -65,8 +65,7 @@ public class PlanetScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float t = Mathf.PingPong(Time.time, 1f) / 1f;
-        light.color = Color.Lerp(Color.red, Color.blue, t);
+		
 		//rotation de la planete
 		this.transform.RotateAround(this.transform.position,Vector3.up, 0.1f);
 		if(shipsB.Count > 0 && shipsR.Count >0){//bataille entre les vaissseaux
@@ -86,10 +85,10 @@ public class PlanetScript : MonoBehaviour {
 					CaptureTime -= 1;
 					//changement de couleur du halo
 					if(CaptureTime <0){
-						//gameObject.light.color = new Color(255+CaptureTime,255+CaptureTime,255,1);
+						gameObject.light.color = new Color(255+CaptureTime,255+CaptureTime,255,1);
 						
 					}else{
-						//gameObject.light.color = new Color(255,255-CaptureTime,255-CaptureTime,1);
+						gameObject.light.color = new Color(255,255-CaptureTime,255-CaptureTime,1);
 						
 					}
 					Debug.Log("red: "+gameObject.light.color.r+" green: "+gameObject.light.color.g+" blue: "+gameObject.light.color.b);
