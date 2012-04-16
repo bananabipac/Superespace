@@ -20,7 +20,7 @@ public class PlanetScript : MonoBehaviour {
 	public int CaptureCount; //temps de capture requis
 	private int CaptureTmp;
 	public int SpeedCapture; //vitesse de capture
-	public int CaptureTime; //temps e capture en cour
+	public float CaptureTime; //temps e capture en cour
 	
 	// Use this for initialization
 	void Start () {
@@ -30,7 +30,7 @@ public class PlanetScript : MonoBehaviour {
 		LimitPop = 50 ;
 		vFight = 10;
 		repop = 50;
-		CaptureCount = 255;
+		CaptureCount = 1;
 		SpeedCapture = 50;
 		
 		//END Debug
@@ -82,13 +82,13 @@ public class PlanetScript : MonoBehaviour {
 				if(CaptureTmp >=SpeedCapture){
 					//Debug.Log("capture bleu en cour: "+CaptureTime);
 					CaptureTmp = 0;
-					CaptureTime -= 1;
+					CaptureTime -= 0.02f;
 					//changement de couleur du halo
 					if(CaptureTime <0){
-						gameObject.light.color = new Color(255+CaptureTime,255+CaptureTime,255,1);
+						gameObject.light.color = new Color(1+CaptureTime,1+CaptureTime,1,1);
 						
 					}else{
-						gameObject.light.color = new Color(255,255-CaptureTime,255-CaptureTime,1);
+						gameObject.light.color = new Color(1,1-CaptureTime,1-CaptureTime,1);
 						
 					}
 					Debug.Log("red: "+gameObject.light.color.r+" green: "+gameObject.light.color.g+" blue: "+gameObject.light.color.b);
