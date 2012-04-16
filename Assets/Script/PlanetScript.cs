@@ -48,14 +48,14 @@ public class PlanetScript : MonoBehaviour {
 	
 		if(ship != null){
 			if(ship.tag == "red"){
-				gameObject.light.color = new Color(255,0,0,1);
+				gameObject.light.color = new Color(1,0,0,1);
 				CaptureTime = CaptureCount;
 			}else if (ship.tag == "blue"){
-				gameObject.light.color = new Color(0,0,255,1);
+				gameObject.light.color = new Color(0,0,1,1);
 				CaptureTime = -1*CaptureCount;
 			}	
 		}else{
-			gameObject.light.color = new Color(255,255,255,1);
+			gameObject.light.color = new Color(1,1,1,1);
 			CaptureTime = 0;
 		}
 		
@@ -91,12 +91,15 @@ public class PlanetScript : MonoBehaviour {
 						gameObject.light.color = new Color(1,1-CaptureTime,1-CaptureTime,1);
 						
 					}
-					Debug.Log("red: "+gameObject.light.color.r+" green: "+gameObject.light.color.g+" blue: "+gameObject.light.color.b);
+					//Debug.Log("red: "+gameObject.light.color.r+" green: "+gameObject.light.color.g+" blue: "+gameObject.light.color.b);
 					
 					
 					if(CaptureTime <= -1*CaptureCount){
 						ship = shipsB[0];
-						//Debug.Log("capture bleu terminé: "+CaptureTime);
+						gameObject.light.color = new Color(0,0,1,1);
+						CaptureTime = -1*CaptureCount;
+						Debug.Log("capture bleu terminé");
+						//Debug.Log("red: "+gameObject.light.color.r+" green: "+gameObject.light.color.g+" blue: "+gameObject.light.color.b);
 					}
 				}
 				
@@ -116,10 +119,23 @@ public class PlanetScript : MonoBehaviour {
 				if(CaptureTmp >=SpeedCapture){
 					//Debug.Log("capture rouge en cour: "+CaptureTime);
 					CaptureTmp = 0;
-					CaptureTime += 1;
+					CaptureTime += 0.02f;
+					
+					
+					if(CaptureTime <0){
+						gameObject.light.color = new Color(1+CaptureTime,1+CaptureTime,1,1);
+						
+					}else{
+						gameObject.light.color = new Color(1,1-CaptureTime,1-CaptureTime,1);
+						
+					}
+					//Debug.Log("red: "+gameObject.light.color.r+" green: "+gameObject.light.color.g+" blue: "+gameObject.light.color.b);
+					
 					if(CaptureTime >= CaptureCount){
 						ship = shipsR[0];
-						//Debug.Log("capture rouge terminé: "+CaptureTime);
+						gameObject.light.color = new Color(1,0,0,1);
+						CaptureTime = CaptureCount;
+						Debug.Log("capture rouge terminé");
 					}
 				}
 			}else{
@@ -252,12 +268,12 @@ public class PlanetScript : MonoBehaviour {
 		if(shipsB.Count == 0 && shipsR.Count == 0){
 			ship = null;
 		}else if(shipsB.Count ==0){
-			ship = shipsR[0];
-			gameObject.light.color = Color.red;
+			//ship = shipsR[0];
+			//gameObject.light.color = Color.red;
 			
 		}else if(shipsR.Count ==0){
-			ship = shipsB[0];
-			gameObject.light.color = Color.blue;
+			//ship = shipsB[0];
+			//gameObject.light.color = Color.blue;
 		}
 		
 		Destroy(sb);
