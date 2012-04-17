@@ -58,6 +58,9 @@
      <Compile Include="Assets\Script\moveShip.cs" />
      <Compile Include="Assets\Script\moveShips_origin.cs" />
      <Compile Include="Assets\Script\rotationShip.cs" />
+     <Compile Include="Assets\Scripts\EffectController.cs" />
+     <Compile Include="Assets\Scripts\MaxCamera.cs" />
+     <Compile Include="Assets\Scripts\XffectCache.cs" />
      <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Plugins\MidnightWare\Swarm\SwarmItem.cs" />
      <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Plugins\MidnightWare\Swarm\SwarmItemManager.cs" />
      <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Scripts\Asteroid.cs" />
@@ -66,6 +69,15 @@
      <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Scripts\Explosion.cs" />
      <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Scripts\Main.cs" />
      <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Scripts\Ship.cs" />
+     <Compile Include="Assets\Xffect\Script\Affector.cs" />
+     <Compile Include="Assets\Xffect\Script\EffectLayer.cs" />
+     <Compile Include="Assets\Xffect\Script\EffectNode.cs" />
+     <Compile Include="Assets\Xffect\Script\Emitter.cs" />
+     <Compile Include="Assets\Xffect\Script\RibbonTrail.cs" />
+     <Compile Include="Assets\Xffect\Script\Sprite.cs" />
+     <Compile Include="Assets\Xffect\Script\UVAnimation.cs" />
+     <Compile Include="Assets\Xffect\Script\VertexPool.cs" />
+     <Compile Include="Assets\Xffect\Script\Xffect.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\Standard Assets\Glass Refraction (Pro Only)\Sources\Shaders\Glass-Stained-BumpDistort.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
@@ -120,9 +132,11 @@
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionSelective.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\Bokeh34.shader" />
+     <None Include="Assets\readme.txt" />
      <None Include="Assets\Shaders\Planet2.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\SeparableBlurPlus.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\MultiPassHollywoodFlares.shader" />
+     <None Include="Assets\Xffect\Shaders\xf_heat_distortion.shader" />
      <None Include="Assets\Standard Assets\Water (Pro Only)\Sources\Shaders\FX-Water.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\DLAA.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableBlur.shader" />
