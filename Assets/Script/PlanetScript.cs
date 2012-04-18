@@ -20,10 +20,21 @@ public class PlanetScript : MonoBehaviour {
 	public int CaptureCount; //temps de capture requis
 	private int CaptureTmp;
 	public int SpeedCapture; //vitesse de capture
-	public float CaptureTime; //temps e capture en cour
+	private float CaptureTime; //temps e capture en cour
+	
+	//pulsation
+	/*private bool pul;//triger pour la pulsation	
+	private float sizePul;//taille de la pulsation
+	private float countPul;//taille de la pulsation en cour
+	private bool invertPul; //pulsation inverse*/
 	
 	// Use this for initialization
 	void Start () {
+		
+		/*pul = false;
+		sizePul = 1;
+		countPul = 0;
+		invertPul = false;*
 		
 		//LimitPop =(int) this.transform.localScale.x * 2; 
 		//Debug
@@ -65,6 +76,31 @@ public class PlanetScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//si la pulsation est enclenché
+		/*if(pul){
+			
+			if(invertPul){
+				countPul -= 0.02f;
+				gameObject.light.range += 0.04f;
+			}else{
+				
+				countPul += 0.02f;
+				
+				if(ship.tag == "red"){
+					gameObject.light.color = new Color(1,countPul,countPul,1-countPul);
+				}
+				if(countPul>=sizePul){
+					invertPul = true;	
+				}
+			
+			}
+			
+			countPul = 0;
+			if(ship.tag == "red"){
+				gameObject.light.color = new Color(1,0,0,1);
+				gameObject.light.range = gameObject.transform.localScale.x * 1.3f;
+			}
+		}*/
 		
 		//rotation de la planete
 		this.transform.RotateAround(this.transform.position,Vector3.up, 0.1f);
@@ -99,6 +135,7 @@ public class PlanetScript : MonoBehaviour {
 						gameObject.light.color = new Color(0,0,1,1);
 						CaptureTime = -1*CaptureCount;
 						Debug.Log("capture bleu terminé");
+					
 						//Debug.Log("red: "+gameObject.light.color.r+" green: "+gameObject.light.color.g+" blue: "+gameObject.light.color.b);
 					}
 				}
@@ -136,6 +173,7 @@ public class PlanetScript : MonoBehaviour {
 						gameObject.light.color = new Color(1,0,0,1);
 						CaptureTime = CaptureCount;
 						Debug.Log("capture rouge terminé");
+						//pul = true;
 					}
 				}
 			}else{
