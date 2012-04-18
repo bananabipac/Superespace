@@ -1,9 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\PlanetScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Menu.cs">
     <Files>
+      <File FileName="Assets\Script\Menu.cs" Line="4" Column="36" />
       <File FileName="Assets\Script\moveShip.cs" Line="1" Column="1" />
+<<<<<<< HEAD
       <File FileName="Assets\Script\PlanetScript.cs" Line="167" Column="1" />
+=======
+      <File FileName="Assets\Script\PlanetScript.cs" Line="1" Column="1" />
+>>>>>>> d378b2d5de7a2dfd079b605738d3852585ffbade
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
