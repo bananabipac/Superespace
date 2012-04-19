@@ -205,15 +205,18 @@ public class moveShip : MonoBehaviour {
 		
 			
 		for(int i  = 0 ; i<ships.Count; i++){
-			
-			if(ships[i].tag == "red"){
+			if(ships[i] != null){
+			//Debug.Log(ships[i].tag);
+				if(ships[i].tag == "red"){
 				
-			((PlanetScript)planetEnd.GetComponent<PlanetScript>()).shipsR.Add(ships[i]);
+					((PlanetScript)planetEnd.GetComponent<PlanetScript>()).shipsR.Add(ships[i]);
+				}else{
+				
+					((PlanetScript)planetEnd.GetComponent<PlanetScript>()).shipsB.Add(ships[i]);
+				}
 			}else{
-				
-			((PlanetScript)planetEnd.GetComponent<PlanetScript>()).shipsB.Add(ships[i]);
+				Debug.Log("erreu : "+i);	
 			}
-			
 			
 		}
 	
