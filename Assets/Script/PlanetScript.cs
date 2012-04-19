@@ -10,26 +10,36 @@ public class PlanetScript : MonoBehaviour {
 	public List<GameObject> shipsR; //liste des vaisseaux rouge sur la planete
 	public List<GameObject> shipsB; //liste des vaisseaux bleu sur la planete
 	public GameObject ship; //Object vaisseaux correspondant au type de vaisseaux que doit construire la planete
-	public bool fights; //declanche le combat 
-	public int vFight ; //delai entre chaque resolution de combat
+	private int vFight ; //delai entre chaque resolution de combat
 	public int repop; // delai entre chaque creation de vaiseaux
 	private int count; //timer entre chaque resolution de combat
 	private int timePop; //timer entre chaque creation de vaisseaux
 	//public GameObject explosion; //object de l'explosion a instantié
 	public int LimitPop ;//Limite de population
-	public int CaptureCount; //temps de capture requis
+	private int CaptureCount; //temps de capture requis
 	private int CaptureTmp;
-	public int SpeedCapture; //vitesse de capture
-	public float CaptureTime; //temps e capture en cour
+	private int SpeedCapture; //vitesse de capture
+	private float CaptureTime; //temps e capture en cour
+	
+	//pulsation
+	/*private bool pul;//triger pour la pulsation	
+	private float sizePul;//taille de la pulsation
+	private float countPul;//taille de la pulsation en cour
+	private bool invertPul; //pulsation inverse*/
 	
 	// Use this for initialization
 	void Start () {
 		
+		/*pul = false;
+		sizePul = 1;
+		countPul = 0;
+		invertPul = false;*/
+		
 		//LimitPop =(int) this.transform.localScale.x * 2; 
 		//Debug
-		LimitPop = 50 ;
-		vFight = 10;
-		repop = 50;
+		//LimitPop = 40 ;
+		vFight = 8;
+		//repop = 80;
 		CaptureCount = 1;
 		SpeedCapture = 50;
 		
@@ -65,6 +75,31 @@ public class PlanetScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//si la pulsation est enclenché
+		/*if(pul){
+			
+			if(invertPul){
+				countPul -= 0.02f;
+				gameObject.light.range += 0.04f;
+			}else{
+				
+				countPul += 0.02f;
+				
+				if(ship.tag == "red"){
+					gameObject.light.color = new Color(1,countPul,countPul,1-countPul);
+				}
+				if(countPul>=sizePul){
+					invertPul = true;	
+				}
+			
+			}
+			
+			countPul = 0;
+			if(ship.tag == "red"){
+				gameObject.light.color = new Color(1,0,0,1);
+				gameObject.light.range = gameObject.transform.localScale.x * 1.3f;
+			}
+		}*/
 		
 		//rotation de la planete
 		this.transform.RotateAround(this.transform.position,Vector3.up, 0.1f);
@@ -95,10 +130,12 @@ public class PlanetScript : MonoBehaviour {
 					
 					
 					if(CaptureTime <= -1*CaptureCount){
-						ship = shipsB[0];
+						//ship = shipsB[0];
+						ship =  Resources.Load("Shipblue")as GameObject;
 						gameObject.light.color = new Color(0,0,1,1);
 						CaptureTime = -1*CaptureCount;
 						Debug.Log("capture bleu terminé");
+					
 						//Debug.Log("red: "+gameObject.light.color.r+" green: "+gameObject.light.color.g+" blue: "+gameObject.light.color.b);
 					}
 				}
@@ -132,10 +169,12 @@ public class PlanetScript : MonoBehaviour {
 					//Debug.Log("red: "+gameObject.light.color.r+" green: "+gameObject.light.color.g+" blue: "+gameObject.light.color.b);
 					
 					if(CaptureTime >= CaptureCount){
-						ship = shipsR[0];
+						//ship = shipsR[0];
+						ship =  Resources.Load("Shipred")as GameObject;
 						gameObject.light.color = new Color(1,0,0,1);
 						CaptureTime = CaptureCount;
 						Debug.Log("capture rouge terminé");
+						//pul = true;
 					}
 				}
 			}else{
@@ -155,67 +194,7 @@ public class PlanetScript : MonoBehaviour {
 		
 		
 		
-		/*if(shipsB.Count >0 && shipsR.Count >0){
-			count ++;	
-			if(count >= vFight){
-				count = 0;
-				startFights();
-				CaptureTmp = 0;
-			}
-	
-		}else{
-			
-			if(ship == null){
-				if(shipsB>0 && shipR>0){
-					
-					
-					
-				}
-				
-				
-				if(shipsB.Count >0){
-					ship = shipsB[0];
-					gameObject.light.color = Color.blue;
-					//ship =(GameObject)  Resources.Load("Shipblue");
-				}else if(shipsR.Count >0){
-					ship = shipsR[0];
-					gameObject.light.color = Color.red;	
-				}
-				
-			}
-			 
-			
-			//partie creation de vaisseaux
-			if(ship != null){
-				timePop ++;
 		
-				if(timePop >= repop){
-		
-					timePop = 0;
-				
-					if(ship.tag == "red"){
-					
-						if(shipsR.Count < LimitPop){
-					
-							createShip();
-					
-						}
-					}else{
-					
-						if(shipsB.Count < LimitPop){
-					
-							createShip();
-					
-						}
-					
-					}
-
-				}
-			}
-		}*/
-			
-			
-	
 	}
 	
 	//fonction qui gere la creation des vaisseaux 
@@ -230,12 +209,7 @@ public class PlanetScript : MonoBehaviour {
 		float z = Random.Range(min,max);
 		Vector3 vec = new Vector3(x,0,z);
 		vec = this.transform.position + vec ; 
-			
-		
-	
-			
-			
-			
+				
 			
 		GameObject instance = (GameObject) Instantiate(ship,vec, transform.rotation);
 		instance.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
@@ -278,21 +252,7 @@ public class PlanetScript : MonoBehaviour {
 		
 		Destroy(sb);
 		Destroy(sr);
-		
-								
-							
-		/*Vector3 vb = sb.transform.position;
-		Quaternion rb = sb.transform.rotation;
-							
-		Vector3 vr = sr.transform.position;
-		Quaternion rr = sr.transform.rotation;*/
-		
-								
-		
-		//Instantiate(explosion, vb, rb);
-		//Instantiate(explosion, vr, rr);
-		
-		
+	
 	}
 	
 	
