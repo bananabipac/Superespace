@@ -48,19 +48,62 @@ public class GestionLink : MonoBehaviour {
 		  	 	}
 			}
 		}
-		
-		//DEBUG
-		/*foreach(DictionaryEntry i in link){
-			Debug.Log("PlaneteStart : "+i.Key);
-			foreach(DictionaryEntry s in (Hashtable)i.Value){
-				Debug.Log("PlaneteEnd : "+s.Key);
-				Debug.Log("PlaneteLink : "+s.Value);
-			}
-		}*/
+			
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+	
+	public bool roadExist(GameObject planetS, GameObject planetE){
+		string ps,pe;
+		if(int.Parse(planetS.name) > int.Parse(planetE.name)){
+			ps = planetE.name;
+			pe = planetS.name;
+		}else{
+			pe = planetE.name;
+			ps = planetS.name;
+		}
+		
+		try{
+		
+			if(((Hashtable)link[ps])[pe] != null){
+				return true;
+			}else{
+				return false;	
+			}
+		}catch{
+			return false;	
+		}
+		
+	}
+	
+	public bool roadOpen(GameObject planetS, GameObject planetE){
+		string ps,pe;
+		if(int.Parse(planetS.name) > int.Parse(planetE.name)){
+			ps = planetE.name;
+			pe = planetS.name;
+		}else{
+			pe = planetE.name;
+			ps = planetS.name;
+		}
+		
+		try{
+		
+			if(((Hashtable)link[ps])[pe] != null){
+				if((string)((Hashtable)link[ps])[pe]  == "1"){
+					return true;
+				}else{
+					return false;	
+				}
+			}else{
+				return false;	
+			}
+		}catch{
+			return false;	
+		}
+		
+	}
+	
 }
