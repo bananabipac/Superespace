@@ -143,7 +143,7 @@ public class moveShip : MonoBehaviour {
 								Debug.Log("route impossible");	
 							}
 							listPlanetStart.Remove(fingerId);
-							listPlanetEnd.Remove(fingerId);	
+							listPlanetEnd.Remove(fingerId);
 							
 						}
 					}
