@@ -103,6 +103,7 @@ public class PlanetScript : MonoBehaviour {
 		
 		//rotation de la planete
 		this.transform.RotateAround(this.transform.position,Vector3.up, 0.1f);
+		
 		if(shipsB.Count > 0 && shipsR.Count >0){//bataille entre les vaissseaux
 			count ++;	
 			if(count >= vFight){
@@ -202,12 +203,11 @@ public class PlanetScript : MonoBehaviour {
 		
 		float scal = this.transform.localScale.x ;
 			
-		float min = scal/2.5f  ;
-		float max = scal/2.5f +1;
+		float min = scal/2.5f +1 ;
+		float max = scal/2.5f +1.5f;
 			
-		float x = Random.Range(min,max);
 		float z = Random.Range(min,max);
-		Vector3 vec = new Vector3(x,0,z);
+		Vector3 vec = new Vector3(0,0,z);
 		vec = this.transform.position + vec ; 
 				
 			
@@ -227,18 +227,13 @@ public class PlanetScript : MonoBehaviour {
 	
 	//fonction qui gere le combat entre les vaisseaux
 	void startFights(){
-		
-	
-		
+
 		GameObject sb = shipsR[0];
 		GameObject sr = shipsB[0];	
-						
-		
+
 		shipsB.RemoveAt(0);
 		shipsR.RemoveAt(0);
-		
-		
-		
+
 		if(shipsB.Count == 0 && shipsR.Count == 0){
 			ship = null;
 		}else if(shipsB.Count ==0){
