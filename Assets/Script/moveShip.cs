@@ -9,7 +9,7 @@ public class moveShip : MonoBehaviour {
 	public List<GameObject> ships;
 	public int lvl;
 	public PlanetLink01 links;
-	
+	private GameObject[] l;
 	
 	
 	private bool warnedAboutMaxTouches = false;
@@ -31,6 +31,7 @@ public class moveShip : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		link = ((GestionLink)GetComponent<GestionLink>()).link;	
+		l = GameObject.FindGameObjectsWithTag("link");
 		//((GestionLink)GetComponent<GestionLink>()).roadExist(planetStart, planetEnd);
 		//((GestionLink)GetComponent<GestionLink>()).roadOpen(planetStart, planetEnd);
 	
@@ -104,6 +105,34 @@ public class moveShip : MonoBehaviour {
 								dE = listPlanetEnd[fingerId].name;
 								dS = listPlanetStart[fingerId].name;
 							}
+							if(((GestionLink)GetComponent<GestionLink>()).roadExist(listPlanetStart[fingerId],listPlanetEnd[fingerId])) {
+								if(!((GestionLink)GetComponent<GestionLink>()).roadOpen(listPlanetStart[fingerId],listPlanetEnd[fingerId])) {
+									for(int i = 0; i < l.Length; i++) {
+										if(int.Parse(listPlanetStart[fingerId].name) < int.Parse(listPlanetEnd[fingerId].name)) {
+											if(l[i].name == ""+listPlanetStart[fingerId].name+listPlanetEnd[fingerId].name){
+												if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red"
+													|| ((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue"
+													|| ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "red"
+													|| ((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue") {
+														l[i].active = true;
+														((Hashtable)link[dS])[dE] = "1";
+												}
+											}
+										} else {
+											if(l[i].name == ""+listPlanetEnd[fingerId].name+listPlanetStart[fingerId].name){
+												if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red"
+													|| ((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue"
+													|| ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "red"
+													|| ((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue") {
+														l[i].active = true;
+														((Hashtable)link[dS])[dE] = "1";
+												}
+											}
+										}
+										
+									}
+								}
+							}
 							if(((Hashtable)link[dS])[dE] != null){//si il existe une route entre les 2 planetes
 								if((string)((Hashtable)link[dS])[dE] == "1"){//si la route est ouverte
 									Debug.Log("other fights");
@@ -118,6 +147,7 @@ public class moveShip : MonoBehaviour {
 							
 							listPlanetStart.Remove(fingerId);
 							listPlanetEnd.Remove(fingerId);	
+
 
 						}
 						
