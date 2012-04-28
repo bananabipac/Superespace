@@ -113,7 +113,7 @@ public class moveShip : MonoBehaviour {
 												if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red"
 													|| ((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue"
 													|| ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "red"
-													|| ((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue") {
+													|| ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue") {
 														l[i].active = true;
 														((Hashtable)link[dS])[dE] = "1";
 												}
@@ -123,7 +123,7 @@ public class moveShip : MonoBehaviour {
 												if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red"
 													|| ((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue"
 													|| ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "red"
-													|| ((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue") {
+													|| ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue") {
 														l[i].active = true;
 														((Hashtable)link[dS])[dE] = "1";
 												}
