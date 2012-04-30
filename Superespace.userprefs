@@ -1,14 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\moveShip.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\dataLevel.xml">
     <Files>
-<<<<<<< HEAD
-      <File FileName="Assets\Script\moveShip.cs" Line="104" Column="14" />
-=======
+      <File FileName="Assets\Resources\dataLevel.xml" Line="1" Column="1" />
       <File FileName="Assets\Script\moveShip.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\GestionLink.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\dataLevel.xml" Line="1" Column="1" />
->>>>>>> c0694a496f19a0505cff9e5b05546adbc4d30fa4
+      <File FileName="Assets\Script\Menu.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
