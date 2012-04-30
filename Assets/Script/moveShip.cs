@@ -8,7 +8,6 @@ public class moveShip : MonoBehaviour {
 	public GameObject planetEnd;
 	public List<GameObject> ships;
 	public int lvl;
-	public PlanetLink01 links;
 	private GameObject[] l;
 	
 	
@@ -23,45 +22,19 @@ public class moveShip : MonoBehaviour {
 	private Hashtable link;
 	private string dS;
 	private string dE;
-	
-	
-	
-	
-	
+
 	// Use this for initialization
 	void Start () {
 		link = ((GestionLink)GetComponent<GestionLink>()).link;	
 		l = GameObject.FindGameObjectsWithTag("link");
-		//((GestionLink)GetComponent<GestionLink>()).roadExist(planetStart, planetEnd);
-		//((GestionLink)GetComponent<GestionLink>()).roadOpen(planetStart, planetEnd);
-	
+
 	}
 	
 	void Update() {
 		
-		
 		if(Input.GetKeyDown(KeyCode.Space)){
-			
-			/*link = ((GestionLink)GetComponent<GestionLink>()).link;
-			if(int.Parse(planetStart.name) > int.Parse(planetEnd.name)){
-				dS = planetEnd.name;
-				dE = planetStart.name;
-			}else{
-				dE = planetEnd.name;
-				dS = planetStart.name;
-			}
-			if(((Hashtable)link[dS])[dE] != null){//si il existe une route entre les 2 planetes
-				if((string)((Hashtable)link[dS])[dE] == "1"){//si la route est ouverte*/
-					deplacement(planetStart,planetEnd);	
-				/*}else{//la route est fermé			
-					Debug.Log("pas de route ouverte");
-				}
-			}else{//la route n'existe pas
-				Debug.Log("route impossible");	
-			}*/
-		
+			deplacement(planetStart,planetEnd);		
 		}
-		
 		
 		foreach(Touch touch in Input.touches) {
 			
@@ -92,7 +65,7 @@ public class moveShip : MonoBehaviour {
 			if(touch.phase == TouchPhase.Ended) {
 				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
 					if (hit.collider.tag == "planet") {
-						Debug.Log ("Planete d'arrivée");
+						//Debug.Log ("Planete d'arrivée");
 						planetEnd = hit.collider.gameObject;
 						if(planetStart != planetEnd) {
 							listPlanetEnd.Add(fingerId,planetEnd);
@@ -105,8 +78,8 @@ public class moveShip : MonoBehaviour {
 								dE = listPlanetEnd[fingerId].name;
 								dS = listPlanetStart[fingerId].name;
 							}
-							Debug.Log(listPlanetStart[fingerId].name);
-							Debug.Log(listPlanetEnd[fingerId].name);
+							//Debug.Log(listPlanetStart[fingerId].name);
+							//Debug.Log(listPlanetEnd[fingerId].name);
 							if(((GestionLink)GetComponent<GestionLink>()).roadExist(listPlanetStart[fingerId],listPlanetEnd[fingerId])) {
 								if(!((GestionLink)GetComponent<GestionLink>()).roadOpen(listPlanetStart[fingerId],listPlanetEnd[fingerId])) {
 									for(int i = 0; i < l.Length; i++) {
@@ -128,14 +101,14 @@ public class moveShip : MonoBehaviour {
 							}
 							if(((Hashtable)link[dS])[dE] != null){//si il existe une route entre les 2 planetes
 								if((string)((Hashtable)link[dS])[dE] == "1"){//si la route est ouverte
-									Debug.Log("other fights");
+									//Debug.Log("other fights");
 									deplacement(listPlanetStart[fingerId],listPlanetEnd[fingerId]);	
 									
 								}else{//la route est fermé			
-									Debug.Log("pas de route ouverte");
+									//Debug.Log("pas de route ouverte");
 								}
 							}else{//la route n'existe pas
-								Debug.Log("route impossible");	
+								//Debug.Log("route impossible");	
 							}
 							
 							listPlanetStart.Remove(fingerId);
@@ -223,7 +196,7 @@ public class moveShip : MonoBehaviour {
 					((PlanetScript)shipT[shipT.Count-1].GetComponent<PlanetScript>()).shipsB.Add(shipT[i]);
 				}
 			}else{
-				Debug.Log("erreu : "+i);	
+				//Debug.Log("erreu : "+i);	
 			}
 			
 		}

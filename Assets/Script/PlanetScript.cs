@@ -35,11 +35,7 @@ public class PlanetScript : MonoBehaviour {
 		countPul = 0;
 		invertPul = false;*/
 		
-		//LimitPop =(int) this.transform.localScale.x * 2; 
-		//Debug
-		//LimitPop = 40 ;
 		vFight = 8;
-		//repop = 80;
 		CaptureCount = 1;
 		SpeedCapture = 50;
 		
@@ -104,6 +100,8 @@ public class PlanetScript : MonoBehaviour {
 		//rotation de la planete
 		this.transform.RotateAround(this.transform.position,Vector3.up, 0.1f);
 		
+		Debug.Log("Planete : "+gameObject.name+" /shipRed : "+shipsR.Count+" /shipBlue : "+shipsB.Count);
+		
 		if(shipsB.Count > 0 && shipsR.Count >0){//bataille entre les vaissseaux
 			count ++;	
 			if(count >= vFight){
@@ -116,7 +114,7 @@ public class PlanetScript : MonoBehaviour {
 			if(ship == null || ship.tag =="red"){//capture
 				CaptureTmp += 1*shipsB.Count;
 				if(CaptureTmp >=SpeedCapture){
-					//Debug.Log("capture bleu en cour: "+CaptureTime);
+					
 					CaptureTmp = 0;
 					CaptureTime -= 0.02f;
 					//changement de couleur du halo
@@ -127,17 +125,15 @@ public class PlanetScript : MonoBehaviour {
 						gameObject.light.color = new Color(1,1-CaptureTime,1-CaptureTime,1);
 						
 					}
-					//Debug.Log("red: "+gameObject.light.color.r+" green: "+gameObject.light.color.g+" blue: "+gameObject.light.color.b);
 					
 					
 					if(CaptureTime <= -1*CaptureCount){
-						//ship = shipsB[0];
+					
 						ship =  Resources.Load("Shipblue")as GameObject;
 						gameObject.light.color = new Color(0,0,1,1);
 						CaptureTime = -1*CaptureCount;
-						Debug.Log("capture bleu terminé");
+						
 					
-						//Debug.Log("red: "+gameObject.light.color.r+" green: "+gameObject.light.color.g+" blue: "+gameObject.light.color.b);
 					}
 				}
 				
@@ -155,7 +151,7 @@ public class PlanetScript : MonoBehaviour {
 			if(ship == null || ship.tag =="blue"){
 				CaptureTmp += 1*shipsR.Count;
 				if(CaptureTmp >=SpeedCapture){
-					//Debug.Log("capture rouge en cour: "+CaptureTime);
+					
 					CaptureTmp = 0;
 					CaptureTime += 0.02f;
 					
@@ -167,14 +163,13 @@ public class PlanetScript : MonoBehaviour {
 						gameObject.light.color = new Color(1,1-CaptureTime,1-CaptureTime,1);
 						
 					}
-					//Debug.Log("red: "+gameObject.light.color.r+" green: "+gameObject.light.color.g+" blue: "+gameObject.light.color.b);
 					
 					if(CaptureTime >= CaptureCount){
-						//ship = shipsR[0];
+						
 						ship =  Resources.Load("Shipred")as GameObject;
 						gameObject.light.color = new Color(1,0,0,1);
 						CaptureTime = CaptureCount;
-						Debug.Log("capture rouge terminé");
+						
 						//pul = true;
 					}
 				}
