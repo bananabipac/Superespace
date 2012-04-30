@@ -42,7 +42,7 @@ public class moveShip : MonoBehaviour {
 		
 		if(Input.GetKeyDown(KeyCode.Space)){
 			
-			link = ((GestionLink)GetComponent<GestionLink>()).link;
+			/*link = ((GestionLink)GetComponent<GestionLink>()).link;
 			if(int.Parse(planetStart.name) > int.Parse(planetEnd.name)){
 				dS = planetEnd.name;
 				dE = planetStart.name;
@@ -51,14 +51,14 @@ public class moveShip : MonoBehaviour {
 				dS = planetStart.name;
 			}
 			if(((Hashtable)link[dS])[dE] != null){//si il existe une route entre les 2 planetes
-				if((string)((Hashtable)link[dS])[dE] == "1"){//si la route est ouverte
+				if((string)((Hashtable)link[dS])[dE] == "1"){//si la route est ouverte*/
 					deplacement(planetStart,planetEnd);	
-				}else{//la route est fermé			
+				/*}else{//la route est fermé			
 					Debug.Log("pas de route ouverte");
 				}
 			}else{//la route n'existe pas
 				Debug.Log("route impossible");	
-			}
+			}*/
 		
 		}
 		
@@ -105,6 +105,8 @@ public class moveShip : MonoBehaviour {
 								dE = listPlanetEnd[fingerId].name;
 								dS = listPlanetStart[fingerId].name;
 							}
+							Debug.Log(listPlanetStart[fingerId].name);
+							Debug.Log(listPlanetEnd[fingerId].name);
 							if(((GestionLink)GetComponent<GestionLink>()).roadExist(listPlanetStart[fingerId],listPlanetEnd[fingerId])) {
 								if(!((GestionLink)GetComponent<GestionLink>()).roadOpen(listPlanetStart[fingerId],listPlanetEnd[fingerId])) {
 									for(int i = 0; i < l.Length; i++) {
@@ -218,25 +220,23 @@ public class moveShip : MonoBehaviour {
 	}
 	
 	//ajoute les vaisseaux au tableau de la planete d'arrivé
-	void valideDeplacement(){
-		
-			
-		for(int i  = 0 ; i<ships.Count; i++){
-			if(ships[i] != null){
+	void valideDeplacement(List<GameObject> shipT){
+		for(int i  = 0 ; i<shipT.Count-1; i++){
+			if(shipT[i] != null){
 			//Debug.Log(ships[i].tag);
-				if(ships[i].tag == "red"){
+				if(shipT[i].tag == "red"){
 				
-					((PlanetScript)planetEnd.GetComponent<PlanetScript>()).shipsR.Add(ships[i]);
+					((PlanetScript)shipT[shipT.Count-1].GetComponent<PlanetScript>()).shipsR.Add(shipT[i]);
 				}else{
 				
-					((PlanetScript)planetEnd.GetComponent<PlanetScript>()).shipsB.Add(ships[i]);
+					((PlanetScript)shipT[shipT.Count-1].GetComponent<PlanetScript>()).shipsB.Add(shipT[i]);
 				}
 			}else{
 				Debug.Log("erreu : "+i);	
 			}
 			
 		}
-	
+
 	}
 	
 	//deplace les vaisseaux d'une planete a l'autre
@@ -284,7 +284,8 @@ public class moveShip : MonoBehaviour {
 				vec = quat * vec ;
 	 
 				if(j == nbs -1){
-					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",2f,"oncomplete","valideDeplacement","onCompleteTarget", gameObject, "easetype", "linear"));	
+					ships.Add(end);
+					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",2f,"oncomplete","valideDeplacement","onCompleteTarget", gameObject,"oncompleteparams", ships , "easetype", "linear"));	
 					
 				}else{
 					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",2f, "easetype", "linear"));
