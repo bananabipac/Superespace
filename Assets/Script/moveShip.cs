@@ -111,15 +111,28 @@ public class moveShip : MonoBehaviour {
 								if(!((GestionLink)GetComponent<GestionLink>()).roadOpen(listPlanetStart[fingerId],listPlanetEnd[fingerId])) {
 									for(int i = 0; i < l.Length; i++) {
 										if(int.Parse(listPlanetStart[fingerId].name) < int.Parse(listPlanetEnd[fingerId].name)) {
-											if(l[i].name == ""+listPlanetStart[fingerId].name+listPlanetEnd[fingerId].name){
-												l[i].active = true;
-												((Hashtable)link[dS])[dE] = "1";
+											if((((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red" 
+												|| ((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue" 
+												&& ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == null)
+												|| (((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == null 
+												&& ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue"
+												|| ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "red")) {
+													if(l[i].name == ""+listPlanetStart[fingerId].name+listPlanetEnd[fingerId].name){
+														l[i].active = true;
+														((Hashtable)link[dS])[dE] = "1";
+													}
 											}
 										} else {
-											if(l[i].name == ""+listPlanetEnd[fingerId].name+listPlanetStart[fingerId].name){
-												l[i].active = true;
-												((Hashtable)link[dS])[dE] = "1";
-
+											if((((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red" 
+												|| ((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue" 
+												&& ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == null)
+												|| (((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == null 
+												&& ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue"
+												|| ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "red")) {
+													if(l[i].name == ""+listPlanetEnd[fingerId].name+listPlanetStart[fingerId].name){
+														l[i].active = true;
+														((Hashtable)link[dS])[dE] = "1";
+													}
 											}
 										}
 										
