@@ -112,23 +112,14 @@ public class moveShip : MonoBehaviour {
 									for(int i = 0; i < l.Length; i++) {
 										if(int.Parse(listPlanetStart[fingerId].name) < int.Parse(listPlanetEnd[fingerId].name)) {
 											if(l[i].name == ""+listPlanetStart[fingerId].name+listPlanetEnd[fingerId].name){
-												if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red"
-													|| ((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue"
-													|| ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "red"
-													|| ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue") {
-														l[i].active = true;
-														((Hashtable)link[dS])[dE] = "1";
-												}
+												l[i].active = true;
+												((Hashtable)link[dS])[dE] = "1";
 											}
 										} else {
 											if(l[i].name == ""+listPlanetEnd[fingerId].name+listPlanetStart[fingerId].name){
-												if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red"
-													|| ((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue"
-													|| ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "red"
-													|| ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue") {
-														l[i].active = true;
-														((Hashtable)link[dS])[dE] = "1";
-												}
+												l[i].active = true;
+												((Hashtable)link[dS])[dE] = "1";
+
 											}
 										}
 										
