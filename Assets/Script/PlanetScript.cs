@@ -111,7 +111,7 @@ public class PlanetScript : MonoBehaviour {
 			}
 			
 		}else if (shipsB.Count>0){//vaisseau bleu present sur la planete
-			if(ship == null || ship.tag =="red"){//capture
+			if(CaptureTime > -1*CaptureCount){
 				CaptureTmp += 1*shipsB.Count;
 				if(CaptureTmp >=SpeedCapture){
 					
@@ -128,16 +128,14 @@ public class PlanetScript : MonoBehaviour {
 					
 					
 					if(CaptureTime <= -1*CaptureCount){
-					
 						ship =  Resources.Load("Shipblue")as GameObject;
 						gameObject.light.color = new Color(0,0,1,1);
 						CaptureTime = -1*CaptureCount;
 						Debug.Log("Planete : "+gameObject.name + "capture blue");
-					
+						
 					}
 				}
-				
-			}else{//creation ship
+			}else{
 				timePop ++;
 				if(timePop >= repop){
 					timePop = 0;
@@ -145,53 +143,46 @@ public class PlanetScript : MonoBehaviour {
 						createShip();
 					}
 				}
+				
 			}
-			
 		}else if (shipsR.Count>0){//vaisseau rouge present sur la planete
-			if(ship == null || ship.tag =="blue"){
+			if(CaptureTime < CaptureCount){
 				CaptureTmp += 1*shipsR.Count;
 				if(CaptureTmp >=SpeedCapture){
-					
+						
 					CaptureTmp = 0;
 					CaptureTime += 0.02f;
-					
-					
+						
 					if(CaptureTime <0){
 						gameObject.light.color = new Color(1+CaptureTime,1+CaptureTime,1,1);
-						
+							
 					}else{
 						gameObject.light.color = new Color(1,1-CaptureTime,1-CaptureTime,1);
-						
+							
 					}
-					
+							
 					if(CaptureTime >= CaptureCount){
-						
 						ship =  Resources.Load("Shipred")as GameObject;
 						gameObject.light.color = new Color(1,0,0,1);
 						CaptureTime = CaptureCount;
 						Debug.Log("Planete : "+gameObject.name + "capture red");
-						
-						//pul = true;
+						//pul = true;	
 					}
 				}
 			}else{
-				timePop ++;
-				if(timePop >= repop){
-					timePop = 0;
-					if(shipsR.Count < LimitPop){
-						createShip();
+				
+				if(ship.tag == "red"){
+					timePop ++;
+					if(timePop >= repop){
+						timePop = 0;
+						if(shipsR.Count < LimitPop){
+							createShip();
+						}
 					}
 				}
+				
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 	
 	//fonction qui gere la creation des vaisseaux 
