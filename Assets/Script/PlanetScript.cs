@@ -100,7 +100,7 @@ public class PlanetScript : MonoBehaviour {
 		//rotation de la planete
 		this.transform.RotateAround(this.transform.position,Vector3.up, 0.1f);
 		
-		Debug.Log("Planete : "+gameObject.name+" /shipRed : "+shipsR.Count+" /shipBlue : "+shipsB.Count);
+		//Debug.Log("Planete : "+gameObject.name+" /shipRed : "+shipsR.Count+" /shipBlue : "+shipsB.Count);
 		
 		if(shipsB.Count > 0 && shipsR.Count >0){//bataille entre les vaissseaux
 			count ++;	

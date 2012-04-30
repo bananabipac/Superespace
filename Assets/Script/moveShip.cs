@@ -83,7 +83,16 @@ public class moveShip : MonoBehaviour {
 							if(((GestionLink)GetComponent<GestionLink>()).roadExist(listPlanetStart[fingerId],listPlanetEnd[fingerId])) {
 								if(!((GestionLink)GetComponent<GestionLink>()).roadOpen(listPlanetStart[fingerId],listPlanetEnd[fingerId])) {
 									for(int i = 0; i < l.Length; i++) {
-										if(int.Parse(listPlanetStart[fingerId].name) < int.Parse(listPlanetEnd[fingerId].name)) {
+										if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship == null && ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship == null ){
+											
+										}else{
+											if(l[i].name == ""+dS+dE){
+												l[i].active = true;
+												((Hashtable)link[dS])[dE] = "1";
+											}	
+										}
+										
+										/*if(int.Parse(listPlanetStart[fingerId].name) < int.Parse(listPlanetEnd[fingerId].name)) {
 											if((((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red" 
 												|| ((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue" 
 												&& ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == null)
@@ -107,7 +116,7 @@ public class moveShip : MonoBehaviour {
 														((Hashtable)link[dS])[dE] = "1";
 													}
 											}
-										}
+										}*/
 										
 									}
 								}
