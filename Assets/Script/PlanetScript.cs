@@ -132,7 +132,7 @@ public class PlanetScript : MonoBehaviour {
 						ship =  Resources.Load("Shipblue")as GameObject;
 						gameObject.light.color = new Color(0,0,1,1);
 						CaptureTime = -1*CaptureCount;
-						
+						Debug.Log("Planete : "+gameObject.name + "capture blue");
 					
 					}
 				}
@@ -169,6 +169,7 @@ public class PlanetScript : MonoBehaviour {
 						ship =  Resources.Load("Shipred")as GameObject;
 						gameObject.light.color = new Color(1,0,0,1);
 						CaptureTime = CaptureCount;
+						Debug.Log("Planete : "+gameObject.name + "capture red");
 						
 						//pul = true;
 					}
@@ -209,7 +210,7 @@ public class PlanetScript : MonoBehaviour {
 		GameObject instance = (GameObject) Instantiate(ship,vec, transform.rotation);
 		instance.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
 		((rotationShip)instance.GetComponent<rotationShip>()).planet = this.gameObject;
-		((rotationShip)instance.GetComponent<rotationShip>()).speed = Random.Range(0.01f,0.1f);
+		((rotationShip)instance.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
 		
 		if(ship.tag == "blue"){
 			shipsB.Add(instance);

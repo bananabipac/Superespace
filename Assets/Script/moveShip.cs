@@ -91,33 +91,7 @@ public class moveShip : MonoBehaviour {
 												((Hashtable)link[dS])[dE] = "1";
 											}	
 										}
-										
-										/*if(int.Parse(listPlanetStart[fingerId].name) < int.Parse(listPlanetEnd[fingerId].name)) {
-											if((((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red" 
-												|| ((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue" 
-												&& ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == null)
-												|| (((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == null 
-												&& ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue"
-												|| ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "red")) {
-													if(l[i].name == ""+listPlanetStart[fingerId].name+listPlanetEnd[fingerId].name){
-														l[i].active = true;
-														((Hashtable)link[dS])[dE] = "1";
-													}
-											}
-										} else {
-											if((((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red" 
-												|| ((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue" 
-												&& ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == null)
-												|| (((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == null 
-												&& ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue"
-												|| ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship.tag == "red")) {
-													if(l[i].name == ""+listPlanetEnd[fingerId].name+listPlanetStart[fingerId].name){
-														l[i].active = true;
-														((Hashtable)link[dS])[dE] = "1";
-													}
-											}
-										}*/
-										
+									
 									}
 								}
 							}
@@ -277,7 +251,7 @@ public class moveShip : MonoBehaviour {
 					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",2f, "easetype", "linear"));
 				}
 				
-				((rotationShip)ships[j].GetComponent<rotationShip>()).speed = Random.Range(0.01f,0.1f);
+				((rotationShip)ships[j].GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
 									
 			}
 		
