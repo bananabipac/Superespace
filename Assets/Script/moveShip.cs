@@ -242,6 +242,7 @@ public class moveShip : MonoBehaviour {
 				
 				Vector3 vec = new Vector3(0,0,z);
 				vec = quat * vec ;
+				vec.y = 0;
 	 
 				if(j == nbs -1){
 					ships.Add(end);

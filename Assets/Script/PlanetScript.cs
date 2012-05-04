@@ -9,11 +9,12 @@ public class PlanetScript : MonoBehaviour {
 	public int nbShip; //nombre de vaisseaux que possede le vaisseaux au debut de la partie
 	public List<GameObject> shipsR; //liste des vaisseaux rouge sur la planete
 	public List<GameObject> shipsB; //liste des vaisseaux bleu sur la planete
+	public List<GameObject> shipsN; //liste des vaisseaux neutre sur la planete
 	public GameObject ship; //Object vaisseaux correspondant au type de vaisseaux que doit construire la planete
-	private int vFight ; //delai entre chaque resolution de combat
+	private float vFight ; //delai entre chaque resolution de combat
 	public int repop; // delai entre chaque creation de vaiseaux
-	private int count; //timer entre chaque resolution de combat
-	private int timePop; //timer entre chaque creation de vaisseaux
+	private float count; //timer entre chaque resolution de combat
+	private float timePop; //timer entre chaque creation de vaisseaux
 	//public GameObject explosion; //object de l'explosion a instantié
 	public int LimitPop ;//Limite de population
 	private int CaptureCount; //temps de capture requis
@@ -35,7 +36,7 @@ public class PlanetScript : MonoBehaviour {
 		countPul = 0;
 		invertPul = false;*/
 		
-		vFight = 8;
+		vFight = 0.5f;
 		CaptureCount = 1;
 		SpeedCapture = 50;
 		
@@ -52,6 +53,7 @@ public class PlanetScript : MonoBehaviour {
 			createShip();
 		}
 	
+	
 		if(ship != null){
 			if(ship.tag == "red"){
 				gameObject.light.color = new Color(1,0,0,1);
@@ -59,7 +61,10 @@ public class PlanetScript : MonoBehaviour {
 			}else if (ship.tag == "blue"){
 				gameObject.light.color = new Color(0,0,1,1);
 				CaptureTime = -1*CaptureCount;
-			}	
+			}else{//ship neutre
+				gameObject.light.color = new Color(1,1,1,1);
+				CaptureTime = 0;
+			}
 		}else{
 			gameObject.light.color = new Color(1,1,1,1);
 			CaptureTime = 0;
@@ -98,12 +103,11 @@ public class PlanetScript : MonoBehaviour {
 		}*/
 		
 		//rotation de la planete
-		this.transform.RotateAround(this.transform.position,Vector3.up, 0.1f);
+		this.transform.RotateAround(this.transform.position,Vector3.up, 7f * Time.deltaTime);
 		
-		//Debug.Log("Planete : "+gameObject.name+" /shipRed : "+shipsR.Count+" /shipBlue : "+shipsB.Count);
-		
-		if(shipsB.Count > 0 && shipsR.Count >0){//bataille entre les vaissseaux
-			count ++;	
+		if(shipsB.Count > 0 && shipsR.Count >0 || shipsN.Count > 0 && shipsR.Count >0 || shipsB.Count > 0 && shipsN.Count >0 ){//bataille entre les vaissseaux
+			count  += 1*Time.deltaTime;
+			
 			if(count >= vFight){
 				count = 0;
 				startFights();
@@ -111,7 +115,7 @@ public class PlanetScript : MonoBehaviour {
 			}
 			
 		}else if (shipsB.Count>0){//vaisseau bleu present sur la planete
-			if(CaptureTime > -1*CaptureCount){
+			if(CaptureTime > -1*CaptureCount ){
 				CaptureTmp += 1*shipsB.Count;
 				if(CaptureTmp >=SpeedCapture){
 					
@@ -126,17 +130,16 @@ public class PlanetScript : MonoBehaviour {
 						
 					}
 					
-					
 					if(CaptureTime <= -1*CaptureCount){
 						ship =  Resources.Load("Shipblue")as GameObject;
 						gameObject.light.color = new Color(0,0,1,1);
 						CaptureTime = -1*CaptureCount;
-						Debug.Log("Planete : "+gameObject.name + "capture blue");
+						//Debug.Log("Planete : "+gameObject.name + "capture blue");
 						
 					}
 				}
 			}else{
-				timePop ++;
+				timePop += 10*Time.deltaTime;
 				if(timePop >= repop){
 					timePop = 0;
 					if(shipsB.Count < LimitPop){
@@ -172,7 +175,7 @@ public class PlanetScript : MonoBehaviour {
 			}else{
 				
 				if(ship.tag == "red"){
-					timePop ++;
+					timePop += 10*Time.deltaTime;
 					if(timePop >= repop){
 						timePop = 0;
 						if(shipsR.Count < LimitPop){
@@ -202,11 +205,13 @@ public class PlanetScript : MonoBehaviour {
 		instance.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
 		((rotationShip)instance.GetComponent<rotationShip>()).planet = this.gameObject;
 		((rotationShip)instance.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
-		
+	
 		if(ship.tag == "blue"){
 			shipsB.Add(instance);
-		}else{
+		}else if(ship.tag == "red"){
 			shipsR.Add(instance);
+		}else{
+			shipsN.Add(instance);
 		}
 		
 		
@@ -214,28 +219,28 @@ public class PlanetScript : MonoBehaviour {
 	
 	//fonction qui gere le combat entre les vaisseaux
 	void startFights(){
-
-		GameObject sb = shipsR[0];
-		GameObject sr = shipsB[0];	
-
-		shipsB.RemoveAt(0);
-		shipsR.RemoveAt(0);
-
-		if(shipsB.Count == 0 && shipsR.Count == 0){
-			ship = null;
-		}else if(shipsB.Count ==0){
-			//ship = shipsR[0];
-			//gameObject.light.color = Color.red;
-			
-		}else if(shipsR.Count ==0){
-			//ship = shipsB[0];
-			//gameObject.light.color = Color.blue;
+		
+		if(shipsB.Count >0){
+			GameObject sb = shipsB[0];
+			shipsB.RemoveAt(0);
+			Destroy(sb);
+				
 		}
 		
-		Destroy(sb);
-		Destroy(sr);
+		if(shipsR.Count >0){
+			GameObject sr = shipsR[0];
+			shipsR.RemoveAt(0);
+			Destroy(sr);
+		}
+		
+		if(shipsN.Count >0){
+			GameObject sn = shipsN[0];
+			shipsN.RemoveAt(0);
+			Destroy(sn);
+			
+		}
+		
 	
 	}
-	
 	
 }

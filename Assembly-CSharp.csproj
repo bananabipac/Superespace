@@ -50,9 +50,9 @@
      <Compile Include="Assets\MegaGrab\DOFCamera.cs" />
      <Compile Include="Assets\MegaGrab\JPGEncoder.cs" />
      <Compile Include="Assets\MegaGrab\MegaGrab.cs" />
+     <Compile Include="Assets\Script\GUIPlanet.cs" />
      <Compile Include="Assets\Script\GestionLink.cs" />
      <Compile Include="Assets\Script\Menu.cs" />
-     <Compile Include="Assets\Script\PlanetLink01.cs" />
      <Compile Include="Assets\Script\PlanetScript.cs" />
      <Compile Include="Assets\Script\PlanetScriptMenu.cs" />
      <Compile Include="Assets\Script\moveShip.cs" />
