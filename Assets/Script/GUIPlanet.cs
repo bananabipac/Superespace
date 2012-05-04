@@ -13,6 +13,7 @@ public class GUIPlanet : MonoBehaviour {
 	void Start () {
 		
 		style.font = skin.font;
+		style.alignment = TextAnchor.UpperCenter;
 		x = 14f;
 		y = -8f;
 		//style.alignment = TextAnchor.MiddleCenter;

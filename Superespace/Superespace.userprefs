@@ -1,0 +1,14 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\PlanetScript.cs">
+    <Files>
+      <File FileName="Assets\Script\PlanetScript.cs" Line="231" Column="26" />
+      <File FileName="Assets\Script\rotationShip.cs" Line="16" Column="91" />
+      <File FileName="Assets\Script\GUIPlanet.cs" Line="46" Column="54" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
