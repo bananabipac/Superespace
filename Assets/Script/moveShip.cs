@@ -9,6 +9,7 @@ public class moveShip : MonoBehaviour {
 	public List<GameObject> ships;
 	public int lvl;
 	private GameObject[] l;
+	private GameObject user;
 	
 	
 	private bool warnedAboutMaxTouches = false;
@@ -27,6 +28,7 @@ public class moveShip : MonoBehaviour {
 	void Start () {
 		link = ((GestionLink)GetComponent<GestionLink>()).link;	
 		l = GameObject.FindGameObjectsWithTag("link");
+		user = GameObject.FindWithTag("User");
 
 	}
 	
@@ -86,10 +88,34 @@ public class moveShip : MonoBehaviour {
 										if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship == null && ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship == null ){
 											
 										}else{
-											if(l[i].name == ""+dS+dE){
-												l[i].active = true;
-												((Hashtable)link[dS])[dE] = "1";
-											}	
+											if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red") {
+												if(user.GetComponent<MoneyScript>().moneyPlayer1 >= 50) {
+													if(l[i].name == ""+dS+dE){
+														l[i].active = true;
+														((Hashtable)link[dS])[dE] = "1";
+														user.GetComponent<MoneyScript>().moneyPlayer1 -= 50;
+														if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red") {
+															user.GetComponent<MoneyScript>().incomePlayer1 += 1;
+														} else if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue") {
+															user.GetComponent<MoneyScript>().incomePlayer2 += 1;
+														}
+													}
+												}
+											}
+											if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue") {
+												if(user.GetComponent<MoneyScript>().moneyPlayer2 >= 50) {
+													if(l[i].name == ""+dS+dE){
+														l[i].active = true;
+														((Hashtable)link[dS])[dE] = "1";
+														user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+														if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red") {
+															user.GetComponent<MoneyScript>().incomePlayer1 += 1;
+														} else if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue") {
+															user.GetComponent<MoneyScript>().incomePlayer2 += 1;
+														}
+													}
+												}
+											}
 										}
 									
 									}

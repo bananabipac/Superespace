@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GUIMoney : MonoBehaviour {
 	public int player;
-	public GameObject user;
+	private GameObject user;
 	
 	// Use this for initialization
 	void Start () {

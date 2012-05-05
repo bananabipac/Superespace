@@ -50,6 +50,7 @@
      <Compile Include="Assets\MegaGrab\DOFCamera.cs" />
      <Compile Include="Assets\MegaGrab\JPGEncoder.cs" />
      <Compile Include="Assets\MegaGrab\MegaGrab.cs" />
+     <Compile Include="Assets\Script\GUIFPS.cs" />
      <Compile Include="Assets\Script\GUIMoney.cs" />
      <Compile Include="Assets\Script\GUIPlanet.cs" />
      <Compile Include="Assets\Script\GestionLink.cs" />
