@@ -219,27 +219,66 @@ public class PlanetScript : MonoBehaviour {
 	
 	//fonction qui gere le combat entre les vaisseaux
 	void startFights(){
+		infoUser infoUserB =(infoUser) GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>();
+		infoUser infoUserR =(infoUser) GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>();
 		
-		if(shipsB.Count >0){
+		if(shipsB.Count>0 && shipsR.Count>0){
 			GameObject sb = shipsB[0];
-			shipsB.RemoveAt(0);
-			Destroy(sb);
-				
-		}
-		
-		if(shipsR.Count >0){
 			GameObject sr = shipsR[0];
-			shipsR.RemoveAt(0);
-			Destroy(sr);
-		}
-		
-		if(shipsN.Count >0){
-			GameObject sn = shipsN[0];
-			shipsN.RemoveAt(0);
-			Destroy(sn);
+			int lifeB = infoUserB.lifeShip;
+			int lifeR = infoUserR.lifeShip;
 			
-		}
+			lifeB -= Random.Range(infoUserR.powerMin,infoUserR.powerMax); 
+			lifeR -= Random.Range(infoUserB.powerMin,infoUserB.powerMax); 
+			
+			if(lifeB<=0){
+				shipsB.RemoveAt(0);
+				Destroy(sb);	
+			}
+			if(lifeR<=0){
+				shipsR.RemoveAt(0);
+				Destroy(sr);
+			}
+		}else if(shipsB.Count <= 0){
+			GameObject sn = shipsN[0];
+			GameObject sr = shipsR[0];
+			int lifeN = 2;
+			int lifeR = infoUserR.lifeShip;
+			
+			lifeN -= Random.Range(infoUserR.powerMin,infoUserR.powerMax); 
+			lifeR -= Random.Range(1,3); 
+			
+			if(lifeN<=0){
+				shipsN.RemoveAt(0);
+				Destroy(sn);	
+			}
+			if(lifeR<=0){
+				shipsR.RemoveAt(0);
+				Destroy(sr);
+			}
+			
+		}else if(shipsR.Count <= 0){
+			GameObject sb = shipsB[0];
+			GameObject sn = shipsN[0];
+			int lifeB = infoUserB.lifeShip;
+			int lifeN = 2;
+			
+			lifeB -= Random.Range(1,3); 
+			lifeN -= Random.Range(infoUserB.powerMin,infoUserB.powerMax); 
+			
+			if(lifeB<=0){
+				shipsB.RemoveAt(0);
+				Destroy(sb);	
+			}
+			if(lifeN<=0){
+				shipsN.RemoveAt(0);
+				Destroy(sn);
+			}
+			
+		}else if(shipsN.Count <=0){
 		
+			
+		}	
 	
 	}
 	
