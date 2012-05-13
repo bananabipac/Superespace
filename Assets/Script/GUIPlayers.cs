@@ -54,6 +54,38 @@ public class GUIPlayers : MonoBehaviour {
 			}
 			Ray cursorRay = Camera.main.ScreenPointToRay(touch.position);
 			RaycastHit hit;
+			if(touch.phase == TouchPhase.Ended) {
+				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
+					if (hit.collider.tag == "UpgradePlayer1") {
+						if(hit.collider.name == "vie1") {
+							(GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).lifeShip += 2;
+							Debug.Log((GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).lifeShip);
+						}
+						if(hit.collider.name == "attaque1") {
+							(GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).powerMin += 2;
+							(GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).powerMax += 2;
+							Debug.Log((GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).powerMin);
+							Debug.Log((GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).powerMax);
+						}
+						if(hit.collider.name == "speed1") {
+							(GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).speedShip += 1;
+							Debug.Log((GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).speedShip);
+						}
+					}
+					if (hit.collider.tag == "UpgradePlayer2") {
+						if(hit.collider.name == "vie2") {
+							(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).lifeShip += 2;
+						}
+						if(hit.collider.name == "attaque2") {
+							(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).powerMin += 2;
+							(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).powerMax += 2;
+						}
+						if(hit.collider.name == "speed2") {
+							(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).speedShip += 1;
+						}
+					}
+				}
+			}
 			if(touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) {
 				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
 					if (hit.collider.tag == "GUIPlayer1") {
