@@ -5,6 +5,7 @@ public class rotationShip : MonoBehaviour {
 	
 	public GameObject planet;
 	public float speed;
+	public int life;
 	
 	// Use this for initialization
 	void Start () {

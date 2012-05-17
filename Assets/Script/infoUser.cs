@@ -10,9 +10,9 @@ public class infoUser : MonoBehaviour {
 	 
 	// Use this for initialization
 	void Start () {
-		powerMin = 1;
-		powerMax = 3;
-		lifeShip = 2;
+		powerMin = 2;
+		powerMax = 7;
+		lifeShip = 5;
 		
 		speedShip = 0;
 	}

@@ -13,7 +13,7 @@ public class GUIPlanet : MonoBehaviour {
 	void Start () {
 		
 		style.font = skin.font;
-		style.alignment = TextAnchor.UpperCenter;
+		style.alignment = TextAnchor.UpperLeft;
 		x = 14f;
 		y = -8f;
 		//style.alignment = TextAnchor.MiddleCenter;
@@ -28,86 +28,89 @@ public class GUIPlanet : MonoBehaviour {
 		if(((PlanetScript)GetComponent<PlanetScript>()).ship != null){
 			//rouge contre blanc
 			if(((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count >0 && ((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count >0 ){
-			
-				style.normal.textColor = new Color(0.7f,0,0,1);
-				GUI.Label (new Rect (vec.x-x*2.5f,Screen.height+y -vec.y,35, 35), ""+((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count, style);
+				GUIplanet(1,1,((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count);
+				GUIplanet(2,2,((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count);
 				
-				style.normal.textColor = new Color(1f,1f,1f,1);
-				GUI.Label (new Rect (vec.x-(x-10),Screen.height+y -vec.y,35, 35), "/", style);
-				
-				style.normal.textColor = new Color(1f,1f,1f,1);
-				GUI.Label (new Rect (vec.x+15,Screen.height+y -vec.y,35, 35), ""+((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count, style);
-			//rouge contre bleu
 			}else if(((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count >0 && ((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count >0 ){
-				style.normal.textColor = new Color(0.7f,0,0,1);
-				GUI.Label (new Rect (vec.x-x*2.5f,Screen.height+y -vec.y,35, 35), ""+((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count, style);
-				
-				style.normal.textColor = new Color(1f,1f,1f,1);
-				GUI.Label (new Rect (vec.x-(x-10),Screen.height+y -vec.y,35, 35), "/", style);
-				
-				style.normal.textColor = new Color(0f,0f,0.7f,1);
-				GUI.Label (new Rect (vec.x+15,Screen.height+y -vec.y,35, 35), ""+((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count, style);
+				GUIplanet(0,1,((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count);
+				GUIplanet(1,2,((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count);
+	
 			//bleu contre blanc
 			}else if(((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count >0 && ((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count >0 ){
-				style.normal.textColor = new Color(0f,0,0.7f,1);
-				GUI.Label (new Rect (vec.x-x*2.5f,Screen.height+y -vec.y,35, 35), ""+((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count, style);
-				
-				style.normal.textColor = new Color(1f,1f,1f,1);
-				GUI.Label (new Rect (vec.x-(x-10),Screen.height+y -vec.y,35, 35), "/", style);
-				
-				style.normal.textColor = new Color(1f,1f,1f,1);
-				GUI.Label (new Rect (vec.x+15,Screen.height+y -vec.y,35, 35), ""+((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count, style);
+				GUIplanet(0,1,((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count);
+				GUIplanet(2,2,((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count);
+	
 			}else{
 				if(((PlanetScript)GetComponent<PlanetScript>()).ship.tag == "red"){
 					//Camera.mainCamera.ScreenToWorldPoint;
 					if(((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count>0){
-						GUIBlue();
+						GUIplanet(0,0,((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count);
 					}else{
-						GUIRed();
+						GUIplanet(1,0,((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count);
 					}
 				}else if(((PlanetScript)GetComponent<PlanetScript>()).ship.tag == "blue"){
 					if(((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count>0){
-						GUIRed();
+						GUIplanet(1,0,((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count);
 					}else{
-						GUIBlue();
+						GUIplanet(0,0,((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count);
 					}
 				}else{
 					if(((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count>0){
-						GUIRed();
+						GUIplanet(1,0,((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count);
 					}else if(((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count>0){
-						GUIBlue();
+						GUIplanet(0,0,((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count);
 					}else{
-						GUINeutre();
+						GUIplanet(2,0,((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count);
 					}
 				}
 			}
-		}else{
-			
 		}
-		//GUI.Label (Rect (10, 10, 100, 20), "Hello World!");
-		
-		
+
 	}
 	
-	void GUIRed(){
-		style.normal.textColor = new Color(0.7f,0,0,1);
-		GUI.Label (new Rect (vec.x-x,Screen.height+y -vec.y,35, 35), ""+((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count, style);
-	}
-	
-	void GUIBlue(){
-		style.normal.textColor = new Color(0,0,0.7f,1);
-		GUI.Label (new Rect (vec.x-x,Screen.height+y -vec.y,35, 35), ""+((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count, style);	
-	}
-	
-	void GUINeutre(){
-		style.normal.textColor = new Color(0.9f,0.9f,0.9f,1);
-		GUI.Label (new Rect (vec.x-x,Screen.height+y -vec.y,35, 35), ""+((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count, style);
-	}
-	// Update is called once per frame
-	void Update () {
+	void GUIplanet(int color, int position, int count){
 		
+		//on choisit la couleur utilisé
+		if(color ==0){//blue
+			style.normal.textColor = new Color(0,0,0.7f,1);	
+		}else if(color == 1){ // red
+			style.normal.textColor = new Color(0.7f,0,0,1);
+		}else if(color == 2){//white
+			style.normal.textColor = new Color(0.9f,0.9f,0.9f,1);
+		}
+		
+		
+		if(position == 0){//la planete n'est pas en combat
+			if(count <10){
+				GUI.Label (new Rect (vec.x-(x-6),Screen.height+y -vec.y,50, 35), ""+count, style);
+			}else if(count >=100){
+				GUI.Label (new Rect (vec.x-(x+6),Screen.height+y -vec.y,50, 35), ""+count, style);
+			}else{
+				GUI.Label (new Rect (vec.x-x,Screen.height+y -vec.y,50, 35), ""+count, style);
+			}	
+		}else if(position == 1){//la planete est en combat
+			if(count <10){
+				GUI.Label (new Rect (vec.x-(x+10),Screen.height+y -vec.y,50, 50), ""+count, style);
+			}else if(count >=100){
+				GUI.Label (new Rect (vec.x-(x+40),Screen.height+y -vec.y,50, 50), ""+count, style);
+			}else{
+				GUI.Label (new Rect (vec.x-(x+30),Screen.height+y -vec.y,50, 50), ""+count, style);
+			}
 			
+			style.normal.textColor = new Color(0.7f,0.7f,0.7f,1);
+			GUI.Label (new Rect (vec.x-(x-6),Screen.height+y -vec.y,50, 50), "/", style);
+				
+		}else if(position == 2){
+			if(count <10){
+				GUI.Label (new Rect (vec.x+15,Screen.height+y -vec.y,50, 50), ""+count, style);
+			}else if(count >=100){
+				GUI.Label (new Rect (vec.x+15,Screen.height+y -vec.y,50, 50), ""+count, style);
+			}else{
+				GUI.Label (new Rect (vec.x+15,Screen.height+y -vec.y,50, 50), ""+count, style);
+			}
+
+		}
 	
-			
 	}
+
 }

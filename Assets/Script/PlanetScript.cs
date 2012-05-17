@@ -36,7 +36,7 @@ public class PlanetScript : MonoBehaviour {
 		countPul = 0;
 		invertPul = false;*/
 		
-		vFight = 0.5f;
+		vFight = 0.4f;
 		CaptureCount = 1;
 		SpeedCapture = 50;
 		
@@ -190,6 +190,8 @@ public class PlanetScript : MonoBehaviour {
 	
 	//fonction qui gere la creation des vaisseaux 
 	void createShip (){
+		infoUser infoRed = GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>();
+		infoUser infoBlue = GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>();
 		
 		float scal = this.transform.localScale.x ;
 			
@@ -207,10 +209,14 @@ public class PlanetScript : MonoBehaviour {
 		((rotationShip)instance.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
 	
 		if(ship.tag == "blue"){
+			
+			((rotationShip)instance.GetComponent<rotationShip>()).life = infoBlue.lifeShip;
 			shipsB.Add(instance);
 		}else if(ship.tag == "red"){
+			((rotationShip)instance.GetComponent<rotationShip>()).life = infoRed.lifeShip;
 			shipsR.Add(instance);
 		}else{
+			((rotationShip)instance.GetComponent<rotationShip>()).life = 3;
 			shipsN.Add(instance);
 		}
 		
@@ -223,62 +229,63 @@ public class PlanetScript : MonoBehaviour {
 		infoUser infoUserR =(infoUser) GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>();
 		
 		if(shipsB.Count>0 && shipsR.Count>0){
-			GameObject sb = shipsB[0];
-			GameObject sr = shipsR[0];
-			int lifeB = infoUserB.lifeShip;
-			int lifeR = infoUserR.lifeShip;
+			int iB = Random.Range(0,shipsB.Count-1);
+			int iR = Random.Range(0,shipsR.Count-1);
+			GameObject sb = shipsB[iB];
+			GameObject sr = shipsR[iR];
 			
-			lifeB -= Random.Range(infoUserR.powerMin,infoUserR.powerMax); 
-			lifeR -= Random.Range(infoUserB.powerMin,infoUserB.powerMax); 
-			
-			if(lifeB<=0){
-				shipsB.RemoveAt(0);
+			Debug.Log(((rotationShip)sb.GetComponent<rotationShip>()).life);
+			Debug.Log(((rotationShip)sr.GetComponent<rotationShip>()).life);
+			((rotationShip)sb.GetComponent<rotationShip>()).life -= Random.Range(infoUserR.powerMin,infoUserR.powerMax);
+			Debug.Log(((rotationShip)sb.GetComponent<rotationShip>()).life);
+			((rotationShip)sr.GetComponent<rotationShip>()).life -= Random.Range(infoUserB.powerMin,infoUserB.powerMax); 
+			Debug.Log(((rotationShip)sr.GetComponent<rotationShip>()).life);
+			if(((rotationShip)sb.GetComponent<rotationShip>()).life<=0){
+				shipsB.RemoveAt(iB);
 				Destroy(sb);	
 			}
-			if(lifeR<=0){
-				shipsR.RemoveAt(0);
+			if(((rotationShip)sr.GetComponent<rotationShip>()).life<=0){
+				shipsR.RemoveAt(iR);
 				Destroy(sr);
 			}
 		}else if(shipsB.Count <= 0){
-			GameObject sn = shipsN[0];
-			GameObject sr = shipsR[0];
-			int lifeN = 2;
-			int lifeR = infoUserR.lifeShip;
+			int iN = Random.Range(0,shipsN.Count-1);
+			int iR = Random.Range(0,shipsR.Count-1);
+			GameObject sn = shipsN[iN];
+			GameObject sr = shipsR[iR];
 			
-			lifeN -= Random.Range(infoUserR.powerMin,infoUserR.powerMax); 
-			lifeR -= Random.Range(1,3); 
 			
-			if(lifeN<=0){
-				shipsN.RemoveAt(0);
+			((rotationShip)sn.GetComponent<rotationShip>()).life -= Random.Range(infoUserR.powerMin,infoUserR.powerMax); 
+			((rotationShip)sr.GetComponent<rotationShip>()).life -= Random.Range(2,7); 
+			
+			if(((rotationShip)sn.GetComponent<rotationShip>()).life<=0){
+				shipsN.RemoveAt(iN);
 				Destroy(sn);	
 			}
-			if(lifeR<=0){
-				shipsR.RemoveAt(0);
+			if(((rotationShip)sr.GetComponent<rotationShip>()).life<=0){
+				shipsR.RemoveAt(iR);
 				Destroy(sr);
 			}
 			
 		}else if(shipsR.Count <= 0){
-			GameObject sb = shipsB[0];
-			GameObject sn = shipsN[0];
-			int lifeB = infoUserB.lifeShip;
-			int lifeN = 2;
+			int iN = Random.Range(0,shipsN.Count-1);
+			int iB = Random.Range(0,shipsB.Count-1);
+			GameObject sb = shipsB[iB];
+			GameObject sn = shipsN[iN];
 			
-			lifeB -= Random.Range(1,3); 
-			lifeN -= Random.Range(infoUserB.powerMin,infoUserB.powerMax); 
 			
-			if(lifeB<=0){
-				shipsB.RemoveAt(0);
+			((rotationShip)sb.GetComponent<rotationShip>()).life -= Random.Range(2,7); 
+			((rotationShip)sn.GetComponent<rotationShip>()).life -= Random.Range(infoUserB.powerMin,infoUserB.powerMax); 
+			
+			if(((rotationShip)sb.GetComponent<rotationShip>()).life<=0){
+				shipsB.RemoveAt(iB);
 				Destroy(sb);	
 			}
-			if(lifeN<=0){
-				shipsN.RemoveAt(0);
+			if(((rotationShip)sn.GetComponent<rotationShip>()).life<=0){
+				shipsN.RemoveAt(iN);
 				Destroy(sn);
 			}
-			
-		}else if(shipsN.Count <=0){
-		
-			
-		}	
+		}
 	
 	}
 	
