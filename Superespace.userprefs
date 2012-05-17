@@ -2,12 +2,16 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\GUIPlayers.cs">
     <Files>
+<<<<<<< HEAD
       <File FileName="Assets\Script\GUIPlayers.cs" Line="173" Column="48" />
+=======
+      <File FileName="Assets\Script\GUIPlayers.cs" Line="301" Column="42" />
+>>>>>>> 91afa70f9b88064de5c3fc954b68c697de3d85ed
       <File FileName="Assets\Script\PlanetScriptMenu.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\infoUser.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\GUIMoney.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\GestionLink.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\moveShip.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\moveShip.cs" Line="42" Column="1" />
       <File FileName="Assets\Script\PlanetScript.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>

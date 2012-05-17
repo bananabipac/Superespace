@@ -170,7 +170,7 @@ public class GUIPlayers : MonoBehaviour {
 											user.GetComponent<MoneyScript>().moneyPlayer1-= crashPrice;
 										}
 									}
-									crash1.transform.position = posCrash1;
+									
 								}
 								if(bonus.name == "sabotage1") {
 									if(user.GetComponent<MoneyScript>().moneyPlayer1 >= sabotagePrice) {
@@ -195,7 +195,7 @@ public class GUIPlayers : MonoBehaviour {
 										}
 										user.GetComponent<MoneyScript>().moneyPlayer1-= sabotagePrice;
 									}
-									sabotage1.transform.position = posSabotage1;
+									
 								}
 								if(bonus.name == "nuke1") {
 									if(user.GetComponent<MoneyScript>().moneyPlayer1 >= nukePrice) {
@@ -223,7 +223,7 @@ public class GUIPlayers : MonoBehaviour {
 										}
 										user.GetComponent<MoneyScript>().moneyPlayer1-= nukePrice;
 									}
-									nuke1.transform.position = posNuke1;
+									
 								}
 							}
 							if(bonus.tag == "GUIPlayer2"){
@@ -236,7 +236,7 @@ public class GUIPlayers : MonoBehaviour {
 										}
 										user.GetComponent<MoneyScript>().moneyPlayer2-= crashPrice;
 									}
-									crash2.transform.position = posCrash2;
+									
 								}
 								if(bonus.name == "sabotage2") {
 									if(user.GetComponent<MoneyScript>().moneyPlayer2 >= sabotagePrice) {
@@ -260,7 +260,7 @@ public class GUIPlayers : MonoBehaviour {
 										}
 										user.GetComponent<MoneyScript>().moneyPlayer2-= sabotagePrice;
 									}
-									sabotage2.transform.position = posSabotage2;
+									
 								}
 								if(bonus.name == "nuke2") {
 									if(user.GetComponent<MoneyScript>().moneyPlayer2 >= nukePrice) {
@@ -288,11 +288,17 @@ public class GUIPlayers : MonoBehaviour {
 										}
 										user.GetComponent<MoneyScript>().moneyPlayer2-= nukePrice;
 									}
-									nuke2.transform.position = posNuke2;
+									
 								}
 							}
 						}
-					}	
+					}
+					crash1.transform.position = posCrash1;
+					sabotage1.transform.position = posSabotage1;
+					nuke1.transform.position = posNuke1;
+					crash2.transform.position = posCrash2;
+					sabotage2.transform.position = posSabotage2;
+					nuke2.transform.position = posNuke2;
 				}
 				if(listBonusesTouched[fingerId] != null) {
 					listBonusesTouched.Remove(fingerId);
