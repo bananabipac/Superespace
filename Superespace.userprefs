@@ -1,18 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\GUIPlayers.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\LineScript.cs">
     <Files>
-<<<<<<< HEAD
-      <File FileName="Assets\Script\GUIPlayers.cs" Line="173" Column="48" />
-=======
-      <File FileName="Assets\Script\GUIPlayers.cs" Line="301" Column="42" />
->>>>>>> 91afa70f9b88064de5c3fc954b68c697de3d85ed
-      <File FileName="Assets\Script\PlanetScriptMenu.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\infoUser.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\GUIMoney.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\GestionLink.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\moveShip.cs" Line="42" Column="1" />
-      <File FileName="Assets\Script\PlanetScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\GUIPlayers.cs" Line="331" Column="48" />
+      <File FileName="Assets\Script\LineScript.cs" Line="76" Column="7" />
+      <File FileName="Assets\Script\moveShip.cs" Line="189" Column="114" />
+      <File FileName="Assets\Script\GestionLink.cs" Line="59" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
