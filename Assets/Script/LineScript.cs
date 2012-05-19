@@ -64,17 +64,18 @@ public class LineScript : MonoBehaviour {
 								player2.SetPosition(1,hit.collider.transform.position);	
 							}
 						}
-					} else {
-						Vector3 temp = new Vector3(0f,player1.transform.position.y,0f);
-						Vector3 touched = Camera.main.ScreenToWorldPoint(touch.position);
-						touched.y = temp.y;
-						if(listLines[fingerId].tag == "infoUserRed") {
-							player1.SetPosition(1,touched);
+						else {
+							Vector3 temp = new Vector3(0f,player1.transform.position.y,0f);
+							Vector3 touched = Camera.main.ScreenToWorldPoint(touch.position);
+							touched.y = temp.y;
+							if(listLines[fingerId].tag == "infoUserRed") {
+								player1.SetPosition(1,touched);
+							}
+							if(listLines[fingerId].tag == "infoUserBlue") {
+								player2.SetPosition(1,touched);
+							}
 						}
-						if(listLines[fingerId].tag == "infoUserBlue") {
-							player2.SetPosition(1,touched);
-						}
-					}
+					} 
 				}else {
 					Vector3 temp = new Vector3(0f,player1.transform.position.y,0f);
 					Vector3 touched = Camera.main.ScreenToWorldPoint(touch.position);
