@@ -77,7 +77,7 @@ public class moveShip : MonoBehaviour {
 		}
 		
 		
-		/*if(Input.GetKeyUp(KeyCode.Space)){
+		if(Input.GetKeyUp(KeyCode.Space)){
 			if(shipSelect.ContainsKey(0)){
 				shipSelect.Remove(0);
 			}
@@ -85,7 +85,7 @@ public class moveShip : MonoBehaviour {
 				listPlanetStart.Remove(0);
 			}
 			deplacement(planetStart,planetEnd, 5);	
-		}*/
+		}
 		
 		
 		/////END DEBUG!!!!!!!!///
@@ -184,8 +184,8 @@ public class moveShip : MonoBehaviour {
 								dE = listPlanetEnd[fingerId].name;
 								dS = listPlanetStart[fingerId].name;
 							}
-							//Debug.Log(listPlanetStart[fingerId].name);
-							//Debug.Log(listPlanetEnd[fingerId].name);
+							Debug.Log(listPlanetStart[fingerId].name);
+							Debug.Log(listPlanetEnd[fingerId].name);
 							if(((GestionLink)GetComponent<GestionLink>()).roadExist(listPlanetStart[fingerId],listPlanetEnd[fingerId])) {
 								if(!((GestionLink)GetComponent<GestionLink>()).roadOpen(listPlanetStart[fingerId],listPlanetEnd[fingerId])) {
 									for(int i = 0; i < l.Length; i++) {
