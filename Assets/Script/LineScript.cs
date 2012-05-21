@@ -54,14 +54,18 @@ public class LineScript : MonoBehaviour {
 				}
 			}
 			if(touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) {
+				player1.SetColors(new Color(1,1,1,1), new Color(1,1,1,1));
+				player2.SetColors(new Color(1,1,1,1), new Color(1,1,1,1));
 				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
 					if (hit.collider.tag == "planet") {
 						if(GetComponent<GestionLink>().roadExist(listPlanetStart[fingerId],hit.collider.gameObject)) {
 							if(listLines[fingerId].tag == "infoUserRed") {
 								player1.SetPosition(1,hit.collider.transform.position);	
+								player1.SetColors(new Color(0,1,0,1), new Color(0,1,0,1));
 							}
 							if(listLines[fingerId].tag == "infoUserBlue"){
-								player2.SetPosition(1,hit.collider.transform.position);	
+								player2.SetPosition(1,hit.collider.transform.position);
+								player2.SetColors(new Color(0,1,0,1), new Color(0,1,0,1));
 							}
 						}
 						else {
@@ -70,9 +74,11 @@ public class LineScript : MonoBehaviour {
 							touched.y = temp.y;
 							if(listLines[fingerId].tag == "infoUserRed") {
 								player1.SetPosition(1,touched);
+								player1.SetColors(new Color(1,0,0,1), new Color(1,0,0,1));
 							}
 							if(listLines[fingerId].tag == "infoUserBlue") {
 								player2.SetPosition(1,touched);
+								player2.SetColors(new Color(1,0,0,1), new Color(1,0,0,1));
 							}
 						}
 					} else {
@@ -100,10 +106,12 @@ public class LineScript : MonoBehaviour {
 				}
 			}
 			if(touch.phase == TouchPhase.Ended) {
-				listLines[fingerId].SetPosition(0,new Vector3(0f,0f,0f));
-				listLines[fingerId].SetPosition(1,new Vector3(0f,0f,0f));
-				listLines.Remove(fingerId);	
-				listPlanetStart.Remove (fingerId);
+				if(listLines.ContainsKey(fingerId)){
+					listLines[fingerId].SetPosition(0,new Vector3(0f,0f,0f));
+					listLines[fingerId].SetPosition(1,new Vector3(0f,0f,0f));
+					listLines.Remove(fingerId);	
+					listPlanetStart.Remove (fingerId);
+				}
 			}
 		}
 	}

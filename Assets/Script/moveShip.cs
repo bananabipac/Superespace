@@ -21,6 +21,7 @@ public class moveShip : MonoBehaviour {
 	public  Dictionary<int,GameObject> listPlanetStart = new Dictionary<int,GameObject>();
 	private Dictionary<int,GameObject> listPlanetEnd = new Dictionary<int,GameObject>();
 	public Dictionary<int,GameObject> shipSelect = new Dictionary<int,GameObject>();
+	public Dictionary<int,float> selectCount = new Dictionary<int,float>();
 	
 	private Hashtable link;
 	private string dS;
@@ -36,7 +37,7 @@ public class moveShip : MonoBehaviour {
 		l = GameObject.FindGameObjectsWithTag("link");
 		user = GameObject.FindWithTag("User");
 		
-		selectSpeed = 0.4f;
+		selectSpeed = 0.2f;
 		selectTmp = 0;
 		
 		style.font = skin.font;
@@ -52,32 +53,44 @@ public class moveShip : MonoBehaviour {
 			}else{
 				
 				listPlanetStart.Add(0,planetStart);	
-				GameObject SelectShip =  Resources.Load("TextSelect")as GameObject;
-				Vector3 vec =  planetStart.transform.position;
-				vec.y = -20.22636f;
-				
-				GameObject instance = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
-				((TextMesh)instance.GetComponent<TextMesh>()).text = ""+1;
-				
 				if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="red"){
+					GameObject SelectShip =  Resources.Load("TextSelectRed")as GameObject;
+					Vector3 vec =  planetStart.transform.position;
+				
+					vec.y = -20.22636f;
+				
+					GameObject instance = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
+					((TextMesh)instance.GetComponent<TextMesh>()).text = ""+1;
+					
 					instance.transform.RotateAround(Vector3.up, 1.6f);
 					Vector3 vt = instance.transform.position;
 					vt.x +=5;
 					instance.transform.position = vt;
+					
+					shipSelect.Add(0,instance);
+					
+					
 				}else if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="blue"){
+					GameObject SelectShip =  Resources.Load("TextSelectBlue")as GameObject;
+					Vector3 vec =  planetStart.transform.position;
+				
+					vec.y = -20.22636f;
+				
+					GameObject instance = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
+					((TextMesh)instance.GetComponent<TextMesh>()).text = ""+1;
 					instance.transform.RotateAround(Vector3.up, -1.6f);
 					Vector3 vt = instance.transform.position;
 					vt.x -=5;
 					instance.transform.position = vt;
+					
+					shipSelect.Add(0,instance);
 				}
-				
-				shipSelect.Add(0,instance);
 			}
 	
 		}
 		
 		
-		/*if(Input.GetKeyUp(KeyCode.Space)){
+		if(Input.GetKeyUp(KeyCode.Space)){
 			if(shipSelect.ContainsKey(0)){
 				shipSelect.Remove(0);
 			}
@@ -85,7 +98,7 @@ public class moveShip : MonoBehaviour {
 				listPlanetStart.Remove(0);
 			}
 			deplacement(planetStart,planetEnd, 5);	
-		}*/
+		}
 		
 		
 		/////END DEBUG!!!!!!!!///
@@ -109,31 +122,46 @@ public class moveShip : MonoBehaviour {
 			if(touch.phase == TouchPhase.Began) {
 				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
 					if (hit.collider.tag == "planet") {
-						Debug.Log ("Planete de départ");
+						Debug.Log ("Planete de départ" + fingerId);
 						planetStart = hit.collider.gameObject;
-						listPlanetStart.Add(0,planetStart);	
+						listPlanetStart.Add(fingerId,planetStart);	
 						if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="red" ||((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="blue" ){
-							GameObject SelectShip =  Resources.Load("TextSelect")as GameObject;
-							Vector3 vec =  planetStart.transform.position;
-							
-							vec.y = -20.22636f;
-							
-							GameObject instance = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
-							((TextMesh)instance.GetComponent<TextMesh>()).text = ""+1;
 							
 							if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="red"){
+								GameObject SelectShip =  Resources.Load("TextSelectRed")as GameObject;
+								Vector3 vec =  planetStart.transform.position;
+							
+								vec.y = -20.22636f;
+							
+								GameObject instance = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
+								((TextMesh)instance.GetComponent<TextMesh>()).text = ""+1;
+								
 								instance.transform.RotateAround(Vector3.up, 1.6f);
 								Vector3 vt = instance.transform.position;
 								vt.x +=5;
 								instance.transform.position = vt;
+								
+								shipSelect.Add(fingerId,instance);
+								selectCount.Add(fingerId,0);
+								
 							}else if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="blue"){
+								GameObject SelectShip =  Resources.Load("TextSelectBlue")as GameObject;
+								Vector3 vec =  planetStart.transform.position;
+							
+								vec.y = -20.22636f;
+							
+								GameObject instance = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
+								((TextMesh)instance.GetComponent<TextMesh>()).text = ""+1;
 								instance.transform.RotateAround(Vector3.up, -1.6f);
 								Vector3 vt = instance.transform.position;
 								vt.x -=5;
 								instance.transform.position = vt;
+								
+								shipSelect.Add(fingerId,instance);
+								selectCount.Add(fingerId,0);
 							}
 							
-							shipSelect.Add(0,instance);
+							
 						}
 					}
 				}
@@ -141,12 +169,13 @@ public class moveShip : MonoBehaviour {
 			//pour la selection du nombre de vaisseau
 			if(touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved){
 				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
-					if (hit.collider.tag == "planet") {
-						PlanetScript scriptTemp = hit.collider.gameObject.GetComponent<PlanetScript>();
+					//Debug.Log ("idSelect : "+fingerId);
+					if (hit.collider.tag == "planet" && hit.collider.name == listPlanetStart[fingerId].name ) {
+						PlanetScript scriptTemp = listPlanetStart[fingerId].GetComponent<PlanetScript>();
 						if(scriptTemp.ship.tag == "red" || scriptTemp.ship.tag == "blue"){
-							selectTmp += 1*Time.deltaTime;
-							if(selectTmp >= selectSpeed){
-								selectTmp = 0;
+							selectCount[fingerId] += 1*Time.deltaTime;
+							if(selectCount[fingerId] >= selectSpeed){
+								selectCount[fingerId] = 0;
 								//Debug.Log ("selection ship : "+shipSelect[fingerId]);
 								TextMesh mesh = shipSelect[fingerId].GetComponent<TextMesh>();
 								if(scriptTemp.ship.tag == "red"){
@@ -170,7 +199,7 @@ public class moveShip : MonoBehaviour {
 			//Pour connaitre la planète de d'arrivée, le gameobject est représenté par la variable collider.
 			if(touch.phase == TouchPhase.Ended) {
 				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
-					if (hit.collider.tag == "planet") {
+					if (hit.collider.tag == "planet" && hit.collider.name != listPlanetStart[fingerId].name ) {
 						//Debug.Log ("Planete d'arrivée");
 						planetEnd = hit.collider.gameObject;
 						if(planetStart != planetEnd) {
@@ -225,6 +254,8 @@ public class moveShip : MonoBehaviour {
 									}
 								}
 							}
+							//Debug.Log(dS);
+							//Debug.Log(dE);
 							if(((Hashtable)link[dS])[dE] != null){//si il existe une route entre les 2 planetes
 								if((string)((Hashtable)link[dS])[dE] == "1"){//si la route est ouverte
 									//Debug.Log("other fights");
@@ -240,6 +271,7 @@ public class moveShip : MonoBehaviour {
 							
 							listPlanetStart.Remove(fingerId);
 							listPlanetEnd.Remove(fingerId);
+							selectCount.Remove(fingerId);
 							GameObject tmp = shipSelect[fingerId];
 							shipSelect.Remove(fingerId);
 							Destroy(tmp);
@@ -253,7 +285,9 @@ public class moveShip : MonoBehaviour {
 					GameObject tmp = shipSelect[fingerId];
 					shipSelect.Remove(fingerId);
 					Destroy(tmp);
-
+				}
+				if(selectCount.ContainsKey(fingerId)){
+					selectCount.Remove(fingerId);
 				}
 				if(listPlanetStart.ContainsKey(fingerId)){
 					listPlanetStart.Remove(fingerId);
