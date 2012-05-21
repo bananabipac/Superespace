@@ -152,7 +152,10 @@ public class GUIPlayers : MonoBehaviour {
 						}
 					}
 				}
-				GameObject bonus = listBonusesTouched[fingerId];
+				GameObject bonus = new GameObject();
+				if(listBonusesTouched.ContainsKey(fingerId)) {
+					bonus = listBonusesTouched[fingerId];
+				}
 				RaycastHit[] hits;
 				hits = Physics.RaycastAll(cursorRay,1000f);
 				for(int i =0; i< hits.Length; i++) {
@@ -164,10 +167,10 @@ public class GUIPlayers : MonoBehaviour {
 								if(bonus.name == "crash1") {
 									if(user.GetComponent<MoneyScript>().moneyPlayer1 >= crashPrice) {
 										if(objet.GetComponent<PlanetScript>().ship.tag != "red") {
-											if(objet.GetComponent<PlanetScript>().repop >= crash) {
-													objet.GetComponent<PlanetScript>().repop -= crash;
+											if(objet.GetComponent<PlanetScript>().repop >= crash && objet.GetComponent<PlanetScript>().ship.tag != "neutre") {
+												objet.GetComponent<PlanetScript>().repop -= crash;
+												user.GetComponent<MoneyScript>().moneyPlayer1-= crashPrice;
 											}
-											user.GetComponent<MoneyScript>().moneyPlayer1-= crashPrice;
 										}
 									}
 									
@@ -181,7 +184,9 @@ public class GUIPlayers : MonoBehaviour {
 													GameObject temp = objet.GetComponent<PlanetScript>().shipsN[0];
 													objet.GetComponent<PlanetScript>().shipsN.RemoveAt(0);
 													Destroy (temp);
+													
 												}
+												user.GetComponent<MoneyScript>().moneyPlayer1-= sabotagePrice;
 											}
 											if(objet.GetComponent<PlanetScript>().ship.tag == "blue"){
 												int deleteShip = (int)Mathf.Floor(objet.GetComponent<PlanetScript>().shipsB.Count*sabotage/100);
@@ -189,11 +194,13 @@ public class GUIPlayers : MonoBehaviour {
 													GameObject temp = objet.GetComponent<PlanetScript>().shipsB[0];
 													objet.GetComponent<PlanetScript>().shipsB.RemoveAt(0);
 													Destroy (temp);
+													
 												}
+												user.GetComponent<MoneyScript>().moneyPlayer1-= sabotagePrice;
 											}
 											
 										}
-										user.GetComponent<MoneyScript>().moneyPlayer1-= sabotagePrice;
+										
 									}
 									
 								}
@@ -207,6 +214,7 @@ public class GUIPlayers : MonoBehaviour {
 													objet.GetComponent<PlanetScript>().shipsN.RemoveAt(0);
 													Destroy (temp);
 												}
+												user.GetComponent<MoneyScript>().moneyPlayer1-= nukePrice;
 											}
 											if(objet.GetComponent<PlanetScript>().ship.tag == "blue"){
 												int deleteShip = objet.GetComponent<PlanetScript>().shipsB.Count;
@@ -218,10 +226,11 @@ public class GUIPlayers : MonoBehaviour {
 												if(objet.GetComponent<PlanetScript>().repop >= 5) {
 													objet.GetComponent<PlanetScript>().repop -= apocalypse;
 												}
+												user.GetComponent<MoneyScript>().moneyPlayer1-= nukePrice;
 											}
 											
 										}
-										user.GetComponent<MoneyScript>().moneyPlayer1-= nukePrice;
+										
 									}
 									
 								}
@@ -230,11 +239,12 @@ public class GUIPlayers : MonoBehaviour {
 								if(bonus.name == "crash2") {
 									if(user.GetComponent<MoneyScript>().moneyPlayer2 >= crashPrice) {
 										if(objet.GetComponent<PlanetScript>().ship.tag != "blue") {
-											if(objet.GetComponent<PlanetScript>().repop >= crash) {
-													objet.GetComponent<PlanetScript>().repop -= crash;
+											if(objet.GetComponent<PlanetScript>().repop >= crash && objet.GetComponent<PlanetScript>().ship.tag != "neutre") {
+												objet.GetComponent<PlanetScript>().repop -= crash;
+												user.GetComponent<MoneyScript>().moneyPlayer2-= crashPrice;
 											}
 										}
-										user.GetComponent<MoneyScript>().moneyPlayer2-= crashPrice;
+										
 									}
 									
 								}
@@ -248,6 +258,7 @@ public class GUIPlayers : MonoBehaviour {
 													objet.GetComponent<PlanetScript>().shipsN.RemoveAt(0);
 													Destroy (temp);
 												}
+												user.GetComponent<MoneyScript>().moneyPlayer2-= sabotagePrice;
 											}
 											if(objet.GetComponent<PlanetScript>().ship.tag == "red"){
 												int deleteShip = (int)Mathf.Floor(objet.GetComponent<PlanetScript>().shipsR.Count*sabotage/100);
@@ -256,9 +267,10 @@ public class GUIPlayers : MonoBehaviour {
 													objet.GetComponent<PlanetScript>().shipsR.RemoveAt(0);
 													Destroy (temp);
 												}
+												user.GetComponent<MoneyScript>().moneyPlayer2-= sabotagePrice;
 											}
 										}
-										user.GetComponent<MoneyScript>().moneyPlayer2-= sabotagePrice;
+										
 									}
 									
 								}
@@ -272,6 +284,7 @@ public class GUIPlayers : MonoBehaviour {
 													objet.GetComponent<PlanetScript>().shipsN.RemoveAt(0);
 													Destroy (temp);
 												}
+												user.GetComponent<MoneyScript>().moneyPlayer2-= nukePrice;
 											}
 											if(objet.GetComponent<PlanetScript>().ship.tag == "red"){
 												int deleteShip = objet.GetComponent<PlanetScript>().shipsR.Count;
@@ -283,10 +296,11 @@ public class GUIPlayers : MonoBehaviour {
 												if(objet.GetComponent<PlanetScript>().repop >= 5) {
 													objet.GetComponent<PlanetScript>().repop -= apocalypse;
 												}
+												user.GetComponent<MoneyScript>().moneyPlayer2-= nukePrice;
 											}
 											
 										}
-										user.GetComponent<MoneyScript>().moneyPlayer2-= nukePrice;
+										
 									}
 									
 								}
@@ -300,7 +314,7 @@ public class GUIPlayers : MonoBehaviour {
 					sabotage2.transform.position = posSabotage2;
 					nuke2.transform.position = posNuke2;
 				}
-				if(listBonusesTouched[fingerId] != null) {
+				if(listBonusesTouched.ContainsKey(fingerId)) {
 					listBonusesTouched.Remove(fingerId);
 				}
 			}
@@ -314,7 +328,7 @@ public class GUIPlayers : MonoBehaviour {
 			}
 			if(touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) {
 			
-				if(listBonusesTouched[fingerId] != null) {
+				if(listBonusesTouched.ContainsKey(fingerId)) {
 					GameObject bonus = listBonusesTouched[fingerId];
 					Vector3 positionTemp = bonus.transform.position;
 					Vector3 newPosition = Camera.main.ScreenToWorldPoint(touch.position);
