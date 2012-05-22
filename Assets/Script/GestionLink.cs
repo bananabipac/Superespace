@@ -106,4 +106,29 @@ public class GestionLink : MonoBehaviour {
 		
 	}
 	
+	public void openRoad(GameObject planetS, GameObject planetE){
+		string ps,pe;
+		if(int.Parse(planetS.name) > int.Parse(planetE.name)){
+			ps = planetE.name;
+			pe = planetS.name;
+		}else{
+			pe = planetE.name;
+			ps = planetS.name;
+		}
+		
+		try{
+			if(((Hashtable)link[ps])[pe] != null){
+				if((string)((Hashtable)link[ps])[pe]  == "0"){
+					((Hashtable)link[ps])[pe] = "1";
+					for(int i = 0; i<l.Length; i++){
+						if(l[i].name == ""+ps+""+pe){
+							l[i].active=true;
+						}
+					}
+				}
+			}
+		}catch{
+				
+		}
+	}
 }

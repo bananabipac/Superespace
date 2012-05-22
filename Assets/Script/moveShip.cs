@@ -8,11 +8,11 @@ public class moveShip : MonoBehaviour {
 	public GameObject planetEnd;
 	public List<GameObject> ships;
 	public int lvl;
-	private GameObject[] l;
+
 	private GameObject user;
 	
 	private float selectSpeed ;
-	private float selectTmp;
+
 	
 	private bool warnedAboutMaxTouches = false;
 	private Vector2[] touchPos;
@@ -23,19 +23,14 @@ public class moveShip : MonoBehaviour {
 	private Dictionary<int,GameObject> shipSelect = new Dictionary<int,GameObject>();
 	private Dictionary<int,float> selectCount = new Dictionary<int,float>();
 	
-	private Hashtable link;
-	private string dS;
-	private string dE;
-	
-
 	// Use this for initialization
 	void Start () {
-		link = ((GestionLink)GetComponent<GestionLink>()).link;	
-		l = GameObject.FindGameObjectsWithTag("link");
+		
+		
 		user = GameObject.FindWithTag("User");
 		
 		selectSpeed = 0.2f;
-		selectTmp = 0;
+	
 		
 
 	}
@@ -124,14 +119,14 @@ public class moveShip : MonoBehaviour {
 						listPlanetStart.Add(fingerId,planetStart);	
 						if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="red" ||((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="blue" ){
 							
-							if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="red"){
+							if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="red" && ((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsR.Count>0){
 								GameObject SelectShip =  Resources.Load("TextSelectRed")as GameObject;
 								Vector3 vec =  planetStart.transform.position;
 							
 								vec.y = -20.22636f;
 							
 								GameObject instance = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
-								((TextMesh)instance.GetComponent<TextMesh>()).text = ""+1;
+								((TextMesh)instance.GetComponent<TextMesh>()).text = ""+0;
 								
 								instance.transform.RotateAround(Vector3.up, 1.6f);
 								Vector3 vt = instance.transform.position;
@@ -141,7 +136,7 @@ public class moveShip : MonoBehaviour {
 								shipSelect.Add(fingerId,instance);
 								selectCount.Add(fingerId,0);
 								
-							}else if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="blue"){
+							}else if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="blue" && ((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsB.Count>0){
 								GameObject SelectShip =  Resources.Load("TextSelectBlue")as GameObject;
 								Vector3 vec =  planetStart.transform.position;
 							
@@ -165,27 +160,29 @@ public class moveShip : MonoBehaviour {
 			}
 			//pour la selection du nombre de vaisseau
 			if(touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved){
-				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
-					//Debug.Log ("idSelect : "+fingerId);
-					if (hit.collider.tag == "planet" && hit.collider.name == listPlanetStart[fingerId].name ) {
-						PlanetScript scriptTemp = listPlanetStart[fingerId].GetComponent<PlanetScript>();
-						if(scriptTemp.ship.tag == "red" || scriptTemp.ship.tag == "blue"){
-							selectCount[fingerId] += 1*Time.deltaTime;
-							if(selectCount[fingerId] >= selectSpeed){
-								selectCount[fingerId] = 0;
-								//Debug.Log ("selection ship : "+shipSelect[fingerId]);
-								TextMesh mesh = shipSelect[fingerId].GetComponent<TextMesh>();
-								if(scriptTemp.ship.tag == "red"){
-									if(int.Parse(mesh.text) +1 > scriptTemp.shipsR.Count){
-										mesh.text = ""+(scriptTemp.shipsR.Count);
-									}else{
-										mesh.text = ""+(int.Parse(mesh.text)+ 1);
-									}
-								}else if (scriptTemp.ship.tag == "blue"){
-									if(int.Parse(mesh.text) +1 > scriptTemp.shipsB.Count){
-										mesh.text = ""+(scriptTemp.shipsB.Count);
-									}else{
-										mesh.text = ""+(int.Parse(mesh.text)+ 1);
+				if(listPlanetStart.ContainsKey(fingerId)){
+					if(Physics.Raycast(cursorRay, out hit, 1000.0f)){
+						//Debug.Log ("idSelect : "+fingerId);
+						if (hit.collider.tag == "planet" && hit.collider.name == listPlanetStart[fingerId].name ) {
+							PlanetScript scriptTemp = listPlanetStart[fingerId].GetComponent<PlanetScript>();
+							if(scriptTemp.ship.tag == "red" || scriptTemp.ship.tag == "blue"){
+								selectCount[fingerId] += 1*Time.deltaTime;
+								if(selectCount[fingerId] >= selectSpeed){
+									selectCount[fingerId] = 0;
+									//Debug.Log ("selection ship : "+shipSelect[fingerId]);
+									TextMesh mesh = shipSelect[fingerId].GetComponent<TextMesh>();
+									if(scriptTemp.ship.tag == "red"){
+										if(int.Parse(mesh.text) +1 > scriptTemp.shipsR.Count){
+											mesh.text = ""+(scriptTemp.shipsR.Count);
+										}else{
+											mesh.text = ""+(int.Parse(mesh.text)+ 1);
+										}
+									}else if (scriptTemp.ship.tag == "blue"){
+										if(int.Parse(mesh.text) +1 > scriptTemp.shipsB.Count){
+											mesh.text = ""+(scriptTemp.shipsB.Count);
+										}else{
+											mesh.text = ""+(int.Parse(mesh.text)+ 1);
+										}
 									}
 								}
 							}
@@ -195,87 +192,81 @@ public class moveShip : MonoBehaviour {
 			}
 			//Pour connaitre la planète de d'arrivée, le gameobject est représenté par la variable collider.
 			if(touch.phase == TouchPhase.Ended) {
-				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
-					if (hit.collider.tag == "planet" && hit.collider.name != listPlanetStart[fingerId].name ) {
-						//Debug.Log ("Planete d'arrivée");
-						planetEnd = hit.collider.gameObject;
-						if(planetStart != planetEnd) {
+				if(listPlanetStart.ContainsKey(fingerId)){
+					if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
+						if (hit.collider.tag == "planet" && hit.collider.name != listPlanetStart[fingerId].name ) {
+							planetEnd = hit.collider.gameObject;
 							listPlanetEnd.Add(fingerId,planetEnd);
-							//verification que les planetes soit liées entre elles
-							link = ((GestionLink)GetComponent<GestionLink>()).link;
-							if(int.Parse(listPlanetStart[fingerId].name) > int.Parse(listPlanetEnd[fingerId].name)){
-								dS = listPlanetEnd[fingerId].name;
-								dE = listPlanetStart[fingerId].name;
-							}else{
-								dE = listPlanetEnd[fingerId].name;
-								dS = listPlanetStart[fingerId].name;
-							}
-							//Debug.Log(listPlanetStart[fingerId].name);
-							//Debug.Log(listPlanetEnd[fingerId].name);
-							if(((GestionLink)GetComponent<GestionLink>()).roadExist(listPlanetStart[fingerId],listPlanetEnd[fingerId])) {
-								if(!((GestionLink)GetComponent<GestionLink>()).roadOpen(listPlanetStart[fingerId],listPlanetEnd[fingerId])) {
-									for(int i = 0; i < l.Length; i++) {
-										if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship == null && ((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship == null ){
-											
-										}else{
-											if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red") {
-												if(user.GetComponent<MoneyScript>().moneyPlayer1 >= 50) {
-													if(l[i].name == ""+dS+dE){
-														l[i].active = true;
-														((Hashtable)link[dS])[dE] = "1";
-														user.GetComponent<MoneyScript>().moneyPlayer1 -= 50;
-														if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red") {
-															user.GetComponent<MoneyScript>().incomePlayer1 += 1;
-														} else if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue") {
-															user.GetComponent<MoneyScript>().incomePlayer2 += 1;
-														}
-													}
-												}
+							GameObject shipS =((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship; 
+							GameObject shipE =((PlanetScript)listPlanetEnd[fingerId].GetComponent<PlanetScript>()).ship; 
+							if(shipS.tag == "neutre" && shipE.tag != "neutre"){
+								if(((GestionLink)GetComponent<GestionLink>()).roadExist(listPlanetStart[fingerId],listPlanetEnd[fingerId])){
+									if(((GestionLink)GetComponent<GestionLink>()).roadOpen(listPlanetStart[fingerId],listPlanetEnd[fingerId])){
+										Debug.Log("route deja ouverte");
+									}else{
+										if(shipE.tag=="red"){
+											if(user.GetComponent<MoneyScript>().moneyPlayer1 >=50){
+												user.GetComponent<MoneyScript>().incomePlayer1 += 1;
+												user.GetComponent<MoneyScript>().moneyPlayer1 -= 50;
+												((GestionLink)GetComponent<GestionLink>()).openRoad(listPlanetStart[fingerId],listPlanetEnd[fingerId]);
+												Debug.Log("route ouverte rouge");	
+											}else{
+												Debug.Log("pas assez d'argent joueur rouge");	
 											}
-											if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue") {
-												if(user.GetComponent<MoneyScript>().moneyPlayer2 >= 50) {
-													if(l[i].name == ""+dS+dE){
-														l[i].active = true;
-														((Hashtable)link[dS])[dE] = "1";
-														user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
-														if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "red") {
-															user.GetComponent<MoneyScript>().incomePlayer1 += 1;
-														} else if(((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship.tag == "blue") {
-															user.GetComponent<MoneyScript>().incomePlayer2 += 1;
-														}
-													}
-												}
+										}else if(shipE.tag == "blue"){
+											if(user.GetComponent<MoneyScript>().moneyPlayer2 >=50){
+												user.GetComponent<MoneyScript>().incomePlayer2 += 1;
+												user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+												((GestionLink)GetComponent<GestionLink>()).openRoad(listPlanetStart[fingerId],listPlanetEnd[fingerId]);
+												Debug.Log("route ouverte bleu");	
+											}else{
+												Debug.Log("pas assez d'argent joueur bleu");	
 											}
 										}
-									
 									}
+								}else{
+									Debug.Log("route inexistante");	
 								}
-							}
-							//Debug.Log(dS);
-							//Debug.Log(dE);
-							if(((Hashtable)link[dS])[dE] != null){//si il existe une route entre les 2 planetes
-								if((string)((Hashtable)link[dS])[dE] == "1"){//si la route est ouverte
-									//Debug.Log("other fights");
-									TextMesh mesh = shipSelect[fingerId].GetComponent<TextMesh>();
-									deplacement(listPlanetStart[fingerId],listPlanetEnd[fingerId], int.Parse(mesh.text));	
-									
-								}else{//la route est fermé			
-									//Debug.Log("pas de route ouverte");
+							}else if(shipS.tag != "neutre"){
+								if(((GestionLink)GetComponent<GestionLink>()).roadExist(listPlanetStart[fingerId],listPlanetEnd[fingerId])){
+									if(((GestionLink)GetComponent<GestionLink>()).roadOpen(listPlanetStart[fingerId],listPlanetEnd[fingerId])){
+										Debug.Log("Deplacement");
+										TextMesh mesh = shipSelect[fingerId].GetComponent<TextMesh>();
+										deplacement(listPlanetStart[fingerId],listPlanetEnd[fingerId], int.Parse(mesh.text));	
+									}else{
+										if(shipS.tag=="red"){
+											if(user.GetComponent<MoneyScript>().moneyPlayer1 >=50){
+												user.GetComponent<MoneyScript>().incomePlayer1 += 1;
+												user.GetComponent<MoneyScript>().moneyPlayer1 -= 50;
+												((GestionLink)GetComponent<GestionLink>()).openRoad(listPlanetStart[fingerId],listPlanetEnd[fingerId]);
+												Debug.Log("route ouverte rouge");
+												Debug.Log("Deplacement");
+												TextMesh mesh = shipSelect[fingerId].GetComponent<TextMesh>();
+												deplacement(listPlanetStart[fingerId],listPlanetEnd[fingerId], int.Parse(mesh.text));
+											}else{
+												Debug.Log("pas assez d'argent joueur rouge");	
+											}
+										}else if(shipS.tag == "blue"){
+											if(user.GetComponent<MoneyScript>().moneyPlayer2 >=50){
+												user.GetComponent<MoneyScript>().incomePlayer2 += 1;
+												user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+												((GestionLink)GetComponent<GestionLink>()).openRoad(listPlanetStart[fingerId],listPlanetEnd[fingerId]);
+												Debug.Log("route ouverte bleu");
+												Debug.Log("Deplacement");
+												TextMesh mesh = shipSelect[fingerId].GetComponent<TextMesh>();
+												deplacement(listPlanetStart[fingerId],listPlanetEnd[fingerId], int.Parse(mesh.text));
+											}else{
+												Debug.Log("pas assez d'argent joueur bleu");	
+											}
+										}
+									}
+								}else{
+									Debug.Log("route inexistante");	
 								}
-							}else{//la route n'existe pas
-								//Debug.Log("route impossible");	
+								
 							}
-							
-							listPlanetStart.Remove(fingerId);
-							listPlanetEnd.Remove(fingerId);
-							selectCount.Remove(fingerId);
-							GameObject tmp = shipSelect[fingerId];
-							shipSelect.Remove(fingerId);
-							Destroy(tmp);
-
-
+								
 						}
-						
 					}
 				}
 				if(shipSelect.ContainsKey(fingerId)){
@@ -293,15 +284,6 @@ public class moveShip : MonoBehaviour {
 					listPlanetEnd.Remove(fingerId);	
 				}
 			}
-		}
-		
-		if(Input.touchCount == 0){
-			//Debug.Log("no touch");
-			listPlanetStart = new Dictionary<int,GameObject>();
-			listPlanetEnd = new Dictionary<int,GameObject>();
-			/*GameObject tmp = shipSelect[fingerId];
-			shipSelect.Remove(fingerId);
-			Destroy(tmp);*/
 		}
 		
 		if( verifEndGame()){

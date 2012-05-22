@@ -168,7 +168,7 @@ public class GUIPlayers : MonoBehaviour {
 									if(user.GetComponent<MoneyScript>().moneyPlayer1 >= crashPrice) {
 										if(objet.GetComponent<PlanetScript>().ship.tag != "red") {
 											if(objet.GetComponent<PlanetScript>().repop >= crash && objet.GetComponent<PlanetScript>().ship.tag != "neutre") {
-												objet.GetComponent<PlanetScript>().repop -= crash;
+												objet.GetComponent<PlanetScript>().repop += crash;
 												user.GetComponent<MoneyScript>().moneyPlayer1-= crashPrice;
 											}
 										}

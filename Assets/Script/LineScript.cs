@@ -34,7 +34,7 @@ public class LineScript : MonoBehaviour {
 			if(touch.phase == TouchPhase.Began) {
 				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
 					if (hit.collider.tag == "planet" && hit.collider.gameObject.GetComponent<PlanetScript>().ship.tag !="neutre" ) {
-						Debug.Log("dfsfgdsf");
+						
 						GameObject instance =(GameObject) Instantiate(Resources.Load("Line")as GameObject);
 						instance.transform.position = new Vector3(0,0,0);
 						LineRenderer linet = instance.GetComponent<LineRenderer>();

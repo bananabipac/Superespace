@@ -1,6 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\GUIPlayers.cs">
+    <Files>
+      <File FileName="Assets\Script\GestionLink.cs" Line="131" Column="3" />
+      <File FileName="Assets\Script\moveShip.cs" Line="139" Column="164" />
+      <File FileName="Assets\Script\LineScript.cs" Line="37" Column="7" />
+      <File FileName="Assets\Script\GUIPlayers.cs" Line="183" Column="38" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
