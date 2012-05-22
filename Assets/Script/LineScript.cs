@@ -81,8 +81,20 @@ public class LineScript : MonoBehaviour {
 								player2.SetColors(new Color(1,0,0,1), new Color(1,0,0,1));
 							}
 						}
-					} 
-				}else {
+					} else {
+							Vector3 temp = new Vector3(0f,player1.transform.position.y,0f);
+							Vector3 touched = Camera.main.ScreenToWorldPoint(touch.position);
+							touched.y = temp.y;
+							if(listLines[fingerId].tag == "infoUserRed") {
+								player1.SetPosition(1,touched);
+								player1.SetColors(new Color(1,0,0,1), new Color(1,0,0,1));
+							}
+							if(listLines[fingerId].tag == "infoUserBlue") {
+								player2.SetPosition(1,touched);
+								player2.SetColors(new Color(1,0,0,1), new Color(1,0,0,1));
+							}
+						}
+				} else {
 					Vector3 temp = new Vector3(0f,player1.transform.position.y,0f);
 					Vector3 touched = Camera.main.ScreenToWorldPoint(touch.position);
 					touched.y = temp.y;
