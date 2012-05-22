@@ -114,7 +114,7 @@ public class PlanetScript : MonoBehaviour {
 				CaptureTmp = 0;
 			}
 			
-		}else if (shipsB.Count>0){//vaisseau bleu present sur la planete
+		}else if (shipsB.Count>0 || ship.tag == "blue"){//vaisseau bleu present sur la planete
 			if(CaptureTime > -1*CaptureCount ){
 				CaptureTmp += 1*shipsB.Count;
 				if(CaptureTmp >=SpeedCapture){
@@ -148,7 +148,7 @@ public class PlanetScript : MonoBehaviour {
 				}
 				
 			}
-		}else if (shipsR.Count>0){//vaisseau rouge present sur la planete
+		}else if (shipsR.Count>0 || ship.tag == "red"){//vaisseau rouge present sur la planete
 			if(CaptureTime < CaptureCount){
 				CaptureTmp += 1*shipsR.Count;
 				if(CaptureTmp >=SpeedCapture){

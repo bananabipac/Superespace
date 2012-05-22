@@ -16,8 +16,7 @@ public class GUIPlanet : MonoBehaviour {
 		style.alignment = TextAnchor.UpperLeft;
 		x = 14f;
 		y = -8f;
-		//style.alignment = TextAnchor.MiddleCenter;
-		//style.alignment = TextAnchor.MiddleCenter;
+		
 	}
 	
 	
@@ -69,25 +68,54 @@ public class GUIPlanet : MonoBehaviour {
 	}
 	
 	void GUIplanet(int color, int position, int count){
-		
+		Matrix4x4 matrixBackup = GUI.matrix;
 		//on choisit la couleur utilisé
+		
 		if(color ==0){//blue
 			style.normal.textColor = new Color(0,0,0.7f,1);	
 		}else if(color == 1){ // red
 			style.normal.textColor = new Color(0.7f,0,0,1);
 		}else if(color == 2){//white
 			style.normal.textColor = new Color(0.9f,0.9f,0.9f,1);
+			
 		}
 		
 		
 		if(position == 0){//la planete n'est pas en combat
-			if(count <10){
-				GUI.Label (new Rect (vec.x-(x-6),Screen.height+y -vec.y,50, 35), ""+count, style);
-			}else if(count >=100){
-				GUI.Label (new Rect (vec.x-(x+6),Screen.height+y -vec.y,50, 35), ""+count, style);
-			}else{
-				GUI.Label (new Rect (vec.x-x,Screen.height+y -vec.y,50, 35), ""+count, style);
-			}	
+			if(color ==0){//blue
+				if(count <10){
+					GUIUtility.RotateAroundPivot(-90f,new Vector3((vec.x-x)+14, (Screen.height+y -vec.y)+8, 5));
+					GUI.Label (new Rect (vec.x-(x-6),Screen.height+y -vec.y,50, 35), ""+count, style);
+				}else if(count >=100){
+					GUIUtility.RotateAroundPivot(-90f,new Vector3((vec.x-x)+15, (Screen.height+y -vec.y)+7.5f, 5));
+					GUI.Label (new Rect (vec.x-(x+6),Screen.height+y -vec.y,50, 35), ""+count, style);
+				}else{
+					GUIUtility.RotateAroundPivot(-90f,new Vector3((vec.x-x)+14, (Screen.height+y -vec.y)+8, 5));
+					GUI.Label (new Rect (vec.x-x,Screen.height+y -vec.y,50, 35), ""+count, style);					
+				}
+			}else if(color == 1){
+				if(count <10){
+					GUIUtility.RotateAroundPivot(90f,new Vector3((vec.x-x)+14, (Screen.height+y -vec.y)+8, 5));
+					GUI.Label (new Rect (vec.x-(x-6),Screen.height+y -vec.y,50, 35), ""+count, style);
+				}else if(count >=100){
+					GUIUtility.RotateAroundPivot(90f,new Vector3((vec.x-x)+14, (Screen.height+y -vec.y)+8, 5));
+					GUI.Label (new Rect (vec.x-(x+6),Screen.height+y -vec.y,50, 35), ""+count, style);
+				}else{
+					GUIUtility.RotateAroundPivot(90f,new Vector3((vec.x-x)+14, (Screen.height+y -vec.y)+8, 5));
+					GUI.Label (new Rect (vec.x-x,Screen.height+y -vec.y,50, 35), ""+count, style);
+				}
+				
+			}else if(color == 2){				
+				if(count <10){
+					GUI.Label (new Rect (vec.x-(x-6),Screen.height+y -vec.y,50, 35), ""+count, style);
+				}else if(count >=100){
+					GUI.Label (new Rect (vec.x-(x+6),Screen.height+y -vec.y,50, 35), ""+count, style);
+				}else{
+					GUI.Label (new Rect (vec.x-x,Screen.height+y -vec.y,50, 35), ""+count, style);
+				}		
+			}
+		
+			GUI.matrix = matrixBackup;
 		}else if(position == 1){//la planete est en combat
 			if(count <10){
 				GUI.Label (new Rect (vec.x-(x+10),Screen.height+y -vec.y,50, 50), ""+count, style);

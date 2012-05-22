@@ -18,18 +18,15 @@ public class moveShip : MonoBehaviour {
 	private Vector2[] touchPos;
 	private TouchPhase[] touchPhase;
 	private int maxTouches = 5;
-	public  Dictionary<int,GameObject> listPlanetStart = new Dictionary<int,GameObject>();
+	private  Dictionary<int,GameObject> listPlanetStart = new Dictionary<int,GameObject>();
 	private Dictionary<int,GameObject> listPlanetEnd = new Dictionary<int,GameObject>();
-	public Dictionary<int,GameObject> shipSelect = new Dictionary<int,GameObject>();
-	public Dictionary<int,float> selectCount = new Dictionary<int,float>();
+	private Dictionary<int,GameObject> shipSelect = new Dictionary<int,GameObject>();
+	private Dictionary<int,float> selectCount = new Dictionary<int,float>();
 	
 	private Hashtable link;
 	private string dS;
 	private string dE;
 	
-	
-	public GUIStyle style;
-	public GUISkin skin;
 
 	// Use this for initialization
 	void Start () {
@@ -40,7 +37,6 @@ public class moveShip : MonoBehaviour {
 		selectSpeed = 0.2f;
 		selectTmp = 0;
 		
-		style.font = skin.font;
 
 	}
 	
@@ -49,7 +45,7 @@ public class moveShip : MonoBehaviour {
 	
 		//////DEBUUG!!!!!!!!!!!!!!!!//////
 		if(Input.GetKeyDown(KeyCode.Space)){
-			if(listPlanetStart.ContainsKey(0)){
+			/*if(listPlanetStart.ContainsKey(0)){
 			}else{
 				
 				listPlanetStart.Add(0,planetStart);	
@@ -85,19 +81,20 @@ public class moveShip : MonoBehaviour {
 					
 					shipSelect.Add(0,instance);
 				}
-			}
+			}*/
 	
 		}
 		
 		
 		if(Input.GetKeyUp(KeyCode.Space)){
-			if(shipSelect.ContainsKey(0)){
+			/*if(shipSelect.ContainsKey(0)){
 				shipSelect.Remove(0);
 			}
 			if(listPlanetStart.ContainsKey(0)){
 				listPlanetStart.Remove(0);
-			}
-			deplacement(planetStart,planetEnd, 5);	
+			}*/
+			deplacement(planetStart,planetEnd,((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsB.Count);
+			
 		}
 		
 		
@@ -179,14 +176,14 @@ public class moveShip : MonoBehaviour {
 								//Debug.Log ("selection ship : "+shipSelect[fingerId]);
 								TextMesh mesh = shipSelect[fingerId].GetComponent<TextMesh>();
 								if(scriptTemp.ship.tag == "red"){
-									if(int.Parse(mesh.text) +1 > scriptTemp.shipsR.Count-1){
-										mesh.text = ""+(scriptTemp.shipsR.Count-1);
+									if(int.Parse(mesh.text) +1 > scriptTemp.shipsR.Count){
+										mesh.text = ""+(scriptTemp.shipsR.Count);
 									}else{
 										mesh.text = ""+(int.Parse(mesh.text)+ 1);
 									}
 								}else if (scriptTemp.ship.tag == "blue"){
-									if(int.Parse(mesh.text) +1 > scriptTemp.shipsB.Count-1){
-										mesh.text = ""+(scriptTemp.shipsB.Count-1);
+									if(int.Parse(mesh.text) +1 > scriptTemp.shipsB.Count){
+										mesh.text = ""+(scriptTemp.shipsB.Count);
 									}else{
 										mesh.text = ""+(int.Parse(mesh.text)+ 1);
 									}
