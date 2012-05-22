@@ -76,31 +76,6 @@ public class PlanetScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//si la pulsation est enclenché
-		/*if(pul){
-			
-			if(invertPul){
-				countPul -= 0.02f;
-				gameObject.light.range += 0.04f;
-			}else{
-				
-				countPul += 0.02f;
-				
-				if(ship.tag == "red"){
-					gameObject.light.color = new Color(1,countPul,countPul,1-countPul);
-				}
-				if(countPul>=sizePul){
-					invertPul = true;	
-				}
-			
-			}
-			
-			countPul = 0;
-			if(ship.tag == "red"){
-				gameObject.light.color = new Color(1,0,0,1);
-				gameObject.light.range = gameObject.transform.localScale.x * 1.3f;
-			}
-		}*/
 		
 		//rotation de la planete
 		this.transform.RotateAround(this.transform.position,Vector3.up, 7f * Time.deltaTime);
@@ -114,7 +89,7 @@ public class PlanetScript : MonoBehaviour {
 				CaptureTmp = 0;
 			}
 			
-		}else if (shipsB.Count>0 || ship.tag == "blue"){//vaisseau bleu present sur la planete
+		}else if (shipsB.Count>0 && ship.tag != "blue"){//vaisseau bleu present sur la planete
 			if(CaptureTime > -1*CaptureCount ){
 				CaptureTmp += 1*shipsB.Count;
 				if(CaptureTmp >=SpeedCapture){
@@ -148,7 +123,7 @@ public class PlanetScript : MonoBehaviour {
 				}
 				
 			}
-		}else if (shipsR.Count>0 || ship.tag == "red"){//vaisseau rouge present sur la planete
+		}else if (shipsR.Count>0 && ship.tag != "red"){//vaisseau rouge present sur la planete
 			if(CaptureTime < CaptureCount){
 				CaptureTmp += 1*shipsR.Count;
 				if(CaptureTmp >=SpeedCapture){
@@ -184,6 +159,16 @@ public class PlanetScript : MonoBehaviour {
 					}
 				}
 				
+			}
+		}else{
+			timePop += 10*Time.deltaTime;
+			if(timePop >= repop){
+				timePop = 0;
+				if(ship.tag == "red" && shipsR.Count < LimitPop){
+					createShip();
+				}else if(ship.tag == "blue" && shipsB.Count < LimitPop){
+					createShip();
+				}
 			}
 		}
 	}

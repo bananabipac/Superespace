@@ -3,19 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class LineScript : MonoBehaviour {
+	// Resources.Load("Shipred")as GameObject;
 	
-	private LineRenderer player1;
-	private LineRenderer player2;
-	private Dictionary<int,LineRenderer> listLines = new Dictionary<int,LineRenderer>();
+	private Dictionary<int,GameObject> listLines = new Dictionary<int,GameObject>();
 	private Dictionary<int,GameObject> listPlanetStart = new Dictionary<int, GameObject>();
 	private int maxTouches = 2;
 	private bool warnedAboutMaxTouches = false;
 	// Use this for initialization
 	void Start () {
-		GameObject user1 = GameObject.FindGameObjectWithTag("infoUserRed");
-		player1 = user1.GetComponent<LineRenderer>();
-		GameObject user2 = GameObject.FindGameObjectWithTag("infoUserBlue");
-		player2 = user2.GetComponent<LineRenderer>();
+		
 	}
 	
 	// Update is called once per frame
@@ -37,83 +33,55 @@ public class LineScript : MonoBehaviour {
 			RaycastHit hit;
 			if(touch.phase == TouchPhase.Began) {
 				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
-					if (hit.collider.tag == "planet") {
-						if(hit.collider.gameObject.GetComponent<PlanetScript>().ship.tag == "red"){
-							player1.SetPosition(0,hit.collider.gameObject.transform.position);
-							player1.SetPosition(1,hit.collider.gameObject.transform.position);
-							listLines.Add(fingerId,player1);
-							listPlanetStart.Add (fingerId,hit.collider.gameObject);
-						}
-						if(hit.collider.gameObject.GetComponent<PlanetScript>().ship.tag == "blue"){
-							player2.SetPosition(0,hit.collider.gameObject.transform.position);
-							player2.SetPosition(1,hit.collider.gameObject.transform.position);
-							listLines.Add(fingerId,player2);
-							listPlanetStart.Add (fingerId,hit.collider.gameObject);
-						}
+					if (hit.collider.tag == "planet" && hit.collider.gameObject.GetComponent<PlanetScript>().ship.tag !="neutre" ) {
+						Debug.Log("dfsfgdsf");
+						GameObject instance =(GameObject) Instantiate(Resources.Load("Line")as GameObject);
+						instance.transform.position = new Vector3(0,0,0);
+						LineRenderer linet = instance.GetComponent<LineRenderer>();
+						
+						linet.SetPosition(0,hit.collider.gameObject.transform.position);
+						linet.SetPosition(1,hit.collider.gameObject.transform.position);
+						linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));
+						listLines.Add(fingerId,instance);
+						listPlanetStart.Add (fingerId,hit.collider.gameObject);
 					}
 				}
+				
 			}
 			if(touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) {
-				player1.SetColors(new Color(1,1,1,1), new Color(1,1,1,1));
-				player2.SetColors(new Color(1,1,1,1), new Color(1,1,1,1));
-				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
-					if (hit.collider.tag == "planet") {
-						if(GetComponent<GestionLink>().roadExist(listPlanetStart[fingerId],hit.collider.gameObject)) {
-							if(listLines[fingerId].tag == "infoUserRed") {
-								player1.SetPosition(1,hit.collider.transform.position);	
-								player1.SetColors(new Color(0,1,0,1), new Color(0,1,0,1));
+				if(listPlanetStart.ContainsKey(fingerId)){
+					Vector3 touched = Camera.main.ScreenToWorldPoint(touch.position);
+					touched.y = listPlanetStart[fingerId].transform.position.y;
+					LineRenderer linet = listLines[fingerId].GetComponent<LineRenderer>();
+					if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
+						if (hit.collider.tag == "planet" && hit.collider.name != listPlanetStart[fingerId].name) {
+							if(GetComponent<GestionLink>().roadExist(listPlanetStart[fingerId],hit.collider.gameObject)) {
+								linet.SetPosition(1,hit.collider.gameObject.transform.position);
+								linet.SetColors(new Color(0,1,0,1),new Color(0,1,0,1));
+							}else {
+								linet.SetPosition(1,touched);
+								linet.SetColors(new Color(1,0,0,1),new Color(1,0,0,1));
 							}
-							if(listLines[fingerId].tag == "infoUserBlue"){
-								player2.SetPosition(1,hit.collider.transform.position);
-								player2.SetColors(new Color(0,1,0,1), new Color(0,1,0,1));
-							}
-						}
-						else {
-							Vector3 temp = new Vector3(0f,player1.transform.position.y,0f);
-							Vector3 touched = Camera.main.ScreenToWorldPoint(touch.position);
-							touched.y = temp.y;
-							if(listLines[fingerId].tag == "infoUserRed") {
-								player1.SetPosition(1,touched);
-								player1.SetColors(new Color(1,0,0,1), new Color(1,0,0,1));
-							}
-							if(listLines[fingerId].tag == "infoUserBlue") {
-								player2.SetPosition(1,touched);
-								player2.SetColors(new Color(1,0,0,1), new Color(1,0,0,1));
-							}
+						} else {
+							linet.SetPosition(1,touched);
+							linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));	
 						}
 					} else {
-							Vector3 temp = new Vector3(0f,player1.transform.position.y,0f);
-							Vector3 touched = Camera.main.ScreenToWorldPoint(touch.position);
-							touched.y = temp.y;
-							if(listLines[fingerId].tag == "infoUserRed") {
-								player1.SetPosition(1,touched);
-								player1.SetColors(new Color(1,0,0,1), new Color(1,0,0,1));
-							}
-							if(listLines[fingerId].tag == "infoUserBlue") {
-								player2.SetPosition(1,touched);
-								player2.SetColors(new Color(1,0,0,1), new Color(1,0,0,1));
-							}
-						}
-				} else {
-					Vector3 temp = new Vector3(0f,player1.transform.position.y,0f);
-					Vector3 touched = Camera.main.ScreenToWorldPoint(touch.position);
-					touched.y = temp.y;
-					if(listLines[fingerId].tag == "infoUserRed") {
-						player1.SetPosition(1,touched);
+						linet.SetPosition(1,touched);
+						linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));		
 					}
-					if(listLines[fingerId].tag == "infoUserBlue") {
-						player2.SetPosition(1,touched);
-					}
-						
 				}
 			}
 			if(touch.phase == TouchPhase.Ended) {
 				if(listLines.ContainsKey(fingerId)){
-					listLines[fingerId].SetPosition(0,new Vector3(0f,0f,0f));
-					listLines[fingerId].SetPosition(1,new Vector3(0f,0f,0f));
-					listLines.Remove(fingerId);	
-					listPlanetStart.Remove (fingerId);
+					GameObject tmp = listLines[fingerId];
+					listLines.Remove(fingerId);
+					Destroy(tmp);
 				}
+				if(listPlanetStart.ContainsKey(fingerId)){
+					listPlanetStart.Remove(fingerId);
+				}
+				
 			}
 		}
 	}
