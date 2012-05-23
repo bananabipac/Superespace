@@ -25,19 +25,22 @@ public class GUIPlanet : MonoBehaviour {
 		vec = Camera.mainCamera.WorldToScreenPoint(gameObject.transform.position);
 		
 		if(((PlanetScript)GetComponent<PlanetScript>()).ship != null){
+			
+			//rouge contre bleu
+			if(((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count >0 && ((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count >0 ){
+				GUIplanet(1,1,((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count);
+				GUIplanet(0,2,((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count);
+			
 			//rouge contre blanc
-			if(((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count >0 && ((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count >0 ){
+			}else if(((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count >0 && ((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count >0 ){
 				GUIplanet(1,1,((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count);
 				GUIplanet(2,2,((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count);
-				
-			}else if(((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count >0 && ((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count >0 ){
-				GUIplanet(0,1,((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count);
-				GUIplanet(1,2,((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count);
 	
 			//bleu contre blanc
 			}else if(((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count >0 && ((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count >0 ){
-				GUIplanet(0,1,((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count);
-				GUIplanet(2,2,((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count);
+				GUIplanet(2,1,((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count);
+				GUIplanet(0,2,((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count);
+				
 	
 			}else{
 				if(((PlanetScript)GetComponent<PlanetScript>()).ship.tag == "red"){
