@@ -21,7 +21,7 @@ public class PlanetScript : MonoBehaviour {
 	private int CaptureTmp;
 	private int SpeedCapture; //vitesse de capture
 	private float CaptureTime; //temps e capture en cour
-	
+	private GameObject user;
 	//pulsation
 	/*private bool pul;//triger pour la pulsation	
 	private float sizePul;//taille de la pulsation
@@ -36,6 +36,8 @@ public class PlanetScript : MonoBehaviour {
 		countPul = 0;
 		invertPul = false;*/
 		
+		user = GameObject.FindGameObjectWithTag("User");
+		
 		vFight = 0.4f;
 		CaptureCount = 1;
 		SpeedCapture = 50;
@@ -47,6 +49,8 @@ public class PlanetScript : MonoBehaviour {
 		timePop = 0;
 		count = 0;	
 		CaptureTime = 0;
+		
+	
 		
 		//creation des vaisseaux au depart 
 		for(int i = 0 ; i<nbShip ; i++){
@@ -109,6 +113,8 @@ public class PlanetScript : MonoBehaviour {
 						ship =  Resources.Load("Shipblue")as GameObject;
 						gameObject.light.color = new Color(0,0,1,1);
 						CaptureTime = -1*CaptureCount;
+						((GestionLink)user.GetComponent<GestionLink>()).changeColor(gameObject);
+						
 						//Debug.Log("Planete : "+gameObject.name + "capture blue");
 						
 					}
@@ -144,6 +150,7 @@ public class PlanetScript : MonoBehaviour {
 						gameObject.light.color = new Color(1,0,0,1);
 						CaptureTime = CaptureCount;
 						Debug.Log("Planete : "+gameObject.name + "capture red");
+						((GestionLink)user.GetComponent<GestionLink>()).changeColor(gameObject);
 						//pul = true;	
 					}
 				}
@@ -273,5 +280,7 @@ public class PlanetScript : MonoBehaviour {
 		}
 	
 	}
+	
+	
 	
 }

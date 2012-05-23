@@ -1,0 +1,245 @@
+From ba4463081130334c2034b8d6ce3f94d1ae3b8ad5 Mon Sep 17 00:00:00 2001
+From: jordan dos santos <dossantos.jordan94@gmail.com>
+Date: Wed, 23 May 2012 11:51:47 +0200
+Subject: [PATCH] link line renderer
+
+---
+ Assembly-CSharp.pidb         |  Bin 147709 -> 147753 bytes
+ Assets/Josk.unity            |  Bin 82820 -> 72292 bytes
+ Assets/Script/GestionLink.cs |    8 ++++++++
+ Superespace-csharp.sln       |    2 +-
+ Superespace.sln              |    2 +-
+ Superespace.userprefs        |   10 +++++-----
+ 6 files changed, 15 insertions(+), 7 deletions(-)
+
+diff --git a/Assembly-CSharp.pidb b/Assembly-CSharp.pidb
+index 729b83d53f98f577a1f931210c98282788a56657..68b047c7583699b500de3d543f5d35e5fe01d514 100644
+GIT binary patch
+delta 761
+zcmZ8dTS!z<6g_J@GkV9y2Rf*Oq%%F}K?NC2=IBhB(w~I}B4UMQPova3Q4*xmPgo>l
+z?63OJ!b~WM;7a{89}x{oU!flv+D{LyCek25rhQ6!ZCK}=wf5S3-+dQ5jKNOh+H<_=
+ziJiwlR|TvJz&wM!{I~_hxXRr*2=H(W$=nb_8dtXBa%3`|!mnB}fk0&XmYZX3$mU8L
+z+{oa2eaMRxuC;Ndi7ZdKQYuaGJG2lK)bbY-Zmu@5jzj&hafgYbU#}4p1)e(b{8Olf
+zGC`{@^rMbP!`LWSZ5Td}`M+BW+I@w4!|?OPKAG?$jP*ZX*c$0rm2G96#Z)Ppt+|J|
+zc^v5+DWG~;J6=GC(8>D>g`MLEh17sC&h*j=wDSco?Z+%ndZ`ZId7Dox&-l7e7;)Su
+z&Jn9>1&xt?`_NGOjOATT?Jlr&qlkKwa-uf*prt?}NvYQYBg(t|)P<-u>Zj#|acicS
+zb^z17p@fcROo-ojq>q>Su=sWfJ%NLp0@Q>kHwS1F#(7Mx=4884t|Uy$lw9#9mcpnZ
+zr5uJNm+d)u@YLb9>c*C1r`yD#ocOkoNZegaBs}t~F)w6L2qc9$A$NqNX!2FafDm0|
+zcSx&z?%6{5)}>Nvgey%1TTRujDyP$t&hupyqWA(&IVqoq%E;jQARV!PmKH0y=PB~|
+zevndmHb~{UpG4G&ZW$TU&6WM*AK!rx`7-rZdZMAH$N)D-LbPV*2eHKkcrS-;5s_k-
+Y0Pp@1HtUuOZ$;95HA(Fs*83^-16#iM_5c6?
+
+delta 710
+zcmZ8dTS!z<6uoQf9cQ#VTFxL1$ULHGATm<Am@~~3*-wF!8G%G$FRID#HA)W=llq8(
+z9B#DfCkO(wAc_VqSdjgh(MMoX(1(5XGMl0Y1;ezDg;W>Txo54t*5aHqdd8I>bPYek
+zOlI;VZVolVZUj=D*va?0P>*w*u0q7B`CP)SlW_BvZk)GHr=2|2jhCq7J3R>dOij~D
+z1Ph-MDg^b`t7~2>5H4mTg-Tz8NbUubY?KfaBzS!aF&=M2G54oX`+Jv7!S8F9@jn?Q
+zY!D>*LkcFEd7>Aq<=4`SkgxrJw-S{5ED!gJyM5lRD|MYUxZGox_hBZAke$oo%28DE
+z1wZYUyU+URfZTn1Kv+ND3eX-rWg|#Q4Dg8{?M04X1gRByt_z9fF=s-;96TEm=Y4zY
+zGI~P##HzawciGh|=#&B2muu-_5m%XHpupuOc{yQH-@IT?nY4s3ZNILkjlc|t8|ZL_
+zEr)bHQ_GlIp7YfP8i&sNB6JAT{3Aj&PKT~(Mv)}eM9I6&DQr>VSljV~Jv;Vy9qH(i
+zoK}kOKMRE$`9i@b?}%?gMuk8|_$uVO5T_zvgp3GLAzimKQ5u3_NM&(L)8?kqQiq#^
+zF^cP-#24buESB;>j5_2gaxqGJK8l<Zq@_8oIy8MwO{y=&sEj#IRg2YWb%9H@N}-1z
+n#A)TG_mWbjc=xBmlCUAb+rNahs#3!nk>&)7l#Se0*U+?I0@d6_
+
+diff --git a/Assets/Josk.unity b/Assets/Josk.unity
+index c78a55f19f90136234137167e237e27a76f64152..3a46f668dfcd9f6e0bd1ffde4d942bcd8dd867f6 100644
+GIT binary patch
+delta 5441
+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
+DKBfj>
+
+delta 10442
+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
+Hp`Q9**wGfu
+
+diff --git a/Assets/Script/GestionLink.cs b/Assets/Script/GestionLink.cs
+index 1b7141d..a212372 100644
+--- a/Assets/Script/GestionLink.cs
++++ b/Assets/Script/GestionLink.cs
+@@ -38,6 +38,14 @@ public class GestionLink : MonoBehaviour {
+ 									for(int i = 0; i<l.Length; i++){
+ 										if(l[i].name == ""+planetsEn[0].InnerText+""+planetEI[0].InnerText){
+ 											l[i].active=false;
++											
++											LineRenderer line = l[i].GetComponent<LineRenderer>();
++											line.SetPosition(0, GameObject.Find(planetsEn[0].InnerText).transform.position);
++											line.SetPosition(1, GameObject.Find(planetEI[0].InnerText).transform.position);
++											line.SetColors(new Color(1,1,1,0.5f),new Color(1,1,1,0.5f));
++											line.SetWidth(0.1f,0.1f);
++											
++											
+ 										}
+ 									}
+ 								}
+diff --git a/Superespace-csharp.sln b/Superespace-csharp.sln
+index c5af4be..c33c155 100644
+--- a/Superespace-csharp.sln
++++ b/Superespace-csharp.sln
+@@ -35,7 +35,7 @@ Global
+ 	GlobalSection(SolutionProperties) = preSolution
+ 		HideSolutionNode = FALSE
+ 	EndGlobalSection
+-																																																																																																																																																																												GlobalSection(MonoDevelopProperties) = preSolution
++																																																																																																																																																																															GlobalSection(MonoDevelopProperties) = preSolution
+ =======
+ 																																																																																																																																											GlobalSection(MonoDevelopProperties) = preSolution
+ >>>>>>> 5c059732861d38bf76703b2a90a307c8c5b1b54d
+diff --git a/Superespace.sln b/Superespace.sln
+index 31cb3e7..02d5e66 100644
+--- a/Superespace.sln
++++ b/Superespace.sln
+@@ -53,7 +53,7 @@ Global
+ 	GlobalSection(SolutionProperties) = preSolution
+ 		HideSolutionNode = FALSE
+ 	EndGlobalSection
+-																																																																																																																																																																											GlobalSection(MonoDevelopProperties) = preSolution
++																																																																																																																																																																														GlobalSection(MonoDevelopProperties) = preSolution
+ =======
+ 																																																																																																																																											GlobalSection(MonoDevelopProperties) = preSolution
+ >>>>>>> 5c059732861d38bf76703b2a90a307c8c5b1b54d
+diff --git a/Superespace.userprefs b/Superespace.userprefs
+index 6ec60b2..b6603cb 100644
+--- a/Superespace.userprefs
++++ b/Superespace.userprefs
+@@ -1,11 +1,11 @@
+ ﻿<Properties>
+   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\GUIPlayers.cs">
++  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\GestionLink.cs">
+     <Files>
+-      <File FileName="Assets\Script\GestionLink.cs" Line="131" Column="3" />
+-      <File FileName="Assets\Script\moveShip.cs" Line="139" Column="164" />
+-      <File FileName="Assets\Script\LineScript.cs" Line="37" Column="7" />
+-      <File FileName="Assets\Script\GUIPlayers.cs" Line="183" Column="38" />
++      <File FileName="Assets\Script\GestionLink.cs" Line="47" Column="12" />
++      <File FileName="Assets\Script\moveShip.cs" Line="1" Column="1" />
++      <File FileName="Assets\Script\LineScript.cs" Line="1" Column="1" />
++      <File FileName="Assets\Script\GUIPlayers.cs" Line="1" Column="38" />
+     </Files>
+   </MonoDevelop.Ide.Workbench>
+   <MonoDevelop.Ide.DebuggingService.Breakpoints>
+-- 
+1.7.7.1.msysgit.0
+
