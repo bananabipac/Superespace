@@ -166,11 +166,9 @@ public class GUIPlayers : MonoBehaviour {
 							if(bonus.tag == "GUIPlayer1"){
 								if(bonus.name == "crash1") {
 									if(user.GetComponent<MoneyScript>().moneyPlayer1 >= crashPrice) {
-										if(objet.GetComponent<PlanetScript>().ship.tag != "red") {
-											if(objet.GetComponent<PlanetScript>().repop >= crash && objet.GetComponent<PlanetScript>().ship.tag != "neutre") {
-												objet.GetComponent<PlanetScript>().repop += crash;
-												user.GetComponent<MoneyScript>().moneyPlayer1-= crashPrice;
-											}
+										if(objet.GetComponent<PlanetScript>().ship.tag != "red" && objet.GetComponent<PlanetScript>().ship.tag != "neutre") {
+											objet.GetComponent<PlanetScript>().repop += crash;
+											user.GetComponent<MoneyScript>().moneyPlayer1-= crashPrice;
 										}
 									}
 									
@@ -238,11 +236,9 @@ public class GUIPlayers : MonoBehaviour {
 							if(bonus.tag == "GUIPlayer2"){
 								if(bonus.name == "crash2") {
 									if(user.GetComponent<MoneyScript>().moneyPlayer2 >= crashPrice) {
-										if(objet.GetComponent<PlanetScript>().ship.tag != "blue") {
-											if(objet.GetComponent<PlanetScript>().repop >= crash && objet.GetComponent<PlanetScript>().ship.tag != "neutre") {
-												objet.GetComponent<PlanetScript>().repop -= crash;
-												user.GetComponent<MoneyScript>().moneyPlayer2-= crashPrice;
-											}
+										if(objet.GetComponent<PlanetScript>().ship.tag != "blue" && objet.GetComponent<PlanetScript>().ship.tag != "neutre") {
+											objet.GetComponent<PlanetScript>().repop += crash;
+											user.GetComponent<MoneyScript>().moneyPlayer2-= crashPrice;
 										}
 										
 									}
