@@ -38,6 +38,14 @@ public class GestionLink : MonoBehaviour {
 									for(int i = 0; i<l.Length; i++){
 										if(l[i].name == ""+planetsEn[0].InnerText+""+planetEI[0].InnerText){
 											l[i].active=false;
+											
+											LineRenderer line = l[i].GetComponent<LineRenderer>();
+											line.SetPosition(0, GameObject.Find(planetsEn[0].InnerText).transform.position);
+											line.SetPosition(1, GameObject.Find(planetEI[0].InnerText).transform.position);
+											line.SetColors(new Color(1,1,1,0.5f),new Color(1,1,1,0.5f));
+											line.SetWidth(0.1f,0.1f);
+											
+											
 										}
 									}
 								}
