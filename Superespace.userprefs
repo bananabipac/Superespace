@@ -3,6 +3,7 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\GestionLink.cs">
     <Files>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <File FileName="Assets\Script\LineScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\GUIPlayers.cs" Line="240" Column="12" />
       <File FileName="Assets\Script\GestionLink.cs" Line="1" Column="1" />
@@ -13,6 +14,12 @@
       <File FileName="Assets\Script\LineScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\GUIPlayers.cs" Line="1" Column="38" />
 >>>>>>> ba4463081130334c2034b8d6ce3f94d1ae3b8ad5
+=======
+      <File FileName="Assets\Script\GestionLink.cs" Line="45" Column="12" />
+      <File FileName="Assets\Script\moveShip.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\LineScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\PlanetScript.cs" Line="153" Column="79" />
+>>>>>>> ebb1f924c76346afe47e3144c79617a5ea81e78b
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

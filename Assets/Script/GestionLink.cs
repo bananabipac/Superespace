@@ -42,10 +42,27 @@ public class GestionLink : MonoBehaviour {
 											LineRenderer line = l[i].GetComponent<LineRenderer>();
 											line.SetPosition(0, GameObject.Find(planetsEn[0].InnerText).transform.position);
 											line.SetPosition(1, GameObject.Find(planetEI[0].InnerText).transform.position);
-											line.SetColors(new Color(1,1,1,0.5f),new Color(1,1,1,0.5f));
-											line.SetWidth(0.1f,0.1f);
 											
 											
+											
+											Color c1;
+											if(((PlanetScript)GameObject.Find(planetsEn[0].InnerText).GetComponent<PlanetScript>()).ship.tag =="blue"){
+												c1 = new Color(0,0,1,0.5f);
+											}else if(((PlanetScript)GameObject.Find(planetsEn[0].InnerText).GetComponent<PlanetScript>()).ship.tag =="red"){
+												c1 = new Color(1,0,0,0.5f);
+											}else{
+												c1 = new Color(1,1,1,0.5f);
+											}
+											Color c2;
+											if(((PlanetScript) GameObject.Find(planetEI[0].InnerText).GetComponent<PlanetScript>()).ship.tag =="blue"){
+												c2 = new Color(0,0,1,0.5f);
+											}else if(((PlanetScript) GameObject.Find(planetEI[0].InnerText).GetComponent<PlanetScript>()).ship.tag =="red"){
+												c2 = new Color(1,0,0,0.5f);
+											}else{
+												c2 = new Color(1,1,1,0.5f);
+											}
+											line.SetColors(c1,c2);
+											line.SetWidth(0.15f,0.15f);
 										}
 									}
 								}
@@ -137,6 +154,51 @@ public class GestionLink : MonoBehaviour {
 			}
 		}catch{
 				
+		}
+	}
+	
+	public void changeColor(GameObject planet){
+		
+		for(int i=0; i<l.Length; i++){
+			
+			if(l[i].name[0] == planet.name[0]){
+				LineRenderer line = l[i].GetComponent<LineRenderer>();
+				Color c1;	
+				if(((PlanetScript)planet.GetComponent<PlanetScript>()).ship.tag =="blue"){
+					c1 = new Color(0,0,1,0.5f);
+				}else{
+					c1 = new Color(1,0,0,0.5f);
+				}
+				GameObject planet2 = GameObject.Find(""+l[i].name[1]);
+				Color c2;
+				if(((PlanetScript)planet2.GetComponent<PlanetScript>()).ship.tag =="blue"){
+					c2 = new Color(0,0,1,0.5f);
+				}else if(((PlanetScript)planet2.GetComponent<PlanetScript>()).ship.tag =="red"){
+					c2 = new Color(1,0,0,0.5f);
+				}else{
+					c2 = new Color(1,1,1,0.5f);
+				}
+				line.SetColors(c1,c2);
+				
+			}else if(l[i].name[1] == planet.name[0]){
+				LineRenderer line = l[i].GetComponent<LineRenderer>();
+				Color c2;	
+				if(((PlanetScript)planet.GetComponent<PlanetScript>()).ship.tag =="blue"){
+					c2 = new Color(0,0,1,0.5f);
+				}else{
+					c2 = new Color(1,0,0,0.5f);
+				}
+				GameObject planet2 = GameObject.Find(""+l[i].name[0]);
+				Color c1;
+				if(((PlanetScript)planet2.GetComponent<PlanetScript>()).ship.tag =="blue"){
+					c1 = new Color(0,0,1,0.5f);
+				}else if(((PlanetScript)planet2.GetComponent<PlanetScript>()).ship.tag =="red"){
+					c1 = new Color(1,0,0,0.5f);
+				}else{
+					c1 = new Color(1,1,1,0.5f);
+				}
+				line.SetColors(c1,c2);
+			}
 		}
 	}
 }
