@@ -13,7 +13,7 @@ public class PlanetScriptMenu : MonoBehaviour {
 	public int vFight ; //delai entre chaque resolution de combat
 	public int repop; // delai entre chaque creation de vaiseaux
 	private int count; //timer entre chaque resolution de combat
-	private int timePop; //timer entre chaque creation de vaisseaux
+	//private int timePop; //timer entre chaque creation de vaisseaux
 	//public GameObject explosion; //object de l'explosion a instantié
 	public int LimitPop ;//Limite de population
 	public float rotationSpeed;
@@ -24,7 +24,7 @@ public class PlanetScriptMenu : MonoBehaviour {
 		//LimitPop =(int) this.transform.localScale.x * 2; 
 		LimitPop = 50 ;
 		count = 0;
-		timePop = 0;
+		//timePop = 0;
 		vFight = 10;
 		repop = 50;
 		//creation des vaisseaux au depart 
@@ -38,7 +38,7 @@ public class PlanetScriptMenu : MonoBehaviour {
 	void Update () {
 		
 		//rotation de la planete
-		this.transform.RotateAround(this.transform.position,Vector3.up, rotationSpeed);
+		this.transform.RotateAround(this.transform.position,Vector3.up,rotationSpeed * Time.deltaTime);
 		
 		
 		if(shipsB.Count >0 && shipsR.Count >0){
@@ -70,33 +70,8 @@ public class PlanetScriptMenu : MonoBehaviour {
 			}
 			 
 			
-			//partie creation de vaisseaux
-			if(ship != null){
-				timePop ++;
-		
-				if(timePop >= repop){
-		
-					timePop = 0;
-				
-					if(ship.tag == "red"){
-					
-						if(shipsR.Count < LimitPop){
-					
-							createShip();
-					
-						}
-					}else{
-					
-						if(shipsB.Count < LimitPop){
-					
-							createShip();
-					
-						}
-					
-					}
-
-				}
-			}
+			
+			
 		}
 			
 			
@@ -124,8 +99,9 @@ public class PlanetScriptMenu : MonoBehaviour {
 			
 		GameObject instance = (GameObject) Instantiate(ship,vec, transform.rotation);
 		instance.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
+		instance.transform.RotateAround(instance.transform.position, Vector3.up, 50f);
 		((rotationShip)instance.GetComponent<rotationShip>()).planet = this.gameObject;
-		((rotationShip)instance.GetComponent<rotationShip>()).speed = Random.Range(0.01f,0.1f);
+		((rotationShip)instance.GetComponent<rotationShip>()).speed = Random.Range(2f,10f);
 		
 		if(ship.tag == "blue"){
 			shipsB.Add(instance);
