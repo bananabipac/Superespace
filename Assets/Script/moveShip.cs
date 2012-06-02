@@ -22,6 +22,7 @@ public class moveShip : MonoBehaviour {
 	private Dictionary<int,GameObject> listPlanetEnd = new Dictionary<int,GameObject>();
 	private Dictionary<int,GameObject> shipSelect = new Dictionary<int,GameObject>();
 	private Dictionary<int,float> selectCount = new Dictionary<int,float>();
+	//public Transform prefabNuke;
 	
 	// Use this for initialization
 	void Start () {
@@ -40,6 +41,7 @@ public class moveShip : MonoBehaviour {
 	
 		//////DEBUUG!!!!!!!!!!!!!!!!//////
 		if(Input.GetKeyDown(KeyCode.Space)){
+			
 			/*if(listPlanetStart.ContainsKey(0)){
 			}else{
 				
@@ -88,7 +90,8 @@ public class moveShip : MonoBehaviour {
 			if(listPlanetStart.ContainsKey(0)){
 				listPlanetStart.Remove(0);
 			}*/
-			deplacement(planetStart,planetEnd,((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsB.Count);
+			//Instantiate(prefabNuke,new Vector3(0,-28,0),Quaternion.identity);
+			//deplacement(planetStart,planetEnd,((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsB.Count);
 			
 		}
 		

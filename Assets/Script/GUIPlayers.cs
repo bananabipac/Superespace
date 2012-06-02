@@ -20,13 +20,13 @@ public class GUIPlayers : MonoBehaviour {
 	private Vector3 posNuke2;
 	private Vector3 posCrash2;
 	
-	private int lvlSpeed1;
-	private int lvlAttack1;
-	private int lvlLife1;
+	public int lvlSpeed1;
+	public int lvlAttack1;
+	public int lvlLife1;
 	
-	private int lvlSpeed2;
-	private int lvlAttack2;
-	private int lvlLife2;
+	public int lvlSpeed2;
+	public int lvlAttack2;
+	public int lvlLife2;
 	
 	public int crash;
 	public int sabotage;
@@ -43,6 +43,8 @@ public class GUIPlayers : MonoBehaviour {
 	private Dictionary<int,GameObject> listBonusesTouched = new Dictionary<int,GameObject>();
 	
 	private GameObject user;
+	
+	//public Transform prefabNuke;
 	// Use this for initialization
 	void Start () {
 		
@@ -63,6 +65,7 @@ public class GUIPlayers : MonoBehaviour {
 		lvlLife2 = 0;
 		
 		user = GameObject.FindWithTag("User");
+		
 	
 	}
 	
@@ -221,10 +224,10 @@ public class GUIPlayers : MonoBehaviour {
 													objet.GetComponent<PlanetScript>().shipsB.RemoveAt(0);
 													Destroy (temp);
 												}
-												if(objet.GetComponent<PlanetScript>().repop >= 5) {
-													objet.GetComponent<PlanetScript>().repop -= apocalypse;
-												}
+												objet.GetComponent<PlanetScript>().repop += apocalypse;
 												user.GetComponent<MoneyScript>().moneyPlayer1-= nukePrice;
+												Debug.Log ("Explosion");
+												//Instantiate(prefabNuke,hit.collider.gameObject.transform.position,Quaternion.identity);
 											}
 											
 										}
@@ -289,10 +292,10 @@ public class GUIPlayers : MonoBehaviour {
 													objet.GetComponent<PlanetScript>().shipsR.RemoveAt(0);
 													Destroy (temp);
 												}
-												if(objet.GetComponent<PlanetScript>().repop >= 5) {
-													objet.GetComponent<PlanetScript>().repop -= apocalypse;
-												}
+												objet.GetComponent<PlanetScript>().repop += apocalypse;
 												user.GetComponent<MoneyScript>().moneyPlayer2-= nukePrice;
+												Debug.Log ("Explosion");
+												//Instantiate(prefabNuke,hit.collider.gameObject.transform.position,Quaternion.identity);	
 											}
 											
 										}

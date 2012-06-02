@@ -1,30 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\GUIPlanet.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Settings.cs">
     <Files>
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <File FileName="Assets\Script\LineScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\GUIPlayers.cs" Line="240" Column="12" />
-      <File FileName="Assets\Script\GestionLink.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\GUIPlayers.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\moveShip.cs" Line="1" Column="1" />
-=======
-      <File FileName="Assets\Script\GestionLink.cs" Line="47" Column="12" />
-      <File FileName="Assets\Script\moveShip.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\LineScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\GUIPlayers.cs" Line="1" Column="38" />
->>>>>>> ba4463081130334c2034b8d6ce3f94d1ae3b8ad5
-=======
-      <File FileName="Assets\Script\GestionLink.cs" Line="45" Column="12" />
-      <File FileName="Assets\Script\moveShip.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\LineScript.cs" Line="1" Column="1" />
-<<<<<<< HEAD
-      <File FileName="Assets\Script\PlanetScript.cs" Line="153" Column="79" />
->>>>>>> ebb1f924c76346afe47e3144c79617a5ea81e78b
-=======
-      <File FileName="Assets\Script\PlanetScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\GUIPlanet.cs" Line="32" Column="18" />
->>>>>>> b728d04ee7a476fa97ac1c45466854768f6cd017
+      <File FileName="Assets\Script\TextsColor.cs" Line="59" Column="37" />
+      <File FileName="Assets\Script\GUIMoney.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Menu.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Settings.cs" Line="37" Column="53" />
+      <File FileName="Assets\Script\GetSettings.cs" Line="34" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
