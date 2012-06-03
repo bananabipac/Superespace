@@ -22,7 +22,7 @@ public class moveShip : MonoBehaviour {
 	private Dictionary<int,GameObject> listPlanetEnd = new Dictionary<int,GameObject>();
 	private Dictionary<int,GameObject> shipSelect = new Dictionary<int,GameObject>();
 	private Dictionary<int,float> selectCount = new Dictionary<int,float>();
-	
+	//public Transform prefabNuke;
 	
 	// Use this for initialization
 	void Start () {
@@ -30,7 +30,7 @@ public class moveShip : MonoBehaviour {
 		
 		user = GameObject.FindWithTag("User");
 		
-		selectSpeed = 0.15f;
+		selectSpeed = 0.2f;
 	
 		
 
@@ -41,18 +41,19 @@ public class moveShip : MonoBehaviour {
 	
 		//////DEBUUG!!!!!!!!!!!!!!!!//////
 		if(Input.GetKeyDown(KeyCode.Space)){
-	
+			
+			deplacement(GameObject.Find("8"), GameObject.Find("7"), 10);
 		}
 		
 		
 		if(Input.GetKeyUp(KeyCode.Space)){
-			//deplacement(planetStart,planetEnd,((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsB.Count);
+			
 			
 		}
 		
 		
 		/////END DEBUG!!!!!!!!///
-	
+		
 		foreach(Touch touch in Input.touches) {
 			
 			int fingerId  = touch.fingerId;
@@ -244,9 +245,16 @@ public class moveShip : MonoBehaviour {
 			}
 		}
 		
-		if( verifEndGame() ){
+		if( verifEndGame()){
 			Application.LoadLevel("Menu");
 		}
+		
+		/*foreach(Touch touch in Input.touches) {
+			if(touch.phase == TouchPhase.Ended) 
+				//Instantiate (planetStart,Camera.main.ScreenToWorldPoint(touch.position),transform.rotation);
+				Debug.Log(Camera.main.ScreenToWorldPoint(touch.position));
+			
+		}*/
 	}
 	
 	/*verifie si un des 2 joueurs a perdue
@@ -310,23 +318,26 @@ public class moveShip : MonoBehaviour {
 	
 	//deplace les vaisseaux d'une planete a l'autre
 	void deplacement(GameObject start, GameObject end, int nbShip){
+		infoUser info;
+		PlanetScript p = (PlanetScript)start.GetComponent<PlanetScript>();
+		if(p.ship.tag == "red"){
+			info = (infoUser) GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>();
+		}else{
+			info = (infoUser) GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>();
+		}
+		
 		ships = new List<GameObject>();
-		float scal = planetEnd.transform.localScale.x ;
+		float scal = end.transform.localScale.x ;
 				
 		float min =  scal/2.5f+1   ;
 		float max = scal/2.5f +1.5f;
 	
 		int nbs = nbShip ; 
-		//int nbs ;
-		PlanetScript p = (PlanetScript)start.GetComponent<PlanetScript>();
+		
+		
 		
 		if(p.ship != null){
-			/*if(((PlanetScript)start.GetComponent<PlanetScript>()).ship.tag == "red"){
-				nbs = ((PlanetScript)start.GetComponent<PlanetScript>()).shipsR.Count/2;
-			}else{
-			
-				nbs = ((PlanetScript)start.GetComponent<PlanetScript>()).shipsB.Count/2;
-			}*/
+		
 			
 			for(int j = 0 ; j<nbs; j++){
 				
@@ -348,7 +359,7 @@ public class moveShip : MonoBehaviour {
 	
 				float z = Random.Range(min,max);
 			
-				Quaternion quat = Quaternion.AngleAxis(Random.Range(0f, 360f), planetEnd.transform.position);
+				Quaternion quat = Quaternion.AngleAxis(Random.Range(0f, 360f), end.transform.position);
 				
 				Vector3 vec = new Vector3(0,0,z);
 				vec = quat * vec ;
@@ -356,10 +367,10 @@ public class moveShip : MonoBehaviour {
 	 
 				if(j == nbs -1){
 					ships.Add(end);
-					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",2f,"oncomplete","valideDeplacement","onCompleteTarget", gameObject,"oncompleteparams", ships , "easetype", "linear"));	
+					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",info.speedShip,"oncomplete","valideDeplacement","onCompleteTarget", gameObject,"oncompleteparams", ships , "easetype", "linear"));	
 					
 				}else{
-					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",2f, "easetype", "linear"));
+					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",info.speedShip, "easetype", "linear"));
 				}
 				
 				((rotationShip)ships[j].GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
