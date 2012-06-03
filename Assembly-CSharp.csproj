@@ -54,6 +54,7 @@
      <Compile Include="Assets\Script\GUIMoney.cs" />
      <Compile Include="Assets\Script\GUIPlanet.cs" />
      <Compile Include="Assets\Script\GUIPlayers.cs" />
+     <Compile Include="Assets\Script\Generator.cs" />
      <Compile Include="Assets\Script\GestionLink.cs" />
      <Compile Include="Assets\Script\LineScript.cs" />
      <Compile Include="Assets\Script\Menu.cs" />
@@ -152,6 +153,7 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Adaptation.shader" />
      <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap Only.shader" />
      <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap AlphaTest.shader" />
+     <None Include="Assets\Resources\generator.xml" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\VignettingShader.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BrightPassFilter.shader" />
      <None Include="Assets\qub_pak\readme.txt" />

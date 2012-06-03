@@ -1,9 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\PlanetScriptMenu.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\GestionLink.cs">
     <Files>
-      <File FileName="Assets\Script\PlanetScriptMenu.cs" Line="27" Column="5" />
-      <File FileName="Assets\Script\PlanetScript.cs" Line="85" Column="86" />
+      <File FileName="Assets\Script\Generator.cs" Line="232" Column="3" />
+      <File FileName="Assets\Resources\generator.xml" Line="178" Column="12" />
+      <File FileName="Assets\Script\PlanetScript.cs" Line="2" Column="1" />
+      <File FileName="Assets\Script\GestionLink.cs" Line="215" Column="25" />
+      <File FileName="Assets\Script\moveShip.cs" Line="30" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -23,13 +23,14 @@ public class moveShip : MonoBehaviour {
 	private Dictionary<int,GameObject> shipSelect = new Dictionary<int,GameObject>();
 	private Dictionary<int,float> selectCount = new Dictionary<int,float>();
 	
+	
 	// Use this for initialization
 	void Start () {
 		
 		
 		user = GameObject.FindWithTag("User");
 		
-		selectSpeed = 0.2f;
+		selectSpeed = 0.15f;
 	
 		
 
@@ -40,61 +41,18 @@ public class moveShip : MonoBehaviour {
 	
 		//////DEBUUG!!!!!!!!!!!!!!!!//////
 		if(Input.GetKeyDown(KeyCode.Space)){
-			/*if(listPlanetStart.ContainsKey(0)){
-			}else{
-				
-				listPlanetStart.Add(0,planetStart);	
-				if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="red"){
-					GameObject SelectShip =  Resources.Load("TextSelectRed")as GameObject;
-					Vector3 vec =  planetStart.transform.position;
-				
-					vec.y = -20.22636f;
-				
-					GameObject instance = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
-					((TextMesh)instance.GetComponent<TextMesh>()).text = ""+1;
-					
-					instance.transform.RotateAround(Vector3.up, 1.6f);
-					Vector3 vt = instance.transform.position;
-					vt.x +=5;
-					instance.transform.position = vt;
-					
-					shipSelect.Add(0,instance);
-					
-					
-				}else if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="blue"){
-					GameObject SelectShip =  Resources.Load("TextSelectBlue")as GameObject;
-					Vector3 vec =  planetStart.transform.position;
-				
-					vec.y = -20.22636f;
-				
-					GameObject instance = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
-					((TextMesh)instance.GetComponent<TextMesh>()).text = ""+1;
-					instance.transform.RotateAround(Vector3.up, -1.6f);
-					Vector3 vt = instance.transform.position;
-					vt.x -=5;
-					instance.transform.position = vt;
-					
-					shipSelect.Add(0,instance);
-				}
-			}*/
 	
 		}
 		
 		
 		if(Input.GetKeyUp(KeyCode.Space)){
-			/*if(shipSelect.ContainsKey(0)){
-				shipSelect.Remove(0);
-			}
-			if(listPlanetStart.ContainsKey(0)){
-				listPlanetStart.Remove(0);
-			}*/
-			deplacement(planetStart,planetEnd,((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsB.Count);
+			//deplacement(planetStart,planetEnd,((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsB.Count);
 			
 		}
 		
 		
 		/////END DEBUG!!!!!!!!///
-		
+	
 		foreach(Touch touch in Input.touches) {
 			
 			int fingerId  = touch.fingerId;
@@ -286,16 +244,9 @@ public class moveShip : MonoBehaviour {
 			}
 		}
 		
-		if( verifEndGame()){
+		if( verifEndGame() ){
 			Application.LoadLevel("Menu");
 		}
-		
-		/*foreach(Touch touch in Input.touches) {
-			if(touch.phase == TouchPhase.Ended) 
-				//Instantiate (planetStart,Camera.main.ScreenToWorldPoint(touch.position),transform.rotation);
-				Debug.Log(Camera.main.ScreenToWorldPoint(touch.position));
-			
-		}*/
 	}
 	
 	/*verifie si un des 2 joueurs a perdue

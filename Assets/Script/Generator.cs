@@ -1,17 +1,14 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.IO;
   
-
-public class GestionLink : MonoBehaviour {
+public class Generator : MonoBehaviour {
 	
 	private XmlDocument xmlDocs;
 	public Hashtable link;
-	//public GameObject[] l;
-	public List<GameObject> l;
+	public GameObject[] l;
 	
 	// Use this for initialization
 	void Start () {
@@ -21,13 +18,9 @@ public class GestionLink : MonoBehaviour {
 		link = new Hashtable();
 		Hashtable tmp ;
 		
-		//l= new ArrayList<GameObject>();
 		
-		
-		
-		
-		int niveau =((moveShip)GameObject.FindGameObjectWithTag("User").GetComponent<moveShip>()).lvl;
-		
+		//int niveau =((moveShip)GameObject.FindGameObjectWithTag("User").GetComponent<moveShip>()).lvl;
+		int niveau = 1;
 		
 		//Generateur de planete
 		XmlNodeList levelsList = xmlDocs.GetElementsByTagName("lvl");
@@ -39,29 +32,20 @@ public class GestionLink : MonoBehaviour {
 	   			foreach (XmlNode planet in levelcontent){
 		    		if(planet.Name == "planet"){
 						XmlNodeList planetInfos = planet.ChildNodes;
-						
-						GameObject pla = Resources.Load("planet"+planetInfos[6].InnerText)as GameObject;
-						
-						pla.transform.localScale = new Vector3(float.Parse( planetInfos[5].InnerText),float.Parse( planetInfos[5].InnerText), float.Parse( planetInfos[5].InnerText)); 
-						
-						pla.transform.position = new Vector3(float.Parse( planetInfos[1].InnerText), -23.3f, float.Parse( planetInfos[2].InnerText));
-						
+						GameObject instance = (GameObject)Instantiate(Resources.Load("planet")as GameObject);
+						instance.transform.position = new Vector3(float.Parse( planetInfos[1].InnerText), -2.3f, float.Parse( planetInfos[2].InnerText));
+						instance.name = planetInfos[0].InnerText;
 						if(planetInfos[3].InnerText == "red"){
-							((PlanetScript)pla.GetComponent<PlanetScript>()).ship = Resources.Load("Shipred")as GameObject;
+							((PlanetScript)instance.GetComponent<PlanetScript>()).ship = Resources.Load("Shipred")as GameObject;
 						}else if(planetInfos[3].InnerText == "blue"){
-							((PlanetScript)pla.GetComponent<PlanetScript>()).ship = Resources.Load("Shipblue")as GameObject;
+							((PlanetScript)instance.GetComponent<PlanetScript>()).ship = Resources.Load("Shipblue")as GameObject;
 						}else if(planetInfos[3].InnerText == "neutre"){
-							((PlanetScript)pla.GetComponent<PlanetScript>()).ship = Resources.Load("ShipN")as GameObject;
+							((PlanetScript)instance.GetComponent<PlanetScript>()).ship = Resources.Load("ShipN")as GameObject;
 						}
 						
-						((PlanetScript)pla.GetComponent<PlanetScript>()).nbShip = int.Parse(planetInfos[4].InnerText);
-						
-						
-						GameObject instance = (GameObject)Instantiate(pla);
-						
-						
-						
-						instance.name = planetInfos[0].InnerText;
+						for(int i=0; i<int.Parse(planetInfos[4].InnerText); i++){
+							((PlanetScript)instance.GetComponent<PlanetScript>()).createShip();
+						}
 		    		}
 		  	 	}
 			}
@@ -114,14 +98,6 @@ public class GestionLink : MonoBehaviour {
 								}else{
 									instanceLink.active = true;	
 								}
-								
-								
-								//l.Length = l.Length+1;
-								
-								//l[l.Length-1] = instanceLink;
-								
-								l.Add(instanceLink);
-								
 				    		}
 				  	 	}
 						link.Add(planetInfos[0].InnerText, tmp);
@@ -131,7 +107,7 @@ public class GestionLink : MonoBehaviour {
 			}
 		}
 		
-		//l = GameObject.FindGameObjectsWithTag("link");
+		l = GameObject.FindGameObjectsWithTag("link");
 	}
 	
 	public bool roadExist(GameObject planetS, GameObject planetE){
@@ -198,7 +174,7 @@ public class GestionLink : MonoBehaviour {
 			if(((Hashtable)link[ps])[pe] != null){
 				if((string)((Hashtable)link[ps])[pe]  == "0"){
 					((Hashtable)link[ps])[pe] = "1";
-					for(int i = 0; i<l.Count; i++){
+					for(int i = 0; i<l.Length; i++){
 						if(l[i].name == ""+ps+""+pe){
 							l[i].active=true;
 						}
@@ -212,7 +188,7 @@ public class GestionLink : MonoBehaviour {
 	
 	public void changeColor(GameObject planet){
 		
-		for(int i=0; i<l.Count; i++){
+		for(int i=0; i<l.Length; i++){
 			
 			if(l[i].name[0] == planet.name[0]){
 				LineRenderer line = l[i].GetComponent<LineRenderer>();

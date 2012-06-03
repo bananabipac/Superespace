@@ -181,7 +181,7 @@ public class PlanetScript : MonoBehaviour {
 	}
 	
 	//fonction qui gere la creation des vaisseaux 
-	void createShip (){
+	public void createShip (){
 		infoUser infoRed = GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>();
 		infoUser infoBlue = GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>();
 		
