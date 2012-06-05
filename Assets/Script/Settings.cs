@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Settings : MonoBehaviour {
 	
-	
+	public GUIStyle style;
 	public string handPlayer1 = "Right-Handed";
 	public string handPlayer2 = "Right-Handed";
 	private string paramHand1;
@@ -11,6 +11,7 @@ public class Settings : MonoBehaviour {
 	private string paramQualitySettings = "Low";
 	// Use this for initialization
 	void Start () {
+		style.alignment = TextAnchor.MiddleCenter;
 		if(PlayerPrefs.GetString("paramHand1") == "left" ){
 			paramHand1 = PlayerPrefs.GetString("paramHand1");
 			handPlayer1 = "Left-Handed";
@@ -51,7 +52,7 @@ public class Settings : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		if(GUI.Button(new Rect(Screen.width * (1f/6.55f),17*Screen.height * (0.2f/7f),Screen.width * (4.8f/14f),Screen.height * (0.85f/8.5f)), "Player 1:\n"+handPlayer1)) {
+		if(GUI.Button(new Rect(Screen.width * (1f/6.55f),17*Screen.height * (0.2f/7f),Screen.width * (4.8f/14f),Screen.height * (0.85f/8.5f)), "Player 1:\n"+handPlayer1,style)) {
 			if(paramHand1 == "right") {
 				paramHand1 = "left";
 				handPlayer1 = "Left-Handed";
@@ -62,7 +63,7 @@ public class Settings : MonoBehaviour {
 				PlayerPrefs.SetString("paramHand1",paramHand1);
 			}
 		}
-		if(GUI.Button(new Rect(Screen.width * (1f/2f),17*Screen.height * (0.2f/7f),Screen.width * (4.8f/14f),Screen.height * (0.85f/8.5f)), "Player 2:\n"+handPlayer2)) {
+		if(GUI.Button(new Rect(Screen.width * (1f/2f),17*Screen.height * (0.2f/7f),Screen.width * (4.8f/14f),Screen.height * (0.85f/8.5f)), "Player 2:\n"+handPlayer2,style)) {
 			if(paramHand2 == "right") {
 				paramHand2 = "left";
 				handPlayer2 = "Left-Handed";
@@ -73,7 +74,7 @@ public class Settings : MonoBehaviour {
 				PlayerPrefs.SetString("paramHand2",paramHand2);
 			}
 		}
-		if(GUI.Button(new Rect(Screen.width * (1f/6.55f),17*Screen.height * (0.2f/5.5f),Screen.width * (4.8f/6.94f),Screen.height * (0.85f/8.5f)), "Graphics :\n"+paramQualitySettings)) {
+		if(GUI.Button(new Rect(Screen.width * (1f/6.55f),17*Screen.height * (0.2f/5.5f),Screen.width * (4.8f/6.94f),Screen.height * (0.85f/8.5f)), "Graphics :\n"+paramQualitySettings,style)) {
 			if(QualitySettings.GetQualityLevel() == 0) {
 				paramQualitySettings = "Medium";
 				QualitySettings.SetQualityLevel(1);

@@ -14,7 +14,7 @@ public class infoUser : MonoBehaviour {
 		powerMax = 7;
 		lifeShip = 5;
 		
-		speedShip = 0.5f;
+		speedShip = 2f;
 	}
 	
 	// Update is called once per frame

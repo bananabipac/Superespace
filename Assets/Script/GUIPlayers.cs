@@ -113,7 +113,7 @@ public class GUIPlayers : MonoBehaviour {
 						if(hit.collider.name == "speed1") {
 							if(lvlSpeed1 < 4) {
 								if( 100 * (lvlSpeed1+1) <= user.GetComponent<MoneyScript>().moneyPlayer1) {
-									(GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).speedShip += 1;
+									(GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).speedShip -= 0.2f;
 									user.GetComponent<MoneyScript>().moneyPlayer1 -= (100 * (lvlSpeed1+1));
 									lvlSpeed1++;
 									
@@ -146,7 +146,7 @@ public class GUIPlayers : MonoBehaviour {
 						if(hit.collider.name == "speed2") {
 							if(lvlSpeed2 < 4) {
 								if( 100 * (lvlSpeed2+1) <= user.GetComponent<MoneyScript>().moneyPlayer2) {
-									(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).speedShip += 1;
+									(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).speedShip -= 0.2f;
 									user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (lvlSpeed2+1));
 									lvlSpeed2++;
 									
