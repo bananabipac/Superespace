@@ -44,6 +44,12 @@ public class Menu : MonoBehaviour {
 	private string paramHand1;
 	private string paramHand2;
 	private string paramQualitySettings = "Low";
+	
+	private bool rotateToEnd = false;
+	private bool rotateToBegin = false;
+	
+	public GameObject planet;
+	public float speed;
 	// Use this for initialization
 	void Start () {
 		style.alignment = TextAnchor.MiddleCenter;
@@ -118,20 +124,27 @@ public class Menu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if(rotateToEnd) {
+			this.transform.RotateAround	(planet.transform.position,Vector3.up,speed*Time.deltaTime);
+		}
+		if(rotateToBegin) {
+			this.transform.RotateAround	(planet.transform.position,Vector3.up,-speed*Time.deltaTime);	
+		}
+		
 	}
 	
 	void OnGUI() {
 		
 		
 		if(GUI.Button(posMulti,"Multiplayer", style)) {
-			iTween.ValueTo(gameObject,iTween.Hash("from",initialPosMulti,"to",finalPosMulti,"onupdate","MoveButtonMulti","easetype",iTween.EaseType.easeInOutSine));
+			iTween.ValueTo(gameObject,iTween.Hash("from",initialPosMulti,"to",finalPosMulti,"onupdate","MoveButtonMulti","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopRotationEnd"));
 			iTween.ValueTo(gameObject,iTween.Hash("from",initialPosExit,"to",finalPosExit,"onupdate","MoveButtonExit","easetype",iTween.EaseType.easeInOutSine));
 			iTween.ValueTo(gameObject,iTween.Hash("from",initialPlayerOne,"to",finalPlayerOne,"onupdate","MoveButtonPlayerOne","easetype",iTween.EaseType.easeInOutSine));
 			iTween.ValueTo(gameObject,iTween.Hash("from",initialPlayerTwo,"to",finalPlayerTwo,"onupdate","MoveButtonPlayerTwo","easetype",iTween.EaseType.easeInOutSine));
 			iTween.ValueTo(gameObject,iTween.Hash("from",initialQuality,"to",finalQuality,"onupdate","MoveButtonQuality","easetype",iTween.EaseType.easeInOutSine));
 			iTween.ValueTo(gameObject,iTween.Hash("from",initialLevel,"to",finalLevel,"onupdate","MoveButtonLevel","easetype",iTween.EaseType.easeInOutSine));
 			iTween.ValueTo(gameObject,iTween.Hash("from",initialBack,"to",finalBack,"onupdate","MoveButtonBack","easetype",iTween.EaseType.easeInOutSine));
+			rotateToEnd = true;
 		}
 		if(GUI.Button(posExit,"Exit", style)) {
 			PlayerPrefs.DeleteKey("paramHand1");
@@ -143,13 +156,14 @@ public class Menu : MonoBehaviour {
 			Application.LoadLevel(1);
 		}
 		if(GUI.Button (posBack,"Back",style)) {
-			iTween.ValueTo(gameObject,iTween.Hash("from",finalPosMulti,"to",initialPosMulti,"onupdate","MoveButtonMulti","easetype",iTween.EaseType.easeInOutSine));
+			iTween.ValueTo(gameObject,iTween.Hash("from",finalPosMulti,"to",initialPosMulti,"onupdate","MoveButtonMulti","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopRotationBegin"));
 			iTween.ValueTo(gameObject,iTween.Hash("from",finalPosExit,"to",initialPosExit,"onupdate","MoveButtonExit","easetype",iTween.EaseType.easeInOutSine));
 			iTween.ValueTo(gameObject,iTween.Hash("from",finalPlayerOne,"to",initialPlayerOne,"onupdate","MoveButtonPlayerOne","easetype",iTween.EaseType.easeInOutSine));
 			iTween.ValueTo(gameObject,iTween.Hash("from",finalPlayerTwo,"to",initialPlayerTwo,"onupdate","MoveButtonPlayerTwo","easetype",iTween.EaseType.easeInOutSine));
 			iTween.ValueTo(gameObject,iTween.Hash("from",finalQuality,"to",initialQuality,"onupdate","MoveButtonQuality","easetype",iTween.EaseType.easeInOutSine));
 			iTween.ValueTo(gameObject,iTween.Hash("from",finalLevel,"to",initialLevel,"onupdate","MoveButtonLevel","easetype",iTween.EaseType.easeInOutSine));
 			iTween.ValueTo(gameObject,iTween.Hash("from",finalBack,"to",initialBack,"onupdate","MoveButtonBack","easetype",iTween.EaseType.easeInOutSine));
+			rotateToBegin = true;
 		}
 		
 		
@@ -218,5 +232,12 @@ public class Menu : MonoBehaviour {
 	}
 	void MoveButtonBack(Rect newCoordinates) {
 		posBack = newCoordinates;
+	}
+	
+	void StopRotationEnd() {
+		rotateToEnd = false;	
+	}
+	void StopRotationBegin() {
+		rotateToBegin = false;	
 	}
 }
