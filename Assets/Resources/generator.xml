@@ -10,6 +10,7 @@
 				<nb>25</nb>
 				<size>4</size>
 				<texture>1</texture>
+				<repop>20</repop>
 			</planet>
 			<planet>
 				<name>1</name>
@@ -19,6 +20,7 @@
 				<nb>5</nb>
 				<size>4</size>
 				<texture>2</texture>
+				<repop>20</repop>
 			</planet>
 			<planet>
 				<name>2</name>
@@ -28,6 +30,7 @@
 				<nb>5</nb>
 				<size>4</size>
 				<texture>3</texture>
+				<repop>20</repop>
 			</planet>
 			<planet>
 				<name>3</name>
@@ -37,6 +40,7 @@
 				<nb>5</nb>
 				<size>4</size>
 				<texture>4</texture>
+				<repop>20</repop>
 			</planet>
 			<planet>
 				<name>4</name>
@@ -46,6 +50,7 @@
 				<nb>10</nb>
 				<size>5</size>
 				<texture>5</texture>
+				<repop>15</repop>
 			</planet>
 			<planet>
 				<name>5</name>
@@ -55,6 +60,7 @@
 				<nb>5</nb>
 				<size>4</size>
 				<texture>6</texture>
+				<repop>20</repop>
 			</planet>
 			<planet>
 				<name>6</name>
@@ -64,6 +70,7 @@
 				<nb>5</nb>
 				<size>4</size>
 				<texture>2</texture>
+				<repop>20</repop>
 			</planet>
 			<planet>
 				<name>7</name>
@@ -73,6 +80,7 @@
 				<nb>5</nb>
 				<size>4</size>
 				<texture>4</texture>
+				<repop>20</repop>
 			</planet>
 			<planet>
 				<name>8</name>
@@ -82,6 +90,110 @@
 				<nb>25</nb>
 				<size>4</size>
 				<texture>1</texture>
+				<repop>20</repop>
+			</planet>
+		</lvl>
+		<lvl>
+			<name>2</name>
+			<planet>
+				<name>0</name>
+				<x>-22</x>
+				<z>0</z>
+				<color>red</color>
+				<nb>25</nb>
+				<size>4</size>
+				<texture>1</texture>
+				<repop>20</repop>
+			</planet>
+			<planet>
+				<name>1</name>
+				<x>-10</x>
+				<z>12</z>
+				<color>neutre</color>
+				<nb>5</nb>
+				<size>4</size>
+				<texture>2</texture>
+				<repop>20</repop>
+			</planet>
+			<planet>
+				<name>2</name>
+				<x>-10</x>
+				<z>0</z>
+				<color>neutre</color>
+				<nb>5</nb>
+				<size>4</size>
+				<texture>3</texture>
+				<repop>20</repop>
+			</planet>
+			<planet>
+				<name>3</name>
+				<x>-10</x>
+				<z>-12</z>
+				<color>neutre</color>
+				<nb>5</nb>
+				<size>4</size>
+				<texture>4</texture>
+				<repop>20</repop>
+			</planet>
+			<planet>
+				<name>4</name>
+				<x>0</x>
+				<z>7</z>
+				<color>neutre</color>
+				<nb>10</nb>
+				<size>5</size>
+				<texture>5</texture>
+				<repop>15</repop>
+			</planet>
+			<planet>
+				<name>5</name>
+				<x>0</x>
+				<z>-6</z>
+				<color>neutre</color>
+				<nb>10</nb>
+				<size>5</size>
+				<texture>6</texture>
+				<repop>15</repop>
+			</planet>
+			<planet>
+				<name>6</name>
+				<x>10</x>
+				<z>12</z>
+				<color>neutre</color>
+				<nb>5</nb>
+				<size>4</size>
+				<texture>2</texture>
+				<repop>20</repop>
+			</planet>
+			<planet>
+				<name>7</name>
+				<x>10</x>
+				<z>0</z>
+				<color>neutre</color>
+				<nb>5</nb>
+				<size>4</size>
+				<texture>5</texture>
+				<repop>20</repop>
+			</planet>
+			<planet>
+				<name>8</name>
+				<x>10</x>
+				<z>-12</z>
+				<color>neutre</color>
+				<nb>5</nb>
+				<size>4</size>
+				<texture>4</texture>
+				<repop>20</repop>
+			</planet>
+			<planet>
+				<name>9</name>
+				<x>20</x>
+				<z>0</z>
+				<color>blue</color>
+				<nb>25</nb>
+				<size>4</size>
+				<texture>1</texture>
+				<repop>20</repop>
 			</planet>
 		</lvl>
 	</levels>
@@ -173,6 +285,112 @@
 			<name>7</name>
 			<planet>
 				<name>8</name>
+				<value>0</value>
+			</planet>
+		</planet>
+		</link>
+		<link>
+			<name>2</name>
+		<planet>
+			<name>0</name>
+			<planet>
+				<name>1</name>
+				<value>0</value>
+			</planet>
+			<planet>
+				<name>2</name>
+				<value>0</value>
+			</planet>
+			<planet>
+				<name>3</name>
+				<value>0</value>
+			</planet>
+		</planet>
+		<planet>
+			<name>1</name>
+			<planet>
+				<name>2</name>
+				<value>0</value>
+			</planet>
+			<planet>
+				<name>4</name>
+				<value>0</value>
+			</planet>
+		</planet>
+		<planet>
+			<name>2</name>
+			<planet>
+				<name>3</name>
+				<value>0</value>
+			</planet>
+			<planet>
+				<name>4</name>
+				<value>0</value>
+			</planet>
+			<planet>
+				<name>5</name>
+				<value>0</value>
+			</planet>
+		</planet>
+		<planet>
+			<name>3</name>
+			<planet>
+				<name>5</name>
+				<value>0</value>
+			</planet>
+		</planet>
+		<planet>
+			<name>4</name>
+			<planet>
+				<name>5</name>
+				<value>0</value>
+			</planet>
+			<planet>
+				<name>6</name>
+				<value>0</value>
+			</planet>
+			<planet>
+				<name>7</name>
+				<value>0</value>
+			</planet>
+		</planet>
+		<planet>
+			<name>5</name>
+			<planet>
+				<name>7</name>
+				<value>0</value>
+			</planet>
+			<planet>
+				<name>8</name>
+				<value>0</value>
+			</planet>
+		</planet>
+		<planet>
+			<name>6</name>
+			<planet>
+				<name>7</name>
+				<value>0</value>
+			</planet>
+			<planet>
+				<name>9</name>
+				<value>0</value>
+			</planet>
+		</planet>
+		<planet>
+			<name>7</name>
+			<planet>
+				<name>8</name>
+				<value>0</value>
+			</planet>
+			<planet>
+				<name>9</name>
+				<value>0</value>
+			</planet>
+		</planet>
+		<planet>
+			<name>8</name>
+			<planet>
+				<name>9</name>
 				<value>0</value>
 			</planet>
 		</planet>

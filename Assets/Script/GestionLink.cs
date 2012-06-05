@@ -55,6 +55,8 @@ public class GestionLink : MonoBehaviour {
 						}
 						
 						((PlanetScript)pla.GetComponent<PlanetScript>()).nbShip = int.Parse(planetInfos[4].InnerText);
+						((PlanetScript)pla.GetComponent<PlanetScript>()).repop =  int.Parse(planetInfos[7].InnerText);
+						
 						
 						
 						GameObject instance = (GameObject)Instantiate(pla);

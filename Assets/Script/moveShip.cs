@@ -27,12 +27,12 @@ public class moveShip : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
+		lvl = PlayerPrefs.GetInt("paramLevel");
 		
 		user = GameObject.FindWithTag("User");
 		
 		selectSpeed = 0.2f;
-	
-		
+
 
 	}
 	
