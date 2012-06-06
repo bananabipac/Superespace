@@ -112,7 +112,7 @@ public class GestionLink : MonoBehaviour {
 								line.SetWidth(0.15f,0.15f);
 								
 								if(planetEndInfos[1].InnerText == "0"){
-									instanceLink.active = false;	
+									//instanceLink.active = false;	
 								}else{
 									instanceLink.active = true;	
 								}
@@ -133,7 +133,9 @@ public class GestionLink : MonoBehaviour {
 			}
 		}
 		
-		//l = GameObject.FindGameObjectsWithTag("link");
+		
+		GameObject instanceTest = (GameObject)Instantiate(Resources.Load("asteroid")as GameObject);
+		instanceTest.transform.position = new Vector3(0, -23.3f, 8);
 	}
 	
 	public bool roadExist(GameObject planetS, GameObject planetE){
