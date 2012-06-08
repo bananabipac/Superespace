@@ -42,7 +42,7 @@ public class moveShip : MonoBehaviour {
 		//////DEBUUG!!!!!!!!!!!!!!!!//////
 		if(Input.GetKeyDown(KeyCode.Space)){
 			
-			deplacement(GameObject.Find("8"), GameObject.Find("7"), 10);
+			deplacement(GameObject.Find("3"), GameObject.Find("4"), 10);
 		}
 		
 		
@@ -299,9 +299,11 @@ public class moveShip : MonoBehaviour {
 		for(int i  = 0 ; i<shipT.Count-1; i++){
 			if(shipT[i] != null){
 			//Debug.Log(ships[i].tag);
+				((rotationShip)shipT[i].GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
 				if(shipT[i].tag == "red"){
-				
+					
 					((PlanetScript)shipT[shipT.Count-1].GetComponent<PlanetScript>()).shipsR.Add(shipT[i]);
+					
 				}else{
 				
 					((PlanetScript)shipT[shipT.Count-1].GetComponent<PlanetScript>()).shipsB.Add(shipT[i]);
@@ -373,7 +375,7 @@ public class moveShip : MonoBehaviour {
 					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",info.speedShip, "easetype", "linear"));
 				}
 				
-				((rotationShip)ships[j].GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
+				
 									
 			}
 		

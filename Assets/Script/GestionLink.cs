@@ -112,15 +112,13 @@ public class GestionLink : MonoBehaviour {
 								line.SetWidth(0.15f,0.15f);
 								
 								if(planetEndInfos[1].InnerText == "0"){
-									//instanceLink.active = false;	
+									instanceLink.active = false;	
 								}else{
 									instanceLink.active = true;	
 								}
 								
 								
-								//l.Length = l.Length+1;
 								
-								//l[l.Length-1] = instanceLink;
 								
 								l.Add(instanceLink);
 								
@@ -134,8 +132,12 @@ public class GestionLink : MonoBehaviour {
 		}
 		
 		
-		GameObject instanceTest = (GameObject)Instantiate(Resources.Load("asteroid")as GameObject);
-		instanceTest.transform.position = new Vector3(0, -23.3f, 8);
+		/*GameObject instanceTest = (GameObject)Instantiate(Resources.Load("asteroid")as GameObject);
+		instanceTest.transform.position = new Vector3(0, -23.3f, 8);*/
+		
+		int[] t = nbRoad();
+		Debug.Log(t[0]);
+		Debug.Log(t[1]);
 	}
 	
 	public bool roadExist(GameObject planetS, GameObject planetE){
@@ -258,4 +260,48 @@ public class GestionLink : MonoBehaviour {
 			}
 		}
 	}
+	
+	public int[] nbRoad(){
+	
+		
+		int ir =0;
+		int ib =0;
+		
+		for(int i = 0 ; i<l.Count; i++){
+			if(l[i].active == true){
+				PlanetScript tmp = GameObject.Find(""+l[i].name[0]).GetComponent<PlanetScript>();
+				
+				if(tmp.ship.tag == "blue"){
+					PlanetScript tmp2 = GameObject.Find(""+l[i].name[1]).GetComponent<PlanetScript>();
+					if(tmp2.ship.tag != "red"){
+						ib +=1;	
+					}
+				}else if(tmp.ship.tag =="red"){
+					PlanetScript tmp2 = GameObject.Find(""+l[i].name[1]).GetComponent<PlanetScript>();
+					if(tmp2.ship.tag != "blue"){
+						ir +=1;	
+					}
+					
+				}else{
+					PlanetScript tmp2 = GameObject.Find(""+l[i].name[1]).GetComponent<PlanetScript>();
+					if(tmp2.ship.tag == "blue"){
+						ib +=1;	
+					}
+					if(tmp2.ship.tag == "red"){
+						ir +=1;	
+					}
+				}
+			}
+		}
+		
+		int[] result = new int[2];
+		//result.Length = 2;
+		result[0] = ir;
+		result[1] = ib;
+		
+		return result;
+				
+	}
+		
+	
 }

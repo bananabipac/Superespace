@@ -16,4 +16,6 @@ public class rotationShip : MonoBehaviour {
 	void Update () {
 		this.transform.RotateAround(planet.transform.position,Vector3.up, speed * Time.deltaTime);
 	}
+	
+	
 }
