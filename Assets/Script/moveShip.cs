@@ -165,7 +165,6 @@ public class moveShip : MonoBehaviour {
 									}else{
 										if(shipE.tag=="red"){
 											if(user.GetComponent<MoneyScript>().moneyPlayer1 >=50){
-												user.GetComponent<MoneyScript>().incomePlayer1 += 1;
 												user.GetComponent<MoneyScript>().moneyPlayer1 -= 50;
 												((GestionLink)GetComponent<GestionLink>()).openRoad(listPlanetStart[fingerId],listPlanetEnd[fingerId]);
 												Debug.Log("route ouverte rouge");	
@@ -174,7 +173,6 @@ public class moveShip : MonoBehaviour {
 											}
 										}else if(shipE.tag == "blue"){
 											if(user.GetComponent<MoneyScript>().moneyPlayer2 >=50){
-												user.GetComponent<MoneyScript>().incomePlayer2 += 1;
 												user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
 												((GestionLink)GetComponent<GestionLink>()).openRoad(listPlanetStart[fingerId],listPlanetEnd[fingerId]);
 												Debug.Log("route ouverte bleu");	
@@ -374,7 +372,9 @@ public class moveShip : MonoBehaviour {
 				}else{
 					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",info.speedShip, "easetype", "linear"));
 				}
-				
+				int[] links = GetComponent<GestionLink>().nbRoad();
+				user.GetComponent<MoneyScript>().incomePlayer1 = 1 + links[0];
+				user.GetComponent<MoneyScript>().incomePlayer2 = 1 + links[1];
 				
 									
 			}

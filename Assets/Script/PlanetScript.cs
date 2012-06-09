@@ -114,7 +114,9 @@ public class PlanetScript : MonoBehaviour {
 						gameObject.light.color = new Color(0,0,1,1);
 						CaptureTime = -1*CaptureCount;
 						((GestionLink)user.GetComponent<GestionLink>()).changeColor(gameObject);
-						
+						int[] links = GetComponent<GestionLink>().nbRoad();
+						user.GetComponent<MoneyScript>().incomePlayer1 = 1 + links[0];
+						user.GetComponent<MoneyScript>().incomePlayer2 = 1 + links[1];
 						//Debug.Log("Planete : "+gameObject.name + "capture blue");
 						
 					}
@@ -151,6 +153,9 @@ public class PlanetScript : MonoBehaviour {
 						CaptureTime = CaptureCount;
 						Debug.Log("Planete : "+gameObject.name + "capture red");
 						((GestionLink)user.GetComponent<GestionLink>()).changeColor(gameObject);
+						int[] links = GetComponent<GestionLink>().nbRoad();
+						user.GetComponent<MoneyScript>().incomePlayer1 = 1 + links[0];
+						user.GetComponent<MoneyScript>().incomePlayer2 = 1 + links[1];
 						//pul = true;	
 					}
 				}
