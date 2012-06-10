@@ -91,6 +91,7 @@ public class GestionLink : MonoBehaviour {
 								LineRenderer line = instanceLink.GetComponent<LineRenderer>();
 								
 								line.SetPosition(0,planetStart.transform.position);
+								
 								line.SetPosition(1,planetEnd.transform.position);
 								Color c1;
 								if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="blue"){
