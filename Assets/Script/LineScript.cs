@@ -9,9 +9,10 @@ public class LineScript : MonoBehaviour {
 	private Dictionary<int,GameObject> listPlanetStart = new Dictionary<int, GameObject>();
 	private int maxTouches = 2;
 	private bool warnedAboutMaxTouches = false;
+	private GameObject user;
 	// Use this for initialization
 	void Start () {
-		
+		user = GameObject.FindWithTag("User");
 	}
 	
 	// Update is called once per frame
@@ -32,54 +33,60 @@ public class LineScript : MonoBehaviour {
 			Ray cursorRay = Camera.main.ScreenPointToRay(touch.position);
 			RaycastHit hit;
 			if(touch.phase == TouchPhase.Began) {
-				if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
-					if (hit.collider.tag == "planet" && hit.collider.gameObject.GetComponent<PlanetScript>().ship.tag !="neutre" ) {
-						
-						GameObject instance =(GameObject) Instantiate(Resources.Load("Line")as GameObject);
-						instance.transform.position = new Vector3(0,0,0);
-						LineRenderer linet = instance.GetComponent<LineRenderer>();
-						
-						linet.SetPosition(0,hit.collider.gameObject.transform.position);
-						linet.SetPosition(1,hit.collider.gameObject.transform.position);
-						linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));
-						listLines.Add(fingerId,instance);
-						listPlanetStart.Add (fingerId,hit.collider.gameObject);
+				if(!user.GetComponent<PauseScript>().paused) {
+					if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
+						if (hit.collider.tag == "planet" && hit.collider.gameObject.GetComponent<PlanetScript>().ship.tag !="neutre" ) {
+							
+							GameObject instance =(GameObject) Instantiate(Resources.Load("Line")as GameObject);
+							instance.transform.position = new Vector3(0,0,0);
+							LineRenderer linet = instance.GetComponent<LineRenderer>();
+							
+							linet.SetPosition(0,hit.collider.gameObject.transform.position);
+							linet.SetPosition(1,hit.collider.gameObject.transform.position);
+							linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));
+							listLines.Add(fingerId,instance);
+							listPlanetStart.Add (fingerId,hit.collider.gameObject);
+						}
 					}
 				}
 				
 			}
 			if(touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) {
-				if(listPlanetStart.ContainsKey(fingerId)){
-					Vector3 touched = Camera.main.ScreenToWorldPoint(touch.position);
-					touched.y = listPlanetStart[fingerId].transform.position.y;
-					LineRenderer linet = listLines[fingerId].GetComponent<LineRenderer>();
-					if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
-						if (hit.collider.tag == "planet" && hit.collider.name != listPlanetStart[fingerId].name) {
-							if(GetComponent<GestionLink>().roadExist(listPlanetStart[fingerId],hit.collider.gameObject)) {
-								linet.SetPosition(1,hit.collider.gameObject.transform.position);
-								linet.SetColors(new Color(0,1,0,1),new Color(0,1,0,1));
-							}else {
+				if(!user.GetComponent<PauseScript>().paused) {
+					if(listPlanetStart.ContainsKey(fingerId)){
+						Vector3 touched = Camera.main.ScreenToWorldPoint(touch.position);
+						touched.y = listPlanetStart[fingerId].transform.position.y;
+						LineRenderer linet = listLines[fingerId].GetComponent<LineRenderer>();
+						if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
+							if (hit.collider.tag == "planet" && hit.collider.name != listPlanetStart[fingerId].name) {
+								if(GetComponent<GestionLink>().roadExist(listPlanetStart[fingerId],hit.collider.gameObject)) {
+									linet.SetPosition(1,hit.collider.gameObject.transform.position);
+									linet.SetColors(new Color(0,1,0,1),new Color(0,1,0,1));
+								}else {
+									linet.SetPosition(1,touched);
+									linet.SetColors(new Color(1,0,0,1),new Color(1,0,0,1));
+								}
+							} else {
 								linet.SetPosition(1,touched);
-								linet.SetColors(new Color(1,0,0,1),new Color(1,0,0,1));
+								linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));	
 							}
 						} else {
 							linet.SetPosition(1,touched);
-							linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));	
+							linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));		
 						}
-					} else {
-						linet.SetPosition(1,touched);
-						linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));		
 					}
 				}
 			}
 			if(touch.phase == TouchPhase.Ended) {
-				if(listLines.ContainsKey(fingerId)){
-					GameObject tmp = listLines[fingerId];
-					listLines.Remove(fingerId);
-					Destroy(tmp);
-				}
-				if(listPlanetStart.ContainsKey(fingerId)){
-					listPlanetStart.Remove(fingerId);
+				if(!user.GetComponent<PauseScript>().paused) {
+					if(listLines.ContainsKey(fingerId)){
+						GameObject tmp = listLines[fingerId];
+						listLines.Remove(fingerId);
+						Destroy(tmp);
+					}
+					if(listPlanetStart.ContainsKey(fingerId)){
+						listPlanetStart.Remove(fingerId);
+					}
 				}
 				
 			}
