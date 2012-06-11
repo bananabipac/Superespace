@@ -64,7 +64,7 @@ public class LineScript : MonoBehaviour {
 									linet.SetPosition(1,hit.collider.gameObject.transform.position);
 									linet.SetColors(new Color(0,1,0,1),new Color(0,1,0,1));
 								} else {
-									if(listPlanetStart[fingerId].GetComponent<PlanetScript>().ship.tag == "red") {
+									if(listPlanetStart[fingerId] == user.GetComponent<SpaceBridge>().planet1) {
 										if(hit.collider.name == "BlackHole1") {
 											linet.SetPosition(1,hit.collider.gameObject.transform.position);
 											linet.SetColors(new Color(0,1,0,1),new Color(0,1,0,1));
@@ -72,7 +72,7 @@ public class LineScript : MonoBehaviour {
 											linet.SetPosition(1,touched);
 											linet.SetColors(new Color(1,0,0,1),new Color(1,0,0,1));	
 										}	
-									}else if(listPlanetStart[fingerId].GetComponent<PlanetScript>().ship.tag == "blue") {
+									}else if(listPlanetStart[fingerId] == user.GetComponent<SpaceBridge>().planet2) {
 										if(hit.collider.name == "BlackHole2") {
 											linet.SetPosition(1,hit.collider.gameObject.transform.position);
 											linet.SetColors(new Color(0,1,0,1),new Color(0,1,0,1));
