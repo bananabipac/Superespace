@@ -4,6 +4,8 @@ using System.Collections;
 public class SpaceBridge : MonoBehaviour {
 	public GameObject blackHole1;
 	public GameObject blackHole2;
+	public GameObject planet1;
+	public GameObject planet2;
 	public bool bridgeOpen = false;
 	// Use this for initialization
 	void Start () {

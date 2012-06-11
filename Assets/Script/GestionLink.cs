@@ -28,6 +28,7 @@ public class GestionLink : MonoBehaviour {
 		
 		int niveau =((moveShip)GameObject.FindGameObjectWithTag("User").GetComponent<moveShip>()).lvl;
 		
+		SpaceBridge hole = GameObject.FindGameObjectWithTag("User").GetComponent<SpaceBridge>();
 		
 		//Generateur de planete
 		XmlNodeList levelsList = xmlDocs.GetElementsByTagName("lvl");
@@ -64,6 +65,14 @@ public class GestionLink : MonoBehaviour {
 						
 						
 						instance.name = planetInfos[0].InnerText;
+						
+						//trou noir
+						if(planetInfos[8].InnerText == "1"){
+							hole.planet1 = instance;
+						}else if(planetInfos[8].InnerText == "2"){
+							hole.planet2 = instance;	
+						}
+						
 		    		}
 		  	 	}
 			}
@@ -91,6 +100,7 @@ public class GestionLink : MonoBehaviour {
 								LineRenderer line = instanceLink.GetComponent<LineRenderer>();
 								
 								line.SetPosition(0,planetStart.transform.position);
+								
 								line.SetPosition(1,planetEnd.transform.position);
 								Color c1;
 								if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="blue"){
