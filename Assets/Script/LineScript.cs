@@ -58,13 +58,32 @@ public class LineScript : MonoBehaviour {
 						touched.y = listPlanetStart[fingerId].transform.position.y;
 						LineRenderer linet = listLines[fingerId].GetComponent<LineRenderer>();
 						if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
-							if (hit.collider.tag == "planet" && hit.collider.name != listPlanetStart[fingerId].name) {
+							Debug.Log (hit.collider.tag);
+							if ((hit.collider.tag == "planet" || hit.collider.tag == "BlackHole") && hit.collider.name != listPlanetStart[fingerId].name) {
 								if(GetComponent<GestionLink>().roadExist(listPlanetStart[fingerId],hit.collider.gameObject)) {
 									linet.SetPosition(1,hit.collider.gameObject.transform.position);
 									linet.SetColors(new Color(0,1,0,1),new Color(0,1,0,1));
-								}else {
-									linet.SetPosition(1,touched);
-									linet.SetColors(new Color(1,0,0,1),new Color(1,0,0,1));
+								} else {
+									if(listPlanetStart[fingerId].GetComponent<PlanetScript>().ship.tag == "red") {
+										if(hit.collider.name == "BlackHole1") {
+											linet.SetPosition(1,hit.collider.gameObject.transform.position);
+											linet.SetColors(new Color(0,1,0,1),new Color(0,1,0,1));
+										}else{
+											linet.SetPosition(1,touched);
+											linet.SetColors(new Color(1,0,0,1),new Color(1,0,0,1));	
+										}	
+									}else if(listPlanetStart[fingerId].GetComponent<PlanetScript>().ship.tag == "blue") {
+										if(hit.collider.name == "BlackHole2") {
+											linet.SetPosition(1,hit.collider.gameObject.transform.position);
+											linet.SetColors(new Color(0,1,0,1),new Color(0,1,0,1));
+										}else{
+											linet.SetPosition(1,touched);
+											linet.SetColors(new Color(1,0,0,1),new Color(1,0,0,1));	
+										}	
+									}else{
+										linet.SetPosition(1,touched);
+										linet.SetColors(new Color(1,0,0,1),new Color(1,0,0,1));
+									}
 								}
 							} else {
 								linet.SetPosition(1,touched);

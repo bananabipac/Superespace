@@ -142,25 +142,29 @@ public class GestionLink : MonoBehaviour {
 	
 	public bool roadExist(GameObject planetS, GameObject planetE){
 		string ps,pe;
-		if(int.Parse(planetS.name) > int.Parse(planetE.name)){
-			ps = planetE.name;
-			pe = planetS.name;
-		}else{
-			pe = planetE.name;
-			ps = planetS.name;
-		}
-		
-		try{
-		
-			if(((Hashtable)link[ps])[pe] != null){
-				return true;
+		if(planetE.tag != "BlackHole"){
+			if(int.Parse(planetS.name) > int.Parse(planetE.name)){
+				ps = planetE.name;
+				pe = planetS.name;
 			}else{
+				pe = planetE.name;
+				ps = planetS.name;
+			}
+		
+		
+			try{
+			
+				if(((Hashtable)link[ps])[pe] != null){
+					return true;
+				}else{
+					return false;	
+				}
+			}catch{
 				return false;	
 			}
-		}catch{
+		}else{
 			return false;	
 		}
-		
 	}
 	
 	public bool roadOpen(GameObject planetS, GameObject planetE){
@@ -206,6 +210,7 @@ public class GestionLink : MonoBehaviour {
 					((Hashtable)link[ps])[pe] = "1";
 					for(int i = 0; i<l.Count; i++){
 						if(l[i].name == ""+ps+""+pe){
+							Debug.Log("test");
 							l[i].active=true;
 						}
 					}

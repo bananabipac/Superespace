@@ -59,10 +59,12 @@
      <Compile Include="Assets\Script\LineScript.cs" />
      <Compile Include="Assets\Script\Menu.cs" />
      <Compile Include="Assets\Script\MoneyScript.cs" />
+     <Compile Include="Assets\Script\ParticleSpiralEffect.cs" />
      <Compile Include="Assets\Script\PauseScript.cs" />
      <Compile Include="Assets\Script\PlanetScript.cs" />
      <Compile Include="Assets\Script\PlanetScriptMenu.cs" />
      <Compile Include="Assets\Script\Settings.cs" />
+     <Compile Include="Assets\Script\SpaceBridge.cs" />
      <Compile Include="Assets\Script\TextsColor.cs" />
      <Compile Include="Assets\Script\asteroidScript.cs" />
      <Compile Include="Assets\Script\infoUser.cs" />
