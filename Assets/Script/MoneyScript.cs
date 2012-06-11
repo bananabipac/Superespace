@@ -26,7 +26,4 @@ public class MoneyScript : MonoBehaviour {
 			//Debug.Log(moneyPlayer2.ToString());
 		}
 	}
-	void OnGUI() {
-		
-	}
 }

@@ -11,6 +11,7 @@
 				<size>4</size>
 				<texture>1</texture>
 				<repop>20</repop>
+				<hole>1</hole>
 			</planet>
 			<planet>
 				<name>1</name>
@@ -21,6 +22,7 @@
 				<size>4</size>
 				<texture>2</texture>
 				<repop>20</repop>
+				<hole>null</hole>
 			</planet>
 			<planet>
 				<name>2</name>
@@ -31,6 +33,7 @@
 				<size>4</size>
 				<texture>3</texture>
 				<repop>20</repop>
+				<hole>null</hole>
 			</planet>
 			<planet>
 				<name>3</name>
@@ -41,6 +44,7 @@
 				<size>4</size>
 				<texture>4</texture>
 				<repop>20</repop>
+				<hole>null</hole>
 			</planet>
 			<planet>
 				<name>4</name>
@@ -51,6 +55,7 @@
 				<size>5</size>
 				<texture>5</texture>
 				<repop>15</repop>
+				<hole>null</hole>
 			</planet>
 			<planet>
 				<name>5</name>
@@ -61,6 +66,7 @@
 				<size>4</size>
 				<texture>6</texture>
 				<repop>20</repop>
+				<hole>null</hole>
 			</planet>
 			<planet>
 				<name>6</name>
@@ -71,6 +77,7 @@
 				<size>4</size>
 				<texture>2</texture>
 				<repop>20</repop>
+				<hole>null</hole>
 			</planet>
 			<planet>
 				<name>7</name>
@@ -81,6 +88,7 @@
 				<size>4</size>
 				<texture>4</texture>
 				<repop>20</repop>
+				<hole>null</hole>
 			</planet>
 			<planet>
 				<name>8</name>
@@ -91,6 +99,7 @@
 				<size>4</size>
 				<texture>1</texture>
 				<repop>20</repop>
+				<hole>2</hole>
 			</planet>
 		</lvl>
 		<lvl>
@@ -104,6 +113,7 @@
 				<size>4</size>
 				<texture>1</texture>
 				<repop>20</repop>
+				<hole>0</hole>
 			</planet>
 			<planet>
 				<name>1</name>
@@ -114,6 +124,7 @@
 				<size>4</size>
 				<texture>2</texture>
 				<repop>20</repop>
+				<hole>1</hole>
 			</planet>
 			<planet>
 				<name>2</name>
@@ -124,6 +135,7 @@
 				<size>4</size>
 				<texture>3</texture>
 				<repop>20</repop>
+				<hole>null</hole>
 			</planet>
 			<planet>
 				<name>3</name>
@@ -134,6 +146,7 @@
 				<size>4</size>
 				<texture>4</texture>
 				<repop>20</repop>
+				<hole>null</hole>
 			</planet>
 			<planet>
 				<name>4</name>
@@ -144,6 +157,7 @@
 				<size>5</size>
 				<texture>5</texture>
 				<repop>15</repop>
+				<hole>null</hole>
 			</planet>
 			<planet>
 				<name>5</name>
@@ -154,6 +168,7 @@
 				<size>5</size>
 				<texture>6</texture>
 				<repop>15</repop>
+				<hole>null</hole>
 			</planet>
 			<planet>
 				<name>6</name>
@@ -164,6 +179,7 @@
 				<size>4</size>
 				<texture>2</texture>
 				<repop>20</repop>
+				<hole>null</hole>
 			</planet>
 			<planet>
 				<name>7</name>
@@ -174,6 +190,7 @@
 				<size>4</size>
 				<texture>5</texture>
 				<repop>20</repop>
+				<hole>null</hole>
 			</planet>
 			<planet>
 				<name>8</name>
@@ -184,6 +201,7 @@
 				<size>4</size>
 				<texture>4</texture>
 				<repop>20</repop>
+				<hole>null</hole>
 			</planet>
 			<planet>
 				<name>9</name>
@@ -194,6 +212,7 @@
 				<size>4</size>
 				<texture>1</texture>
 				<repop>20</repop>
+				<hole>2</hole>
 			</planet>
 		</lvl>
 	</levels>

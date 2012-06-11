@@ -8,6 +8,10 @@ public class GUIPlanet : MonoBehaviour {
 	private float x;
 	private float y;
 	private Vector3 vec;
+	private GameObject user;
+	private int nbShipsB;
+	private int nbShipsR;
+	private int nbShipsN;
 	
 	// Use this for initialization
 	void Start () {
@@ -16,53 +20,66 @@ public class GUIPlanet : MonoBehaviour {
 		style.alignment = TextAnchor.UpperLeft;
 		x = 14f;
 		y = -8f;
+		user = GameObject.FindWithTag("User");
+		PlanetScript tmp = GetComponent<PlanetScript>();
+		nbShipsB = tmp.shipsB.Count;
+		nbShipsR = tmp.shipsR.Count;
+		nbShipsN = tmp.shipsN.Count;
 		
 	}
 	
 	
 	void OnGUI(){
-		
-		vec = Camera.mainCamera.WorldToScreenPoint(gameObject.transform.position);
-		
-		if(((PlanetScript)GetComponent<PlanetScript>()).ship != null){
+		int shipsR;
+		int shipsB;
+		int shipsN;
+		if(!user.GetComponent<PauseScript>().paused) {
+			PlanetScript planet = GetComponent<PlanetScript>();
+			shipsR = planet.shipsR.Count;
+			shipsB = planet.shipsB.Count;
+			shipsN = planet.shipsN.Count;
+			vec = Camera.mainCamera.WorldToScreenPoint(gameObject.transform.position);
 			
-			//rouge contre bleu
-			if(((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count >0 && ((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count >0 ){
-				GUIplanet(1,1,((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count);
-				GUIplanet(0,2,((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count);
-			
-			//rouge contre blanc
-			}else if(((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count >0 && ((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count >0 ){
-				GUIplanet(1,1,((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count);
-				GUIplanet(2,2,((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count);
-	
-			//bleu contre blanc
-			}else if(((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count >0 && ((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count >0 ){
-				GUIplanet(2,1,((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count);
-				GUIplanet(0,2,((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count);
+			if(planet.ship != null){
 				
-	
-			}else{
-				if(((PlanetScript)GetComponent<PlanetScript>()).ship.tag == "red"){
-					//Camera.mainCamera.ScreenToWorldPoint;
-					if(((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count>0){
-						GUIplanet(0,0,((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count);
-					}else{
-						GUIplanet(1,0,((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count);
-					}
-				}else if(((PlanetScript)GetComponent<PlanetScript>()).ship.tag == "blue"){
-					if(((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count>0){
-						GUIplanet(1,0,((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count);
-					}else{
-						GUIplanet(0,0,((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count);
-					}
+				//rouge contre bleu
+				if(shipsR >0 && shipsB >0 ){
+					GUIplanet(1,1,shipsR);
+					GUIplanet(0,2,shipsB);
+				
+				//rouge contre blanc
+				}else if(shipsR >0 && shipsN >0 ){
+					GUIplanet(1,1,shipsR);
+					GUIplanet(2,2,shipsN);
+		
+				//bleu contre blanc
+				}else if(shipsN >0 && shipsB >0 ){
+					GUIplanet(2,1,shipsN);
+					GUIplanet(0,2,shipsB);
+					
+		
 				}else{
-					if(((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count>0){
-						GUIplanet(1,0,((PlanetScript)GetComponent<PlanetScript>()).shipsR.Count);
-					}else if(((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count>0){
-						GUIplanet(0,0,((PlanetScript)GetComponent<PlanetScript>()).shipsB.Count);
+					if(planet.ship.tag == "red"){
+						//Camera.mainCamera.ScreenToWorldPoint;
+						if(shipsB>0){
+							GUIplanet(0,0,shipsB);
+						}else{
+							GUIplanet(1,0,shipsR);
+						}
+					}else if(planet.ship.tag == "blue"){
+						if(shipsR>0){
+							GUIplanet(1,0,shipsR);
+						}else{
+							GUIplanet(0,0,shipsB);
+						}
 					}else{
-						GUIplanet(2,0,((PlanetScript)GetComponent<PlanetScript>()).shipsN.Count);
+						if(shipsR>0){
+							GUIplanet(1,0,shipsR);
+						}else if(shipsB>0){
+							GUIplanet(0,0,shipsB);
+						}else{
+							GUIplanet(2,0,shipsN);
+						}
 					}
 				}
 			}
