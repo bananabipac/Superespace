@@ -9,9 +9,9 @@ public class GUIPlanet : MonoBehaviour {
 	private float y;
 	private Vector3 vec;
 	private GameObject user;
-	private int nbShipsB;
-	private int nbShipsR;
-	private int nbShipsN;
+	//private int nbShipsB;
+	//private int nbShipsR;
+	//private int nbShipsN;
 	
 	// Use this for initialization
 	void Start () {
@@ -21,10 +21,10 @@ public class GUIPlanet : MonoBehaviour {
 		x = 14f;
 		y = -8f;
 		user = GameObject.FindWithTag("User");
-		PlanetScript tmp = GetComponent<PlanetScript>();
-		nbShipsB = tmp.shipsB.Count;
-		nbShipsR = tmp.shipsR.Count;
-		nbShipsN = tmp.shipsN.Count;
+		//PlanetScript tmp = GetComponent<PlanetScript>();
+		//nbShipsB = tmp.shipsB.Count;
+		//nbShipsR = tmp.shipsR.Count;
+		//nbShipsN = tmp.shipsN.Count;
 		
 	}
 	

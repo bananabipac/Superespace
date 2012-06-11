@@ -113,7 +113,7 @@
 				<size>4</size>
 				<texture>1</texture>
 				<repop>20</repop>
-				<hole>0</hole>
+				<hole>1</hole>
 			</planet>
 			<planet>
 				<name>1</name>
@@ -124,7 +124,7 @@
 				<size>4</size>
 				<texture>2</texture>
 				<repop>20</repop>
-				<hole>1</hole>
+				<hole>null</hole>
 			</planet>
 			<planet>
 				<name>2</name>
