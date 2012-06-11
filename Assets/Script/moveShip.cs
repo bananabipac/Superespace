@@ -43,7 +43,6 @@ public class moveShip : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.Space)){
 			
 			deplacement(GameObject.Find("3"), GameObject.Find("4"), 10);
-			GetComponent<GestionLink>().openRoad(GameObject.Find("8"), GameObject.Find("6"));
 		}
 		
 		
@@ -156,7 +155,7 @@ public class moveShip : MonoBehaviour {
 			}
 			//Pour connaitre la planète de d'arrivée, le gameobject est représenté par la variable collider.
 			if(touch.phase == TouchPhase.Ended) {
-				if(!user.GetComponent<PauseScript>().paused) {
+				
 				if(listPlanetStart.ContainsKey(fingerId)){
 					if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
 						if (hit.collider.tag == "planet" && hit.collider.name != listPlanetStart[fingerId].name ) {
@@ -229,9 +228,16 @@ public class moveShip : MonoBehaviour {
 									
 								}
 									
+							} else if (hit.collider.tag == "BlackHole"){
+								GameObject shipS =((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship;
+								PlanetScript planetScript = (PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>();
+								TextMesh mesh = shipSelect[fingerId].GetComponent<TextMesh>();
+								deplacement(listPlanetStart[fingerId],hit.collider.gameObject, int.Parse(mesh.text));
+		
 							}
 						}
-					}
+					
+					
 				}
 				if(!user.GetComponent<PauseScript>().paused) {
 					if(shipSelect.ContainsKey(fingerId)){
@@ -329,73 +335,114 @@ public class moveShip : MonoBehaviour {
 	void deplacement(GameObject start, GameObject end, int nbShip){
 		infoUser info;
 		PlanetScript p = (PlanetScript)start.GetComponent<PlanetScript>();
+		int nbs = nbShip ;
 		if(p.ship.tag == "red"){
 			info = (infoUser) GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>();
 		}else{
 			info = (infoUser) GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>();
 		}
-		
-		ships = new List<GameObject>();
-		float scal = end.transform.localScale.x ;
-				
-		float min =  scal/2.5f+1   ;
-		float max = scal/2.5f +1.5f;
-	
-		int nbs = nbShip ; 
-		
-		
-		
-		if(p.ship != null){
-		
+		if(end.tag == "planet") {
 			
-			for(int j = 0 ; j<nbs; j++){
-				
-				if(((PlanetScript)start.GetComponent<PlanetScript>()).ship.tag == "red"){
-				
-					ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsR[0]);
-					((PlanetScript)start.GetComponent<PlanetScript>()).shipsR.RemoveAt(0);
+			
+			ships = new List<GameObject>();
+			float scal = end.transform.localScale.x ;
 					
-				}else{
-				
-					ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsB[0]);
-					((PlanetScript)start.GetComponent<PlanetScript>()).shipsB.RemoveAt(0);
-				
-				}
-
+			float min =  scal/2.5f+1   ;
+			float max = scal/2.5f +1.5f;
 			
-				((rotationShip)ships[j].GetComponent<rotationShip>()).speed = 0;
-				((rotationShip)ships[j].GetComponent<rotationShip>()).planet = end;
-	
-				float z = Random.Range(min,max);
 			
-				Quaternion quat = Quaternion.AngleAxis(Random.Range(0f, 360f), end.transform.position);
+			
+			if(p.ship != null){
+			
 				
-				Vector3 vec = new Vector3(0,0,z);
-				vec = quat * vec ;
-				vec.y = 0;
-	 
-				if(j == nbs -1){
-					ships.Add(end);
-					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",info.speedShip,"oncomplete","valideDeplacement","onCompleteTarget", gameObject,"oncompleteparams", ships , "easetype", "linear"));	
+				for(int j = 0 ; j<nbs; j++){
 					
-				}else{
-					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",info.speedShip, "easetype", "linear"));
-				}
-				int[] links = GetComponent<GestionLink>().nbRoad();
-				user.GetComponent<MoneyScript>().incomePlayer1 = 1 + links[0];
-				user.GetComponent<MoneyScript>().incomePlayer2 = 1 + links[1];
+					if(((PlanetScript)start.GetComponent<PlanetScript>()).ship.tag == "red"){
+					
+						ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsR[0]);
+						((PlanetScript)start.GetComponent<PlanetScript>()).shipsR.RemoveAt(0);
+						
+					}else{
+					
+						ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsB[0]);
+						((PlanetScript)start.GetComponent<PlanetScript>()).shipsB.RemoveAt(0);
+					
+					}
+	
 				
-									
+					((rotationShip)ships[j].GetComponent<rotationShip>()).speed = 0;
+					((rotationShip)ships[j].GetComponent<rotationShip>()).planet = end;
+		
+					float z = Random.Range(min,max);
+				
+					Quaternion quat = Quaternion.AngleAxis(Random.Range(0f, 360f), end.transform.position);
+					
+					Vector3 vec = new Vector3(0,0,z);
+					vec = quat * vec ;
+					vec.y = 0;
+		 
+					if(j == nbs -1){
+						ships.Add(end);
+						iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",info.speedShip,"oncomplete","valideDeplacement","onCompleteTarget", gameObject,"oncompleteparams", ships , "easetype", "linear"));	
+						
+					}else{
+						iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",info.speedShip, "easetype", "linear"));
+					}
+					int[] links = GetComponent<GestionLink>().nbRoad();
+					user.GetComponent<MoneyScript>().incomePlayer1 = 1 + links[0];
+					user.GetComponent<MoneyScript>().incomePlayer2 = 1 + links[1];
+					
+										
+				}
+			
+			}else{
+				Debug.Log("null");	
 			}
-		
-		}else{
-			Debug.Log("null");	
+		} else if (end.tag == "BlackHole") {
+			if(p.ship != null){
+				for(int j = 0 ; j<nbs; j++){
+					
+					if(((PlanetScript)start.GetComponent<PlanetScript>()).ship.tag == "red"){
+					
+						ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsR[0]);
+						((PlanetScript)start.GetComponent<PlanetScript>()).shipsR.RemoveAt(0);
+						
+					}else{
+					
+						ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsB[0]);
+						((PlanetScript)start.GetComponent<PlanetScript>()).shipsB.RemoveAt(0);
+					
+					}
+					GameObject[] param = new GameObject[2];
+					param[0] = ships[j];
+					param[1] = end;
+					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position,"time",info.speedShip,"oncomplete","teleport","onCompleteTarget", gameObject,"oncompleteparams", param, "easetype", "linear"));			
+				}
+			}
 		}
-		
 		
 	}
 	
-
-	
+	void teleport(GameObject[] param) {
+		GameObject end = param[1];
+		Vector3 sortie;
+		GameObject[] blackHoles = GameObject.FindGameObjectsWithTag("BlackHole");
+		if(end.name == "BlackHole1") {
+			for(int i = 0; i < blackHoles.Length;i++) {
+				if(blackHoles[i].name == "BlackHole2") {
+					sortie = blackHoles[i].transform.position;	
+				}
+			}
+		}else if(end.name == "BlackHole2") {
+			for(int i = 0; i < blackHoles.Length;i++) {
+				if(blackHoles[i].name == "BlackHole1") {
+					sortie = blackHoles[i].transform.position;	
+				}
+			}
+		}
+		GameObject ship = param[0];
+		ship.transform.position = sortie;
+		
+	}
 	
 }

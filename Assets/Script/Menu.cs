@@ -155,7 +155,7 @@ public class Menu : MonoBehaviour {
 	void OnGUI() {
 		
 		
-		if(GUI.Button(posMulti,"Multiplayer", style)) {
+		if(GUI.Button(posMulti,"Versus", style)) {
 			if(!moving){
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosMulti,"to",finalPosMulti,"onupdate","MoveButtonMulti","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopRotationEnd"));
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosExit,"to",finalPosExit,"onupdate","MoveButtonExit","easetype",iTween.EaseType.easeInOutSine));

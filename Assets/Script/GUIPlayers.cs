@@ -87,7 +87,7 @@ public class GUIPlayers : MonoBehaviour {
 			Ray cursorRay = Camera.main.ScreenPointToRay(touch.position);
 			RaycastHit hit;
 			if(touch.phase == TouchPhase.Ended) {
-				if(!user.GetComponent<PauseScript>().paused) {
+				//if(!user.GetComponent<PauseScript>().paused) {
 					if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
 						if (hit.collider.tag == "UpgradePlayer1") {
 							if(hit.collider.name == "vie1") {
@@ -111,7 +111,7 @@ public class GUIPlayers : MonoBehaviour {
 									}
 								}
 							}
-							if(hit.collider.name == "speed1") {
+							if(hit.collider.name == "vitesse1") {
 								if(lvlSpeed1 < 4) {
 									if( 100 * (lvlSpeed1+1) <= user.GetComponent<MoneyScript>().moneyPlayer1) {
 										(GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).speedShip -= 0.2f;
@@ -144,19 +144,20 @@ public class GUIPlayers : MonoBehaviour {
 									}
 								}
 							}
-							if(hit.collider.name == "speed2") {
+							if(hit.collider.name == "vitesse2") {
 								if(lvlSpeed2 < 4) {
+									Debug.Log ("speed");
 									if( 100 * (lvlSpeed2+1) <= user.GetComponent<MoneyScript>().moneyPlayer2) {
 										(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).speedShip -= 0.2f;
 										user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (lvlSpeed2+1));
 										lvlSpeed2++;
-										
+										Debug.Log ("upgraded");
 									}
 								}
 							}
 						}
 					}
-				}
+				//}
 				GameObject bonus = new GameObject();
 				if(listBonusesTouched.ContainsKey(fingerId)) {
 					bonus = listBonusesTouched[fingerId];
