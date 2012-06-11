@@ -17,6 +17,9 @@ public class SpaceBridge : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
+		blackHole1.transform.RotateAround(blackHole1.transform.position,Vector3.up, 13f * Time.deltaTime);
+		blackHole2.transform.RotateAround(blackHole2.transform.position,Vector3.up, 13f * Time.deltaTime);
 	
 	}
 }

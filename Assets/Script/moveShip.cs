@@ -451,7 +451,9 @@ public class moveShip : MonoBehaviour {
 			}
 		}
 		GameObject ship = param[0];
+		
 		ship.transform.position = sortie;
+		
 		if(ship.tag == "red"){
 			info = (infoUser) GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>();
 		}else{
