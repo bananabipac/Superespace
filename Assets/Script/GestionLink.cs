@@ -21,9 +21,6 @@ public class GestionLink : MonoBehaviour {
 		link = new Hashtable();
 		Hashtable tmp ;
 		
-		//l= new ArrayList<GameObject>();
-		
-		
 		
 		
 		int niveau =((moveShip)GameObject.FindGameObjectWithTag("User").GetComponent<moveShip>()).lvl;

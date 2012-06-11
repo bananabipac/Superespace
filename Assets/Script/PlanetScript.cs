@@ -132,7 +132,7 @@ public class PlanetScript : MonoBehaviour {
 				
 			}
 		}else if (shipsR.Count>0 && ship.tag != "red"){//vaisseau rouge present sur la planete
-			Debug.Log(Time.deltaTime);
+			
 			if(CaptureTime < CaptureCount && Time.deltaTime>0){
 				CaptureTmp += 1*shipsR.Count;
 				if(CaptureTmp >=SpeedCapture){
@@ -231,12 +231,12 @@ public class PlanetScript : MonoBehaviour {
 			GameObject sb = shipsB[iB];
 			GameObject sr = shipsR[iR];
 			
-			Debug.Log(((rotationShip)sb.GetComponent<rotationShip>()).life);
-			Debug.Log(((rotationShip)sr.GetComponent<rotationShip>()).life);
+			//Debug.Log(((rotationShip)sb.GetComponent<rotationShip>()).life);
+			//Debug.Log(((rotationShip)sr.GetComponent<rotationShip>()).life);
 			((rotationShip)sb.GetComponent<rotationShip>()).life -= Random.Range(infoUserR.powerMin,infoUserR.powerMax);
-			Debug.Log(((rotationShip)sb.GetComponent<rotationShip>()).life);
+			//Debug.Log(((rotationShip)sb.GetComponent<rotationShip>()).life);
 			((rotationShip)sr.GetComponent<rotationShip>()).life -= Random.Range(infoUserB.powerMin,infoUserB.powerMax); 
-			Debug.Log(((rotationShip)sr.GetComponent<rotationShip>()).life);
+			//Debug.Log(((rotationShip)sr.GetComponent<rotationShip>()).life);
 			if(((rotationShip)sb.GetComponent<rotationShip>()).life<=0){
 				shipsB.RemoveAt(iB);
 				Destroy(sb);	

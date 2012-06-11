@@ -6,7 +6,7 @@ public class moveShip : MonoBehaviour {
 	
 	public GameObject planetStart;
 	public GameObject planetEnd;
-	public List<GameObject> ships;
+	//public List<GameObject> ships;
 	public int lvl;
 
 	private GameObject user;
@@ -42,7 +42,7 @@ public class moveShip : MonoBehaviour {
 		//////DEBUUG!!!!!!!!!!!!!!!!//////
 		if(Input.GetKeyDown(KeyCode.Space)){
 			
-			deplacement(GameObject.Find("3"), GameObject.Find("4"), 10);
+			deplacement(GameObject.Find("0"), GameObject.Find("BlackHole1"), 5);
 		}
 		
 		
@@ -229,10 +229,12 @@ public class moveShip : MonoBehaviour {
 								}
 									
 							} else if (hit.collider.tag == "BlackHole"){
-								GameObject shipS =((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship;
-								PlanetScript planetScript = (PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>();
+								listPlanetEnd.Add(fingerId,hit.collider.gameObject);
+								//GameObject shipS =((PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>()).ship;
+								//PlanetScript planetScript = (PlanetScript)listPlanetStart[fingerId].GetComponent<PlanetScript>();
 								TextMesh mesh = shipSelect[fingerId].GetComponent<TextMesh>();
 								deplacement(listPlanetStart[fingerId],hit.collider.gameObject, int.Parse(mesh.text));
+								Debug.Log(int.Parse(mesh.text));
 		
 							}
 						}
@@ -256,18 +258,15 @@ public class moveShip : MonoBehaviour {
 					}
 				}
 			}
+			
 		}
 		
 		if( verifEndGame()){
 			Application.LoadLevel("Menu");
 		}
 		
-		/*foreach(Touch touch in Input.touches) {
-			if(touch.phase == TouchPhase.Ended) 
-				//Instantiate (planetStart,Camera.main.ScreenToWorldPoint(touch.position),transform.rotation);
-				Debug.Log(Camera.main.ScreenToWorldPoint(touch.position));
-			
-		}*/
+		
+		
 	}
 	
 	/*verifie si un des 2 joueurs a perdue
@@ -309,6 +308,7 @@ public class moveShip : MonoBehaviour {
 	
 	//ajoute les vaisseaux au tableau de la planete d'arrivé
 	void valideDeplacement(List<GameObject> shipT){
+		
 		for(int i  = 0 ; i<shipT.Count-1; i++){
 			if(shipT[i] != null){
 			//Debug.Log(ships[i].tag);
@@ -334,6 +334,7 @@ public class moveShip : MonoBehaviour {
 	//deplace les vaisseaux d'une planete a l'autre
 	void deplacement(GameObject start, GameObject end, int nbShip){
 		infoUser info;
+		List<GameObject> ships = new List<GameObject>();
 		PlanetScript p = (PlanetScript)start.GetComponent<PlanetScript>();
 		int nbs = nbShip ;
 		if(p.ship.tag == "red"){
@@ -344,7 +345,7 @@ public class moveShip : MonoBehaviour {
 		if(end.tag == "planet") {
 			
 			
-			ships = new List<GameObject>();
+			
 			float scal = end.transform.localScale.x ;
 					
 			float min =  scal/2.5f+1   ;
@@ -453,7 +454,9 @@ public class moveShip : MonoBehaviour {
 			}
 		}
 		GameObject ship = param[0];
+		
 		ship.transform.position = sortie;
+		
 		if(ship.tag == "red"){
 			info = (infoUser) GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>();
 		}else{
