@@ -141,8 +141,8 @@ public class GestionLink : MonoBehaviour {
 		}
 		
 		
-		GameObject instanceTest = (GameObject)Instantiate(Resources.Load("asteroid")as GameObject);
-		instanceTest.transform.position = new Vector3(0, -23.3f, 8);
+		/*GameObject instanceTest = (GameObject)Instantiate(Resources.Load("asteroid")as GameObject);
+		instanceTest.transform.position = new Vector3(0, -23.3f, 8);*/
 		
 		/*int[] t = nbRoad();
 		Debug.Log(t[0]);
