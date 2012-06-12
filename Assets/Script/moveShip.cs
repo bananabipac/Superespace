@@ -42,7 +42,8 @@ public class moveShip : MonoBehaviour {
 		//////DEBUUG!!!!!!!!!!!!!!!!//////
 		if(Input.GetKeyDown(KeyCode.Space)){
 			
-			deplacement(GameObject.Find("0"), GameObject.Find("BlackHole1"), 5);
+			deplacement(GameObject.Find("0"), GameObject.Find("1"), 1);
+			GetComponent<GestionLink>().openRoad(GameObject.Find("0"), GameObject.Find("1"));
 		}
 		
 		
@@ -389,6 +390,7 @@ public class moveShip : MonoBehaviour {
 					}else{
 						iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",info.speedShip, "easetype", "linear"));
 					}
+					GetComponent<GestionLink>().activeAsteroid(start,end, ships);
 					int[] links = GetComponent<GestionLink>().nbRoad();
 					user.GetComponent<MoneyScript>().incomePlayer1 = 1 + links[0];
 					user.GetComponent<MoneyScript>().incomePlayer2 = 1 + links[1];

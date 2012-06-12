@@ -124,7 +124,16 @@ public class GestionLink : MonoBehaviour {
 									instanceLink.active = true;	
 								}
 								
-								
+								if(planetEndInfos[2].InnerText == "1"){
+									GameObject instanceAstero = (GameObject)Instantiate(Resources.Load("asteroid")as GameObject);
+									Vector3 st = planetStart.transform.position;
+									Vector3 en = planetEnd.transform.position;
+									Vector3 m = st + (0.5f*(en-st));
+									
+									instanceAstero.transform.position = m;
+									instanceAstero.name = "a"+nameS+""+nameE;
+									instanceAstero.active = true;
+								}
 								
 								
 								l.Add(instanceLink);
@@ -217,7 +226,6 @@ public class GestionLink : MonoBehaviour {
 					((Hashtable)link[ps])[pe] = "1";
 					for(int i = 0; i<l.Count; i++){
 						if(l[i].name == ""+ps+""+pe){
-							Debug.Log("test");
 							l[i].active=true;
 						}
 					}
@@ -314,6 +322,29 @@ public class GestionLink : MonoBehaviour {
 		return result;
 				
 	}
+	
+	public void activeAsteroid(GameObject planetS, GameObject planetE, List<GameObject> shipsT){
+	
+		string ps,pe;
+		if(int.Parse(planetS.name) > int.Parse(planetE.name)){
+			ps = planetE.name;
+			pe = planetS.name;
+		}else{
+			pe = planetE.name;
+			ps = planetS.name;
+		}
+		
+		GameObject asteroid = GameObject.Find("a"+ps+pe);
+			if(asteroid != null){
+				asteroidScript asteroScript = asteroid.GetComponent<asteroidScript>();
+				for(int i=0 ; i<shipsT.Count; i++){
+					asteroScript.ships.Add(shipsT[i]);	
+				}
+				asteroScript.active = true;
+			}
+	}
+		
+	
 		
 	
 }
