@@ -89,7 +89,11 @@ public class GestionLink : MonoBehaviour {
 						foreach (XmlNode planetsEnd in planetInfos){
 				    		if(planetsEnd.Name == "planet"){	
 								XmlNodeList planetEndInfos = planetsEnd.ChildNodes;
-								tmp.Add(planetEndInfos[0].InnerText,planetEndInfos[1].InnerText);
+								if(PlayerPrefs.GetString("mode") == "classic"){
+									tmp.Add(planetEndInfos[0].InnerText,planetEndInfos[1].InnerText);
+								}else if(PlayerPrefs.GetString("mode") == "quick"){
+									tmp.Add(planetEndInfos[0].InnerText,"1");
+								}
 								string nameE = planetEndInfos[0].InnerText;
 								GameObject planetEnd = GameObject.Find(nameE);
 								GameObject instanceLink = (GameObject)Instantiate(Resources.Load("Line")as GameObject);
@@ -119,7 +123,11 @@ public class GestionLink : MonoBehaviour {
 								line.SetWidth(0.15f,0.15f);
 								
 								if(planetEndInfos[1].InnerText == "0"){
-									instanceLink.active = false;	
+									if(PlayerPrefs.GetString("mode") == "classic"){
+										instanceLink.active = false;
+									}else if(PlayerPrefs.GetString("mode") == "quick"){
+										instanceLink.active = true;
+									}	
 								}else{
 									instanceLink.active = true;	
 								}
@@ -340,7 +348,7 @@ public class GestionLink : MonoBehaviour {
 				for(int i=0 ; i<shipsT.Count; i++){
 					asteroScript.ships.Add(shipsT[i]);	
 				}
-				asteroScript.active = true;
+				
 			}
 	}
 		

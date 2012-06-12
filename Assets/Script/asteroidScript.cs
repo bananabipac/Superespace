@@ -41,7 +41,7 @@ public class asteroidScript : MonoBehaviour {
 	}
 	
 	void Update () {
-			Debug.Log(ships.Count);
+			
 			for(int i = 0 ; i<ships.Count; i++){
 				GameObject ship = ships[i];
 				if(Vector3.Distance(ship.transform.position, this.transform.position) <= distance){
