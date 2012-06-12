@@ -63,6 +63,7 @@
      <Compile Include="Assets\Script\PauseScript.cs" />
      <Compile Include="Assets\Script\PlanetScript.cs" />
      <Compile Include="Assets\Script\PlanetScriptMenu.cs" />
+     <Compile Include="Assets\Script\RandomRotateAroundMenu.cs" />
      <Compile Include="Assets\Script\Settings.cs" />
      <Compile Include="Assets\Script\SpaceBridge.cs" />
      <Compile Include="Assets\Script\TextsColor.cs" />

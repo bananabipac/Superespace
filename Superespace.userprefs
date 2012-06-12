@@ -1,8 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Menu.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\RandomRotateAroundMenu.cs">
     <Files>
-      <File FileName="Assets\Script\SpaceBridge.cs" Line="19" Column="36" />
+      <File FileName="Assets\Script\RandomRotateAroundMenu.cs" Line="19" Column="1" />
+      <File FileName="Assets\Script\rotationShip.cs" Line="1" Column="1" />
+      <File FileName="Assets\Swarm Object Manager\Swarm Plugin with Demo\Scripts\AsteroidManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\SpaceBridge.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\Menu.cs" Line="241" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
