@@ -403,24 +403,27 @@ public class moveShip : MonoBehaviour {
 			}
 		} else if (end.tag == "BlackHole") {
 			if(p.ship != null){
-				for(int j = 0 ; j<nbs; j++){
-					
-					if(((PlanetScript)start.GetComponent<PlanetScript>()).ship.tag == "red"){
-					
-						ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsR[0]);
-						((PlanetScript)start.GetComponent<PlanetScript>()).shipsR.RemoveAt(0);
+				if((user.GetComponent<SpaceBridge>().planet1 == start && end.name == "BlackHole1")
+					||(user.GetComponent<SpaceBridge>().planet2 == start && end.name == "BlackHole2")){
+					for(int j = 0 ; j<nbs; j++){
 						
-					}else{
-					
-						ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsB[0]);
-						((PlanetScript)start.GetComponent<PlanetScript>()).shipsB.RemoveAt(0);
-					
+						if(((PlanetScript)start.GetComponent<PlanetScript>()).ship.tag == "red"){
+						
+							ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsR[0]);
+							((PlanetScript)start.GetComponent<PlanetScript>()).shipsR.RemoveAt(0);
+							
+						}else{
+						
+							ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsB[0]);
+							((PlanetScript)start.GetComponent<PlanetScript>()).shipsB.RemoveAt(0);
+						
+						}
+						GameObject[] param = new GameObject[2];
+						param[0] = ships[j];
+						param[1] = end;
+	
+						iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position,"time",info.speedShip,"oncomplete","teleport","onCompleteTarget", gameObject,"oncompleteparams", param, "easetype", "linear"));			
 					}
-					GameObject[] param = new GameObject[2];
-					param[0] = ships[j];
-					param[1] = end;
-
-					iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position,"time",info.speedShip,"oncomplete","teleport","onCompleteTarget", gameObject,"oncompleteparams", param, "easetype", "linear"));			
 				}
 			}
 		}
