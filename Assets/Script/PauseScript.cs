@@ -48,7 +48,10 @@ public class PauseScript : MonoBehaviour {
 	
 	void OnGUI() {
 		if(!paused){
-			if(GUI.Button(new Rect(10,10,100,40),"Pause")) {
+			Matrix4x4 matrixBackup = GUI.matrix;
+			
+			GUIUtility.RotateAroundPivot(90f, new Vector2(55,50));
+			if(GUI.Button(new Rect(5,30,100,40),"Pause")) {
 				paused = true;
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosResume,"to",finalPosResume,"onupdate","MoveResume","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopGame"));					
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosExit,"to",finalPosExit,"onupdate","MoveExit","easetype",iTween.EaseType.easeInOutSine));
@@ -56,6 +59,20 @@ public class PauseScript : MonoBehaviour {
 				
 				plane.active = true;
 			}
+			GUI.matrix = matrixBackup;
+			
+			matrixBackup = GUI.matrix;
+			
+			GUIUtility.RotateAroundPivot(-90f, new Vector2(920,545));
+			if(GUI.Button(new Rect(870,525,100,40),"Pause")) {
+				paused = true;
+				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosResume,"to",finalPosResume,"onupdate","MoveResume","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopGame"));					
+				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosExit,"to",finalPosExit,"onupdate","MoveExit","easetype",iTween.EaseType.easeInOutSine));
+				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosPlane,"to",finalPosPlane,"onupdate","MovePlane","easetype",iTween.EaseType.easeInOutSine));
+				
+				plane.active = true;
+			}
+			GUI.matrix = matrixBackup;
 		}
 		if(paused) {
 			if(GUI.Button (posResume,"Resume",style)){
