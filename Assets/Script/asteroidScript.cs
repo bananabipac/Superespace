@@ -15,8 +15,8 @@ public class asteroidScript : MonoBehaviour {
 		ships = new List<GameObject>();
 		shipsE = new List<GameObject>();
 		
-		distance = 2.7f;
-		chanceKill = 30;
+		distance = 2.8f;
+		chanceKill = 50;
 	
 	}
 	
@@ -41,14 +41,18 @@ public class asteroidScript : MonoBehaviour {
 	}
 	
 	void Update () {
-			
+			Debug.Log(ships.Count);
+			Debug.Log(shipsE.Count);
+		
 			for(int i = 0 ; i<ships.Count; i++){
 				GameObject ship = ships[i];
 				if(Vector3.Distance(ship.transform.position, this.transform.position) <= distance){
 					int kill = Random.Range(0, 101);
 					if(kill <= chanceKill){
+						//iTween.Stop(ship);
 						ships.RemoveAt(i);
-						Destroy(ship);	
+						Destroy(ship);
+						i=i-1;
 					}else{
 						rotationShip tmp = ship.gameObject.GetComponent<rotationShip>();
 						float scal = tmp.planet.transform.localScale.x ;
@@ -65,7 +69,9 @@ public class asteroidScript : MonoBehaviour {
 						vec.y = 0;
 						iTween.Stop(ship);
 						
-						iTween.MoveTo(ship,iTween.Hash("position",tmp.planet.transform.position+vec,"time",8f, "easetype", "linear"));
+						
+						
+						iTween.MoveTo(ship,iTween.Hash("position",tmp.planet.transform.position+vec,"time",8f,"oncomplete","valideDep","onCompleteTarget", gameObject,"oncompleteparams", ship, "easetype", "linear"));	
 						shipsE.Add(ship);
 						ships.RemoveAt(i);
 					}
