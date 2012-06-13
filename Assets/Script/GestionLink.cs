@@ -89,7 +89,11 @@ public class GestionLink : MonoBehaviour {
 						foreach (XmlNode planetsEnd in planetInfos){
 				    		if(planetsEnd.Name == "planet"){	
 								XmlNodeList planetEndInfos = planetsEnd.ChildNodes;
-								tmp.Add(planetEndInfos[0].InnerText,planetEndInfos[1].InnerText);
+								if(PlayerPrefs.GetString("mode") == "classic"){
+									tmp.Add(planetEndInfos[0].InnerText,planetEndInfos[1].InnerText);
+								}else if(PlayerPrefs.GetString("mode") == "quick"){
+									tmp.Add(planetEndInfos[0].InnerText,"1");
+								}
 								string nameE = planetEndInfos[0].InnerText;
 								GameObject planetEnd = GameObject.Find(nameE);
 								GameObject instanceLink = (GameObject)Instantiate(Resources.Load("Line")as GameObject);
@@ -119,12 +123,25 @@ public class GestionLink : MonoBehaviour {
 								line.SetWidth(0.15f,0.15f);
 								
 								if(planetEndInfos[1].InnerText == "0"){
-									instanceLink.active = false;	
+									if(PlayerPrefs.GetString("mode") == "classic"){
+										instanceLink.active = false;
+									}else if(PlayerPrefs.GetString("mode") == "quick"){
+										instanceLink.active = true;
+									}	
 								}else{
 									instanceLink.active = true;	
 								}
 								
-								
+								if(planetEndInfos[2].InnerText == "1"){
+									GameObject instanceAstero = (GameObject)Instantiate(Resources.Load("asteroid")as GameObject);
+									Vector3 st = planetStart.transform.position;
+									Vector3 en = planetEnd.transform.position;
+									Vector3 m = st + (0.5f*(en-st));
+									
+									instanceAstero.transform.position = m;
+									instanceAstero.name = "a"+nameS+""+nameE;
+									instanceAstero.active = true;
+								}
 								
 								
 								l.Add(instanceLink);
@@ -138,6 +155,12 @@ public class GestionLink : MonoBehaviour {
 			}
 		}
 		
+		int[] income = nbRoad();
+		
+		MoneyScript money = GameObject.FindGameObjectWithTag("User").GetComponent<MoneyScript>();
+		
+		money.GetComponent<MoneyScript>().incomePlayer1 = income[0];
+		money.GetComponent<MoneyScript>().incomePlayer2 = income[1];
 		
 		/*GameObject instanceTest = (GameObject)Instantiate(Resources.Load("asteroid")as GameObject);
 		instanceTest.transform.position = new Vector3(0, -23.3f, 8);*/
@@ -217,7 +240,6 @@ public class GestionLink : MonoBehaviour {
 					((Hashtable)link[ps])[pe] = "1";
 					for(int i = 0; i<l.Count; i++){
 						if(l[i].name == ""+ps+""+pe){
-							Debug.Log("test");
 							l[i].active=true;
 						}
 					}
@@ -314,6 +336,29 @@ public class GestionLink : MonoBehaviour {
 		return result;
 				
 	}
+	
+	public void activeAsteroid(GameObject planetS, GameObject planetE, List<GameObject> shipsT){
+	
+		string ps,pe;
+		if(int.Parse(planetS.name) > int.Parse(planetE.name)){
+			ps = planetE.name;
+			pe = planetS.name;
+		}else{
+			pe = planetE.name;
+			ps = planetS.name;
+		}
+		
+		GameObject asteroid = GameObject.Find("a"+ps+pe);
+			if(asteroid != null){
+				asteroidScript asteroScript = asteroid.GetComponent<asteroidScript>();
+				for(int i=0 ; i<shipsT.Count; i++){
+					asteroScript.ships.Add(shipsT[i]);	
+				}
+				
+			}
+	}
+		
+	
 		
 	
 }
