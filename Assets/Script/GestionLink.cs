@@ -155,6 +155,12 @@ public class GestionLink : MonoBehaviour {
 			}
 		}
 		
+		int[] income = nbRoad();
+		
+		MoneyScript money = GameObject.FindGameObjectWithTag("User").GetComponent<MoneyScript>();
+		
+		money.GetComponent<MoneyScript>().incomePlayer1 = income[0];
+		money.GetComponent<MoneyScript>().incomePlayer2 = income[1];
 		
 		/*GameObject instanceTest = (GameObject)Instantiate(Resources.Load("asteroid")as GameObject);
 		instanceTest.transform.position = new Vector3(0, -23.3f, 8);*/
