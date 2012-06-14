@@ -41,12 +41,14 @@ public class asteroidScript : MonoBehaviour {
 	}
 	
 	void Update () {
+			
+		
 			for(int i = 0 ; i<ships.Count; i++){
 				GameObject ship = ships[i];
 				if(Vector3.Distance(ship.transform.position, this.transform.position) <= distance){
 					int kill = Random.Range(0, 101);
 					if(kill <= chanceKill){
-						
+						//iTween.Stop(ship);
 						ships.RemoveAt(i);
 						Destroy(ship);
 						i=i-1;
