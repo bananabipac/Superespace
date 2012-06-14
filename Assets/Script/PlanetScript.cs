@@ -231,18 +231,21 @@ public class PlanetScript : MonoBehaviour {
 			GameObject sb = shipsB[iB];
 			GameObject sr = shipsR[iR];
 			
-			//Debug.Log(((rotationShip)sb.GetComponent<rotationShip>()).life);
-			//Debug.Log(((rotationShip)sr.GetComponent<rotationShip>()).life);
+			
 			((rotationShip)sb.GetComponent<rotationShip>()).life -= Random.Range(infoUserR.powerMin,infoUserR.powerMax);
-			//Debug.Log(((rotationShip)sb.GetComponent<rotationShip>()).life);
+			
 			((rotationShip)sr.GetComponent<rotationShip>()).life -= Random.Range(infoUserB.powerMin,infoUserB.powerMax); 
-			//Debug.Log(((rotationShip)sr.GetComponent<rotationShip>()).life);
+		
 			if(((rotationShip)sb.GetComponent<rotationShip>()).life<=0){
 				shipsB.RemoveAt(iB);
+				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+				expl.transform.position = sb.transform.position;
 				Destroy(sb);	
 			}
 			if(((rotationShip)sr.GetComponent<rotationShip>()).life<=0){
 				shipsR.RemoveAt(iR);
+				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+				expl.transform.position = sr.transform.position;
 				Destroy(sr);
 			}
 		}else if(shipsB.Count <= 0){
@@ -257,10 +260,14 @@ public class PlanetScript : MonoBehaviour {
 			
 			if(((rotationShip)sn.GetComponent<rotationShip>()).life<=0){
 				shipsN.RemoveAt(iN);
+				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+				expl.transform.position = sn.transform.position;
 				Destroy(sn);	
 			}
 			if(((rotationShip)sr.GetComponent<rotationShip>()).life<=0){
 				shipsR.RemoveAt(iR);
+				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+				expl.transform.position = sr.transform.position;
 				Destroy(sr);
 			}
 			
@@ -276,14 +283,19 @@ public class PlanetScript : MonoBehaviour {
 			
 			if(((rotationShip)sb.GetComponent<rotationShip>()).life<=0){
 				shipsB.RemoveAt(iB);
+				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+				expl.transform.position = sb.transform.position;
 				Destroy(sb);	
 			}
 			if(((rotationShip)sn.GetComponent<rotationShip>()).life<=0){
 				shipsN.RemoveAt(iN);
+				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+				expl.transform.position = sn.transform.position;
 				Destroy(sn);
 			}
 		}
-	
+		//explosion
+		 //Resources.Load("Shipred")as GameObject;
 	}
 	
 	

@@ -70,6 +70,7 @@
      <Compile Include="Assets\Script\TextsColor.cs" />
      <Compile Include="Assets\Script\asteroidRotation.cs" />
      <Compile Include="Assets\Script\asteroidScript.cs" />
+     <Compile Include="Assets\Script\crashScript.cs" />
      <Compile Include="Assets\Script\infoUser.cs" />
      <Compile Include="Assets\Script\moveShip.cs" />
      <Compile Include="Assets\Script\rotationShip.cs" />
