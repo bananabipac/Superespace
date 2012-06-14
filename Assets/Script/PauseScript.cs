@@ -22,6 +22,7 @@ public class PauseScript : MonoBehaviour {
 	
 	public GameObject plane;
 	public GUIStyle style;
+	public GUIStyle stylePause;
 	
 	// Use this for initialization
 	void Start () {
@@ -50,8 +51,8 @@ public class PauseScript : MonoBehaviour {
 		if(!paused){
 			Matrix4x4 matrixBackup = GUI.matrix;
 			
-			GUIUtility.RotateAroundPivot(90f, new Vector2(55,50));
-			if(GUI.Button(new Rect(5,30,100,40),"Pause")) {
+			GUIUtility.RotateAroundPivot(90f, new Vector2(20,50));
+			if(GUI.Button(new Rect(-30,30,100,40),"Pause",stylePause)) {
 				paused = true;
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosResume,"to",finalPosResume,"onupdate","MoveResume","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopGame"));					
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosExit,"to",finalPosExit,"onupdate","MoveExit","easetype",iTween.EaseType.easeInOutSine));
@@ -63,8 +64,8 @@ public class PauseScript : MonoBehaviour {
 			
 			matrixBackup = GUI.matrix;
 			
-			GUIUtility.RotateAroundPivot(-90f, new Vector2(920,545));
-			if(GUI.Button(new Rect(870,525,100,40),"Pause")) {
+			GUIUtility.RotateAroundPivot(-90f, new Vector2(Screen.width-25,Screen.height-60));
+			if(GUI.Button(new Rect(Screen.width-75,Screen.height-80,100,40),"Pause",stylePause)) {
 				paused = true;
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosResume,"to",finalPosResume,"onupdate","MoveResume","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopGame"));					
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosExit,"to",finalPosExit,"onupdate","MoveExit","easetype",iTween.EaseType.easeInOutSine));

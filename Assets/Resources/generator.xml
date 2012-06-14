@@ -70,7 +70,7 @@
 			</planet>
 			<planet>
 				<name>6</name>
-				<x>10</x>
+				<x>12</x>
 				<z>8</z>
 				<color>neutre</color>
 				<nb>5</nb>
@@ -81,7 +81,7 @@
 			</planet>
 			<planet>
 				<name>7</name>
-				<x>10</x>
+				<x>12</x>
 				<z>-8</z>
 				<color>neutre</color>
 				<nb>5</nb>
@@ -92,7 +92,7 @@
 			</planet>
 			<planet>
 				<name>8</name>
-				<x>18</x>
+				<x>20</x>
 				<z>0</z>
 				<color>blue</color>
 				<nb>25</nb>
@@ -106,7 +106,7 @@
 			<name>2</name>
 			<planet>
 				<name>0</name>
-				<x>-22</x>
+				<x>-20</x>
 				<z>0</z>
 				<color>red</color>
 				<nb>25</nb>
@@ -162,7 +162,7 @@
 			<planet>
 				<name>5</name>
 				<x>0</x>
-				<z>-6</z>
+				<z>-7</z>
 				<color>neutre</color>
 				<nb>10</nb>
 				<size>5</size>
