@@ -55,10 +55,9 @@ public class GestionLink : MonoBehaviour {
 						((PlanetScript)pla.GetComponent<PlanetScript>()).nbShip = int.Parse(planetInfos[4].InnerText);
 						((PlanetScript)pla.GetComponent<PlanetScript>()).repop =  int.Parse(planetInfos[7].InnerText);
 						
-						
+						((PlanetScript)pla.GetComponent<PlanetScript>()).LimitPop = int.Parse(planetInfos[9].InnerText);
 						
 						GameObject instance = (GameObject)Instantiate(pla);
-						
 						
 						
 						instance.name = planetInfos[0].InnerText;
@@ -158,16 +157,13 @@ public class GestionLink : MonoBehaviour {
 		int[] income = nbRoad();
 		
 		MoneyScript money = GameObject.FindGameObjectWithTag("User").GetComponent<MoneyScript>();
-		
-		money.GetComponent<MoneyScript>().incomePlayer1 = income[0];
-		money.GetComponent<MoneyScript>().incomePlayer2 = income[1];
-		
-		/*GameObject instanceTest = (GameObject)Instantiate(Resources.Load("asteroid")as GameObject);
-		instanceTest.transform.position = new Vector3(0, -23.3f, 8);*/
-		
-		/*int[] t = nbRoad();
-		Debug.Log(t[0]);
-		Debug.Log(t[1]);*/
+		if(PlayerPrefs.GetString("mode") == "classic"){
+			money.GetComponent<MoneyScript>().incomePlayer1 =1;
+			money.GetComponent<MoneyScript>().incomePlayer2 =1;
+		}else if(PlayerPrefs.GetString("mode") == "quick"){
+			money.GetComponent<MoneyScript>().incomePlayer1 = 1 + income[0];
+			money.GetComponent<MoneyScript>().incomePlayer2 = 1 + income[1];
+		}
 	}
 	
 	public bool roadExist(GameObject planetS, GameObject planetE){

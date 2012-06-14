@@ -49,7 +49,10 @@ public class asteroidScript : MonoBehaviour {
 					int kill = Random.Range(0, 101);
 					if(kill <= chanceKill){
 						//iTween.Stop(ship);
+						
 						ships.RemoveAt(i);
+						GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+						expl.transform.position = ship.transform.position;
 						Destroy(ship);
 						i=i-1;
 					}else{

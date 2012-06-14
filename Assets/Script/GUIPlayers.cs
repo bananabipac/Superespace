@@ -176,6 +176,8 @@ public class GUIPlayers : MonoBehaviour {
 											if(objet.GetComponent<PlanetScript>().ship.tag != "red" && objet.GetComponent<PlanetScript>().ship.tag != "neutre") {
 												objet.GetComponent<PlanetScript>().repop += crash;
 												user.GetComponent<MoneyScript>().moneyPlayer1-= crashPrice;
+												GameObject expl = (GameObject)Instantiate(Resources.Load("crash")as GameObject);
+												expl.transform.position = objet.transform.position;
 											}
 										}
 										
@@ -188,6 +190,8 @@ public class GUIPlayers : MonoBehaviour {
 													for(int ships = 0; ships < deleteShip; ships++) {
 														GameObject temp = objet.GetComponent<PlanetScript>().shipsN[0];
 														objet.GetComponent<PlanetScript>().shipsN.RemoveAt(0);
+														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+														expl.transform.position = temp.transform.position;
 														Destroy (temp);
 														
 													}
@@ -198,6 +202,8 @@ public class GUIPlayers : MonoBehaviour {
 													for(int ships = 0; ships < deleteShip; ships++) {
 														GameObject temp = objet.GetComponent<PlanetScript>().shipsB[0];
 														objet.GetComponent<PlanetScript>().shipsB.RemoveAt(0);
+														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+														expl.transform.position = temp.transform.position;
 														Destroy (temp);
 														
 													}
@@ -246,6 +252,8 @@ public class GUIPlayers : MonoBehaviour {
 											if(objet.GetComponent<PlanetScript>().ship.tag != "blue" && objet.GetComponent<PlanetScript>().ship.tag != "neutre") {
 												objet.GetComponent<PlanetScript>().repop += crash;
 												user.GetComponent<MoneyScript>().moneyPlayer2-= crashPrice;
+												GameObject expl = (GameObject)Instantiate(Resources.Load("crash")as GameObject);
+												expl.transform.position = objet.transform.position;
 											}
 											
 										}
@@ -259,6 +267,8 @@ public class GUIPlayers : MonoBehaviour {
 													for(int ships = 0; ships < deleteShip; ships++) {
 														GameObject temp = objet.GetComponent<PlanetScript>().shipsN[0];
 														objet.GetComponent<PlanetScript>().shipsN.RemoveAt(0);
+														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+														expl.transform.position = temp.transform.position;
 														Destroy (temp);
 													}
 													user.GetComponent<MoneyScript>().moneyPlayer2-= sabotagePrice;
@@ -268,6 +278,8 @@ public class GUIPlayers : MonoBehaviour {
 													for(int ships = 0; ships < deleteShip; ships++) {
 														GameObject temp = objet.GetComponent<PlanetScript>().shipsR[0];
 														objet.GetComponent<PlanetScript>().shipsR.RemoveAt(0);
+														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+														expl.transform.position = temp.transform.position;
 														Destroy (temp);
 													}
 													user.GetComponent<MoneyScript>().moneyPlayer2-= sabotagePrice;
