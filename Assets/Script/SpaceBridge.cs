@@ -17,11 +17,24 @@ public class SpaceBridge : MonoBehaviour {
 	private bool timerLaunched = false;
 	public float timeBlackHole;
 	public float timeLastChanceOfOpen;
+	
+	public GameObject rightArrow1;
+	public GameObject rightArrow2;
+	public GameObject leftArrow1;
+	public GameObject leftArrow2;
 	// Use this for initialization
 	void Start () {
 		if (bridgeOpen) {
 			blackHole1.active = true;
-			blackHole2.active = true;	
+			blackHole2.active = true;
+			leftArrow1.active = true;
+			leftArrow2.active = true;
+			rightArrow1.active = true;
+			rightArrow2.active = true;
+			iTween.MoveTo(leftArrow1,iTween.Hash("x",-26,"time",0.5,"looptype",iTween.LoopType.pingPong,"easetype",iTween.EaseType.linear));
+			iTween.MoveTo(leftArrow2,iTween.Hash("x",-25,"time",0.5,"looptype",iTween.LoopType.pingPong,"easetype",iTween.EaseType.linear));
+			iTween.MoveTo(rightArrow1,iTween.Hash("x",26,"time",0.5,"looptype",iTween.LoopType.pingPong,"easetype",iTween.EaseType.linear));
+			iTween.MoveTo(rightArrow2,iTween.Hash("x",25,"time",0.5,"looptype",iTween.LoopType.pingPong,"easetype",iTween.EaseType.linear));
 		}
 		lastChanceOfOpen = Time.timeSinceLevelLoad;
 		listPlanets = GameObject.FindGameObjectsWithTag("planet");
@@ -43,6 +56,14 @@ public class SpaceBridge : MonoBehaviour {
 				bridgeOpen = false;
 				blackHole1.active = false;
 				blackHole2.active = false;
+				leftArrow1.active = false;
+				leftArrow2.active = false;
+				rightArrow1.active = false;
+				rightArrow2.active = false;
+				iTween.Stop (leftArrow1);
+				iTween.Stop (leftArrow2);
+				iTween.Stop (rightArrow1);
+				iTween.Stop (rightArrow2);
 			}
 		}else{
 			if(!everActivated) {
@@ -55,6 +76,14 @@ public class SpaceBridge : MonoBehaviour {
 					}
 				}
 				if(nbRed > listPlanets.Length/2 || nbBlue > listPlanets.Length/2) {
+					leftArrow1.active = true;
+					leftArrow2.active = true;
+					rightArrow1.active = true;
+					rightArrow2.active = true;
+					iTween.MoveTo(leftArrow1,iTween.Hash("x",-26,"time",0.5,"looptype",iTween.LoopType.pingPong,"easetype",iTween.EaseType.linear));
+					iTween.MoveTo(leftArrow2,iTween.Hash("x",-25,"time",0.5,"looptype",iTween.LoopType.pingPong,"easetype",iTween.EaseType.linear));
+					iTween.MoveTo(rightArrow1,iTween.Hash("x",26,"time",0.5,"looptype",iTween.LoopType.pingPong,"easetype",iTween.EaseType.linear));
+					iTween.MoveTo(rightArrow2,iTween.Hash("x",25,"time",0.5,"looptype",iTween.LoopType.pingPong,"easetype",iTween.EaseType.linear));
 					bridgeOpen = true;	
 					everActivated = true;
 				} else if(Time.timeSinceLevelLoad - lastChanceOfOpen >= timeLastChanceOfOpen) {

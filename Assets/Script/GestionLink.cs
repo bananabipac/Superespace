@@ -132,7 +132,7 @@ public class GestionLink : MonoBehaviour {
 									instanceLink.active = true;	
 								}
 								
-								/*if(planetEndInfos[2].InnerText == "1"){
+								if(planetEndInfos[2].InnerText == "1"){
 									GameObject instanceAstero = (GameObject)Instantiate(Resources.Load("asteroid")as GameObject);
 									Vector3 st = planetStart.transform.position;
 									Vector3 en = planetEnd.transform.position;
@@ -141,7 +141,7 @@ public class GestionLink : MonoBehaviour {
 									instanceAstero.transform.position = m;
 									instanceAstero.name = "a"+nameS+""+nameE;
 									instanceAstero.active = true;
-								}*/
+								}
 								
 								
 								l.Add(instanceLink);

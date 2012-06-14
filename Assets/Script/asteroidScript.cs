@@ -41,8 +41,7 @@ public class asteroidScript : MonoBehaviour {
 	}
 	
 	void Update () {
-			Debug.Log(ships.Count);
-			Debug.Log(shipsE.Count);
+			
 		
 			for(int i = 0 ; i<ships.Count; i++){
 				GameObject ship = ships[i];
