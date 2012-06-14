@@ -58,6 +58,7 @@ public class Menu : MonoBehaviour {
 	private Rect tempQuick;
 	
 	public GUIStyle style2;
+	public GUIStyle style3;
 	public string handPlayer1 = "Right-Handed";
 	public string handPlayer2 = "Right-Handed";
 	private string paramHand1;
@@ -287,7 +288,7 @@ public class Menu : MonoBehaviour {
 				PlayerPrefs.SetString("paramHand1",paramHand1);
 			}
 		}
-		if(GUI.Button(posPlayerTwo, "Player 2:\n"+handPlayer2,style2)) {
+		if(GUI.Button(posPlayerTwo, "Player 2:\n"+handPlayer2,style3)) {
 			if(paramHand2 == "right") {
 				paramHand2 = "left";
 				handPlayer2 = "Left-Handed";

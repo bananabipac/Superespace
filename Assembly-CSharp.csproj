@@ -54,9 +54,11 @@
      <Compile Include="Assets\Script\GUIMoney.cs" />
      <Compile Include="Assets\Script\GUIPlanet.cs" />
      <Compile Include="Assets\Script\GUIPlayers.cs" />
+     <Compile Include="Assets\Script\GameOverScript.cs" />
      <Compile Include="Assets\Script\GestionLink.cs" />
      <Compile Include="Assets\Script\GetSettings.cs" />
      <Compile Include="Assets\Script\IAEngine.cs" />
+     <Compile Include="Assets\Script\Launch_EndScript.cs" />
      <Compile Include="Assets\Script\LineScript.cs" />
      <Compile Include="Assets\Script\Menu.cs" />
      <Compile Include="Assets\Script\MoneyScript.cs" />

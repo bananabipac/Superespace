@@ -12,7 +12,8 @@ public class moveShip : MonoBehaviour {
 	private GameObject user;
 	
 	private float selectSpeed ;
-
+	private bool redPlayer = false;
+	private bool bluePlayer = false;
 	
 	private bool warnedAboutMaxTouches = false;
 	private Vector2[] touchPos;
@@ -42,12 +43,13 @@ public class moveShip : MonoBehaviour {
 		//////DEBUUG!!!!!!!!!!!!!!!!//////
 		if(Input.GetKeyDown(KeyCode.Space)){
 			
-			deplacement(GameObject.Find("0"), GameObject.Find("2"), 20);
+			/*deplacement(GameObject.Find("0"), GameObject.Find("2"), 20);
 			GetComponent<GestionLink>().openRoad(GameObject.Find("0"), GameObject.Find("2"));
 			
 			GameObject expl = (GameObject)Instantiate(Resources.Load("crash")as GameObject);
 												
-			expl.transform.position = GameObject.Find("2").transform.position;
+			expl.transform.position = GameObject.Find("2").transform.position;*/
+			GetComponent<Launch_EndScript>().endGame = true;
 		}
 		
 		
@@ -265,9 +267,13 @@ public class moveShip : MonoBehaviour {
 			}
 			
 		}
-		
 		if( verifEndGame()){
-			Application.LoadLevel("Menu");
+			GetComponent<Launch_EndScript>().endGame = true;
+			if(bluePlayer) {
+				GetComponent<Launch_EndScript>().winner = "blue";
+			} else {
+				GetComponent<Launch_EndScript>().winner = "red";
+			}
 		}
 		
 		
@@ -279,9 +285,9 @@ public class moveShip : MonoBehaviour {
 	bool verifEndGame(){
 		
 		GameObject[] planets = GameObject.FindGameObjectsWithTag("planet");
+		redPlayer = false;
+		bluePlayer = false;
 		
-		bool redPlayer = false;
-		bool bluePlayer = false;
 		int x = 0;
 		
 		//on verifie si un des 2 joueurs n'a plus de vaisseaux ni de planete
