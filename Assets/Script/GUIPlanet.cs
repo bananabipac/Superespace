@@ -27,6 +27,12 @@ public class GUIPlanet : MonoBehaviour {
 	private bool boolR;
 	private bool boolB;
 	private bool boolN;
+	private bool boolVs;
+	
+	private bool boolRT;
+	private bool boolBT;
+	private bool boolBT2;
+	private bool boolNT;
 	
 	private Vector3 vecR;
 	
@@ -53,22 +59,28 @@ public class GUIPlanet : MonoBehaviour {
 		textR = (GameObject) Instantiate(textR);
 		textR.transform.RotateAround(textR.transform.position,Vector3.up, 90);
 		boolR = true;
+		boolRT = false;
 		
 		textB =  Resources.Load("TextSelectBlue")as GameObject;
 		textB.transform.position = vecR;
 		textB = (GameObject) Instantiate(textB);
 		textB.transform.RotateAround(textB.transform.position,Vector3.up, -90);
 		boolB = true;
+		boolBT = false;
+		boolBT2 = false;
 		
 		textN =  Resources.Load("TextSelectNeutre")as GameObject;
 		textN.transform.position = vecR;
 		textN = (GameObject) Instantiate(textN);
-		boolN = false;
+		boolN = true;
+		boolNT = false;
 		
 		textVs =  Resources.Load("TextSelectNeutre")as GameObject;
 		textVs.transform.position = vecR;
 		textVs = (GameObject) Instantiate(textVs);
 		textVs.active = false;
+		
+		boolVs = false;
 		
 		
 		
@@ -113,7 +125,7 @@ public class GUIPlanet : MonoBehaviour {
 				((TextMesh)textR.GetComponent<TextMesh>()).text = ""+shipsR;	
 			}
 			
-			if(shipsNT != shipsN && boolN == false){
+			if(shipsNT != shipsN ){
 				shipsNT = planet.shipsN.Count;
 				((TextMesh)textN.GetComponent<TextMesh>()).text = ""+shipsN;	
 			}
@@ -122,58 +134,65 @@ public class GUIPlanet : MonoBehaviour {
 				
 				//rouge contre bleu
 				if(shipsR >0 && shipsB >0 ){
-					if(boolR == true){
+					if(boolR || !boolRT ||  textN.active){
+						Debug.Log("red/blue modif red");
 						GUIplanet(1,1);	
 					}
-					if(boolB == true){
+					if(boolB || boolBT || !boolBT2){
+						Debug.Log("red/blue modif blue");
 						GUIplanet(0,2);	
 					}
 				//rouge contre blanc
 				}else if(shipsR >0 && shipsN >0 ){
-					if(boolR == true){
+					if(boolR || !boolRT || textB.active){
+						Debug.Log("red/neutre modif red");
 						GUIplanet(1,1);	
 					}
-					if(boolN == true){
+					if(!boolNT){
+						Debug.Log("red/neutre modif neutre");
 						GUIplanet(2,2);	
 					}
 				//bleu contre blanc
 				}else if(shipsN >0 && shipsB >0 ){
-					if(boolB == true){
+					if(boolB || boolBT2 || !boolBT || textR.active){
+						Debug.Log("blue/neutre modif blue");
 						GUIplanet(0,1);	
 					}
-					if(boolN == true){
+					if(!boolNT){
+						Debug.Log("blue/neutre modif neutre");
 						GUIplanet(2,2);	
 					}
 				}else{
 					if(planet.ship.tag == "red"){
 						//Camera.mainCamera.ScreenToWorldPoint;
 						if(shipsB>0){
-							if(boolB == false){
+							if(!boolB || boolBT || boolBT2 || !textB.active){
 								GUIplanet(0,0);	
 							}
-						}else if(boolR ==false){
+						}else if(!boolR  || boolRT || !textR.active){
 							GUIplanet(1,0);
-							Debug.Log("red");
 						}
 					}else if(planet.ship.tag == "blue"){
 						if(shipsR>0 ){
-							if(boolR == false){
+							if(!boolR || boolRT || !textR.active){
 								GUIplanet(1,0);
 							}
-						}else if(boolB ==false){
+						}else if(!boolB || boolBT || boolBT2 || !textB.active){
 							GUIplanet(0,0);
 						}
 					}else{
+						
 						if(shipsR>0){
-							if(boolR ==false){
+							if(!boolR  || boolRT || !textR.active){
 								GUIplanet(1,0);
 							}
 						}else if(shipsB>0 ){
-							if(boolB == false){
+							if(!boolB || boolBT || boolBT2 || !textB.active){
 								GUIplanet(0,0);
 							}
 						}else{
-							if(textN.active == false){
+							
+							if(boolNT || !textN.active || textB.active || textR.active){
 								GUIplanet(2,0);
 							}
 						}
@@ -198,99 +217,132 @@ public class GUIPlanet : MonoBehaviour {
 	
 	void GUIplanet(int color, int position){
 		//GameObject gui; 
-		Vector3 vec = Camera.mainCamera.WorldToScreenPoint(gameObject.transform.position);
-		/*if(color ==0){//blue
-			gui = textB;
-		}else if(color == 1){ // red
-			gui = textR;
-		}else if(color == 2){//white
-			gui = textN;
-		}*/
+		//Vector3 vec = Camera.mainCamera.WorldToScreenPoint(gameObject.transform.position);
 
 		if(position == 0){//la planete n'est pas en combat
+			boolVs = false;
 			if(color ==0){//blue
-				if(boolB == false){
-					textB.active = true;
-					textR.active = false;
-					textN.active = false;
-					textVs.active = false;
+				textB.active = true;
+				textR.active = false;
+				textN.active = false;
+				textVs.active = false;
+				if(!boolB){
 					textB.transform.RotateAround(textB.transform.position,Vector3.up, -90);
-					textB.transform.position = vecR;
 					boolB = true;
 				}
+				
+				if(boolBT || boolBT2){
+					textB.transform.position = vecR;
+					boolBT = false;
+					boolBT = false;
+				}
+				
+				
 			}else if(color == 1){
-				if(boolR == false){
-					textR.active = true;
-					textB.active = false;
-					textN.active = false;
-					textVs.active = false;
+				textR.active = true;
+				textB.active = false;
+				textN.active = false;
+				textVs.active = false;
+				if(!boolR){
 					textR.transform.RotateAround(textR.transform.position,Vector3.up, 90);
-					textR.transform.position = vecR;
 					boolR = true;
+				}
+				if(boolRT){
+					textR.transform.position = vecR;
+					boolRT = false;
 				}
 				
 			}else if(color == 2){
-				if(boolN == true){
-					textR.active = false;
-					textB.active = false;
-					textN.active = true;
-					textVs.active = false;
-					boolN = false;
+				
+				textR.active = false;
+				textB.active = false;
+				textN.active = true;
+				textVs.active = false;
+				if(boolNT){
+					boolNT = false;
 					textN.transform.position = vecR;
 				}
 			}
 		}else if(position == 1){//la planete est en combat
+			Vector3 ve = new Vector3(vecR.x-1.25f , vecR.y, vecR.z);
 			if(color ==0){//blue
-				if(boolB == true){
-					textB.active = true;
-					textR.active = false;
-					textN.active = false;
+				textB.active = true;
+				textR.active = false;
+				textN.active = false;
+				if(boolB){
 					textB.transform.RotateAround(textB.transform.position,Vector3.up, 90);
 					boolB = false;
-					Vector3 ve = new Vector3(textB.transform.position.x-1.2f , textB.transform.position.y, textB.transform.position.z);
-					textB.transform.position = ve;
-				}
-			}else if(color == 1){
-				if(boolR == true){
-					textR.active = true;
-					textB.active = false;
-					textN.active = false;
-					textR.transform.RotateAround(textR.transform.position,Vector3.up, -90);
-					boolR = false;
-					Vector3 ve = new Vector3(textR.transform.position.x-1.2f , textR.transform.position.y, textR.transform.position.z);
-					textR.transform.position = ve;
+					
 				}
 				
+				if(boolBT2){
+					textB.transform.position = vecR;
+					textB.transform.position = ve;
+					boolBT2 = false;
+					boolBT = true;
+				}
+				
+				if(!boolBT){
+					textB.transform.position = ve;
+					boolBT = true;
+				}
+				
+				
+				
+				
+			}else if(color == 1){
+				textR.active = true;
+				textB.active = false;
+				textN.active = false;
+				//textR.transform.position = vecR;
+				
+				if(boolR){
+					textR.transform.RotateAround(textR.transform.position,Vector3.up, -90);
+					boolR = false;
+					
+				}
+				
+				if(!boolRT){
+					textR.transform.position = ve;
+					boolRT = true;
+				}	
 			}
-			if(boolN == false){
-				textVs.active = true;;
-				boolN = true;
+			
+			if(!boolVs){
+				textVs.active = true;
+				boolVs = true;
 			}
 				
 		}else if(position == 2){
+			Vector3 ve = new Vector3(vecR.x+1.25f , vecR.y, vecR.z);
 			if(color ==0){//blue
-				if(boolB == true){
-					textB.active = true;
+				textB.active = true;
+				if(boolB){
 					textB.transform.RotateAround(textB.transform.position,Vector3.up, 90);
 					boolB = false;
-					Vector3 ve = new Vector3(textB.transform.position.x+1.4f , textB.transform.position.y, textB.transform.position.z);
+				}
+				
+				if(boolBT){
+					textB.transform.position = vecR;
 					textB.transform.position = ve;
+					boolBT = false; 
+					boolBT2 = true;
 				}
-			}else if(color == 1){
-				if(boolR == false){
-					textR.active = true;
-					textR.transform.RotateAround(textR.transform.position,Vector3.up, -90);
-					boolR = true;
-					Vector3 ve = new Vector3(textR.transform.position.x+1.4f , textR.transform.position.y, textR.transform.position.z);
-					textR.transform.position = ve;
+				if(!boolBT2){
+					textB.transform.position = ve;
+					boolBT2 = true;
 				}
+				//textB.transform.position = ve;
+				
+				
 				
 			}else if(color == 2){
 				textN.active = true;
-				textN.transform.RotateAround(textN.transform.position,Vector3.up, -90);
-				//boolN = true;
-				Vector3 ve = new Vector3(textN.transform.position.x+1.4f , textN.transform.position.y, textN.transform.position.z);
-				textN.transform.position = ve;		
+				if(!boolNT){
+					//textN.transform.RotateAround(textN.transform.position,Vector3.up, -90);
+					boolNT = true;
+					textN.transform.position = ve;
+				}
 			}
 		}		
 	}

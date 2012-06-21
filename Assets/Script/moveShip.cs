@@ -42,12 +42,14 @@ public class moveShip : MonoBehaviour {
 		//////DEBUUG!!!!!!!!!!!!!!!!//////
 		if(Input.GetKeyDown(KeyCode.Space)){
 			
-			deplacement(GameObject.Find("8"), GameObject.Find("7"), 20);
-			GetComponent<GestionLink>().openRoad(GameObject.Find("8"), GameObject.Find("7"));
+			deplacement(GameObject.Find("3"), GameObject.Find("4"), 20);
+			GetComponent<GestionLink>().openRoad(GameObject.Find("3"), GameObject.Find("4"));
+			deplacement(GameObject.Find("5"), GameObject.Find("4"), 25);
+			GetComponent<GestionLink>().openRoad(GameObject.Find("5"), GameObject.Find("4"));
 			
-			GameObject expl = (GameObject)Instantiate(Resources.Load("crash")as GameObject);
+			//GameObject expl = (GameObject)Instantiate(Resources.Load("crash")as GameObject);
 												
-			expl.transform.position = GameObject.Find("2").transform.position;
+			//expl.transform.position = GameObject.Find("2").transform.position;
 		}
 		
 		
@@ -337,7 +339,7 @@ public class moveShip : MonoBehaviour {
 	
 	
 	//deplace les vaisseaux d'une planete a l'autre
-	void deplacement(GameObject start, GameObject end, int nbShip){
+	public void deplacement(GameObject start, GameObject end, int nbShip){
 		infoUser info;
 		List<GameObject> ships = new List<GameObject>();
 		PlanetScript p = (PlanetScript)start.GetComponent<PlanetScript>();
