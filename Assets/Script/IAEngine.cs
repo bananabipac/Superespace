@@ -29,33 +29,36 @@ public class IAEngine : MonoBehaviour {
 		if(Time.timeSinceLevelLoad - timer >= speedIA) {
 			checkPlanets();
 			findPossibleRoutes();
-			checkOpenedRoutesWhitoutAsteroid();
+			checkRoutes(false);
 			checkMoney();
 			
 			if(hasEnoughMoney){
-				Debug.Log("enough Money");
+					Debug.Log("enough Money");
 				if(pairsClosed.Count>0){
 					Debug.Log("road without asteroid find");
 					pair = pairsClosed[RandomNumber(0,pairsClosed.Count)];
 				}else{
 					Debug.Log("no road without asteroid");
-					checkOpenedRoutesWithAsteroid();
+					checkRoutes(true);
 					if(pairsClosed.Count>0){
-						Debug.Log("road without asteroid found");
+						Debug.Log("road with asteroid found");
 						pair = pairsClosed[RandomNumber(0,pairsClosed.Count)];
 					}else{
+					checkRoutes(false);
 						Debug.Log("road open find");
-						pair = pairsOpened[RandomNumber(0,pairsOpened.Count-1)];
+						pair = pairsOpened[RandomNumber(0,pairsOpened.Count)];
 					}
 				}
 				Debug.Log("road select :"+pair[0].name+pair[1].name);
 						
 			} else {
 				Debug.Log("Not enough Money");
-				if(pairsOpened.Count>0)
+				if(pairsOpened.Count>0){
 					Debug.Log("roadOpenSelect");
 					pair = pairsOpened[RandomNumber(0,pairsOpened.Count-1)];
+				}
 			}
+			
 			if(pair != null) {
 				Debug.Log("road found");
 				Debug.Log("planet : "+pair[0].name+" planet : "+pair[1].name);
@@ -76,8 +79,15 @@ public class IAEngine : MonoBehaviour {
 							if(ind == 0) {
 								Debug.Log("ind 0");
 								int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
-								int countEnnemy = pair[1].GetComponent<PlanetScript>().shipsR.Count;
-								if (nbShip >= countEnnemy + countEnnemy*20/100){
+								int countEnnemy = 0;
+								if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
+									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
+								}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
+									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
+								}
+								 
+								//Debug("soldier : "+nbShip+" countEnnemy : "+(countEnnemy + countEnnemy*marge/100)); 
+								if (nbShip >= countEnnemy + countEnnemy*marge/100){
 									Debug.Log("enough Soldier");
 									launchMove = true;	
 								}else{
@@ -86,12 +96,19 @@ public class IAEngine : MonoBehaviour {
 							}else if(ind == 1) {
 								Debug.Log("ind 0");
 								int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
-								int countEnnemy = pair[0].GetComponent<PlanetScript>().shipsR.Count;
-								if (nbShip >= countEnnemy + countEnnemy*20/100){
+								int countEnnemy = 0;
+								if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
+									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
+								}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
+									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
+								}
+								
+								//Debug("soldier : "+nbShip+" countEnnemy : "+(countEnnemy + countEnnemy*marge/100)); 
+								if (nbShip >= countEnnemy + countEnnemy*marge/100){
 									launchMove = true;	
 									Debug.Log("enough Soldier");
 								}else{
-									Debug.Log("enough Soldier");
+									Debug.Log("not enough Soldier");
 								}
 								
 							}else{
@@ -110,9 +127,15 @@ public class IAEngine : MonoBehaviour {
 							if(ind == 0) {
 								Debug.Log("ind 0 asteroid");
 								int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
-								int countEnnemy = pair[1].GetComponent<PlanetScript>().shipsR.Count;
-								Debug.Log(countEnnemy + (countEnnemy*20/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100));
-								if (nbShip >= countEnnemy + (countEnnemy*20/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100)){
+								
+								int countEnnemy = 0;
+								if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
+									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
+								}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
+									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
+								}
+								//Debug("soldier : "+nbShip+" countEnnemy : "+(countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100))); 
+								if (nbShip >= countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100)){
 									launchMove = true;	
 									Debug.Log("enough soldier to cross asteroid");
 								}else{
@@ -121,8 +144,14 @@ public class IAEngine : MonoBehaviour {
 							}else if(ind == 1) {
 								Debug.Log("ind 1 asteroid");
 								int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
-								int countEnnemy = pair[0].GetComponent<PlanetScript>().shipsR.Count;
-								if (nbShip >= countEnnemy + (countEnnemy*20/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100)){
+								int countEnnemy = 0;
+								if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
+									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
+								}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
+									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
+								}
+								//Debug("soldier : "+nbShip+" countEnnemy : "+(countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100))); 
+								if (nbShip >= countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100)){
 									launchMove = true;	
 									Debug.Log("enough soldier to cross asteroid");
 								}else{
@@ -169,7 +198,7 @@ public class IAEngine : MonoBehaviour {
 			timer = Time.timeSinceLevelLoad;
 		}
 	}
-	void checkOpenedRoutesWhitoutAsteroid() {
+	void checkRoutes(bool withAsteroid) {
 		pairsClosed = new List<GameObject[]>();
 		pairsOpened = new List<GameObject[]>();
 		string ps,pe;
@@ -182,11 +211,24 @@ public class IAEngine : MonoBehaviour {
 				ps = pair[0].name;
 			}
 			if(user.GetComponent<GestionLink>().roadOpen(pair[0],pair[1]))	{
-				pairsOpened.Add(pair);
-				
+				if(GameObject.Find("a"+ps+pe) != null){
+					if(withAsteroid){
+						pairsOpened.Add(pair);
+					}
+				}else{
+					if(!withAsteroid){
+						pairsOpened.Add(pair);
+					}
+				}
 			}else{
-				if(GameObject.Find("a"+ps+pe) == null){
-					pairsClosed.Add (pair);
+				if(GameObject.Find("a"+ps+pe) != null){
+					if(withAsteroid){
+						pairsClosed.Add(pair);
+					}
+				}else{
+					if(!withAsteroid){
+						pairsClosed.Add(pair);
+					}
 				}
 			}
 			
@@ -195,27 +237,6 @@ public class IAEngine : MonoBehaviour {
 		
 	}
 	
-	void checkOpenedRoutesWithAsteroid() {
-		pairsClosed = new List<GameObject[]>();
-		pairsOpened = new List<GameObject[]>();
-		string ps,pe;
-		foreach(GameObject[] pair in pairs) {
-			if(int.Parse(pair[0].name) > int.Parse(pair[1].name)){
-				ps = pair[1].name;
-				pe = pair[0].name;
-			}else{
-				pe = pair[1].name;
-				ps = pair[0].name;
-			}
-			if(user.GetComponent<GestionLink>().roadOpen(pair[0],pair[1]))	{
-					//pairsOpened.Add(pair);
-			}else{
-				if(GameObject.Find("a"+ps+pe) != null){
-					pairsClosed.Add (pair);
-				}
-			}
-		}
-	}
 	
 	void checkMoney() {
 		if(user.GetComponent<MoneyScript>().moneyPlayer2 >= 50	) {
@@ -247,7 +268,7 @@ public class IAEngine : MonoBehaviour {
 				//Debug.Log(planet.tag);
 				planetsIA.Add(planet);
 				indice++;
-				Debug.Log("planete IA: "+planet.name);
+				//Debug.Log("planete IA: "+planet.name);
 			}
 		}	
 		

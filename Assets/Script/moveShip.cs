@@ -42,10 +42,10 @@ public class moveShip : MonoBehaviour {
 		//////DEBUUG!!!!!!!!!!!!!!!!//////
 		if(Input.GetKeyDown(KeyCode.Space)){
 			
-			deplacement(GameObject.Find("3"), GameObject.Find("4"), 20);
-			GetComponent<GestionLink>().openRoad(GameObject.Find("3"), GameObject.Find("4"));
-			deplacement(GameObject.Find("5"), GameObject.Find("4"), 25);
-			GetComponent<GestionLink>().openRoad(GameObject.Find("5"), GameObject.Find("4"));
+			deplacement(GameObject.Find("0"), GameObject.Find("1"), 20);
+			GetComponent<GestionLink>().openRoad(GameObject.Find("0"), GameObject.Find("1"));
+			//deplacement(GameObject.Find("5"), GameObject.Find("4"), 25);
+			//GetComponent<GestionLink>().openRoad(GameObject.Find("5"), GameObject.Find("4"));
 			
 			//GameObject expl = (GameObject)Instantiate(Resources.Load("crash")as GameObject);
 												

@@ -27,6 +27,10 @@ public class PlanetScript : MonoBehaviour {
 	private float sizePul;//taille de la pulsation
 	private float countPul;//taille de la pulsation en cour
 	private bool invertPul; //pulsation inverse*/
+	private List<GameObject> shipsRS = new List<GameObject>();
+	private List<GameObject> shipsBS = new List<GameObject>();
+	private List<GameObject> shipsNS = new List<GameObject>();
+	
 	
 	// Use this for initialization
 	void Start () {
@@ -215,6 +219,23 @@ public class PlanetScript : MonoBehaviour {
 		}else{
 			((rotationShip)instance.GetComponent<rotationShip>()).life = 3;
 			shipsN.Add(instance);
+		}
+		
+		if(ship.tag == "blue"){
+			Debug.Log(shipsBS.Count);
+			if(shipsB.Count >= 10*shipsBS.Count + 15){
+				GameObject instanceS = Resources.Load("Shipred")as GameObject;
+				instanceS.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
+				((rotationShip)instanceS.GetComponent<rotationShip>()).planet = this.gameObject;
+				((rotationShip)instanceS.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
+				//instanceS.transform.localScale = new Vector3(0.05f,0.05f,0.05f);
+				Instantiate(instanceS);
+				
+				for(int i = 0 + 10*shipsBS.Count; i<10 + 10*shipsBS.Count; i++){		
+					shipsB[i].GetComponent<rotationShip>().speed = 0;
+					shipsB[i].active = false;
+				}
+			}
 		}
 		
 		
