@@ -221,7 +221,7 @@ public class PlanetScript : MonoBehaviour {
 			shipsN.Add(instance);
 		}
 		
-		if(ship.tag == "blue"){
+		/*if(ship.tag == "blue"){
 			Debug.Log(shipsBS.Count);
 			if(shipsB.Count >= 10*shipsBS.Count + 15){
 				GameObject instanceS = Resources.Load("Shipred")as GameObject;
@@ -236,7 +236,7 @@ public class PlanetScript : MonoBehaviour {
 					shipsB[i].active = false;
 				}
 			}
-		}
+		}*/
 		
 		
 	}
@@ -306,6 +306,7 @@ public class PlanetScript : MonoBehaviour {
 				shipsB.RemoveAt(iB);
 				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 				expl.transform.position = sb.transform.position;
+				
 				Destroy(sb);	
 			}
 			if(((rotationShip)sn.GetComponent<rotationShip>()).life<=0){

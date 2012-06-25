@@ -30,4 +30,8 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   textureType: -1
-  buildTargetSettings: []
+  buildTargetSettings:
+  - buildTarget: Android
+    maxTextureSize: 4096
+    textureFormat: -1
+    compressionQuality: 50

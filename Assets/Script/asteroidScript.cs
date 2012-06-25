@@ -82,30 +82,32 @@ public class asteroidScript : MonoBehaviour {
 			for(int j = 0 ; j<shipsE.Count; j++){
 				GameObject ship = shipsE[j];
 				infoUser info;
-				if(ship.tag == "red"){
-					info = (infoUser) GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>();
-				}else{
-					info = (infoUser) GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>();
-				}
-				if(Vector3.Distance(ship.transform.position, this.transform.position) >= distance){
-					rotationShip tmp = ship.GetComponent<rotationShip>();
-				
-					float scal = tmp.planet.transform.localScale.x ;
-							
-					float min =  scal/2.5f+1   ;
-					float max = scal/2.5f +1.5f;
+				if(ship!= null){
+					if(ship.tag == "red"){
+						info = (infoUser) GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>();
+					}else{
+						info = (infoUser) GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>();
+					}
+					if(Vector3.Distance(ship.transform.position, this.transform.position) >= distance){
+						rotationShip tmp = ship.GetComponent<rotationShip>();
 					
-					float z = Random.Range(min,max);
+						float scal = tmp.planet.transform.localScale.x ;
+								
+						float min =  scal/2.5f+1   ;
+						float max = scal/2.5f +1.5f;
 						
-					Quaternion quat = Quaternion.AngleAxis(Random.Range(0f, 360f), tmp.planet.transform.position);
+						float z = Random.Range(min,max);
 							
-					Vector3 vec = new Vector3(0,0,z);
-					vec = quat * vec ;
-					vec.y = 0;
-					iTween.Stop(ship);
-					
-					iTween.MoveTo(ship,iTween.Hash("position",tmp.planet.transform.position+vec,"time",info.speedShip,"oncomplete","valideDep","onCompleteTarget", gameObject,"oncompleteparams", ship, "easetype", "linear"));	
-					shipsE.RemoveAt(j);
+						Quaternion quat = Quaternion.AngleAxis(Random.Range(0f, 360f), tmp.planet.transform.position);
+								
+						Vector3 vec = new Vector3(0,0,z);
+						vec = quat * vec ;
+						vec.y = 0;
+						iTween.Stop(ship);
+						
+						iTween.MoveTo(ship,iTween.Hash("position",tmp.planet.transform.position+vec,"time",info.speedShip,"oncomplete","valideDep","onCompleteTarget", gameObject,"oncompleteparams", ship, "easetype", "linear"));	
+						shipsE.RemoveAt(j);
+					}
 				}
 			}
 	}

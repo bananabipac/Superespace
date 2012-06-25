@@ -15,194 +15,174 @@ public class IAEngine : MonoBehaviour {
 	private bool launchMove;
 	public float marge;
 	GameObject[] pair = new GameObject[2];
+	private bool isUpdating;
 	// Use this for initialization
 	void Start () {
-		checkPlanets();
-		user = GameObject.FindGameObjectWithTag("User");
-		launchMove = false;
-		timer = Time.timeSinceLevelLoad;
+		if(PlayerPrefs.GetString("GameType").Equals("solo")){
+			checkPlanets();
+			user = GameObject.FindGameObjectWithTag("User");
+			launchMove = false;
+			timer = Time.timeSinceLevelLoad;
+			isUpdating  = false;
+		}
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(Time.timeSinceLevelLoad - timer >= speedIA) {
-			checkPlanets();
-			findPossibleRoutes();
-			checkRoutes(false);
-			checkMoney();
-			
-			if(hasEnoughMoney){
-					Debug.Log("enough Money");
-				if(pairsClosed.Count>0){
-					Debug.Log("road without asteroid find");
-					pair = pairsClosed[RandomNumber(0,pairsClosed.Count)];
-				}else{
-					Debug.Log("no road without asteroid");
-					checkRoutes(true);
-					if(pairsClosed.Count>0){
-						Debug.Log("road with asteroid found");
-						pair = pairsClosed[RandomNumber(0,pairsClosed.Count)];
-					}else{
+		if(PlayerPrefs.GetString("GameType").Equals("solo")){
+			if(Time.timeSinceLevelLoad - timer >= speedIA) {
+				if(!isUpdating) {
+					checkPlanets();
+					findPossibleRoutes();
 					checkRoutes(false);
-						Debug.Log("road open find");
-						pair = pairsOpened[RandomNumber(0,pairsOpened.Count)];
-					}
-				}
-				Debug.Log("road select :"+pair[0].name+pair[1].name);
-						
-			} else {
-				Debug.Log("Not enough Money");
-				if(pairsOpened.Count>0){
-					Debug.Log("roadOpenSelect");
-					pair = pairsOpened[RandomNumber(0,pairsOpened.Count-1)];
-				}
-			}
-			
-			if(pair != null) {
-				Debug.Log("road found");
-				Debug.Log("planet : "+pair[0].name+" planet : "+pair[1].name);
-				string ps,pe;
-				if(int.Parse(pair[0].name) > int.Parse(pair[1].name)){
-					ps = pair[1].name;
-					pe = pair[0].name;
+					checkMoney();
+					isUpdating = true;
 				}else{
-					pe = pair[1].name;
-					ps = pair[0].name;
-				}
-				GameObject asteroid = GameObject.Find ("a"+ps+pe);
-				int ind = 0;
-				if(asteroid == null) {
-					Debug.Log("no Asteroid");
-					foreach(GameObject planete in pair){
-						if(planete.GetComponent<PlanetScript>().ship.tag == "blue"){
-							if(ind == 0) {
-								Debug.Log("ind 0");
-								int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
-								int countEnnemy = 0;
-								if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
-									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
-								}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
-									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
-								}
-								 
-								//Debug("soldier : "+nbShip+" countEnnemy : "+(countEnnemy + countEnnemy*marge/100)); 
-								if (nbShip >= countEnnemy + countEnnemy*marge/100){
-									Debug.Log("enough Soldier");
-									launchMove = true;	
-								}else{
-									Debug.Log("Not enough");
-								}
-							}else if(ind == 1) {
-								Debug.Log("ind 0");
-								int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
-								int countEnnemy = 0;
-								if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
-									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
-								}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
-									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
-								}
-								
-								//Debug("soldier : "+nbShip+" countEnnemy : "+(countEnnemy + countEnnemy*marge/100)); 
-								if (nbShip >= countEnnemy + countEnnemy*marge/100){
-									launchMove = true;	
-									Debug.Log("enough Soldier");
-								}else{
-									Debug.Log("not enough Soldier");
-								}
-								
+					if(hasEnoughMoney){
+						if(pairsClosed.Count>0){
+							pair = pairsClosed[RandomNumber(0,pairsClosed.Count)];
+						}else{
+							checkRoutes(true);
+							if(pairsClosed.Count>0){
+								pair = pairsClosed[RandomNumber(0,pairsClosed.Count)];
 							}else{
-								Debug.Log("no move");
-								launchMove = false;	
+								checkRoutes(false);
+								pair = pairsOpened[RandomNumber(0,pairsOpened.Count)];
 							}
 						}
-						
-						ind++;
-					}
-				}else{
-					Debug.Log("asteroid on the road");
-					
-					foreach(GameObject planete in pair){
-						if(planete.GetComponent<PlanetScript>().ship.tag == "blue"){
-							if(ind == 0) {
-								Debug.Log("ind 0 asteroid");
-								int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
 								
-								int countEnnemy = 0;
-								if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
-									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
-								}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
-									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
-								}
-								//Debug("soldier : "+nbShip+" countEnnemy : "+(countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100))); 
-								if (nbShip >= countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100)){
-									launchMove = true;	
-									Debug.Log("enough soldier to cross asteroid");
-								}else{
-									Debug.Log("not enough soldier to cross asteroid");
-								}
-							}else if(ind == 1) {
-								Debug.Log("ind 1 asteroid");
-								int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
-								int countEnnemy = 0;
-								if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
-									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
-								}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
-									countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
-								}
-								//Debug("soldier : "+nbShip+" countEnnemy : "+(countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100))); 
-								if (nbShip >= countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100)){
-									launchMove = true;	
-									Debug.Log("enough soldier to cross asteroid");
-								}else{
-									Debug.Log("not enough soldier to cross asteroid");
-								}
-							}else{
-								launchMove = false;	
-								Debug.Log("no move asteroid");
-							}
-						}
-						
-						ind++;
+					} else {
+						if(pairsOpened.Count>0)
+							pair = pairsOpened[RandomNumber(0,pairsOpened.Count-1)];
 					}
-					
-					
-				}
-				
-				if(launchMove) {
-					Debug.Log("lauch move true");
-					int ind2 = 0;
-					foreach(GameObject planete in pair) {
-						if(planete.GetComponent<PlanetScript>().ship.tag == "blue") {
+					if(pair != null) {
+						string ps,pe;
+						if(int.Parse(pair[0].name) > int.Parse(pair[1].name)){
+							ps = pair[1].name;
+							pe = pair[0].name;
+						}else{
+							pe = pair[1].name;
+							ps = pair[0].name;
+						}
+						GameObject asteroid = GameObject.Find ("a"+ps+pe);
+						int ind = 0;
+						if(asteroid == null) {
+							for(int i = 0; i < pair.Length; i++){
+								GameObject planete = pair[i];
+								if(planete.GetComponent<PlanetScript>().ship.tag == "blue"){
+									if(ind == 0) {
+										int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
+										int countEnnemy = 0;
+										if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
+											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
+										}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
+											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
+										}
+										if (nbShip >= countEnnemy + countEnnemy*marge/100){
+											launchMove = true;	
+										}
+									}else if(ind == 1) {
+										int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
+										int countEnnemy = 0;
+										if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
+											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
+										}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
+											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
+										}
+										if (nbShip >= countEnnemy + countEnnemy*marge/100){
+											launchMove = true;
+										}
+										
+									}else{
+										launchMove = false;	
+									}
+								}
+								
+								ind++;
+							}
+						}else{
 							
-							if(ind2==0){
-								Debug.Log ("move 0");
-								user.GetComponent<moveShip>().deplacement(planete,pair[1],planete.GetComponent<PlanetScript>().shipsB.Count);
-								if(!user.GetComponent<GestionLink>().roadOpen(planete,pair[1])){
-									user.GetComponent<GestionLink>().openRoad(planete,pair[1]); 
-									user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+							for(int i = 0; i < pair.Length; i ++) {
+								GameObject planete = pair[i];	
+								if(planete.GetComponent<PlanetScript>().ship.tag == "blue"){
+									if(ind == 0) {
+										int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
+										
+										int countEnnemy = 0;
+										if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
+											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
+										}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
+											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
+										}
+										if (nbShip >= countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100)){
+											launchMove = true;
+										}
+									}else if(ind == 1) {
+										int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
+										int countEnnemy = 0;
+										if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
+											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
+										}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
+											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
+										}
+										if (nbShip >= countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100)){
+											launchMove = true;
+										}
+									}else{
+										launchMove = false;
+									}
 								}
-							}else if (ind2 == 1) {
-								Debug.Log("move 1");
-								user.GetComponent<moveShip>().deplacement(planete,pair[0],planete.GetComponent<PlanetScript>().shipsB.Count);
-								if(!user.GetComponent<GestionLink>().roadOpen(planete,pair[1])){
-									user.GetComponent<GestionLink>().openRoad(planete,pair[1]); 
-									user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
-								}
+								
+								ind++;
 							}
+							
+							
 						}
 						
+						if(launchMove) {
+							int ind2 = 0;
+							for(int i = 0; i < pair.Length; i++) {
+								GameObject planete = pair[i];
+								if(planete.GetComponent<PlanetScript>().ship.tag == "blue") {
+									
+									if(ind2==0){
+										
+										if(!user.GetComponent<GestionLink>().roadOpen(planete,pair[1]) && planete != pair[1]){
+											user.GetComponent<moveShip>().deplacement(planete,pair[1],planete.GetComponent<PlanetScript>().shipsB.Count);
+											user.GetComponent<GestionLink>().openRoad(planete,pair[1]); 
+											user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+										}
+									}else if (ind2 == 1) {
+										
+										if(!user.GetComponent<GestionLink>().roadOpen(planete,pair[0]) && planete != pair[0]){
+											user.GetComponent<moveShip>().deplacement(planete,pair[0],planete.GetComponent<PlanetScript>().shipsB.Count);
+											user.GetComponent<GestionLink>().openRoad(planete,pair[0]); 
+											user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+										}
+									}
+								}
+								
+							}
+						}
 					}
+					timer = Time.timeSinceLevelLoad;
+					reinitVar();
+					isUpdating = false;
 				}
 			}
-			timer = Time.timeSinceLevelLoad;
 		}
+	}
+	void reinitVar() {
+		pairs = new List<GameObject[]>();
+		planetsIA = new List<GameObject>();
 	}
 	void checkRoutes(bool withAsteroid) {
 		pairsClosed = new List<GameObject[]>();
 		pairsOpened = new List<GameObject[]>();
 		string ps,pe;
-		foreach(GameObject[] pair in pairs) {
+		for(int i = 0; i < pairs.Count; i++) {
+			GameObject[] pair = pairs[i];
 			if(int.Parse(pair[0].name) > int.Parse(pair[1].name)){
 				ps = pair[1].name;
 				pe = pair[0].name;
@@ -248,22 +228,25 @@ public class IAEngine : MonoBehaviour {
 		
 	}
 	void findPossibleRoutes() {
-		foreach(GameObject planetS in planetsIA) {
-			foreach(GameObject planetE in planets) {
-				if(user.GetComponent<GestionLink>().roadExist(planetS,planetE)) {
-					if(planetE != planetS){
-							pairs.Add(new GameObject[] {planetS,planetE});
+			for(int i = 0; i < planetsIA.Count; i++){
+				GameObject planetD = planetsIA[i];
+				for(int j = 0; j < planets.Length; j++) {
+					GameObject planetE = planets[j];
+					if(user.GetComponent<GestionLink>().roadExist(planetD,planetE)) {
+						if(planetE != planetD){
+								pairs.Add(new GameObject[] {planetD,planetE});
+						}
 					}
 				}
-			}
 			
-		}
+			}
 	}
 	
 	void checkPlanets() {
 		planets = GameObject.FindGameObjectsWithTag("planet");
 		int indice = 0;
-		foreach(GameObject planet in planets) {
+		for(int i = 0; i < planets.Length; i++){
+			GameObject planet = planets[i];
 			if(planet.GetComponent<PlanetScript>().ship.tag == "blue") {
 				//Debug.Log(planet.tag);
 				planetsIA.Add(planet);
