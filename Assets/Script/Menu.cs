@@ -8,6 +8,10 @@ public class Menu : MonoBehaviour {
 	private Rect posMulti;
 	private Rect finalPosMulti;
 	
+	private Rect initialPosSolo;
+	private Rect posSolo;
+	private Rect finalPosSolo;
+	
 	private Rect initialPosExit;
 	private Rect posExit;
 	private Rect finalPosExit;
@@ -85,13 +89,17 @@ public class Menu : MonoBehaviour {
 		xPosExit = Screen.width * (1f/6.55f);
 		yPosExit = 24*Screen.height * (0.2f/6.3f);
 		
-		initialPosMulti = new Rect(xPosMulti,yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
-		posMulti = initialPosMulti;
-		finalPosMulti = new Rect(xPosMulti-1500,yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		initialPosSolo = new Rect(xPosMulti,0.8f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		posSolo = initialPosSolo;
+		finalPosSolo = new Rect(xPosMulti-1500,0.8f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
-		initialPosSettings = new Rect(xPosExit,1.68f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		initialPosMulti = new Rect(xPosMulti,1.33f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		posMulti = initialPosMulti;
+		finalPosMulti = new Rect(xPosMulti-1500,1.33f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		
+		initialPosSettings = new Rect(xPosExit,1.88f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posSettings = initialPosSettings;
-		finalPosSettings = new Rect(xPosExit-1500,1.68f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		finalPosSettings = new Rect(xPosExit-1500,1.88f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
 		initialPosExit = new Rect(xPosExit,yPosExit,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posExit = initialPosExit;
@@ -179,9 +187,32 @@ public class Menu : MonoBehaviour {
 	
 	void OnGUI() {
 		
-		
+		if(GUI.Button (posSolo,"Solo",style)) {
+			if(!moving){
+				PlayerPrefs.SetString("GameType","solo");
+				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosSolo,"to",finalPosSolo,"onupdate","MoveButtonSolo","easetype",iTween.EaseType.easeInOutSine));
+				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosMulti,"to",finalPosMulti,"onupdate","MoveButtonMulti","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopRotationEnd"));
+				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosExit,"to",finalPosExit,"onupdate","MoveButtonExit","easetype",iTween.EaseType.easeInOutSine));
+				if(displaySettings){
+					iTween.ValueTo(gameObject,iTween.Hash("from",initialPlayerOne,"to",finalPlayerOne,"onupdate","MoveButtonPlayerOne","easetype",iTween.EaseType.easeInOutSine));
+					iTween.ValueTo(gameObject,iTween.Hash("from",initialPlayerTwo,"to",finalPlayerTwo,"onupdate","MoveButtonPlayerTwo","easetype",iTween.EaseType.easeInOutSine));
+					iTween.ValueTo(gameObject,iTween.Hash("from",initialQuality,"to",finalQuality,"onupdate","MoveButtonQuality","easetype",iTween.EaseType.easeInOutSine));
+				}
+				iTween.ValueTo(gameObject,iTween.Hash("from",initialClassic,"to",finalClassic,"onupdate","MoveButtonClassic","easetype",iTween.EaseType.easeInOutSine));
+				iTween.ValueTo(gameObject,iTween.Hash("from",initialQuick,"to",finalQuick,"onupdate","MoveButtonQuick","easetype",iTween.EaseType.easeInOutSine));
+				iTween.ValueTo(gameObject,iTween.Hash("from",initialBack,"to",finalBack,"onupdate","MoveButtonBack","easetype",iTween.EaseType.easeInOutSine));
+				if(!displaySettings)
+					iTween.ValueTo(gameObject,iTween.Hash("from",initialPosSettings,"to",finalPosSettings,"onupdate","MoveButtonSettings","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopMoving"));
+				rotateToEnd = true;
+				moving = true;
+				displayModes = true;
+			}
+			
+		}
 		if(GUI.Button(posMulti,"Versus", style)) {
 			if(!moving){
+				PlayerPrefs.SetString("GameType","versus");
+				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosSolo,"to",finalPosSolo,"onupdate","MoveButtonSolo","easetype",iTween.EaseType.easeInOutSine));
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosMulti,"to",finalPosMulti,"onupdate","MoveButtonMulti","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopRotationEnd"));
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosExit,"to",finalPosExit,"onupdate","MoveButtonExit","easetype",iTween.EaseType.easeInOutSine));
 				if(displaySettings){
@@ -253,6 +284,7 @@ public class Menu : MonoBehaviour {
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalClassic,"to",initialClassic,"onupdate","MoveButtonClassic","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalQuick,"to",initialQuick,"onupdate","MoveButtonQuick","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalBack,"to",initialBack,"onupdate","MoveButtonBack","easetype",iTween.EaseType.easeInOutSine));
+					iTween.ValueTo(gameObject,iTween.Hash("from",finalPosSolo,"to",initialPosSolo,"onupdate","MoveButtonSolo","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalPosMulti,"to",initialPosMulti,"onupdate","MoveButtonMulti","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopRotationBegin"));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalPosExit,"to",initialPosExit,"onupdate","MoveButtonExit","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalPosSettings,"to",initialPosSettings,"onupdate","MoveButtonSettings","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopMoving"));
@@ -322,6 +354,10 @@ public class Menu : MonoBehaviour {
 	}
 	void MoveButtonMulti(Rect newCoordinates) {
 		posMulti = newCoordinates;
+		
+	}
+	void MoveButtonSolo(Rect newCoordinates) {
+		posSolo = newCoordinates;
 		
 	}
 	void MoveButtonExit(Rect newCoordinates) {

@@ -13,6 +13,7 @@ public class GameOverScript : MonoBehaviour {
 	private TextMesh winnerTextMesh;
 	private Rect posExit;
 	public GUIStyle style;
+	public bool traveled = false;
 	// Use this for initialization
 	void Start () {
 		winner = PlayerPrefs.GetString("winner");
@@ -34,16 +35,22 @@ public class GameOverScript : MonoBehaviour {
 			winnerText.renderer.material.color = Color.red;
 			ship = redShip;	
 		}
+		iTween.MoveTo(ship,iTween.Hash("z",-15f,"time",3f,"oncomplete","Travel","oncompletetarget",gameObject));
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		iTween.MoveTo(ship,iTween.Hash("y",-1.01f,"looptype",iTween.LoopType.pingPong,"easetype",iTween.EaseType.easeOutSine,"time",2f));
+		if(traveled) {
+			iTween.MoveTo(ship,iTween.Hash("y",-1.01f,"looptype",iTween.LoopType.pingPong,"easetype",iTween.EaseType.easeOutSine,"time",2f));
+		}
 	}
 	
 	void OnGUI() {
 		if(GUI.Button(posExit,"Back to menu",style)) {
 			Application.LoadLevel("Menu");	
 		}
+	}
+	void Travel() {
+		traveled = true;
 	}
 }

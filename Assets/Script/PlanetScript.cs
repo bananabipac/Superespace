@@ -285,6 +285,7 @@ public class PlanetScript : MonoBehaviour {
 				shipsB.RemoveAt(iB);
 				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 				expl.transform.position = sb.transform.position;
+				
 				Destroy(sb);	
 			}
 			if(((rotationShip)sn.GetComponent<rotationShip>()).life<=0){
