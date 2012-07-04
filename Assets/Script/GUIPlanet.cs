@@ -5,8 +5,8 @@ public class GUIPlanet : MonoBehaviour {
 	
 	public GUIStyle style;
 	public GUISkin skin;
-	private float x;
-	private float y;
+	//private float x;
+	//private float y;
 	private GameObject user;
 	
 	
@@ -14,8 +14,8 @@ public class GUIPlanet : MonoBehaviour {
 	private int shipsBT;
 	private int shipsNT;
 	
-	private float refresh;
-	private float tmp;
+	//private float refresh;
+	//private float tmp;
 	
 	private PlanetScript planet;
 	
@@ -41,8 +41,8 @@ public class GUIPlanet : MonoBehaviour {
 		
 		style.font = skin.font;
 		style.alignment = TextAnchor.UpperLeft;
-		x = 14f;
-		y = -8f;
+		//x = 14f;
+		//y = -8f;
 		user = GameObject.FindWithTag("User");
 		planet = GetComponent<PlanetScript>();
 		//PlanetScript tmp = GetComponent<PlanestScript>();
@@ -50,8 +50,8 @@ public class GUIPlanet : MonoBehaviour {
 		shipsRT = planet.shipsR.Count;
 		shipsNT = planet.shipsN.Count;
 		
-		refresh = 0.2f;
-		tmp = 0;
+		//refresh = 0.2f;
+		//tmp = 0;
 		vecR = new Vector3(gameObject.transform.position.x, -18, gameObject.transform.position.z);
 		
 		textR =  Resources.Load("TextSelectRed")as GameObject;
@@ -109,6 +109,7 @@ public class GUIPlanet : MonoBehaviour {
 	
 	
 	void refreshGUI(){
+		
 		if(!user.GetComponent<PauseScript>().paused) {
 			//int shipsRT = 
 			int shipsR = planet.shipsR.Count;
@@ -134,71 +135,77 @@ public class GUIPlanet : MonoBehaviour {
 				
 				//rouge contre bleu
 				if(shipsR >0 && shipsB >0 ){
-					if(boolR || !boolRT ||  textN.active){
-						Debug.Log("red/blue modif red");
+					if(boolR || !boolRT ||  textN.active || !textR.active || textN.active){
+						//Debug.Log("red/blue modif red");
 						GUIplanet(1,1);	
 					}
-					if(boolB || boolBT || !boolBT2){
+					if(boolB || boolBT || !boolBT2 || !textB.active  || !textVs.active){
 						Debug.Log("red/blue modif blue");
 						GUIplanet(0,2);	
 					}
 				//rouge contre blanc
 				}else if(shipsR >0 && shipsN >0 ){
-					if(boolR || !boolRT || textB.active){
-						Debug.Log("red/neutre modif red");
+					if(boolR || !boolRT || textB.active || !textR.active){
+						//Debug.Log("red/neutre modif red");
 						GUIplanet(1,1);	
 					}
-					if(!boolNT){
-						Debug.Log("red/neutre modif neutre");
+					if(!boolNT || !textN.active || !textVs.active ){
+						//Debug.Log("red/neutre modif neutre");
 						GUIplanet(2,2);	
 					}
 				//bleu contre blanc
 				}else if(shipsN >0 && shipsB >0 ){
-					if(boolB || boolBT2 || !boolBT || textR.active){
-						Debug.Log("blue/neutre modif blue");
+					if(boolB || boolBT2 || !boolBT || !textB.active || textR.active){
+						//Debug.Log("blue/neutre modif blue");
 						GUIplanet(0,1);	
 					}
-					if(!boolNT){
-						Debug.Log("blue/neutre modif neutre");
+					if(!boolNT || !textN.active || !textVs.active){
+						//Debug.Log("blue/neutre modif neutre");
 						GUIplanet(2,2);	
 					}
 				}else{
 					if(planet.ship.tag == "red"){
 						//Camera.mainCamera.ScreenToWorldPoint;
 						if(shipsB>0){
-							if(!boolB || boolBT || boolBT2 || !textB.active){
+							if(!boolB || boolBT || boolBT2 || !textB.active || textVs.active){
 								GUIplanet(0,0);	
 							}
-						}else if(!boolR  || boolRT || !textR.active){
+						}else if(!boolR  || boolRT || !textR.active || textVs.active){
 							GUIplanet(1,0);
 						}
 					}else if(planet.ship.tag == "blue"){
 						if(shipsR>0 ){
-							if(!boolR || boolRT || !textR.active){
+							if(!boolR || boolRT || !textR.active || textVs.active){
 								GUIplanet(1,0);
 							}
-						}else if(!boolB || boolBT || boolBT2 || !textB.active){
+						}else if(!boolB || boolBT || boolBT2 || !textB.active || textVs.active){
 							GUIplanet(0,0);
 						}
 					}else{
 						
 						if(shipsR>0){
-							if(!boolR  || boolRT || !textR.active){
+							if(!boolR  || boolRT || !textR.active || textVs.active){
 								GUIplanet(1,0);
 							}
 						}else if(shipsB>0 ){
-							if(!boolB || boolBT || boolBT2 || !textB.active){
+							if(!boolB || boolBT || boolBT2 || !textB.active || textVs.active){
 								GUIplanet(0,0);
 							}
 						}else{
 							
-							if(boolNT || !textN.active || textB.active || textR.active){
+							if(boolNT || !textN.active || textB.active || textR.active || textVs.active){
 								GUIplanet(2,0);
 							}
 						}
 					}
 				}
 			}
+		}else{
+			textR.active = false;
+			textN.active = false;
+			textB.active = false;
+			textVs.active = false;
+			
 		}
 
 	}
@@ -234,7 +241,7 @@ public class GUIPlanet : MonoBehaviour {
 				if(boolBT || boolBT2){
 					textB.transform.position = vecR;
 					boolBT = false;
-					boolBT = false;
+					boolBT2 = false;
 				}
 				
 				
@@ -332,14 +339,9 @@ public class GUIPlanet : MonoBehaviour {
 					textB.transform.position = ve;
 					boolBT2 = true;
 				}
-				//textB.transform.position = ve;
-				
-				
-				
 			}else if(color == 2){
 				textN.active = true;
 				if(!boolNT){
-					//textN.transform.RotateAround(textN.transform.position,Vector3.up, -90);
 					boolNT = true;
 					textN.transform.position = ve;
 				}

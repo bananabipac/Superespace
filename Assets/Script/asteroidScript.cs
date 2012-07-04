@@ -26,13 +26,38 @@ public class asteroidScript : MonoBehaviour {
 		if(ship != null){
 			rotationShip tmp = ship.GetComponent<rotationShip>();
 			((rotationShip)ship.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
-			if(ship.tag == "red"){
-				
-				((PlanetScript)tmp.planet.GetComponent<PlanetScript>()).shipsR.Add(ship);
+			if(tmp.super){
+				List<GameObject> ships = ship.GetComponent<rotationShip>().ships;
+			
+				if(ships[0].tag == "red"){	
+					tmp.planet.GetComponent<PlanetScript>().shipsRS.Add(ship);
+				}else{
+					tmp.planet.GetComponent<PlanetScript>().shipsBS.Add(ship);
+				}
+				int count = ships.Count;
+				for(int i  = 0 ; i<count; i++){
+					if(ships[0] != null){
+						ships[0].transform.position = ship.transform.position;
+						ships[0].GetComponent<rotationShip>().planet = tmp.planet; 
+						if(ships[0].tag == "red"){
+							tmp.planet.GetComponent<PlanetScript>().shipsR.Add(ships[0]);
+						}else{
+							tmp.planet.GetComponent<PlanetScript>().shipsB.Add(ships[0]);
+						}
+			
+					}else{
+						
+					}
+					
+					ships.RemoveAt(0);
+				}
 				
 			}else{
-			
-				((PlanetScript)tmp.planet.GetComponent<PlanetScript>()).shipsB.Add(ship);
+				if(ship.tag == "red"){
+					((PlanetScript)tmp.planet.GetComponent<PlanetScript>()).shipsR.Add(ship);
+				}else{
+					((PlanetScript)tmp.planet.GetComponent<PlanetScript>()).shipsB.Add(ship);
+				}
 			}
 		}else{
 			//Debug.Log("erreu : "+i);	
@@ -42,40 +67,90 @@ public class asteroidScript : MonoBehaviour {
 	
 	void Update () {
 			
-		
+			int count = ships.Count;
+			
 			for(int i = 0 ; i<ships.Count; i++){
 				GameObject ship = ships[i];
 				if(Vector3.Distance(ship.transform.position, this.transform.position) <= distance){
-					int kill = Random.Range(0, 101);
-					if(kill <= chanceKill){
-						//iTween.Stop(ship);
-						
-						ships.RemoveAt(i);
-						GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
-						expl.transform.position = ship.transform.position;
-						Destroy(ship);
-						i=i-1;
-					}else{
-						rotationShip tmp = ship.gameObject.GetComponent<rotationShip>();
-						float scal = tmp.planet.transform.localScale.x ;
-								
-						float min =  scal/2.5f+1   ;
-						float max = scal/2.5f +1.5f;
-						
-						float z = Random.Range(min,max);
+					rotationShip tmp = ship.gameObject.GetComponent<rotationShip>();
+					float scal = tmp.planet.transform.localScale.x ;
 							
-						Quaternion quat = Quaternion.AngleAxis(Random.Range(0f, 360f), tmp.planet.transform.position);
+					float min =  scal/2.5f+1   ;
+					float max = scal/2.5f +1.5f;
+					
+					float z = Random.Range(min,max);
+						
+					Quaternion quat = Quaternion.AngleAxis(Random.Range(0f, 360f), tmp.planet.transform.position);
+							
+					Vector3 vec = new Vector3(0,0,z);
+					vec = quat * vec ;
+					vec.y = 0;
+				
+				
+					int kill = Random.Range(0, 101);
+					
+					if(tmp.super){
+							List<GameObject> s = tmp.ships;
+							int c = s.Count;
+							for(int j=0; i<c; i++){
+								int k = Random.Range(0, 101);
+								if(k <= chanceKill){
+									GameObject t = s[j];
+									Destroy(t);
+									GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+									expl.transform.position = ship.transform.position;
+									s.RemoveAt(j);
+									j --;
+									if(j<0){
+										j =0;
+									}
+								}
+							}
+						
+							if(s.Count != c){
+								for(int j = 0 ; j<s.Count; j++){
+									s[j].transform.position = ship.transform.position;
+									s[j].GetComponent<MeshRenderer>().enabled = true;
 								
-						Vector3 vec = new Vector3(0,0,z);
-						vec = quat * vec ;
-						vec.y = 0;
-						iTween.Stop(ship);
+									z = Random.Range(min,max);
+										
+									quat = Quaternion.AngleAxis(Random.Range(0f, 360f), tmp.planet.transform.position);
+											
+									vec = new Vector3(0,0,z);
+									vec = quat * vec ;
+									vec.y = 0;
+							
+									iTween.MoveTo(s[j],iTween.Hash("position",tmp.planet.transform.position+vec,"time",8f,"oncomplete","valideDep","onCompleteTarget", gameObject,"oncompleteparams", s[j], "easetype", "linear"));	
+									shipsE.Add(s[j]);
+								}
+								Destroy(ship);
+								
+							
+							}else{
+								iTween.Stop(ship);
+								iTween.MoveTo(ship,iTween.Hash("position",tmp.planet.transform.position+vec,"time",8f,"oncomplete","valideDep","onCompleteTarget", gameObject,"oncompleteparams", ship, "easetype", "linear"));	
+								shipsE.Add(ship);
 						
+							}
+					
+							ships.RemoveAt(i);
+					}else{
+						if(kill <= chanceKill){
+							//iTween.Stop(ship);
 						
-						
-						iTween.MoveTo(ship,iTween.Hash("position",tmp.planet.transform.position+vec,"time",8f,"oncomplete","valideDep","onCompleteTarget", gameObject,"oncompleteparams", ship, "easetype", "linear"));	
-						shipsE.Add(ship);
-						ships.RemoveAt(i);
+							ships.RemoveAt(i);
+							GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+							expl.transform.position = ship.transform.position;
+							Destroy(ship);
+							
+							
+						}else{
+							
+							iTween.Stop(ship);
+							iTween.MoveTo(ship,iTween.Hash("position",tmp.planet.transform.position+vec,"time",8f,"oncomplete","valideDep","onCompleteTarget", gameObject,"oncompleteparams", ship, "easetype", "linear"));	
+							shipsE.Add(ship);
+							ships.RemoveAt(i);
+						}
 					}
 				}
 			}

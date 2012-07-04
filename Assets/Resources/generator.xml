@@ -18,8 +18,8 @@
 				<name>1</name>
 				<x>-12</x>
 				<z>8</z>
-				<color>blue</color>
-				<nb>25</nb>
+				<color>neutre</color>
+				<nb>5</nb>
 				<size>4</size>
 				<texture>2</texture>
 				<repop>20</repop>
@@ -42,8 +42,8 @@
 				<name>3</name>
 				<x>0</x>
 				<z>14</z>
-				<color>neutre</color>
-				<nb>5</nb>
+				<color>blue</color>
+				<nb>40</nb>
 				<size>4</size>
 				<texture>4</texture>
 				<repop>20</repop>
