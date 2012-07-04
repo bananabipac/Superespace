@@ -16,6 +16,8 @@ public class IAEngine : MonoBehaviour {
 	public float marge;
 	GameObject[] pair = new GameObject[2];
 	private bool isUpdating;
+	private int nbShipToLaunch;
+	public string IAPlayer;
 	// Use this for initialization
 	void Start () {
 		if(PlayerPrefs.GetString("GameType").Equals("solo")){
@@ -33,6 +35,7 @@ public class IAEngine : MonoBehaviour {
 		if(PlayerPrefs.GetString("GameType").Equals("solo")){
 			if(Time.timeSinceLevelLoad - timer >= speedIA) {
 				if(!isUpdating) {
+					nbShipToLaunch = 0;
 					checkPlanets();
 					findPossibleRoutes();
 					checkRoutes(false);
@@ -41,21 +44,178 @@ public class IAEngine : MonoBehaviour {
 				}else{
 					if(hasEnoughMoney){
 						if(pairsClosed.Count>0){
-							pair = pairsClosed[RandomNumber(0,pairsClosed.Count)];
+							for (int iPairsOpened = 0; iPairsOpened < pairsClosed.Count; iPairsOpened++) {
+								GameObject[] tempPair = pairsClosed[iPairsOpened];
+								if(IAPlayer == "red"){
+									if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "blue" || tempPair[1].GetComponent<PlanetScript>().ship.tag == "blue"){
+										if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "blue") {
+											int countB = tempPair[0].GetComponent<PlanetScript>().shipsB.Count;
+											int countR = tempPair[1].GetComponent<PlanetScript>().shipsR.Count;
+											if( countR > countB + countB*marge/100) {
+												pair = tempPair;
+											}
+										}else if (tempPair[1].GetComponent<PlanetScript>().ship.tag == "blue") {
+											int countB = tempPair[1].GetComponent<PlanetScript>().shipsB.Count;
+											int countR = tempPair[0].GetComponent<PlanetScript>().shipsR.Count;
+											if( countR > countB + countB*marge/100) {
+												pair = tempPair;
+											}
+										}
+									}else if (IAPlayer == "blue") {
+										if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "red" || tempPair[1].GetComponent<PlanetScript>().ship.tag == "red"){
+											if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "red") {
+												int countB = tempPair[1].GetComponent<PlanetScript>().shipsB.Count;
+												int countR = tempPair[0].GetComponent<PlanetScript>().shipsR.Count;
+												if( countB > countR + countB*marge/100) {
+													pair = tempPair;
+												}
+											}else if (tempPair[1].GetComponent<PlanetScript>().ship.tag == "red") {
+												int countB = tempPair[0].GetComponent<PlanetScript>().shipsB.Count;
+												int countR = tempPair[1].GetComponent<PlanetScript>().shipsR.Count;
+												if( countB > countR + countB*marge/100) {
+													pair = tempPair;
+												}
+											}
+										}
+									}
+								}
+							}
+							if(pair[0] == null) {
+								pair = pairsClosed[RandomNumber(0,pairsClosed.Count-1)];
+							}
+							
 						}else{
 							checkRoutes(true);
 							if(pairsClosed.Count>0){
-								pair = pairsClosed[RandomNumber(0,pairsClosed.Count)];
+								for (int iPairsOpened = 0; iPairsOpened < pairsClosed.Count; iPairsOpened++) {
+									GameObject[] tempPair = pairsClosed[iPairsOpened];
+									if(IAPlayer == "red"){
+										if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "blue" || tempPair[1].GetComponent<PlanetScript>().ship.tag == "blue"){
+											if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "blue") {
+												int countB = tempPair[0].GetComponent<PlanetScript>().shipsB.Count;
+												int countR = tempPair[1].GetComponent<PlanetScript>().shipsR.Count;
+												if( countR > countB + countB*marge/100) {
+													pair = tempPair;
+												}
+											}else if (tempPair[1].GetComponent<PlanetScript>().ship.tag == "blue") {
+												int countB = tempPair[1].GetComponent<PlanetScript>().shipsB.Count;
+												int countR = tempPair[0].GetComponent<PlanetScript>().shipsR.Count;
+												if( countR > countB + countB*marge/100) {
+													pair = tempPair;
+												}
+											}
+										}else if (IAPlayer == "blue") {
+											if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "red" || tempPair[1].GetComponent<PlanetScript>().ship.tag == "red"){
+												if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "red") {
+													int countB = tempPair[1].GetComponent<PlanetScript>().shipsB.Count;
+													int countR = tempPair[0].GetComponent<PlanetScript>().shipsR.Count;
+													if( countB > countR + countB*marge/100) {
+														pair = tempPair;
+													}
+												}else if (tempPair[1].GetComponent<PlanetScript>().ship.tag == "red") {
+													int countB = tempPair[0].GetComponent<PlanetScript>().shipsB.Count;
+													int countR = tempPair[1].GetComponent<PlanetScript>().shipsR.Count;
+													if( countB > countR + countB*marge/100) {
+														pair = tempPair;
+													}
+												}
+											}
+										}
+									}
+								}
+								if(pair[0] == null) {
+									pair = pairsClosed[RandomNumber(0,pairsClosed.Count-1)];
+								}
 							}else{
 								checkRoutes(false);
-								pair = pairsOpened[RandomNumber(0,pairsOpened.Count)];
+								for (int iPairsOpened = 0; iPairsOpened < pairsOpened.Count; iPairsOpened++) {
+									GameObject[] tempPair = pairsOpened[iPairsOpened];
+									if(IAPlayer == "red"){
+										if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "blue" || tempPair[1].GetComponent<PlanetScript>().ship.tag == "blue"){
+											if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "blue") {
+												int countB = tempPair[0].GetComponent<PlanetScript>().shipsB.Count;
+												int countR = tempPair[1].GetComponent<PlanetScript>().shipsR.Count;
+												if( countR > countB + countB*marge/100) {
+													pair = tempPair;
+												}
+											}else if (tempPair[1].GetComponent<PlanetScript>().ship.tag == "blue") {
+												int countB = tempPair[1].GetComponent<PlanetScript>().shipsB.Count;
+												int countR = tempPair[0].GetComponent<PlanetScript>().shipsR.Count;
+												if( countR > countB + countB*marge/100) {
+													pair = tempPair;
+												}
+											}
+										}else if (IAPlayer == "blue") {
+											if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "red" || tempPair[1].GetComponent<PlanetScript>().ship.tag == "red"){
+												if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "red") {
+													int countB = tempPair[1].GetComponent<PlanetScript>().shipsB.Count;
+													int countR = tempPair[0].GetComponent<PlanetScript>().shipsR.Count;
+													if( countB > countR + countB*marge/100) {
+														pair = tempPair;
+													}
+												}else if (tempPair[1].GetComponent<PlanetScript>().ship.tag == "red") {
+													int countB = tempPair[0].GetComponent<PlanetScript>().shipsB.Count;
+													int countR = tempPair[1].GetComponent<PlanetScript>().shipsR.Count;
+													if( countB > countR + countB*marge/100) {
+														pair = tempPair;
+													}
+												}
+											}
+										}
+									}
+								}
+								if(pair[0] == null) {
+									pair = pairsOpened[RandomNumber(0,pairsOpened.Count-1)];
+								}
 							}
 						}
 								
 					} else {
-						if(pairsOpened.Count>0)
-							pair = pairsOpened[RandomNumber(0,pairsOpened.Count-1)];
+						if(pairsOpened.Count>0){
+							for (int iPairsOpened = 0; iPairsOpened < pairsOpened.Count; iPairsOpened++) {
+								GameObject[] tempPair = pairsOpened[iPairsOpened];
+								if(IAPlayer == "red"){
+									if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "blue" || tempPair[1].GetComponent<PlanetScript>().ship.tag == "blue"){
+										if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "blue") {
+											int countB = tempPair[0].GetComponent<PlanetScript>().shipsB.Count;
+											int countR = tempPair[1].GetComponent<PlanetScript>().shipsR.Count;
+											if( countR > countB + countB*marge/100) {
+												pair = tempPair;
+											}
+										}else if (tempPair[1].GetComponent<PlanetScript>().ship.tag == "blue") {
+											int countB = tempPair[1].GetComponent<PlanetScript>().shipsB.Count;
+											int countR = tempPair[0].GetComponent<PlanetScript>().shipsR.Count;
+											if( countR > countB + countB*marge/100) {
+												pair = tempPair;
+											}
+										}
+									}else if (IAPlayer == "blue") {
+										if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "red" || tempPair[1].GetComponent<PlanetScript>().ship.tag == "red"){
+											if(tempPair[0].GetComponent<PlanetScript>().ship.tag == "red") {
+												int countB = tempPair[1].GetComponent<PlanetScript>().shipsB.Count;
+												int countR = tempPair[0].GetComponent<PlanetScript>().shipsR.Count;
+												if( countB > countR + countB*marge/100) {
+													pair = tempPair;
+												}
+											}else if (tempPair[1].GetComponent<PlanetScript>().ship.tag == "red") {
+												int countB = tempPair[0].GetComponent<PlanetScript>().shipsB.Count;
+												int countR = tempPair[1].GetComponent<PlanetScript>().shipsR.Count;
+												if( countB > countR + countB*marge/100) {
+													pair = tempPair;
+												}
+											}
+										}
+									}
+								}
+							}
+							if(pair[0] == null) {
+								pair = pairsOpened[RandomNumber(0,pairsOpened.Count-1)];
+							}
+							
+						}
 					}
+					Debug.Log (pair[0].ToString());
+					Debug.Log (pair[1].ToString());
 					if(pair != null) {
 						string ps,pe;
 						if(int.Parse(pair[0].name) > int.Parse(pair[1].name)){
@@ -70,32 +230,69 @@ public class IAEngine : MonoBehaviour {
 						if(asteroid == null) {
 							for(int i = 0; i < pair.Length; i++){
 								GameObject planete = pair[i];
-								if(planete.GetComponent<PlanetScript>().ship.tag == "blue"){
+								if(planete.GetComponent<PlanetScript>().ship.tag == IAPlayer){
 									if(ind == 0) {
-										int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
+										int nbShip;
+										if(IAPlayer == "blue") {
+											nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
+										}else {
+											nbShip = planete.GetComponent<PlanetScript>().shipsR.Count;
+										}
 										int countEnnemy = 0;
 										if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
 											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
 										}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
 											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
+										}else{
+											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsB.Count;
 										}
-										if (nbShip >= countEnnemy + countEnnemy*marge/100){
-											launchMove = true;	
+										if(pair[1].GetComponent<PlanetScript>().ship.tag != IAPlayer) {
+											if (nbShip >= countEnnemy + countEnnemy*marge/100){
+												nbShipToLaunch = Mathf.FloorToInt(countEnnemy + countEnnemy*marge/100);
+												launchMove = true;	
+											}else{
+												launchMove = false;	
+											}
+										} else {
+											if (nbShip >= countEnnemy) {
+												int difference = nbShip - countEnnemy;
+												nbShipToLaunch = Mathf.FloorToInt(difference/2);
+												launchMove = true;
+											} else {
+												launchMove = false;	
+											}
 										}
 									}else if(ind == 1) {
-										int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
+										int nbShip;
+										if(IAPlayer == "blue") {
+											nbShip = pair[1].GetComponent<PlanetScript>().shipsB.Count;
+										}else {
+											nbShip = pair[1].GetComponent<PlanetScript>().shipsR.Count;
+										}
 										int countEnnemy = 0;
-										if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
-											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
-										}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
-											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
+										if(pair[0].GetComponent<PlanetScript>().ship.tag == "red") {
+											countEnnemy	= pair[0].GetComponent<PlanetScript>().shipsR.Count;
+										}else if (pair[0].GetComponent<PlanetScript>().ship.tag == "neutre"){
+											countEnnemy	= pair[0].GetComponent<PlanetScript>().shipsN.Count;
+										}else{
+											countEnnemy	= pair[0].GetComponent<PlanetScript>().shipsB.Count;
 										}
-										if (nbShip >= countEnnemy + countEnnemy*marge/100){
-											launchMove = true;
+										if(pair[0].GetComponent<PlanetScript>().ship.tag != IAPlayer) {
+											if (nbShip >= countEnnemy + countEnnemy*marge/100){
+												nbShipToLaunch = Mathf.FloorToInt(countEnnemy + countEnnemy*marge/100);
+												launchMove = true;
+											}else{
+												launchMove = false;	
+											}
+										} else {
+											if (nbShip >= countEnnemy) {
+												int difference = nbShip - countEnnemy;
+												nbShipToLaunch = Mathf.FloorToInt(difference/2);
+												launchMove = true;
+											} else {
+												launchMove = false;	
+											}
 										}
-										
-									}else{
-										launchMove = false;	
 									}
 								}
 								
@@ -105,32 +302,70 @@ public class IAEngine : MonoBehaviour {
 							
 							for(int i = 0; i < pair.Length; i ++) {
 								GameObject planete = pair[i];	
-								if(planete.GetComponent<PlanetScript>().ship.tag == "blue"){
+								if(planete.GetComponent<PlanetScript>().ship.tag == IAPlayer){
 									if(ind == 0) {
-										int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
+										int nbShip;
+										if(IAPlayer == "blue") {
+											nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
+										}else {
+											nbShip = planete.GetComponent<PlanetScript>().shipsR.Count;
+										}
 										
 										int countEnnemy = 0;
 										if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
 											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
 										}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
 											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
+										}else{
+											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsB.Count;
 										}
-										if (nbShip >= countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100)){
-											launchMove = true;
+										if(pair[1].GetComponent<PlanetScript>().ship.tag != IAPlayer) {
+											if (nbShip >= countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100)){
+												nbShipToLaunch = Mathf.FloorToInt(countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100));
+												launchMove = true;
+											}else{
+												launchMove = false;	
+											}
+										} else {
+											if (nbShip >= countEnnemy) {
+												int difference = nbShip - countEnnemy;
+												nbShipToLaunch = Mathf.FloorToInt(difference/2);
+												launchMove = true;
+											} else {
+												launchMove = false;	
+											}
 										}
 									}else if(ind == 1) {
-										int nbShip = planete.GetComponent<PlanetScript>().shipsB.Count;
+										int nbShip;
+										if(IAPlayer == "blue") {
+											nbShip = pair[1].GetComponent<PlanetScript>().shipsB.Count;
+										}else {
+											nbShip = pair[1].GetComponent<PlanetScript>().shipsR.Count;
+										}
 										int countEnnemy = 0;
-										if(pair[1].GetComponent<PlanetScript>().ship.tag == "red") {
-											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsR.Count;
-										}else if (pair[1].GetComponent<PlanetScript>().ship.tag == "neutre"){
-											countEnnemy	= pair[1].GetComponent<PlanetScript>().shipsN.Count;
+										if(pair[0].GetComponent<PlanetScript>().ship.tag == "red") {
+											countEnnemy	= pair[0].GetComponent<PlanetScript>().shipsR.Count;
+										}else if (pair[0].GetComponent<PlanetScript>().ship.tag == "neutre"){
+											countEnnemy	= pair[0].GetComponent<PlanetScript>().shipsN.Count;
+										}else{
+											countEnnemy	= pair[0].GetComponent<PlanetScript>().shipsB.Count;
 										}
-										if (nbShip >= countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100)){
-											launchMove = true;
+										if(pair[0].GetComponent<PlanetScript>().ship.tag != IAPlayer) {
+											if (nbShip >= countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100)){
+												nbShipToLaunch = Mathf.FloorToInt(countEnnemy + (countEnnemy*marge/100)+(nbShip*asteroid.GetComponent<asteroidScript>().chanceKill/100));
+												launchMove = true;
+											}else{
+												launchMove = false;
+											}
+										}else{
+											if (nbShip >= countEnnemy) {
+												int difference = nbShip - countEnnemy;
+												nbShipToLaunch = Mathf.FloorToInt(difference/2);
+												launchMove = true;
+											} else {
+												launchMove = false;
+											}
 										}
-									}else{
-										launchMove = false;
 									}
 								}
 								
@@ -144,21 +379,31 @@ public class IAEngine : MonoBehaviour {
 							int ind2 = 0;
 							for(int i = 0; i < pair.Length; i++) {
 								GameObject planete = pair[i];
-								if(planete.GetComponent<PlanetScript>().ship.tag == "blue") {
+								if(planete.GetComponent<PlanetScript>().ship.tag == IAPlayer) {
 									
 									if(ind2==0){
-										
-										if(!user.GetComponent<GestionLink>().roadOpen(planete,pair[1]) && planete != pair[1]){
-											user.GetComponent<moveShip>().deplacement(planete,pair[1],planete.GetComponent<PlanetScript>().shipsB.Count);
-											user.GetComponent<GestionLink>().openRoad(planete,pair[1]); 
-											user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+										if(planete != pair[1]) {
+											user.GetComponent<moveShip>().deplacement(planete,pair[1],nbShipToLaunch);
+											if(!user.GetComponent<GestionLink>().roadOpen(planete,pair[1]) && nbShipToLaunch > 0 ){
+												user.GetComponent<GestionLink>().openRoad(planete,pair[1]);
+												if(IAPlayer == "blue") {
+													user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+												}else {
+													user.GetComponent<MoneyScript>().moneyPlayer1 -= 50;
+												}
+											}
 										}
 									}else if (ind2 == 1) {
-										
-										if(!user.GetComponent<GestionLink>().roadOpen(planete,pair[0]) && planete != pair[0]){
-											user.GetComponent<moveShip>().deplacement(planete,pair[0],planete.GetComponent<PlanetScript>().shipsB.Count);
-											user.GetComponent<GestionLink>().openRoad(planete,pair[0]); 
-											user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+										if(planete != pair[0]) {
+											user.GetComponent<moveShip>().deplacement(planete,pair[0],nbShipToLaunch);
+											if(!user.GetComponent<GestionLink>().roadOpen(planete,pair[0]) && nbShipToLaunch > 0){
+												user.GetComponent<GestionLink>().openRoad(planete,pair[0]); 
+												if(IAPlayer == "blue") {
+													user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+												}else {
+													user.GetComponent<MoneyScript>().moneyPlayer1 -= 50;
+												}
+											}
 										}
 									}
 								}
@@ -176,6 +421,7 @@ public class IAEngine : MonoBehaviour {
 	void reinitVar() {
 		pairs = new List<GameObject[]>();
 		planetsIA = new List<GameObject>();
+		pair = new GameObject[2];
 	}
 	void checkRoutes(bool withAsteroid) {
 		pairsClosed = new List<GameObject[]>();
@@ -219,12 +465,20 @@ public class IAEngine : MonoBehaviour {
 	
 	
 	void checkMoney() {
-		if(user.GetComponent<MoneyScript>().moneyPlayer2 >= 50	) {
-			hasEnoughMoney = true;
+		if(IAPlayer == "blue") {
+			if(user.GetComponent<MoneyScript>().moneyPlayer2 >= 50	) {
+				hasEnoughMoney = true;
+			}else{
+				hasEnoughMoney = false;	
+			}
 		}else{
-			hasEnoughMoney = false;	
+			if(user.GetComponent<MoneyScript>().moneyPlayer1 >= 50	) {
+				hasEnoughMoney = true;
+			}else{
+				hasEnoughMoney = false;	
+			}
 		}
-		
+			
 		
 	}
 	void findPossibleRoutes() {
@@ -247,7 +501,7 @@ public class IAEngine : MonoBehaviour {
 		int indice = 0;
 		for(int i = 0; i < planets.Length; i++){
 			GameObject planet = planets[i];
-			if(planet.GetComponent<PlanetScript>().ship.tag == "blue") {
+			if(planet.GetComponent<PlanetScript>().ship.tag == IAPlayer) {
 				//Debug.Log(planet.tag);
 				planetsIA.Add(planet);
 				indice++;

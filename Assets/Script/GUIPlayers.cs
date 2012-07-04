@@ -164,7 +164,7 @@ public class GUIPlayers : MonoBehaviour {
 				}
 				RaycastHit[] hits;
 				hits = Physics.RaycastAll(cursorRay,1000f);
-				if(!user.GetComponent<PauseScript>().paused) {
+				if(!user.GetComponent<PauseScript>().paused2) {
 					for(int i =0; i< hits.Length; i++) {
 						RaycastHit hitted = hits[i];
 						GameObject objet = hitted.collider.gameObject;
@@ -335,7 +335,7 @@ public class GUIPlayers : MonoBehaviour {
 				}
 			}
 			if(touch.phase == TouchPhase.Began) {
-				if(!user.GetComponent<PauseScript>().paused) {
+				if(!user.GetComponent<PauseScript>().paused2) {
 					if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
 						if (hit.collider.tag == "GUIPlayer1" || hit.collider.tag == "GUIPlayer2") {
 							GameObject bonus = hit.collider.gameObject;
@@ -345,7 +345,7 @@ public class GUIPlayers : MonoBehaviour {
 				}
 			}
 			if(touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) {
-				if(!user.GetComponent<PauseScript>().paused) {
+				if(!user.GetComponent<PauseScript>().paused2) {
 					if(listBonusesTouched.ContainsKey(fingerId)) {
 						GameObject bonus = listBonusesTouched[fingerId];
 						Vector3 positionTemp = bonus.transform.position;

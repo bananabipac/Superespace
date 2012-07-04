@@ -79,7 +79,7 @@ public class moveShip : MonoBehaviour {
 				RaycastHit hit;
 				//Pour connaitre la planète de départ, le gameobject est représenté par la variable collider.
 				if(touch.phase == TouchPhase.Began) {
-					if(!user.GetComponent<PauseScript>().paused) {
+					if(!user.GetComponent<PauseScript>().paused2) {
 						if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
 							if (hit.collider.tag == "planet") {
 								Debug.Log ("Planete de départ" + fingerId);
@@ -129,7 +129,7 @@ public class moveShip : MonoBehaviour {
 				}
 				//pour la selection du nombre de vaisseau
 				if(touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved){
-					if(!user.GetComponent<PauseScript>().paused) {
+					if(!user.GetComponent<PauseScript>().paused2) {
 						if(listPlanetStart.ContainsKey(fingerId)){
 							if(Physics.Raycast(cursorRay, out hit, 1000.0f)){
 								//Debug.Log ("idSelect : "+fingerId);
@@ -249,7 +249,7 @@ public class moveShip : MonoBehaviour {
 						
 						
 					}
-					if(!user.GetComponent<PauseScript>().paused) {
+					if(!user.GetComponent<PauseScript>().paused2) {
 						if(shipSelect.ContainsKey(fingerId)){
 							GameObject tmp = shipSelect[fingerId];
 							shipSelect.Remove(fingerId);
@@ -349,11 +349,20 @@ public class moveShip : MonoBehaviour {
 		infoUser info;
 		List<GameObject> ships = new List<GameObject>();
 		PlanetScript p = (PlanetScript)start.GetComponent<PlanetScript>();
+		
+		
 		int nbs = nbShip ;
+		
 		if(p.ship.tag == "red"){
 			info = (infoUser) GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>();
+			if(p.shipsR.Count < nbShip){
+				nbs=p.shipsR.Count;	
+			}
 		}else{
 			info = (infoUser) GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>();
+			if(p.shipsB.Count < nbShip){
+				nbs=p.shipsB.Count;	
+			}
 		}
 		if(end.tag == "planet") {
 			

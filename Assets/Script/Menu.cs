@@ -81,6 +81,7 @@ public class Menu : MonoBehaviour {
 	private bool displaySettings = false;
 	// Use this for initialization
 	void Start () {
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		style.alignment = TextAnchor.MiddleCenter;
 		
 		xPosMulti = Screen.width * (1f/6.55f);
@@ -105,17 +106,17 @@ public class Menu : MonoBehaviour {
 		posExit = initialPosExit;
 		finalPosExit = new Rect(xPosExit-1500,yPosExit,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
-		initialPlayerOne = new Rect(Screen.width * (1f/6.55f),17*Screen.height * (0.2f/7f),Screen.width * (4.8f/14f),Screen.height * (0.85f/8.5f));
+		initialPlayerOne = new Rect(xPosExit,1.88f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
 		posPlayerOne = finalPlayerOne;
-		finalPlayerOne = new Rect(Screen.width * (1f/6.55f)-1500,17*Screen.height * (0.2f/7f),Screen.width * (4.8f/14f),Screen.height * (0.85f/8.5f));
+		finalPlayerOne = new Rect(xPosExit-1500,1.88f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
 		
-		initialPlayerTwo = new Rect(Screen.width * (1f/2f),17*Screen.height * (0.2f/7f),Screen.width * (4.8f/14f),Screen.height * (0.85f/8.5f));
+		initialPlayerTwo = new Rect(3.55f*xPosExit,1.88f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
 		posPlayerTwo = finalPlayerTwo;
-		finalPlayerTwo = new Rect(Screen.width * (1f/2f)-1500,17*Screen.height * (0.2f/7f),Screen.width * (4.8f/14f),Screen.height * (0.85f/8.5f));
+		finalPlayerTwo = new Rect(3.55f*xPosExit-1500,1.88f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
 		
-		initialQuality = new Rect(Screen.width * (1f/6.55f),17*Screen.height * (0.2f/5.5f),Screen.width * (4.8f/6.94f),Screen.height * (0.85f/8.5f));
+		initialQuality = new Rect(xPosExit,2.12f*yPosMulti,Screen.width * (4.8f/6.55f),0.6f*Screen.height * (0.85f/8.5f));
 		posQuality = finalQuality;
-		finalQuality = new Rect(Screen.width * (1f/6.55f)-1500,17*Screen.height * (0.2f/5.5f),Screen.width * (4.8f/6.94f),Screen.height * (0.85f/8.5f));
+		finalQuality = new Rect(xPosExit-1500,2.12f*yPosMulti,Screen.width * (4.8f/6.55f),0.6f*Screen.height * (0.85f/8.5f));
 		
 		initialLevel1 = new Rect(xPosMulti+1500,yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posLevel1 = initialLevel1;
@@ -181,6 +182,9 @@ public class Menu : MonoBehaviour {
 		}
 		if(rotateToBegin) {
 			this.transform.RotateAround	(planet.transform.position,Vector3.up,-speed*Time.deltaTime);	
+		}
+		if(Input.GetKeyDown(KeyCode.Escape)) {
+			Application.Quit();	
 		}
 		
 	}
@@ -309,7 +313,7 @@ public class Menu : MonoBehaviour {
 			
 			
 			
-		if(GUI.Button(posPlayerOne, "Player 1:\n"+handPlayer1,style2)) {
+		if(GUI.Button(posPlayerOne, "Player 1: "+handPlayer1,style2)) {
 			if(paramHand1 == "right") {
 				paramHand1 = "left";
 				handPlayer1 = "Left-Handed";
@@ -320,7 +324,7 @@ public class Menu : MonoBehaviour {
 				PlayerPrefs.SetString("paramHand1",paramHand1);
 			}
 		}
-		if(GUI.Button(posPlayerTwo, "Player 2:\n"+handPlayer2,style3)) {
+		if(GUI.Button(posPlayerTwo, "Player 2: "+handPlayer2,style3)) {
 			if(paramHand2 == "right") {
 				paramHand2 = "left";
 				handPlayer2 = "Left-Handed";
@@ -331,7 +335,7 @@ public class Menu : MonoBehaviour {
 				PlayerPrefs.SetString("paramHand2",paramHand2);
 			}
 		}
-		if(GUI.Button(posQuality, "Graphics :\n"+paramQualitySettings,style2)) {
+		if(GUI.Button(posQuality, "Graphics : "+paramQualitySettings,style2)) {
 			if(QualitySettings.GetQualityLevel() == 0) {
 				paramQualitySettings = "Medium";
 				QualitySettings.SetQualityLevel(1);

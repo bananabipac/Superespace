@@ -15,10 +15,12 @@ public class infoUser : MonoBehaviour {
 		lifeShip = 5;
 		
 		speedShip = 2f;
+		
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		
 	}
 }

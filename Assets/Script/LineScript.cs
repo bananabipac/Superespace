@@ -34,7 +34,7 @@ public class LineScript : MonoBehaviour {
 				Ray cursorRay = Camera.main.ScreenPointToRay(touch.position);
 				RaycastHit hit;
 				if(touch.phase == TouchPhase.Began) {
-					if(!user.GetComponent<PauseScript>().paused) {
+					if(!user.GetComponent<PauseScript>().paused2) {
 						if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
 							if (hit.collider.tag == "planet" && hit.collider.gameObject.GetComponent<PlanetScript>().ship.tag !="neutre" ) {
 								
@@ -53,7 +53,7 @@ public class LineScript : MonoBehaviour {
 					
 				}
 				if(touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) {
-					if(!user.GetComponent<PauseScript>().paused) {
+					if(!user.GetComponent<PauseScript>().paused2) {
 						if(listPlanetStart.ContainsKey(fingerId)){
 							Vector3 touched = Camera.main.ScreenToWorldPoint(touch.position);
 							touched.y = listPlanetStart[fingerId].transform.position.y;
@@ -98,7 +98,7 @@ public class LineScript : MonoBehaviour {
 					}
 				}
 				if(touch.phase == TouchPhase.Ended) {
-					if(!user.GetComponent<PauseScript>().paused) {
+					if(!user.GetComponent<PauseScript>().paused2) {
 						if(listLines.ContainsKey(fingerId)){
 							GameObject tmp = listLines[fingerId];
 							listLines.Remove(fingerId);

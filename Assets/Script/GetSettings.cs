@@ -6,6 +6,8 @@ public class GetSettings : MonoBehaviour {
 	private string paramHand2;
 	// Use this for initialization
 	void Start () {
+		
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		if(PlayerPrefs.GetString("paramHand1") != "" ){
 			paramHand1 = PlayerPrefs.GetString("paramHand1");
 		} else {
@@ -33,10 +35,5 @@ public class GetSettings : MonoBehaviour {
 			GameObject.FindWithTag("Droitier2").active = false;
 			GameObject.FindWithTag("Gaucher2").active = true;
 		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }
