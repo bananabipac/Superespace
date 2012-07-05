@@ -15,8 +15,8 @@ public class asteroidScript : MonoBehaviour {
 		ships = new List<GameObject>();
 		shipsE = new List<GameObject>();
 		
-		distance = 2.8f;
-		chanceKill = 0;
+		//distance = 2.8f;
+		//chanceKill = 50;
 	
 	}
 	
