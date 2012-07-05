@@ -31,6 +31,10 @@ public class PlanetScript : MonoBehaviour {
 	public List<GameObject> shipsBS = new List<GameObject>();
 	public List<GameObject> shipsNS = new List<GameObject>();
 	
+	private int sr;
+	private int sb;
+	private int sn;
+	
 	
 	// Use this for initialization
 	void Start () {
@@ -80,10 +84,27 @@ public class PlanetScript : MonoBehaviour {
 		
 		gameObject.light.intensity = 2;
 		gameObject.light.range = gameObject.transform.localScale.x * 1.3f;
+		
+		sr = shipsR.Count;
+		sb = shipsB.Count;
+		sn = shipsN.Count;
+		
+		refreshShip();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
+		if(sr != shipsR.Count){
+			refreshShip();	
+			sr = shipsR.Count;
+		}else if(sb != shipsB.Count){
+			refreshShip();	
+			sb = shipsB.Count;
+		}else if(sn != shipsN.Count){
+			refreshShip();	
+			sn = shipsN.Count;
+		}
 		
 		//rotation de la planete
 		this.transform.RotateAround(this.transform.position,Vector3.up, 7f * Time.deltaTime);
@@ -222,7 +243,7 @@ public class PlanetScript : MonoBehaviour {
 			shipsN.Add(instance);
 		}
 		
-		if(ship.tag == "blue"){
+		/*if(ship.tag == "blue"){
 			//Debug.Log(shipsBS.Count);
 			if(shipsB.Count >= 10*shipsBS.Count + 10){
 				GameObject shipGros = (GameObject)Instantiate(Resources.Load("ShipblueG")as GameObject, vec ,transform.rotation); 
@@ -273,8 +294,69 @@ public class PlanetScript : MonoBehaviour {
 				}
 				shipsNS.Add(shipGros);
 			}
+		}*/
+		//refreshShip();
+		
+	}
+	
+	void createSuperShip(int color){
+		float scal = this.transform.localScale.x ;
+			
+		float min = scal/2.5f +1 ;
+		float max = scal/2.5f +1.5f;
+			
+		float z = Random.Range(min,max);
+		Vector3 vec = new Vector3(0,0,z);
+		vec = this.transform.position + vec ; 
+		
+		if(color == 0){//blue
+			GameObject shipGros = (GameObject)Instantiate(Resources.Load("ShipblueG")as GameObject, vec ,transform.rotation); 
+			//GameObject instanceS = Resources.Load("Shipred")as GameObject;
+			shipGros.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
+			((rotationShip)shipGros.GetComponent<rotationShip>()).planet = this.gameObject;
+			((rotationShip)shipGros.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
+			shipGros.transform.localScale = new Vector3(0.4f,0.4f,0.4f);
+			for(int i = 0 + 10*shipsBS.Count; i<10 + 10*shipsBS.Count; i++){		
+				shipsB[i].GetComponent<rotationShip>().speed = 0;
+				shipsB[i].GetComponent<MeshRenderer>().enabled = false;
+			}
+			shipsBS.Add(shipGros);
+			
 		}
 		
+		if(color == 1){//red
+			GameObject shipGros = (GameObject)Instantiate(Resources.Load("ShipredG")as GameObject, vec ,transform.rotation); 
+			//GameObject instanceS = Resources.Load("Shipred")as GameObject;
+			shipGros.GetComponent<rotationShip>().super = true;
+			shipGros.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
+			((rotationShip)shipGros.GetComponent<rotationShip>()).planet = this.gameObject;
+			((rotationShip)shipGros.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
+			shipGros.transform.localScale = new Vector3(0.4f,0.4f,0.4f);
+			
+			for(int i = 0 + 10*shipsRS.Count; i<10 + 10*shipsRS.Count; i++){		
+				shipsR[i].GetComponent<rotationShip>().speed = 0;
+				shipsR[i].GetComponent<MeshRenderer>().enabled = false;
+			}
+			shipsRS.Add(shipGros);
+			
+		}
+		
+		if(color == 2){//neutre
+			GameObject shipGros = (GameObject)Instantiate(Resources.Load("ShipNG")as GameObject, vec ,transform.rotation); 
+			//GameObject instanceS = Resources.Load("Shipred")as GameObject;
+			shipGros.GetComponent<rotationShip>().super = true;
+			shipGros.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
+			((rotationShip)shipGros.GetComponent<rotationShip>()).planet = this.gameObject;
+			((rotationShip)shipGros.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
+			shipGros.transform.localScale = new Vector3(0.4f,0.4f,0.4f);
+			
+			for(int i = 0 + 10*shipsNS.Count; i<10 + 10*shipsNS.Count; i++){		
+				shipsN[i].GetComponent<rotationShip>().speed = 0;
+				shipsN[i].GetComponent<MeshRenderer>().enabled = false;
+			}
+			shipsNS.Add(shipGros);
+			
+		}
 		
 	}
 	
@@ -354,7 +436,7 @@ public class PlanetScript : MonoBehaviour {
 			}
 		}
 		
-		refreshShip();
+		//refreshShip();
 		
 	}
 	
@@ -392,15 +474,27 @@ public class PlanetScript : MonoBehaviour {
 							
 						}
 					}
-					for(int j = s; j<t*10-1; j++){
+					for(int j = s; j<t*10; j++){
 						if(j < shipsR.Count){
-							
-							shipsR[j].GetComponent<MeshRenderer>().enabled = true;
-							shipsR[j].GetComponent<rotationShip>().speed = Random.Range(5f,30f);
+							if(shipsR[j] != null){
+								shipsR[j].GetComponent<MeshRenderer>().enabled = true;
+								shipsR[j].GetComponent<rotationShip>().speed = Random.Range(5f,30f);
+							}
 						}
 						
 					}
 
+				}else{
+					if(shipsRS.Count < t){
+						createSuperShip(1);
+					}else{
+						for(int i  = s; i<t*10; i++){
+							if(shipsR[i] != null){
+								shipsR[i].GetComponent<MeshRenderer>().enabled = false;
+								shipsR[i].GetComponent<rotationShip>().speed = 0;
+							}
+						}
+					}
 				}
 			}
 			
@@ -411,20 +505,33 @@ public class PlanetScript : MonoBehaviour {
 						for(int i = t-1; i<shipsBS.Count ; i++){
 							Destroy( shipsBS[0]);
 							shipsBS.RemoveAt(0);
-						
 							
 						}
 					}
 					
-					for(int j = s; j<t*10-1; j++){
+					for(int j = s; j<t*10; j++){
 						if(j < shipsB.Count){
-							shipsB[j].GetComponent<MeshRenderer>().enabled = true;
-							shipsB[j].GetComponent<rotationShip>().speed = Random.Range(5f,30f);
+							if(shipsB[j] != null){
+								shipsB[j].GetComponent<MeshRenderer>().enabled = true;
+								shipsB[j].GetComponent<rotationShip>().speed = Random.Range(5f,30f);
+							}
 						}
 						
 					}
 
+				}else{
+					if(shipsBS.Count < t){
+						createSuperShip(0);
+					}else{
+						for(int i  = s; i<t*10; i++){
+							if(shipsB[i] != null){
+								shipsB[i].GetComponent<MeshRenderer>().enabled = false;
+								shipsB[i].GetComponent<rotationShip>().speed = 0;
+							}
+						}
+					}	
 				}
+				
 			}
 			
 			if(!n){	
@@ -439,14 +546,27 @@ public class PlanetScript : MonoBehaviour {
 						}
 					}
 					
-					for(int j = s; j<t*10-1; j++){
+					for(int j = s; j<t*10; j++){
 						if(j < shipsN.Count){
-							shipsN[j].GetComponent<MeshRenderer>().enabled = true;
-							shipsN[j].GetComponent<rotationShip>().speed = Random.Range(5f,30f);
+							if(shipsN[j] != null){
+								shipsN[j].GetComponent<MeshRenderer>().enabled = true;
+								shipsN[j].GetComponent<rotationShip>().speed = Random.Range(5f,30f);
+							}
 						}
 						
 					}
 
+				}else{
+					if(shipsNS.Count < t){
+						createSuperShip(2);
+					}else{
+						for(int i  = s; i<t*10; i++){
+							if(shipsN[i] != null){
+								shipsN[i].GetComponent<MeshRenderer>().enabled = false;
+								shipsN[i].GetComponent<rotationShip>().speed = 0;
+							}
+						}
+					}	
 				}
 			}
 			
