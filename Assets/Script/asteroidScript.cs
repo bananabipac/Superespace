@@ -16,7 +16,7 @@ public class asteroidScript : MonoBehaviour {
 		shipsE = new List<GameObject>();
 		
 		distance = 2.8f;
-		chanceKill = 50;
+		chanceKill = 0;
 	
 	}
 	
@@ -68,9 +68,8 @@ public class asteroidScript : MonoBehaviour {
 	void Update () {
 			
 			int count = ships.Count;
-			
-			for(int i = 0 ; i<ships.Count; i++){
-				GameObject ship = ships[i];
+			for(int i = 0 ; i<count; i++){
+				GameObject ship = ships[0];
 				if(Vector3.Distance(ship.transform.position, this.transform.position) <= distance){
 					rotationShip tmp = ship.gameObject.GetComponent<rotationShip>();
 					float scal = tmp.planet.transform.localScale.x ;
@@ -92,18 +91,28 @@ public class asteroidScript : MonoBehaviour {
 					if(tmp.super){
 							List<GameObject> s = tmp.ships;
 							int c = s.Count;
-							for(int j=0; i<c; i++){
+							int x = 0;
+							while(x<c){
 								int k = Random.Range(0, 101);
 								if(k <= chanceKill){
-									GameObject t = s[j];
+									if(x<0){
+										x =0;
+									}
+									GameObject t = s[x];
 									Destroy(t);
+									
 									GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 									expl.transform.position = ship.transform.position;
-									s.RemoveAt(j);
-									j --;
-									if(j<0){
-										j =0;
+									Debug.Log("x :"+x+" Count :"+s.Count);
+									s.RemoveAt(x);
+									
+									//j --;
+									if(s.Count <= 0){
+										x = c+1;
 									}
+									
+								}else{
+									x++;
 								}
 							}
 						
@@ -130,15 +139,16 @@ public class asteroidScript : MonoBehaviour {
 								iTween.Stop(ship);
 								iTween.MoveTo(ship,iTween.Hash("position",tmp.planet.transform.position+vec,"time",8f,"oncomplete","valideDep","onCompleteTarget", gameObject,"oncompleteparams", ship, "easetype", "linear"));	
 								shipsE.Add(ship);
+								
 						
 							}
-					
-							ships.RemoveAt(i);
+						ships.RemoveAt(0);
+							
 					}else{
 						if(kill <= chanceKill){
 							//iTween.Stop(ship);
 						
-							ships.RemoveAt(i);
+							ships.RemoveAt(0);
 							GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 							expl.transform.position = ship.transform.position;
 							Destroy(ship);
@@ -149,7 +159,7 @@ public class asteroidScript : MonoBehaviour {
 							iTween.Stop(ship);
 							iTween.MoveTo(ship,iTween.Hash("position",tmp.planet.transform.position+vec,"time",8f,"oncomplete","valideDep","onCompleteTarget", gameObject,"oncompleteparams", ship, "easetype", "linear"));	
 							shipsE.Add(ship);
-							ships.RemoveAt(i);
+							ships.RemoveAt(0);
 						}
 					}
 				}

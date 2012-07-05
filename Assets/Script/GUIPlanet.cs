@@ -110,7 +110,7 @@ public class GUIPlanet : MonoBehaviour {
 	
 	void refreshGUI(){
 		
-		if(!user.GetComponent<PauseScript>().paused) {
+		if(!user.GetComponent<PauseScript>().paused2) {
 			//int shipsRT = 
 			int shipsR = planet.shipsR.Count;
 			int shipsB = planet.shipsB.Count;
