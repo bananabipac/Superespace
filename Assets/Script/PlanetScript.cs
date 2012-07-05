@@ -27,9 +27,9 @@ public class PlanetScript : MonoBehaviour {
 	private float sizePul;//taille de la pulsation
 	private float countPul;//taille de la pulsation en cour
 	private bool invertPul; //pulsation inverse*/
-	private List<GameObject> shipsRS = new List<GameObject>();
-	private List<GameObject> shipsBS = new List<GameObject>();
-	private List<GameObject> shipsNS = new List<GameObject>();
+	public List<GameObject> shipsRS = new List<GameObject>();
+	public List<GameObject> shipsBS = new List<GameObject>();
+	public List<GameObject> shipsNS = new List<GameObject>();
 	
 	
 	// Use this for initialization
@@ -208,6 +208,7 @@ public class PlanetScript : MonoBehaviour {
 		instance.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
 		((rotationShip)instance.GetComponent<rotationShip>()).planet = this.gameObject;
 		((rotationShip)instance.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
+		((rotationShip)instance.GetComponent<rotationShip>()).super = false;
 	
 		if(ship.tag == "blue"){
 			
@@ -221,22 +222,58 @@ public class PlanetScript : MonoBehaviour {
 			shipsN.Add(instance);
 		}
 		
-		/*if(ship.tag == "blue"){
-			Debug.Log(shipsBS.Count);
-			if(shipsB.Count >= 10*shipsBS.Count + 15){
-				GameObject instanceS = Resources.Load("Shipred")as GameObject;
-				instanceS.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
-				((rotationShip)instanceS.GetComponent<rotationShip>()).planet = this.gameObject;
-				((rotationShip)instanceS.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
-				//instanceS.transform.localScale = new Vector3(0.05f,0.05f,0.05f);
-				Instantiate(instanceS);
-				
+		if(ship.tag == "blue"){
+			//Debug.Log(shipsBS.Count);
+			if(shipsB.Count >= 10*shipsBS.Count + 10){
+				GameObject shipGros = (GameObject)Instantiate(Resources.Load("ShipblueG")as GameObject, vec ,transform.rotation); 
+				//GameObject instanceS = Resources.Load("Shipred")as GameObject;
+				shipGros.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
+				((rotationShip)shipGros.GetComponent<rotationShip>()).planet = this.gameObject;
+				((rotationShip)shipGros.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
+				shipGros.transform.localScale = new Vector3(0.4f,0.4f,0.4f);
 				for(int i = 0 + 10*shipsBS.Count; i<10 + 10*shipsBS.Count; i++){		
 					shipsB[i].GetComponent<rotationShip>().speed = 0;
-					shipsB[i].active = false;
+					shipsB[i].GetComponent<MeshRenderer>().enabled = false;
 				}
+				shipsBS.Add(shipGros);
 			}
-		}*/
+		}
+		
+		if(ship.tag == "red"){
+			if(shipsR.Count >= 10*shipsRS.Count + 10){
+				GameObject shipGros = (GameObject)Instantiate(Resources.Load("ShipredG")as GameObject, vec ,transform.rotation); 
+				//GameObject instanceS = Resources.Load("Shipred")as GameObject;
+				shipGros.GetComponent<rotationShip>().super = true;
+				shipGros.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
+				((rotationShip)shipGros.GetComponent<rotationShip>()).planet = this.gameObject;
+				((rotationShip)shipGros.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
+				shipGros.transform.localScale = new Vector3(0.4f,0.4f,0.4f);
+				
+				for(int i = 0 + 10*shipsRS.Count; i<10 + 10*shipsRS.Count; i++){		
+					shipsR[i].GetComponent<rotationShip>().speed = 0;
+					shipsR[i].GetComponent<MeshRenderer>().enabled = false;
+				}
+				shipsRS.Add(shipGros);
+			}
+		}
+		
+		if(ship.tag == "neutre"){
+			if(shipsN.Count >= 10*shipsNS.Count + 10){
+				GameObject shipGros = (GameObject)Instantiate(Resources.Load("ShipNG")as GameObject, vec ,transform.rotation); 
+				//GameObject instanceS = Resources.Load("Shipred")as GameObject;
+				shipGros.GetComponent<rotationShip>().super = true;
+				shipGros.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
+				((rotationShip)shipGros.GetComponent<rotationShip>()).planet = this.gameObject;
+				((rotationShip)shipGros.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
+				shipGros.transform.localScale = new Vector3(0.4f,0.4f,0.4f);
+				
+				for(int i = 0 + 10*shipsNS.Count; i<10 + 10*shipsNS.Count; i++){		
+					shipsN[i].GetComponent<rotationShip>().speed = 0;
+					shipsN[i].GetComponent<MeshRenderer>().enabled = false;
+				}
+				shipsNS.Add(shipGros);
+			}
+		}
 		
 		
 	}
@@ -316,8 +353,107 @@ public class PlanetScript : MonoBehaviour {
 				Destroy(sn);
 			}
 		}
-		//explosion
-		 //Resources.Load("Shipred")as GameObject;
+		
+		refreshShip();
+		
+	}
+	
+	public void refreshShip(){
+	
+		int t = 1 ;
+		bool r = false;
+		bool b = false;
+		bool n = false;
+		
+		if(shipsR.Count == 0){
+			r = true;	
+		}
+		if(shipsB.Count == 0){
+			b = true;	
+		}
+		if(shipsN.Count == 0){
+			n = true;	
+		}
+		
+		while(!r || !b || !n){
+			int s ;
+			if((t*10 - 10)<0){
+				s =0;	
+			}else{
+				s=(t*10 - 10);
+			}
+			if(!r){	
+				if(shipsR.Count < 10*t){
+					r = true;
+					if(shipsRS.Count >= t){
+						for(int i = t-1; i<shipsRS.Count ; i++){
+							Destroy(shipsRS[0]);					
+							shipsRS.RemoveAt(0);
+							
+						}
+					}
+					for(int j = s; j<t*10-1; j++){
+						if(j < shipsR.Count){
+							
+							shipsR[j].GetComponent<MeshRenderer>().enabled = true;
+							shipsR[j].GetComponent<rotationShip>().speed = Random.Range(5f,30f);
+						}
+						
+					}
+
+				}
+			}
+			
+			if(!b){
+				if(shipsB.Count < 10*t){
+					b = true;
+					if(shipsBS.Count >= t){
+						for(int i = t-1; i<shipsBS.Count ; i++){
+							Destroy( shipsBS[0]);
+							shipsBS.RemoveAt(0);
+						
+							
+						}
+					}
+					
+					for(int j = s; j<t*10-1; j++){
+						if(j < shipsB.Count){
+							shipsB[j].GetComponent<MeshRenderer>().enabled = true;
+							shipsB[j].GetComponent<rotationShip>().speed = Random.Range(5f,30f);
+						}
+						
+					}
+
+				}
+			}
+			
+			if(!n){	
+				if(shipsN.Count < 10*t){
+					n = true;
+					
+					if(shipsNS.Count >= t){
+						for(int i = t-1; i<shipsNS.Count ; i++){
+							Destroy(shipsNS[0]);
+							shipsNS.RemoveAt(0);
+							
+						}
+					}
+					
+					for(int j = s; j<t*10-1; j++){
+						if(j < shipsN.Count){
+							shipsN[j].GetComponent<MeshRenderer>().enabled = true;
+							shipsN[j].GetComponent<rotationShip>().speed = Random.Range(5f,30f);
+						}
+						
+					}
+
+				}
+			}
+			
+			t++;
+			
+		}
+		
 	}
 	
 	

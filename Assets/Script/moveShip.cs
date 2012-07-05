@@ -25,6 +25,10 @@ public class moveShip : MonoBehaviour {
 	private Dictionary<int,float> selectCount = new Dictionary<int,float>();
 	//public Transform prefabNuke;
 	
+	//debug
+	private int p = -1;
+	private int pe = -1;
+	
 	// Use this for initialization
 	void Start () {
 		
@@ -39,26 +43,104 @@ public class moveShip : MonoBehaviour {
 	
 	void Update() {
 		
-	
-		//////DEBUUG!!!!!!!!!!!!!!!!//////
-		if(Input.GetKeyDown(KeyCode.Space)){
+		//////DEBUUG!!!!!!!!!!!!!!!!/////
+				if(Input.GetKeyDown(KeyCode.Keypad0)){	
+					if(p == -1){
+						p = 0;
+						
+					}else if(pe == -1){
+						pe = 0;
+					}
+				}
+				if(Input.GetKeyDown(KeyCode.Keypad1)){	
+					if(p == -1){
+						p = 1 ;
+						
+					}else if(pe == -1){
+						pe = 1;
+					}
+				}
+				if(Input.GetKeyDown(KeyCode.Keypad2)){
+					if(p == -1){
+						p = 2 ;
+						
+					}else if(pe == -1){
+						pe = 2;
+					}
+					
+				}
+				if(Input.GetKeyDown(KeyCode.Keypad3)){
+					if(p == -1){
+						p = 3 ;
+						
+					}else if(pe == -1){
+						pe = 3;
+					}
+					
+				}
+				if(Input.GetKeyDown(KeyCode.Keypad4)){
+					if(p == -1){
+						p = 4 ;
+						
+					}else if(pe == -1){
+						pe = 4;
+					}
+					
+				}
+				if(Input.GetKeyDown(KeyCode.Keypad5)){
+					if(p == -1){
+						p =  5;
+						
+					}else if(pe == -1){
+						pe = 5;
+					}
+					
+				}
+				if(Input.GetKeyDown(KeyCode.Keypad6)){
+					if(p == -1){
+						p =  6;
+						
+					}else if(pe == -1){
+						pe = 6;
+					}
+					
+				}
+				if(Input.GetKeyDown(KeyCode.Keypad7)){
+					if(p == -1){
+						p =  7;
+						
+					}else if(pe == -1){
+						pe = 7;
+					}
+					
+				}
+				if(Input.GetKeyDown(KeyCode.Keypad8)){
+					if(p == -1){
+						p =  8;
+						
+					}else if(pe == -1){
+						pe = 8;
+					}
+					
+				}
+				if(Input.GetKeyDown(KeyCode.Keypad9)){
+					if(p == -1){
+						p =  9;
+						
+					}else if(pe == -1){
+						pe = 9;
+					}
+					
+				}
+		
+		if(p!= -1 && pe != -1){
+			deplacement(GameObject.Find(""+p), GameObject.Find(""+pe), 10);
+			GetComponent<GestionLink>().openRoad(GameObject.Find(""+p), GameObject.Find(""+pe));
+			p = -1;
+			pe = -1;
 			
-			deplacement(GameObject.Find("0"), GameObject.Find("2"), 20);
-			GetComponent<GestionLink>().openRoad(GameObject.Find("0"), GameObject.Find("2"));
-			
-			GameObject expl = (GameObject)Instantiate(Resources.Load("crash")as GameObject);
-												
-			expl.transform.position = GameObject.Find("2").transform.position;
-			//GetComponent<Launch_EndScript>().endGame = true;
 		}
-		
-		
-		if(Input.GetKeyUp(KeyCode.Space)){
-			
-			
-		}
-		
-		
+
 		/////END DEBUG!!!!!!!!///
 		//if(PlayerPrefs.GetString("GameType").Equals("versus")) {
 			
@@ -320,34 +402,59 @@ public class moveShip : MonoBehaviour {
 	}
 	
 	//ajoute les vaisseaux au tableau de la planete d'arrivé
-	void valideDeplacement(List<GameObject> shipT){
+	void valideDeplacement(GameObject shipT){
 		
-		for(int i  = 0 ; i<shipT.Count-1; i++){
-			if(shipT[i] != null){
-			//Debug.Log(ships[i].tag);
-				((rotationShip)shipT[i].GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
-				if(shipT[i].tag == "red"){
-					
-					((PlanetScript)shipT[shipT.Count-1].GetComponent<PlanetScript>()).shipsR.Add(shipT[i]);
-					
-				}else{
-				
-					((PlanetScript)shipT[shipT.Count-1].GetComponent<PlanetScript>()).shipsB.Add(shipT[i]);
-				}
-			}else{
-				//Debug.Log("erreu : "+i);	
-			}
+		if(shipT != null){
 			
+			((rotationShip)shipT.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
+			if(shipT.tag == "red"){
+				((PlanetScript)shipT.GetComponent<rotationShip>().planet.GetComponent<PlanetScript>()).shipsR.Add(shipT);
+			}else{
+			
+				((PlanetScript)shipT.GetComponent<rotationShip>().planet.GetComponent<PlanetScript>()).shipsB.Add(shipT);
+			}
+		}else{
+			//Debug.Log("erreu : "+i);	
 		}
 
 	}
 	
+	//ajoute les  gros vaisseaux au tableau de la planete d'arrivé
+	void valideDeplacementHugeShip(GameObject shipG){
+		
+		List<GameObject> ships = shipG.GetComponent<rotationShip>().ships;
+		
+		if(ships[0].tag == "red"){	
+			shipG.GetComponent<rotationShip>().planet.GetComponent<PlanetScript>().shipsRS.Add(shipG);
+		}else{
+			shipG.GetComponent<rotationShip>().planet.GetComponent<PlanetScript>().shipsBS.Add(shipG);
+		}
+		int count = ships.Count;
+		for(int i  = 0 ; i<count; i++){
+			if(ships[0] != null){
+				ships[0].transform.position = shipG.transform.position;
+				ships[0].GetComponent<rotationShip>().planet = shipG.GetComponent<rotationShip>().planet; 
+				if(ships[0].tag == "red"){
+					shipG.GetComponent<rotationShip>().planet.GetComponent<PlanetScript>().shipsR.Add(ships[0]);
+				}else{
+					shipG.GetComponent<rotationShip>().planet.GetComponent<PlanetScript>().shipsB.Add(ships[0]);
+				}
 	
-	
+			}else{
+				
+			}
+			
+			ships.RemoveAt(0);
+		}
+		
+		
+	}
+		
 	//deplace les vaisseaux d'une planete a l'autre
 	public void deplacement(GameObject start, GameObject end, int nbShip){
 		infoUser info;
 		List<GameObject> ships = new List<GameObject>();
+		//List<GameObject> shipsG = new List<GameObject>();
 		PlanetScript p = (PlanetScript)start.GetComponent<PlanetScript>();
 		
 		
@@ -364,38 +471,22 @@ public class moveShip : MonoBehaviour {
 				nbs=p.shipsB.Count;	
 			}
 		}
+		
+		
 		if(end.tag == "planet") {
 			
-			
-			
-			float scal = end.transform.localScale.x ;
-					
+			float scal = end.transform.localScale.x ;		
 			float min =  scal/2.5f+1   ;
 			float max = scal/2.5f +1.5f;
 			
-			
-			
+			int t = 1;
+			int c = 1;
+
 			if(p.ship != null){
 			
 				
-				for(int j = 0 ; j<nbs; j++){
+				for(int j = nbs-1 ; j>=0; j--){
 					
-					if(((PlanetScript)start.GetComponent<PlanetScript>()).ship.tag == "red"){
-					
-						ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsR[0]);
-						((PlanetScript)start.GetComponent<PlanetScript>()).shipsR.RemoveAt(0);
-						
-					}else{
-					
-						ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsB[0]);
-						((PlanetScript)start.GetComponent<PlanetScript>()).shipsB.RemoveAt(0);
-					
-					}
-	
-				
-					((rotationShip)ships[j].GetComponent<rotationShip>()).speed = 0;
-					((rotationShip)ships[j].GetComponent<rotationShip>()).planet = end;
-		
 					float z = Random.Range(min,max);
 				
 					Quaternion quat = Quaternion.AngleAxis(Random.Range(0f, 360f), end.transform.position);
@@ -403,17 +494,61 @@ public class moveShip : MonoBehaviour {
 					Vector3 vec = new Vector3(0,0,z);
 					vec = quat * vec ;
 					vec.y = 0;
-		 
-					if(j == nbs -1){
-						ships.Add(end);
-						iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",info.speedShip,"oncomplete","valideDeplacement","onCompleteTarget", gameObject,"oncompleteparams", ships , "easetype", "linear"));	
-						
+					
+					if(p.ship.tag == "red"){
+						((rotationShip)p.shipsR[0].GetComponent<rotationShip>()).speed = 0;
+						((rotationShip)p.shipsR[0].GetComponent<rotationShip>()).planet = end;
 					}else{
-						iTween.MoveTo(ships[j],iTween.Hash("position",end.transform.position+vec,"time",info.speedShip, "easetype", "linear"));
+						((rotationShip)p.shipsB[0].GetComponent<rotationShip>()).speed = 0;
+						((rotationShip)p.shipsB[0].GetComponent<rotationShip>()).planet = end;
 					}
 					
 					
+					if(nbs>= 10*t){
 					
+						if(p.ship.tag == "red"){
+							p.shipsRS[0].GetComponent<rotationShip>().ships.Add(p.shipsR[0]);
+							p.shipsR.RemoveAt(0);
+						}else{
+							p.shipsBS[0].GetComponent<rotationShip>().ships.Add(p.shipsB[0]);
+							p.shipsB.RemoveAt(0);
+						}
+						
+					}else{
+						if(p.ship.tag == "red"){
+							p.shipsR[0].GetComponent<MeshRenderer>().enabled = true;
+							ships.Add(p.shipsR[0]);
+							iTween.MoveTo(p.shipsR[0],iTween.Hash("position",end.transform.position+vec,"time",info.speedShip,"oncomplete","valideDeplacement","onCompleteTarget", gameObject,"oncompleteparams", p.shipsR[0], "easetype", "linear"));	
+							p.shipsR.RemoveAt(0);
+						}else{
+							p.shipsB[0].GetComponent<MeshRenderer>().enabled = true;
+							ships.Add(p.shipsB[0]);
+							iTween.MoveTo(p.shipsB[0],iTween.Hash("position",end.transform.position+vec,"time",info.speedShip,"oncomplete","valideDeplacement","onCompleteTarget", gameObject,"oncompleteparams", p.shipsB[0], "easetype", "linear"));	
+							p.shipsB.RemoveAt(0);
+						}
+						
+					}
+					
+					if(c == 10*t){
+						if(p.ship.tag == "red"){
+							p.shipsRS[0].GetComponent<rotationShip>().planet = end;
+							//p.shipsRS[0].GetComponent<rotationShip>().ships.Add(end);
+							ships.Add(p.shipsRS[0]);
+							iTween.MoveTo(p.shipsRS[0],iTween.Hash("position",end.transform.position+vec,"time",info.speedShip,"oncomplete","valideDeplacementHugeShip","onCompleteTarget", gameObject,"oncompleteparams", p.shipsRS[0] , "easetype", "linear"));
+							p.shipsRS.RemoveAt(0);
+							
+						}else{
+							p.shipsBS[0].GetComponent<rotationShip>().planet = end;
+							//p.shipsBS[0].GetComponent<rotationShip>().ships.Add(end);
+							ships.Add(p.shipsBS[0]);
+							iTween.MoveTo(p.shipsBS[0],iTween.Hash("position",end.transform.position+vec,"time",info.speedShip,"oncomplete","valideDeplacementHugeShip","onCompleteTarget", gameObject,"oncompleteparams", p.shipsBS[0] , "easetype", "linear"));
+							p.shipsBS.RemoveAt(0);
+						}
+						t++;
+					}
+					
+					c++;
+						
 										
 				}
 				GetComponent<GestionLink>().activeAsteroid(start,end, ships);
@@ -431,15 +566,15 @@ public class moveShip : MonoBehaviour {
 					||(user.GetComponent<SpaceBridge>().planet2 == start && end.name == "BlackHole2")){
 					for(int j = 0 ; j<nbs; j++){
 						
-						if(((PlanetScript)start.GetComponent<PlanetScript>()).ship.tag == "red"){
+						if(p.ship.tag == "red"){
 						
-							ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsR[0]);
-							((PlanetScript)start.GetComponent<PlanetScript>()).shipsR.RemoveAt(0);
+							ships.Add(p.shipsR[0]);
+							p.shipsR.RemoveAt(0);
 							
 						}else{
 						
-							ships.Add(((PlanetScript)start.GetComponent<PlanetScript>()).shipsB[0]);
-							((PlanetScript)start.GetComponent<PlanetScript>()).shipsB.RemoveAt(0);
+							ships.Add(p.shipsB[0]);
+							p.shipsB.RemoveAt(0);
 						
 						}
 						GameObject[] param = new GameObject[2];
@@ -451,6 +586,8 @@ public class moveShip : MonoBehaviour {
 				}
 			}
 		}
+		
+		p.refreshShip();
 		
 	}
 	
