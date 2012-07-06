@@ -58,6 +58,7 @@
      <Compile Include="Assets\Script\GestionLink.cs" />
      <Compile Include="Assets\Script\GetSettings.cs" />
      <Compile Include="Assets\Script\IAEngine.cs" />
+     <Compile Include="Assets\Script\IAEngineV2.cs" />
      <Compile Include="Assets\Script\Launch_EndScript.cs" />
      <Compile Include="Assets\Script\LineScript.cs" />
      <Compile Include="Assets\Script\Menu.cs" />

@@ -1,14 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\crashScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\IAEngineV2.cs">
     <Files>
-      <File FileName="Assets\Script\GUIPlanet.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\moveShip.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\asteroidScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\IAEngine.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\PlanetScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\generator.xml" Line="1" Column="1" />
-      <File FileName="Assets\Script\IAEngine.cs" Line="18" Column="26" />
-      <File FileName="Assets\Script\crashScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\IAEngineV2.cs" Line="314" Column="1" />
+      <File FileName="Assets\Script\moveShip.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\PauseScript.cs" Line="19" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
