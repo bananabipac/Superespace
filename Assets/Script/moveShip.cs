@@ -23,6 +23,7 @@ public class moveShip : MonoBehaviour {
 	private Dictionary<int,GameObject> listPlanetEnd = new Dictionary<int,GameObject>();
 	private Dictionary<int,GameObject> shipSelect = new Dictionary<int,GameObject>();
 	private Dictionary<int,float> selectCount = new Dictionary<int,float>();
+	private Dictionary<int,float> vitesseSelect = new Dictionary<int,float>();
 	//public Transform prefabNuke;
 	
 	//debug
@@ -134,7 +135,7 @@ public class moveShip : MonoBehaviour {
 				}
 		
 		if(p!= -1 && pe != -1){
-			deplacement(GameObject.Find(""+p), GameObject.Find(""+pe), 10);
+			deplacement(GameObject.Find(""+p), GameObject.Find(""+pe), 12);
 			GetComponent<GestionLink>().openRoad(GameObject.Find(""+p), GameObject.Find(""+pe));
 			p = -1;
 			pe = -1;
@@ -185,6 +186,7 @@ public class moveShip : MonoBehaviour {
 										
 										shipSelect.Add(fingerId,instance);
 										selectCount.Add(fingerId,0);
+										vitesseSelect.Add(fingerId, selectSpeed);
 										
 									}else if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="blue" && ((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsB.Count>0){
 										GameObject SelectShip =  Resources.Load("TextSelectBlue")as GameObject;
@@ -193,7 +195,7 @@ public class moveShip : MonoBehaviour {
 										vec.y = -20.22636f;
 									
 										GameObject instance = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
-										((TextMesh)instance.GetComponent<TextMesh>()).text = ""+1;
+										((TextMesh)instance.GetComponent<TextMesh>()).text = ""+0;
 										instance.transform.RotateAround(Vector3.up, -1.6f);
 										Vector3 vt = instance.transform.position;
 										vt.x -=5;
@@ -201,6 +203,7 @@ public class moveShip : MonoBehaviour {
 										
 										shipSelect.Add(fingerId,instance);
 										selectCount.Add(fingerId,0);
+										vitesseSelect.Add(fingerId, selectSpeed);
 									}
 									
 									
@@ -219,8 +222,11 @@ public class moveShip : MonoBehaviour {
 									PlanetScript scriptTemp = listPlanetStart[fingerId].GetComponent<PlanetScript>();
 									if(scriptTemp.ship.tag == "red" || scriptTemp.ship.tag == "blue"){
 										selectCount[fingerId] += 1*Time.deltaTime;
-										if(selectCount[fingerId] >= selectSpeed){
+										if(selectCount[fingerId] >= vitesseSelect[fingerId]){
 											selectCount[fingerId] = 0;
+											if( vitesseSelect[fingerId] > 0.001){
+												vitesseSelect[fingerId] = vitesseSelect[fingerId]-0.01f;
+											}
 											//Debug.Log ("selection ship : "+shipSelect[fingerId]);
 											TextMesh mesh = shipSelect[fingerId].GetComponent<TextMesh>();
 											if(scriptTemp.ship.tag == "red"){
@@ -346,6 +352,10 @@ public class moveShip : MonoBehaviour {
 						if(listPlanetEnd.ContainsKey(fingerId)){
 							listPlanetEnd.Remove(fingerId);	
 						}
+						if(vitesseSelect.ContainsKey(fingerId)){
+							vitesseSelect.Remove(fingerId);	
+						}
+					
 					}
 				}
 				
@@ -413,6 +423,8 @@ public class moveShip : MonoBehaviour {
 			
 				((PlanetScript)shipT.GetComponent<rotationShip>().planet.GetComponent<PlanetScript>()).shipsB.Add(shipT);
 			}
+			
+			//shipT.GetComponent<rotationShip>().planet.GetComponent<PlanetScript>().refreshShip();
 		}else{
 			//Debug.Log("erreu : "+i);	
 		}
@@ -439,9 +451,8 @@ public class moveShip : MonoBehaviour {
 				}else{
 					shipG.GetComponent<rotationShip>().planet.GetComponent<PlanetScript>().shipsB.Add(ships[0]);
 				}
+				//shipG.GetComponent<rotationShip>().planet.GetComponent<PlanetScript>().refreshShip();
 	
-			}else{
-				
 			}
 			
 			ships.RemoveAt(0);
@@ -587,7 +598,7 @@ public class moveShip : MonoBehaviour {
 			}
 		}
 		
-		p.refreshShip();
+		//p.refreshShip();
 		
 	}
 	

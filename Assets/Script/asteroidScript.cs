@@ -100,7 +100,7 @@ public class asteroidScript : MonoBehaviour {
 											if(x<0){
 												x =0;
 											}
-											Debug.Log("count :"+s.Count+" x:"+x);
+											//Debug.Log("count :"+s.Count+" x:"+x);
 											GameObject t = s[x];
 											Destroy(t);
 											
