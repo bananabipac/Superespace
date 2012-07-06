@@ -135,7 +135,7 @@ public class moveShip : MonoBehaviour {
 				}
 		
 		if(p!= -1 && pe != -1){
-			deplacement(GameObject.Find(""+p), GameObject.Find(""+pe), 12);
+			deplacement(GameObject.Find(""+p), GameObject.Find(""+pe), 7);
 			GetComponent<GestionLink>().openRoad(GameObject.Find(""+p), GameObject.Find(""+pe));
 			p = -1;
 			pe = -1;
