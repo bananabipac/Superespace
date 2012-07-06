@@ -18,10 +18,11 @@ public class IAEngine : MonoBehaviour {
 	private bool isUpdating;
 	private int nbShipToLaunch;
 	public string IAPlayer;
+	
+	private Dictionary<string,int> ponderation = new Dictionary<string, int>();
 	// Use this for initialization
 	void Start () {
 		if(PlayerPrefs.GetString("GameType").Equals("solo")){
-			checkPlanets();
 			user = GameObject.FindGameObjectWithTag("User");
 			launchMove = false;
 			timer = Time.timeSinceLevelLoad;
@@ -37,6 +38,10 @@ public class IAEngine : MonoBehaviour {
 				if(!isUpdating) {
 					checkPlanets();
 					findPossibleRoutes();
+					/*foreach(GameObject[] pair in pairs) {
+						Debug.Log ("Planet0 "+pair[0].name);	
+						Debug.Log ("Planet1 "+pair[1].name);
+					}*/
 					checkRoutes(false);
 					checkMoney();
 					isUpdating = true;
@@ -329,7 +334,7 @@ public class IAEngine : MonoBehaviour {
 					GameObject planetE = planets[j];
 					if(user.GetComponent<GestionLink>().roadExist(planetD,planetE)) {
 						if(planetE != planetD){
-								pairs.Add(new GameObject[] {planetD,planetE});
+							pairs.Add(new GameObject[] {planetD,planetE});
 						}
 					}
 				}
@@ -354,6 +359,15 @@ public class IAEngine : MonoBehaviour {
 
 	int RandomNumber(int min, int max) {
 		return Random.Range(min,max);
+	}
+	
+	void calculatePonderation() {
+		for(int i = 0; i < pairs.Count; i++) {
+			
+			
+			
+		}
+		
 	}
 
 }
