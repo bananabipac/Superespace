@@ -32,6 +32,7 @@ public class IAEngineV2 : MonoBehaviour {
 	public int siPasAssezVaisseaux; //si pas assez de vaisseaux ?????
 	public int siCombatPlanetAD; //si la planete d'arrivée est a l'adversaire en combat + pas assez vaisseaux 
 	public int siCombatPlaneteIA; //si la planete d'arrivée est a L'IA en combat + pas assez de vaisseaux
+	public int notEnoughMoney; //si l'IA n'a pas assez d'argent pour ouvrir la route 
 
 	
 	private Dictionary<string,int> ponderation = new Dictionary<string, int>();
@@ -179,7 +180,7 @@ public class IAEngineV2 : MonoBehaviour {
 						pond += siCaptureEnCourIA;
 						nbShip += Mathf.FloorToInt((10+(10*marge)/100) - scriptE.shipsB.Count  );
 						Debug.Log("CaptureEnCourIA");
-						Debug.Log(nbShip);
+						
 					}else{
 						if(scriptE.shipsB.Count>0 && (scriptE.shipsR.Count>0 || scriptE.shipsN.Count > 0)){//combat en cour
 							if(scriptE.shipsR.Count> scriptE.shipsB.Count ){
@@ -283,6 +284,22 @@ public class IAEngineV2 : MonoBehaviour {
 			if(ast){
 				nbShip += Mathf.FloorToInt((nbShip * marge) /100);
 			}
+			
+			if(user.GetComponent<GestionLink>().roadExist(planetStart, planetEnd) && !user.GetComponent<GestionLink>().roadOpen(planetStart, planetEnd)){
+				if(IAPlayer == "red"){
+					if(user.GetComponent<MoneyScript>().moneyPlayer1 <50){
+						pond += notEnoughMoney;	
+						Debug.Log("NotEnoughMOney");
+					}
+				}else{
+					if(user.GetComponent<MoneyScript>().moneyPlayer2 <50){
+						pond += notEnoughMoney;	
+						Debug.Log("NotEnoughMOney");
+					}
+					
+				}
+			}	
+			
 		
 			ponderation.Add(""+planetStart.name+planetEnd.name+"-"+nbShip, pond);
 			
@@ -312,12 +329,23 @@ public class IAEngineV2 : MonoBehaviour {
 		int rand = Random.Range(0, l.Count);	
 		
 		string[] val = l[rand].Split('-');
+		Debug.Log("deplacement choisit: "+val[0]);
 		GameObject ps = GameObject.Find(""+val[0][0]);
 		GameObject pe = GameObject.Find(""+val[0][1]);
 		//Debug.Log(
 		if(val[1] != null && val[1] != ""){
+			
+			if(user.GetComponent<GestionLink>().roadExist(ps, pe) && !user.GetComponent<GestionLink>().roadOpen(ps, pe)){
+				user.GetComponent<GestionLink>().openRoad(ps,pe);
+				if(IAPlayer =="red"){
+					user.GetComponent<MoneyScript>().moneyPlayer1 -= 50;
+				}else{
+					user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+				}
+			}
+			
 			user.GetComponent<moveShip>().deplacement(ps,pe, int.Parse(val[1]));
-			user.GetComponent<GestionLink>().openRoad(ps,pe);
+			
 		}
 		
 	}
