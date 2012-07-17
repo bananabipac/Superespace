@@ -165,7 +165,7 @@ public class Menu : MonoBehaviour {
 		Debug.Log(paramHand1);
 		Debug.Log(paramHand2);
 		
-		QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("graphParam"));
+		//QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("graphParam"));
 		if(QualitySettings.GetQualityLevel() == 0) {
 			paramQualitySettings = "Low";
 		} else if(QualitySettings.GetQualityLevel() == 1) {
@@ -193,6 +193,7 @@ public class Menu : MonoBehaviour {
 		
 		if(GUI.Button (posSolo,"Solo",style)) {
 			if(!moving){
+				audio.Play();
 				PlayerPrefs.SetString("GameType","solo");
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosSolo,"to",finalPosSolo,"onupdate","MoveButtonSolo","easetype",iTween.EaseType.easeInOutSine));
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosMulti,"to",finalPosMulti,"onupdate","MoveButtonMulti","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopRotationEnd"));
@@ -215,6 +216,7 @@ public class Menu : MonoBehaviour {
 		}
 		if(GUI.Button(posMulti,"Versus", style)) {
 			if(!moving){
+				audio.Play();
 				PlayerPrefs.SetString("GameType","versus");
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosSolo,"to",finalPosSolo,"onupdate","MoveButtonSolo","easetype",iTween.EaseType.easeInOutSine));
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosMulti,"to",finalPosMulti,"onupdate","MoveButtonMulti","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopRotationEnd"));
@@ -236,6 +238,7 @@ public class Menu : MonoBehaviour {
 		}
 		if(GUI.Button (posSettings,"Settings",style)){
 			if(!moving){
+				audio.Play();
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosSettings,"to",finalPosSettings,"onupdate","MoveButtonSettings","easetype",iTween.EaseType.easeInOutSine,"oncomplete","EnterSettings"));
 			}
 		}
@@ -245,15 +248,18 @@ public class Menu : MonoBehaviour {
 			Application.Quit();
 		}
 		if(GUI.Button(posLevel1,"Level 1",style)) {
+			audio.Play();
 			PlayerPrefs.SetInt("paramLevel", 1);
 			Application.LoadLevel(1);
 		}
 		if(GUI.Button(posLevel2,"Level 2",style)) {
+			audio.Play();
 			PlayerPrefs.SetInt("paramLevel", 2);
 			Application.LoadLevel(1);
 		}
 		if(GUI.Button (posQuick,"Quick Mode",style)) {
 			if(!moving){
+				audio.Play();
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialLevel1,"to",finalLevel1,"onupdate","MoveButtonLevel1","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopMoving"));					
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialLevel2,"to",finalLevel2,"onupdate","MoveButtonLevel2","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopRotationEnd"));
 				iTween.ValueTo(gameObject,iTween.Hash("from",finalClassic,"to",tempClassic,"onupdate","MoveButtonClassic","easetype",iTween.EaseType.easeInOutSine));
@@ -266,6 +272,7 @@ public class Menu : MonoBehaviour {
 		}
 		if(GUI.Button (posClassic,"Classic Mode", style)) {
 			if(!moving){
+				audio.Play();
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialLevel1,"to",finalLevel1,"onupdate","MoveButtonLevel1","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopMoving"));					
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialLevel2,"to",finalLevel2,"onupdate","MoveButtonLevel2","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopRotationEnd"));
 				iTween.ValueTo(gameObject,iTween.Hash("from",finalClassic,"to",tempClassic,"onupdate","MoveButtonClassic","easetype",iTween.EaseType.easeInOutSine));
@@ -278,7 +285,7 @@ public class Menu : MonoBehaviour {
 		}
 		if(GUI.Button (posBack,"Back",style)) {
 			if(!moving){
-				
+				audio.Play();
 				if(displaySettings){
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalPlayerOne,"to",initialPlayerOne,"onupdate","MoveButtonPlayerOne","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalPlayerTwo,"to",initialPlayerTwo,"onupdate","MoveButtonPlayerTwo","easetype",iTween.EaseType.easeInOutSine));
@@ -314,6 +321,7 @@ public class Menu : MonoBehaviour {
 			
 			
 		if(GUI.Button(posPlayerOne, "Player 1: "+handPlayer1,style2)) {
+				audio.Play();
 			if(paramHand1 == "right") {
 				paramHand1 = "left";
 				handPlayer1 = "Left-Handed";
@@ -325,6 +333,7 @@ public class Menu : MonoBehaviour {
 			}
 		}
 		if(GUI.Button(posPlayerTwo, "Player 2: "+handPlayer2,style3)) {
+			audio.Play();
 			if(paramHand2 == "right") {
 				paramHand2 = "left";
 				handPlayer2 = "Left-Handed";
@@ -336,6 +345,7 @@ public class Menu : MonoBehaviour {
 			}
 		}
 		if(GUI.Button(posQuality, "Graphics : "+paramQualitySettings,style2)) {
+			audio.Play();
 			if(QualitySettings.GetQualityLevel() == 0) {
 				paramQualitySettings = "Medium";
 				QualitySettings.SetQualityLevel(1);
