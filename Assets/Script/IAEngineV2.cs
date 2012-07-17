@@ -9,8 +9,6 @@ public class IAEngineV2 : MonoBehaviour {
 	private List<GameObject> planetsIA = new List<GameObject>();
 	private float timer;
 	private List<GameObject[]> pairs = new List<GameObject[]>();
-	//private List<GameObject[]> pairsClosed = new List<GameObject[]>();
-	//private List<GameObject[]> pairsOpened = new List<GameObject[]>();
 	public float speedIA;
 	private bool hasEnoughMoney;
 	private bool launchMove;
@@ -18,6 +16,18 @@ public class IAEngineV2 : MonoBehaviour {
 	GameObject[] pair = new GameObject[2];
 	private int nbShipToLaunch;
 	public string IAPlayer;
+	public float vitesseSelect;
+	
+	private List<GameObject> listLines = new List<GameObject>();
+	private List<GameObject> listPlanetStart = new List<GameObject>();
+	private List<GameObject> listPlanetEnd = new List<GameObject>();
+	private List<GameObject> GuiSelect = new List<GameObject>();
+	
+	private List<int> Count = new List<int>();
+	private List<int> CountTmp = new List<int>();
+	private List<float> speed = new List<float>();
+	private List<float> speedTmp = new List<float>();
+	
 	
 	//valeur de ponderation
 	public int valeurBase ; //valeur de base
@@ -32,13 +42,15 @@ public class IAEngineV2 : MonoBehaviour {
 	public int siPasAssezVaisseaux; //si pas assez de vaisseaux ?????
 	public int siCombatPlanetAD; //si la planete d'arrivée est a l'adversaire en combat + pas assez vaisseaux 
 	public int siCombatPlaneteIA; //si la planete d'arrivée est a L'IA en combat + pas assez de vaisseaux
-	public int notEnoughMoney; //si l'IA n'a pas assez d'argent pour ouvrir la route 
-
+	public int notEnoughMoney; //si l'IA n'a pas assez d'argent pour ouvrir la route
+	
+	public bool stop ;
 	
 	private Dictionary<string,int> ponderation = new Dictionary<string, int>();
 	
 	// Use this for initialization
 	void Start () {
+		stop = false;
 		if(PlayerPrefs.GetString("GameType").Equals("solo")){
 			user = GameObject.FindGameObjectWithTag("User");
 			launchMove = false;
@@ -46,21 +58,61 @@ public class IAEngineV2 : MonoBehaviour {
 		}
 	}
 	
+	/*GameObject instance =(GameObject) Instantiate(Resources.Load("Line")as GameObject);
+								instance.transform.position = new Vector3(0,0,0);
+								LineRenderer linet = instance.GetComponent<LineRenderer>();
+								
+								linet.SetPosition(0,hit.collider.gameObject.transform.position);
+								linet.SetPosition(1,hit.collider.gameObject.transform.position);
+								linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));
+								listLines.Add(fingerId,instance);
+								listPlanetStart.Add (fingerId,hit.collider.gameObject);*/
+	
 	// Update is called once per frame
 	void Update () {
 		if(PlayerPrefs.GetString("GameType").Equals("solo")){
-			if(Time.timeSinceLevelLoad - timer >= speedIA) {
-				checkPlanets();
-				findPossibleRoutes();
-				calculatePonderation();
+			stop = false;
+			if(Count.Count >0){
+				stop = true;
+			}
+			/*if(listLines.Count >0){
+				stop = true;
+			}*/
+			if(!stop){ 
+				if(Time.timeSinceLevelLoad - timer >= speedIA) {
+					checkPlanets();
+					findPossibleRoutes();
+					calculatePonderation();
+					
+					chooseRoad();
+					
 				
-				chooseRoad();
+					reinitVar();
+					
+					
+					timer = Time.timeSinceLevelLoad;
+				}
+			}else{
 				
-			
-				reinitVar();
-				
-				
-				timer = Time.timeSinceLevelLoad;
+				for(int i =0; i<Count.Count; i++){
+					if(CountTmp[i] < Count[i]){
+						speedTmp[i] += 1*Time.deltaTime;
+						if(speedTmp[i] > speed[i]){
+							if( speed[i] > 0.001){
+								speed[i] = speed[i]-0.01f;
+							}
+							speedTmp[i] = 0;
+							
+							CountTmp[i] ++;
+							GuiSelect[i].GetComponent<TextMesh>().text = ""+CountTmp[i];
+							if(CountTmp[i] >= Count[i]){
+								
+								iTween.ValueTo(gameObject,iTween.Hash("from",listPlanetStart[i].transform.position,"to",listPlanetEnd[i].transform.position,"time", vitesseSelect,"onupdate","rendere","oncomplete","delacementFinish","oncompleteparams",i,"easetype","linear"));
+								//iTween.MoveTo((GameObject)listMove[i],iTween.Hash("position",listPlanetEnd[i],"time",5f,"oncomplete","delacementFinish","onCompleteTarget", gameObject,"oncompleteparams",i, "easetype", "linear"));
+							}		
+						}
+					}	
+				}
 			}
 		}
 	}
@@ -69,6 +121,46 @@ public class IAEngineV2 : MonoBehaviour {
 		planetsIA = new List<GameObject>();
 		ponderation.Clear();
 		
+	}
+	
+	void rendere(Vector3 coord){
+		//Debug.Log(i);
+		if(listLines.Count > 0){
+			listLines[0].GetComponent<LineRenderer>().SetPosition(1, coord);
+		}
+		
+	}
+	
+	void delacementFinish(int i){
+		//int i = 0;
+		Debug.Log(i);
+		if(user.GetComponent<GestionLink>().roadExist(listPlanetStart[i], listPlanetEnd[i]) && !user.GetComponent<GestionLink>().roadOpen(listPlanetStart[i], listPlanetEnd[i])){
+			user.GetComponent<GestionLink>().openRoad(listPlanetStart[i],listPlanetEnd[i]);
+			if(IAPlayer =="red"){
+				user.GetComponent<MoneyScript>().moneyPlayer1 -= 50;
+			}else{
+				user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+			}
+		}
+			
+			
+		user.GetComponent<moveShip>().deplacement(listPlanetStart[i],listPlanetEnd[i],Count[i]);
+		listPlanetStart.RemoveAt(i);
+		listPlanetEnd.RemoveAt(i);
+		
+		GameObject tmp = listLines[i];
+		Destroy(tmp);
+		listLines.RemoveAt(i);
+		
+		tmp = GuiSelect[i];
+		Destroy(tmp);
+		GuiSelect.RemoveAt(i);
+		
+		Count.RemoveAt(i);
+		CountTmp.RemoveAt(i);
+		speed.RemoveAt(i);
+		speedTmp.RemoveAt(i);
+	
 	}
 	void checkPlanets() {
 		planets = GameObject.FindGameObjectsWithTag("planet");
@@ -335,16 +427,59 @@ public class IAEngineV2 : MonoBehaviour {
 		//Debug.Log(
 		if(val[1] != null && val[1] != ""){
 			
-			if(user.GetComponent<GestionLink>().roadExist(ps, pe) && !user.GetComponent<GestionLink>().roadOpen(ps, pe)){
-				user.GetComponent<GestionLink>().openRoad(ps,pe);
-				if(IAPlayer =="red"){
-					user.GetComponent<MoneyScript>().moneyPlayer1 -= 50;
+			
+			if(int.Parse(val[1])>0){
+			
+				Count.Add(int.Parse(val[1]));
+				CountTmp.Add(0);
+				speed.Add(0.2f);
+				speedTmp.Add(0);
+				
+				listPlanetStart.Add(ps);
+				listPlanetEnd.Add(pe);
+				
+				
+				GameObject instance =(GameObject) Instantiate(Resources.Load("Line")as GameObject);
+				instance.transform.position = new Vector3(0,0,0);
+				LineRenderer linet = instance.GetComponent<LineRenderer>();
+				linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));
+				linet.SetPosition(0,ps.transform.position);
+				linet.SetPosition(1,ps.transform.position);
+				
+				listLines.Add(instance);
+				
+				if(IAPlayer == "red"){
+					GameObject SelectShip =  Resources.Load("TextSelectRed")as GameObject;
+					Vector3 vec =  ps.transform.position;
+				
+					vec.y = -20.22636f;
+				
+					GameObject instanceSelect = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
+					((TextMesh)instanceSelect.GetComponent<TextMesh>()).text = ""+0;
+					
+					instanceSelect.transform.RotateAround(Vector3.up, 1.6f);
+					Vector3 vt = instanceSelect.transform.position;
+					vt.x +=5;
+					instanceSelect.transform.position = vt;
+					GuiSelect.Add(instanceSelect);
 				}else{
-					user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+					GameObject SelectShip =  Resources.Load("TextSelectBlue")as GameObject;
+					Vector3 vec =  ps.transform.position;
+				
+					vec.y = -20.22636f;
+				
+					GameObject instanceSelect = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
+					((TextMesh)instanceSelect.GetComponent<TextMesh>()).text = ""+0;
+					instanceSelect.transform.RotateAround(Vector3.up, -1.6f);
+					Vector3 vt = instanceSelect.transform.position;
+					vt.x -=5;
+					instanceSelect.transform.position = vt;
+					GuiSelect.Add(instanceSelect);
+					
 				}
 			}
 			
-			user.GetComponent<moveShip>().deplacement(ps,pe, int.Parse(val[1]));
+			
 			
 		}
 		
