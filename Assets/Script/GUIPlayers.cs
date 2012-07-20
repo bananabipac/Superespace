@@ -220,18 +220,26 @@ public class GUIPlayers : MonoBehaviour {
 											if(objet.GetComponent<PlanetScript>().ship.tag != "red") {
 												if(objet.GetComponent<PlanetScript>().ship.tag == "neutre"){
 													int deleteShip = objet.GetComponent<PlanetScript>().shipsN.Count;
+													GameObject apo = (GameObject)Instantiate(Resources.Load("apocalypse")as GameObject);
+													apo.transform.position = objet.transform.position;
 													for(int ships = 0; ships < deleteShip; ships++) {
 														GameObject temp = objet.GetComponent<PlanetScript>().shipsN[0];
 														objet.GetComponent<PlanetScript>().shipsN.RemoveAt(0);
+														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+														expl.transform.position = temp.transform.position;
 														Destroy (temp);
 													}
 													user.GetComponent<MoneyScript>().moneyPlayer1-= nukePrice;
 												}
 												if(objet.GetComponent<PlanetScript>().ship.tag == "blue"){
 													int deleteShip = objet.GetComponent<PlanetScript>().shipsB.Count;
+													GameObject apo = (GameObject)Instantiate(Resources.Load("apocalypse")as GameObject);
+													apo.transform.position = objet.transform.position;
 													for(int ships = 0; ships < deleteShip; ships++) {
 														GameObject temp = objet.GetComponent<PlanetScript>().shipsB[0];
 														objet.GetComponent<PlanetScript>().shipsB.RemoveAt(0);
+														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+														expl.transform.position = temp.transform.position;
 														Destroy (temp);
 													}
 													objet.GetComponent<PlanetScript>().repop += apocalypse;
@@ -294,18 +302,26 @@ public class GUIPlayers : MonoBehaviour {
 											if(objet.GetComponent<PlanetScript>().ship.tag != "blue") {
 												if(objet.GetComponent<PlanetScript>().ship.tag == "neutre"){
 													int deleteShip = objet.GetComponent<PlanetScript>().shipsN.Count;
+													GameObject apo = (GameObject)Instantiate(Resources.Load("apocalypse")as GameObject);
+													apo.transform.position = objet.transform.position;
 													for(int ships = 0; ships < deleteShip; ships++) {
 														GameObject temp = objet.GetComponent<PlanetScript>().shipsN[0];
 														objet.GetComponent<PlanetScript>().shipsN.RemoveAt(0);
+														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+														expl.transform.position = temp.transform.position;
 														Destroy (temp);
 													}
 													user.GetComponent<MoneyScript>().moneyPlayer2-= nukePrice;
 												}
 												if(objet.GetComponent<PlanetScript>().ship.tag == "red"){
 													int deleteShip = objet.GetComponent<PlanetScript>().shipsR.Count;
+													GameObject apo = (GameObject)Instantiate(Resources.Load("apocalypse")as GameObject);
+													apo.transform.position = objet.transform.position;
 													for(int ships = 0; ships < deleteShip; ships++) {
 														GameObject temp = objet.GetComponent<PlanetScript>().shipsR[0];
 														objet.GetComponent<PlanetScript>().shipsR.RemoveAt(0);
+														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+														expl.transform.position = temp.transform.position;
 														Destroy (temp);
 													}
 													objet.GetComponent<PlanetScript>().repop += apocalypse;
