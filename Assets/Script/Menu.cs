@@ -4,6 +4,8 @@ using System.Collections;
 public class Menu : MonoBehaviour {
 	public GUIStyle style;
 	
+	public GUITexture isartLogo;
+	
 	private Rect initialPosMulti;
 	private Rect posMulti;
 	private Rect finalPosMulti;
@@ -81,6 +83,7 @@ public class Menu : MonoBehaviour {
 	private bool displaySettings = false;
 	// Use this for initialization
 	void Start () {
+		
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		style.alignment = TextAnchor.MiddleCenter;
 		
@@ -177,6 +180,11 @@ public class Menu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		int widthLogo = isartLogo.texture.width;
+		int heightLogo = isartLogo.texture.height;
+		isartLogo.pixelInset = new Rect(-Screen.width/2,-Screen.height/2-heightLogo+100,widthLogo,heightLogo);
+		//isartLogo.pixelInset = new Rect(-500,200,widthLogo,heightLogo);
+		//Debug.Log(isartLogo.pixelInset);
 		if(rotateToEnd) {
 			this.transform.RotateAround	(planet.transform.position,Vector3.up,speed*Time.deltaTime);
 		}
