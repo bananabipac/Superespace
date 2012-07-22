@@ -14,7 +14,16 @@ public class TextsColor : MonoBehaviour {
 		text = GetComponent<TextMesh>();
 		user = GameObject.FindWithTag("User");
 		if(gameObject.tag == "GUIPlayer2" || gameObject.tag == "GUIPlayer1") {
-			text.text = price+" Cr.";
+			if (gameObject.name == "TextCrash2" || gameObject.name == "TextCrash1") {
+				text.text = "Crash:\n"+ price+" Cr.";
+			}
+			if (gameObject.name == "TextNuke2" || gameObject.name == "TextNuke1") {
+				text.text = "Nuke:\n"+ price+" Cr.";
+			}
+			if (gameObject.name == "TextSabotage2" || gameObject.name == "TextSabotage1") {
+				text.text = "Sabotage:\n"+ price+" Cr.";
+			}
+			
 		}
 		if (gameObject.tag == "UpgradePlayer2") {
 			if(gameObject.name == "attaque2") {
