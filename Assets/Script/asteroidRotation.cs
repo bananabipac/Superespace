@@ -10,7 +10,16 @@ public class asteroidRotation : MonoBehaviour {
 	void Start () {
 		speed = Random.Range(20f, 50f);
 		rotation = new  Vector3((float)Random.Range(-1,2),(float)Random.Range(-1,2),(float)Random.Range(-1,2));
-	
+		
+		float x = Random.Range(-0.8f, 0.8f);
+		float z = Random.Range(-0.8f, 0.8f);
+		
+		Vector3 vec = gameObject.transform.position;
+		vec.x += x;
+		vec.z += z; 
+		gameObject.transform.position = vec;
+		
+		
 	}
 	
 	// Update is called once per frame

@@ -507,7 +507,15 @@ public class IAEngineV2 : MonoBehaviour {
 				}
 			}
 			
-		
+			if(IAPlayer == "red"){
+				if(scriptS.shipsR.Count <nbShip){
+					nbShip = scriptS.shipsR.Count;	
+				}
+			}else{
+				if(scriptS.shipsB.Count <nbShip){
+					nbShip = scriptS.shipsB.Count;	
+				}
+			}
 			ponderation.Add(""+planetStart.name+planetEnd.name+"-"+nbShip, pond);
 			
 			//Debug.Log(""+planetStart.name+planetEnd.name+" pond : "+pond);
