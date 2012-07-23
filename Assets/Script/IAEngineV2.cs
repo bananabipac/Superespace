@@ -594,7 +594,6 @@ public class IAEngineV2 : MonoBehaviour {
 					GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 					expl.transform.position = temp.transform.position;
 					Destroy (temp);
-					
 				}
 			}
 			

@@ -87,6 +87,14 @@ public class SpaceBridge : MonoBehaviour {
 					bridgeOpen = true;	
 					everActivated = true;
 				} else if(Time.timeSinceLevelLoad - lastChanceOfOpen >= timeLastChanceOfOpen) {
+					leftArrow1.active = true;
+					leftArrow2.active = true;
+					rightArrow1.active = true;
+					rightArrow2.active = true;
+					iTween.MoveTo(leftArrow1,iTween.Hash("x",-26,"time",0.5,"looptype",iTween.LoopType.pingPong,"easetype",iTween.EaseType.linear));
+					iTween.MoveTo(leftArrow2,iTween.Hash("x",-25,"time",0.5,"looptype",iTween.LoopType.pingPong,"easetype",iTween.EaseType.linear));
+					iTween.MoveTo(rightArrow1,iTween.Hash("x",26,"time",0.5,"looptype",iTween.LoopType.pingPong,"easetype",iTween.EaseType.linear));
+					iTween.MoveTo(rightArrow2,iTween.Hash("x",25,"time",0.5,"looptype",iTween.LoopType.pingPong,"easetype",iTween.EaseType.linear));
 					bridgeOpen = true;
 					everActivated = true;
 				}
