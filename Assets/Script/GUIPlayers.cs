@@ -180,6 +180,9 @@ public class GUIPlayers : MonoBehaviour {
 												user.GetComponent<MoneyScript>().moneyPlayer1-= crashPrice;
 												GameObject expl = (GameObject)Instantiate(Resources.Load("crash")as GameObject);
 												expl.transform.position = objet.transform.position;
+											
+												GameObject.FindGameObjectWithTag("User").GetComponent<stats>().nbCrashBlue ++;
+											
 											}
 										}
 										
@@ -195,6 +198,7 @@ public class GUIPlayers : MonoBehaviour {
 														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 														expl.transform.position = temp.transform.position;
 														Destroy (temp);
+														GameObject.FindGameObjectWithTag("User").GetComponent<stats>().destroyShipNPower ++;
 														
 													}
 													user.GetComponent<MoneyScript>().moneyPlayer1-= sabotagePrice;
@@ -207,10 +211,12 @@ public class GUIPlayers : MonoBehaviour {
 														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 														expl.transform.position = temp.transform.position;
 														Destroy (temp);
+														GameObject.FindGameObjectWithTag("User").GetComponent<stats>().destroyShipBPower ++;
 														
 													}
 													user.GetComponent<MoneyScript>().moneyPlayer1-= sabotagePrice;
 												}
+												GameObject.FindGameObjectWithTag("User").GetComponent<stats>().nbSabotageRed ++;
 												
 											}
 											
@@ -230,6 +236,7 @@ public class GUIPlayers : MonoBehaviour {
 														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 														expl.transform.position = temp.transform.position;
 														Destroy (temp);
+														GameObject.FindGameObjectWithTag("User").GetComponent<stats>().destroyShipNPower ++;
 													}
 													user.GetComponent<MoneyScript>().moneyPlayer1-= nukePrice;
 												}
@@ -243,12 +250,14 @@ public class GUIPlayers : MonoBehaviour {
 														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 														expl.transform.position = temp.transform.position;
 														Destroy (temp);
+														GameObject.FindGameObjectWithTag("User").GetComponent<stats>().destroyShipBPower ++;
 													}
 													objet.GetComponent<PlanetScript>().repop += apocalypse;
 													user.GetComponent<MoneyScript>().moneyPlayer1-= nukePrice;
 													Debug.Log ("Explosion");
 													//Instantiate(prefabNuke,hit.collider.gameObject.transform.position,Quaternion.identity);
 												}
+												GameObject.FindGameObjectWithTag("User").GetComponent<stats>().nbNukeRed ++;
 												
 											}
 											
@@ -266,6 +275,7 @@ public class GUIPlayers : MonoBehaviour {
 													GameObject expl = (GameObject)Instantiate(Resources.Load("crash")as GameObject);
 													expl.transform.position = objet.transform.position;
 												}
+												GameObject.FindGameObjectWithTag("User").GetComponent<stats>().nbCrashBlue ++;
 												
 											}
 											
@@ -281,6 +291,7 @@ public class GUIPlayers : MonoBehaviour {
 															GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 															expl.transform.position = temp.transform.position;
 															Destroy (temp);
+															GameObject.FindGameObjectWithTag("User").GetComponent<stats>().destroyShipNPower ++;
 														}
 														user.GetComponent<MoneyScript>().moneyPlayer2-= sabotagePrice;
 													}
@@ -292,10 +303,12 @@ public class GUIPlayers : MonoBehaviour {
 															GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 															expl.transform.position = temp.transform.position;
 															Destroy (temp);
+															GameObject.FindGameObjectWithTag("User").GetComponent<stats>().destroyShipRPower ++;
 														}
 														user.GetComponent<MoneyScript>().moneyPlayer2-= sabotagePrice;
 													}
 												}
+												GameObject.FindGameObjectWithTag("User").GetComponent<stats>().nbSabotageBlue ++;
 												
 											}
 											
@@ -313,6 +326,7 @@ public class GUIPlayers : MonoBehaviour {
 															GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 															expl.transform.position = temp.transform.position;
 															Destroy (temp);
+															GameObject.FindGameObjectWithTag("User").GetComponent<stats>().destroyShipNPower ++;
 														}
 														user.GetComponent<MoneyScript>().moneyPlayer2-= nukePrice;
 													}
@@ -326,12 +340,14 @@ public class GUIPlayers : MonoBehaviour {
 															GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 															expl.transform.position = temp.transform.position;
 															Destroy (temp);
+															GameObject.FindGameObjectWithTag("User").GetComponent<stats>().destroyShipRPower ++;
 														}
 														objet.GetComponent<PlanetScript>().repop += apocalypse;
 														user.GetComponent<MoneyScript>().moneyPlayer2-= nukePrice;
 														Debug.Log ("Explosion");
 														//Instantiate(prefabNuke,hit.collider.gameObject.transform.position,Quaternion.identity);	
 													}
+													GameObject.FindGameObjectWithTag("User").GetComponent<stats>().nbNukeBlue ++;
 													
 												}
 												
