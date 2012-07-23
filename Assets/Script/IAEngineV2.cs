@@ -48,7 +48,7 @@ public class IAEngineV2 : MonoBehaviour {
 	public int siCombatPlanetAD; //si la planete d'arrivée est a l'adversaire en combat + pas assez vaisseaux 
 	public int siCombatPlaneteIA; //si la planete d'arrivée est a L'IA en combat + pas assez de vaisseaux
 	public int notEnoughMoney; //si l'IA n'a pas assez d'argent pour ouvrir la route
-	
+	public int trouNoir; //si le trou noir est ouvert et assez de vaisseaux 
 	public bool stop ;
 	
 	private Dictionary<string,int> ponderation = new Dictionary<string, int>();
@@ -115,7 +115,7 @@ public class IAEngineV2 : MonoBehaviour {
 							GuiSelect[i].GetComponent<TextMesh>().text = ""+CountTmp[i];
 							if(IAPlayer == "red"){
 								if(CountTmp[i] >= Count[i] || CountTmp[i] >= listPlanetStart[i].GetComponent<PlanetScript>().shipsR.Count){
-									
+								
 									iTween.ValueTo(gameObject,iTween.Hash("from",listPlanetStart[i].transform.position,"to",listPlanetEnd[i].transform.position,"time", vitesseSelect,"onupdate","rendere","oncomplete","delacementFinish","oncompleteparams",i,"easetype","linear"));
 									//iTween.MoveTo((GameObject)listMove[i],iTween.Hash("position",listPlanetEnd[i],"time",5f,"oncomplete","delacementFinish","onCompleteTarget", gameObject,"oncompleteparams",i, "easetype", "linear"));
 								}	
@@ -158,8 +158,7 @@ public class IAEngineV2 : MonoBehaviour {
 				user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
 			}
 		}
-			
-			
+		
 		user.GetComponent<moveShip>().deplacement(listPlanetStart[i],listPlanetEnd[i],Count[i]);
 		listPlanetStart.RemoveAt(i);
 		listPlanetEnd.RemoveAt(i);
@@ -194,6 +193,18 @@ public class IAEngineV2 : MonoBehaviour {
 	}
 	
 	void findPossibleRoutes() {
+		SpaceBridge bridge = user.GetComponent<SpaceBridge>();
+		if(bridge.bridgeOpen){
+			if(IAPlayer == "red"){
+				if(bridge.planet1.GetComponent<PlanetScript>().ship.tag == "red"){
+					pairs.Add(new GameObject[]{bridge.planet1,bridge.planet2});
+				}
+				
+				if(bridge.planet2.GetComponent<PlanetScript>().ship.tag == "red"){
+					pairs.Add(new GameObject[]{bridge.planet2,bridge.planet1});
+				}
+			}
+		}
 		for(int i = 0; i < planetsIA.Count; i++){
 			GameObject planetD = planetsIA[i];
 			for(int j = 0; j < planets.Length; j++) {
@@ -206,6 +217,7 @@ public class IAEngineV2 : MonoBehaviour {
 			}
 
 		}
+		
 	}
 	
 	void calculatePonderation() {
@@ -236,6 +248,10 @@ public class IAEngineV2 : MonoBehaviour {
 				ast = true;
 				//Debug.Log("Asteroid");
 				
+			}
+			
+			if((planetStart.name == user.GetComponent<SpaceBridge>().planet1.name || planetStart.name == user.GetComponent<SpaceBridge>().planet2.name) && (planetEnd.name == user.GetComponent<SpaceBridge>().planet1.name || planetEnd.name == user.GetComponent<SpaceBridge>().planet2.name)){
+				pond += trouNoir;
 			}
 			
 			if(scriptE.ship.tag != IAPlayer){//si la planete n'est pas a l'IA
@@ -468,6 +484,7 @@ public class IAEngineV2 : MonoBehaviour {
 					}
 					
 				}
+					
 				
 			}
 			
@@ -651,7 +668,7 @@ public class IAEngineV2 : MonoBehaviour {
 		}
 		
 		int rand = Random.Range(0, l.Count);	
-		
+		SpaceBridge bridge = user.GetComponent<SpaceBridge>();
 		string[] val = l[rand].Split('-');
 		//Debug.Log("deplacement choisit: "+val[0]);
 		GameObject ps = GameObject.Find(""+val[0][0]);
@@ -669,7 +686,14 @@ public class IAEngineV2 : MonoBehaviour {
 				speedTmp.Add(0);
 				
 				listPlanetStart.Add(ps);
-				listPlanetEnd.Add(pe);
+				
+				if(bridge.planet1.name == ps.name && bridge.planet2.name == pe.name){
+					listPlanetEnd.Add(bridge.blackHole1);
+				}else if(bridge.planet2.name == ps.name && bridge.planet1.name == pe.name){
+					listPlanetEnd.Add(bridge.blackHole2);
+				}else{
+					listPlanetEnd.Add(pe);
+				}
 				
 				
 				GameObject instance =(GameObject) Instantiate(Resources.Load("Line")as GameObject);

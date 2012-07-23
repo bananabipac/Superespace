@@ -1,21 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\moveShip.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Menu.cs">
     <Files>
-<<<<<<< HEAD
-      <File FileName="Assets\Script\moveShip.cs" Line="189" Column="49" />
-      <File FileName="Assets\Script\TextsColor.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\Menu.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\LineScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\GUIPlayers.cs" Line="1" Column="1" />
-=======
-      <File FileName="Assets\Script\IAEngineV2.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\GestionLink.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\asteroidScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\moveShip.cs" Line="604" Column="50" />
-      <File FileName="Assets\Script\Menu.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\PlanetScript.cs" Line="580" Column="16" />
->>>>>>> 2e3fe6795b474b2b834fa4ebd2c61004d1cbe240
+      <File FileName="Assets\Script\Settings.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
