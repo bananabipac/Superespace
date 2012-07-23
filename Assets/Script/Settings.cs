@@ -12,6 +12,8 @@ public class Settings : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		style.alignment = TextAnchor.MiddleCenter;
+		
+		
 		if(PlayerPrefs.GetString("paramHand1") == "left" ){
 			paramHand1 = PlayerPrefs.GetString("paramHand1");
 			handPlayer1 = "Left-Handed";

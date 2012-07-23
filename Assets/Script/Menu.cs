@@ -40,6 +40,10 @@ public class Menu : MonoBehaviour {
 	private Rect posQuality;
 	private Rect finalQuality;
 	
+	private Rect initialSound;
+	private Rect posSound;
+	private Rect finalSound;
+		
 	private Rect initialLevel1;
 	private Rect posLevel1;
 	private Rect finalLevel1;
@@ -116,9 +120,13 @@ public class Menu : MonoBehaviour {
 		posPlayerTwo = finalPlayerTwo;
 		finalPlayerTwo = new Rect(3.55f*xPosExit-1500,1.88f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
 		
-		initialQuality = new Rect(xPosExit,2.12f*yPosMulti,Screen.width * (4.8f/6.55f),0.6f*Screen.height * (0.85f/8.5f));
+		initialQuality = new Rect(xPosExit,2.12f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
 		posQuality = finalQuality;
-		finalQuality = new Rect(xPosExit-1500,2.12f*yPosMulti,Screen.width * (4.8f/6.55f),0.6f*Screen.height * (0.85f/8.5f));
+		finalQuality = new Rect(xPosExit-1500,2.12f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
+		
+		initialSound = new Rect(3.55f*xPosExit,2.12f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
+		posSound = finalSound;
+		finalSound = new Rect(3.55f*xPosExit-1500,2.12f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
 		
 		initialLevel1 = new Rect(xPosMulti+1500,yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posLevel1 = initialLevel1;
@@ -166,7 +174,6 @@ public class Menu : MonoBehaviour {
 		}
 		Debug.Log(paramHand1);
 		Debug.Log(paramHand2);
-		
 		//QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("graphParam"));
 		if(QualitySettings.GetQualityLevel() == 0) {
 			paramQualitySettings = "Low";
@@ -175,6 +182,7 @@ public class Menu : MonoBehaviour {
 		} else if(QualitySettings.GetQualityLevel() == 2) {
 			paramQualitySettings = "High";	
 		}
+		PlayerPrefs.SetString("Sound","On");
 	}
 	
 	// Update is called once per frame
@@ -209,6 +217,7 @@ public class Menu : MonoBehaviour {
 					iTween.ValueTo(gameObject,iTween.Hash("from",initialPlayerOne,"to",finalPlayerOne,"onupdate","MoveButtonPlayerOne","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",initialPlayerTwo,"to",finalPlayerTwo,"onupdate","MoveButtonPlayerTwo","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",initialQuality,"to",finalQuality,"onupdate","MoveButtonQuality","easetype",iTween.EaseType.easeInOutSine));
+					iTween.ValueTo(gameObject,iTween.Hash("from",initialSound,"to",finalSound,"onupdate","MoveButtonSound","easetype",iTween.EaseType.easeInOutSine));
 				}
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialClassic,"to",finalClassic,"onupdate","MoveButtonClassic","easetype",iTween.EaseType.easeInOutSine));
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialQuick,"to",finalQuick,"onupdate","MoveButtonQuick","easetype",iTween.EaseType.easeInOutSine));
@@ -232,6 +241,7 @@ public class Menu : MonoBehaviour {
 					iTween.ValueTo(gameObject,iTween.Hash("from",initialPlayerOne,"to",finalPlayerOne,"onupdate","MoveButtonPlayerOne","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",initialPlayerTwo,"to",finalPlayerTwo,"onupdate","MoveButtonPlayerTwo","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",initialQuality,"to",finalQuality,"onupdate","MoveButtonQuality","easetype",iTween.EaseType.easeInOutSine));
+					iTween.ValueTo(gameObject,iTween.Hash("from",initialSound,"to",finalSound,"onupdate","MoveButtonSound","easetype",iTween.EaseType.easeInOutSine));
 				}
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialClassic,"to",finalClassic,"onupdate","MoveButtonClassic","easetype",iTween.EaseType.easeInOutSine));
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialQuick,"to",finalQuick,"onupdate","MoveButtonQuick","easetype",iTween.EaseType.easeInOutSine));
@@ -297,6 +307,7 @@ public class Menu : MonoBehaviour {
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalPlayerOne,"to",initialPlayerOne,"onupdate","MoveButtonPlayerOne","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalPlayerTwo,"to",initialPlayerTwo,"onupdate","MoveButtonPlayerTwo","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalQuality,"to",initialQuality,"onupdate","MoveButtonQuality","easetype",iTween.EaseType.easeInOutSine));
+					iTween.ValueTo(gameObject,iTween.Hash("from",finalSound,"to",initialSound,"onupdate","MoveButtonSound","easetype",iTween.EaseType.easeInOutSine));
 				}
 				if(displayModes) {
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalClassic,"to",initialClassic,"onupdate","MoveButtonClassic","easetype",iTween.EaseType.easeInOutSine));
@@ -370,6 +381,16 @@ public class Menu : MonoBehaviour {
 			}
 				
 		}
+		if(GUI.Button (posSound,"Sound : "+PlayerPrefs.GetString("Sound"),style2)) {
+			audio.Play();
+			if(PlayerPrefs.GetString("Sound") == "Muted"){
+				Camera.main.gameObject.GetComponent<AudioListener>().enabled = true;
+				PlayerPrefs.SetString("Sound","On");
+			}else{
+				Camera.main.gameObject.GetComponent<AudioListener>().enabled = false;
+				PlayerPrefs.SetString("Sound","Muted");
+			}
+		}
 		
 		
 	}
@@ -412,6 +433,9 @@ public class Menu : MonoBehaviour {
 	void MoveButtonQuick(Rect newCoordinates) {
 		posQuick = newCoordinates;	
 	}
+	void MoveButtonSound(Rect newCoordinates) {
+		posSound = newCoordinates;	
+	}
 	void StopRotationEnd() {
 		rotateToEnd = false;
 		moving = false;
@@ -425,6 +449,7 @@ public class Menu : MonoBehaviour {
 		iTween.ValueTo(gameObject,iTween.Hash("from",finalPlayerOne,"to",initialPlayerOne,"onupdate","MoveButtonPlayerOne","easetype",iTween.EaseType.easeInOutSine));
 		iTween.ValueTo(gameObject,iTween.Hash("from",finalPlayerTwo,"to",initialPlayerTwo,"onupdate","MoveButtonPlayerTwo","easetype",iTween.EaseType.easeInOutSine));
 		iTween.ValueTo(gameObject,iTween.Hash("from",finalQuality,"to",initialQuality,"onupdate","MoveButtonQuality","easetype",iTween.EaseType.easeInOutSine));
+		iTween.ValueTo(gameObject,iTween.Hash("from",finalSound,"to",initialSound,"onupdate","MoveButtonSound","easetype",iTween.EaseType.easeInOutSine));
 		displaySettings = true;
 		moving = false;
 	}
