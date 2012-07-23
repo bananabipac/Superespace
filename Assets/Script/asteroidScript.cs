@@ -171,6 +171,7 @@ public class asteroidScript : MonoBehaviour {
 					}
 				}
 			}
+		
 			for(int j = 0 ; j<shipsE.Count; j++){
 				GameObject ship = shipsE[j];
 				infoUser info;

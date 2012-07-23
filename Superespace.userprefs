@@ -1,8 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Menu.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\moveShip.cs">
     <Files>
-      <File FileName="Assets\Script\Menu.cs" Line="185" Column="79" />
+      <File FileName="Assets\Script\IAEngineV2.cs" Line="379" Column="42" />
+      <File FileName="Assets\Script\GestionLink.cs" Line="171" Column="34" />
+      <File FileName="Assets\Script\asteroidScript.cs" Line="174" Column="3" />
+      <File FileName="Assets\Script\moveShip.cs" Line="601" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

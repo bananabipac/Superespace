@@ -12,13 +12,13 @@ public class GUIPlayers : MonoBehaviour {
 	public GameObject nuke2;
 	public GameObject crash2;
 	
-	private Vector3 posSabotage1;
-	private Vector3 posNuke1;
-	private Vector3 posCrash1;
+	public Vector3 posSabotage1;
+	public Vector3 posNuke1;
+	public Vector3 posCrash1;
 	
-	private Vector3 posSabotage2;
-	private Vector3 posNuke2;
-	private Vector3 posCrash2;
+	public Vector3 posSabotage2;
+	public Vector3 posNuke2;
+	public Vector3 posCrash2;
 	
 	public int lvlSpeed1;
 	public int lvlAttack1;

@@ -83,7 +83,6 @@ public class Menu : MonoBehaviour {
 	private bool displaySettings = false;
 	// Use this for initialization
 	void Start () {
-		
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		style.alignment = TextAnchor.MiddleCenter;
 		
