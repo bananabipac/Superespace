@@ -600,7 +600,8 @@ public class moveShip : MonoBehaviour {
 				}
 			}
 		}
-		
+	
+		start.GetComponent<PlanetScript>().playSound();
 		//p.refreshShip();
 		
 	}
