@@ -17,7 +17,6 @@ public class LineScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//if(PlayerPrefs.GetString("GameType").Equals("versus")) {
 		foreach(Touch touch in Input.touches) {
 			
 			int fingerId  = touch.fingerId;
@@ -37,16 +36,29 @@ public class LineScript : MonoBehaviour {
 					if(!user.GetComponent<PauseScript>().paused2) {
 						if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
 							if (hit.collider.tag == "planet" && hit.collider.gameObject.GetComponent<PlanetScript>().ship.tag !="neutre" ) {
-								
-								GameObject instance =(GameObject) Instantiate(Resources.Load("Line")as GameObject);
-								instance.transform.position = new Vector3(0,0,0);
-								LineRenderer linet = instance.GetComponent<LineRenderer>();
-								
-								linet.SetPosition(0,hit.collider.gameObject.transform.position);
-								linet.SetPosition(1,hit.collider.gameObject.transform.position);
-								linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));
-								listLines.Add(fingerId,instance);
-								listPlanetStart.Add (fingerId,hit.collider.gameObject);
+								if(PlayerPrefs.GetString("GameType").Equals("solo")) {
+									if(hit.collider.gameObject.GetComponent<PlanetScript>().ship.tag == "red"){
+										GameObject instance =(GameObject) Instantiate(Resources.Load("Line")as GameObject);
+										instance.transform.position = new Vector3(0,0,0);
+										LineRenderer linet = instance.GetComponent<LineRenderer>();
+										
+										linet.SetPosition(0,hit.collider.gameObject.transform.position);
+										linet.SetPosition(1,hit.collider.gameObject.transform.position);
+										linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));
+										listLines.Add(fingerId,instance);
+										listPlanetStart.Add (fingerId,hit.collider.gameObject);
+									}
+								}else{
+									GameObject instance =(GameObject) Instantiate(Resources.Load("Line")as GameObject);
+									instance.transform.position = new Vector3(0,0,0);
+									LineRenderer linet = instance.GetComponent<LineRenderer>();
+									
+									linet.SetPosition(0,hit.collider.gameObject.transform.position);
+									linet.SetPosition(1,hit.collider.gameObject.transform.position);
+									linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));
+									listLines.Add(fingerId,instance);
+									listPlanetStart.Add (fingerId,hit.collider.gameObject);
+								}
 							}
 						}
 					}
@@ -111,6 +123,5 @@ public class LineScript : MonoBehaviour {
 					
 				}
 			}
-		//}
 	}
 }
