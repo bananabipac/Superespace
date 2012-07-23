@@ -366,6 +366,7 @@ public class moveShip : MonoBehaviour {
 			}
 		if( verifEndGame()){
 			GetComponent<Launch_EndScript>().endGame = true;
+			user.GetComponent<stats>().SendData();
 			if(bluePlayer) {
 				GetComponent<Launch_EndScript>().winner = "blue";
 			} else {

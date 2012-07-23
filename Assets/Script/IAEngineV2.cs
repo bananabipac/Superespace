@@ -70,6 +70,7 @@ public class IAEngineV2 : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Space)){	
 			movePower("nuke", GameObject.Find("0"));
+			//user.GetComponent<stats>().SendData();
 		}
 		
 		if(PlayerPrefs.GetString("GameType").Equals("solo")){
@@ -561,9 +562,11 @@ public class IAEngineV2 : MonoBehaviour {
 			if(IAPlayer == "red"){
 				user.GetComponent<MoneyScript>().moneyPlayer1-= info.crashPrice;
 				power.transform.position = info.posCrash1;
+				user.GetComponent<stats>().nbCrashRed ++;
 			}else{
 				user.GetComponent<MoneyScript>().moneyPlayer2-= info.crashPrice;
 				power.transform.position = info.posCrash2;
+				user.GetComponent<stats>().nbCrashBlue ++;
 			}
 		}else if(powerSelect =="sabotage"){
 			if(plaE.GetComponent<PlanetScript>().ship.tag =="neutre"){
@@ -575,6 +578,8 @@ public class IAEngineV2 : MonoBehaviour {
 					expl.transform.position = temp.transform.position;
 					Destroy (temp);
 					
+					user.GetComponent<stats>().destroyShipNPower ++;
+					
 				}
 			}else if(plaE.GetComponent<PlanetScript>().ship.tag =="red"){
 				int deleteShip = (int)Mathf.Floor(plaE.GetComponent<PlanetScript>().shipsR.Count*info.sabotage/100);
@@ -583,6 +588,7 @@ public class IAEngineV2 : MonoBehaviour {
 					plaE.GetComponent<PlanetScript>().shipsR.RemoveAt(0);
 					GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 					expl.transform.position = temp.transform.position;
+					user.GetComponent<stats>().destroyShipRPower ++;
 					Destroy (temp);
 					
 				}
@@ -593,6 +599,7 @@ public class IAEngineV2 : MonoBehaviour {
 					plaE.GetComponent<PlanetScript>().shipsB.RemoveAt(0);
 					GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 					expl.transform.position = temp.transform.position;
+					user.GetComponent<stats>().destroyShipBPower ++;
 					Destroy (temp);
 					
 				}
@@ -601,9 +608,11 @@ public class IAEngineV2 : MonoBehaviour {
 			if(IAPlayer == "red"){
 				user.GetComponent<MoneyScript>().moneyPlayer1-= info.sabotagePrice;
 				power.transform.position = info.posSabotage1;
+				user.GetComponent<stats>().nbSabotageRed ++;
 			}else{
 				user.GetComponent<MoneyScript>().moneyPlayer2-= info.sabotagePrice;	
 				power.transform.position = info.posSabotage2;
+				user.GetComponent<stats>().nbSabotageBlue ++;
 			}
 			
 		}else if(powerSelect =="nuke"){
@@ -616,6 +625,7 @@ public class IAEngineV2 : MonoBehaviour {
 					plaE.GetComponent<PlanetScript>().shipsN.RemoveAt(0);
 					GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 					expl.transform.position = temp.transform.position;
+					user.GetComponent<stats>().destroyShipNPower ++;
 					Destroy (temp);
 				}
 			}else if(plaE.GetComponent<PlanetScript>().ship.tag == "red"){
@@ -627,6 +637,7 @@ public class IAEngineV2 : MonoBehaviour {
 					plaE.GetComponent<PlanetScript>().shipsR.RemoveAt(0);
 					GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 					expl.transform.position = temp.transform.position;
+					user.GetComponent<stats>().destroyShipRPower ++;
 					Destroy (temp);
 				}
 			}else if(plaE.GetComponent<PlanetScript>().ship.tag == "blue"){
@@ -638,6 +649,7 @@ public class IAEngineV2 : MonoBehaviour {
 					plaE.GetComponent<PlanetScript>().shipsB.RemoveAt(0);
 					GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 					expl.transform.position = temp.transform.position;
+					user.GetComponent<stats>().destroyShipBPower ++;
 					Destroy (temp);
 				}
 			}
@@ -645,9 +657,10 @@ public class IAEngineV2 : MonoBehaviour {
 			if(IAPlayer == "red"){
 				user.GetComponent<MoneyScript>().moneyPlayer1-= info.nukePrice;	
 				power.transform.position = info.posNuke1;
+				user.GetComponent<stats>().nbNukeRed ++;
 			}else{
 				user.GetComponent<MoneyScript>().moneyPlayer2-= info.nukePrice;
-				power.transform.position = info.posNuke2;
+				user.GetComponent<stats>().nbNukeBlue ++;
 			}
 		}
 		

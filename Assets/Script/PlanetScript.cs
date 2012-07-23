@@ -134,6 +134,7 @@ public class PlanetScript : MonoBehaviour {
 					
 					if(CaptureTime <= -1*CaptureCount){
 						ship =  Resources.Load("Shipblue")as GameObject;
+						user.GetComponent<stats>().nbCaptureBlue ++;
 						gameObject.light.color = new Color(0,0,1,1);
 						CaptureTime = -1*CaptureCount;
 						((GestionLink)user.GetComponent<GestionLink>()).changeColor(gameObject);
@@ -175,6 +176,7 @@ public class PlanetScript : MonoBehaviour {
 							
 					if(CaptureTime >= CaptureCount){
 						ship =  Resources.Load("Shipred")as GameObject;
+						user.GetComponent<stats>().nbCrashRed++;
 						gameObject.light.color = new Color(1,0,0,1);
 						CaptureTime = CaptureCount;
 						Debug.Log("Planete : "+gameObject.name + "capture red");
@@ -380,12 +382,15 @@ public class PlanetScript : MonoBehaviour {
 				shipsB.RemoveAt(iB);
 				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 				expl.transform.position = sb.transform.position;
+				user.GetComponent<stats>().destroyShipBBattle ++;
+				
 				Destroy(sb);	
 			}
 			if(((rotationShip)sr.GetComponent<rotationShip>()).life<=0){
 				shipsR.RemoveAt(iR);
 				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 				expl.transform.position = sr.transform.position;
+				user.GetComponent<stats>().destroyShipRBattle ++;
 				Destroy(sr);
 			}
 		}else if(shipsB.Count <= 0){
@@ -402,12 +407,14 @@ public class PlanetScript : MonoBehaviour {
 				shipsN.RemoveAt(iN);
 				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 				expl.transform.position = sn.transform.position;
+				user.GetComponent<stats>().destroyShipNBattle ++;
 				Destroy(sn);	
 			}
 			if(((rotationShip)sr.GetComponent<rotationShip>()).life<=0){
 				shipsR.RemoveAt(iR);
 				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 				expl.transform.position = sr.transform.position;
+				user.GetComponent<stats>().destroyShipRBattle ++;
 				Destroy(sr);
 			}
 			
@@ -425,13 +432,14 @@ public class PlanetScript : MonoBehaviour {
 				shipsB.RemoveAt(iB);
 				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 				expl.transform.position = sb.transform.position;
-				
+				user.GetComponent<stats>().destroyShipBBattle ++;
 				Destroy(sb);	
 			}
 			if(((rotationShip)sn.GetComponent<rotationShip>()).life<=0){
 				shipsN.RemoveAt(iN);
 				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 				expl.transform.position = sn.transform.position;
+				user.GetComponent<stats>().destroyShipNBattle ++;
 				Destroy(sn);
 			}
 		}

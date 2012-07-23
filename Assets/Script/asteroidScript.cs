@@ -102,7 +102,15 @@ public class asteroidScript : MonoBehaviour {
 											}
 											//Debug.Log("count :"+s.Count+" x:"+x);
 											GameObject t = s[x];
+									
+											if(t.tag =="red"){
+												GameObject.FindGameObjectWithTag("User").GetComponent<stats>().destroyShipRAsteroid ++;
+											}else{
+												GameObject.FindGameObjectWithTag("User").GetComponent<stats>().destroyShipBAsteroid ++;
+											}
 											Destroy(t);
+									
+											
 											
 											GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 											expl.transform.position = ship.transform.position;
@@ -157,6 +165,13 @@ public class asteroidScript : MonoBehaviour {
 								ships.RemoveAt(0);
 								GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
 								expl.transform.position = ship.transform.position;
+							
+								if(ship.tag =="red"){
+									GameObject.FindGameObjectWithTag("User").GetComponent<stats>().destroyShipRAsteroid ++;
+								}else{
+									GameObject.FindGameObjectWithTag("User").GetComponent<stats>().destroyShipBAsteroid ++;
+								}
+							
 								Destroy(ship);
 								
 								

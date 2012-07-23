@@ -37,10 +37,10 @@
     <Reference Include="System.XML" />
 	<Reference Include="System.Core" />
 	<Reference Include="UnityEngine">
-	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/3D/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/3D/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +77,7 @@
      <Compile Include="Assets\Script\infoUser.cs" />
      <Compile Include="Assets\Script\moveShip.cs" />
      <Compile Include="Assets\Script\rotationShip.cs" />
+     <Compile Include="Assets\Script\stats.cs" />
      <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Plugins\MidnightWare\Swarm\SwarmItem.cs" />
      <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Plugins\MidnightWare\Swarm\SwarmItemManager.cs" />
      <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Scripts\Asteroid.cs" />
