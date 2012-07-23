@@ -142,9 +142,7 @@ public class moveShip : MonoBehaviour {
 			
 		}
 
-		/////END DEBUG!!!!!!!!///
-		//if(PlayerPrefs.GetString("GameType").Equals("versus")) {
-			
+		/////END DEBUG!!!!!!!!///			
 			foreach(Touch touch in Input.touches) {
 				
 				int fingerId  = touch.fingerId;
@@ -189,21 +187,23 @@ public class moveShip : MonoBehaviour {
 										vitesseSelect.Add(fingerId, selectSpeed);
 										
 									}else if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="blue" && ((PlanetScript)planetStart.GetComponent<PlanetScript>()).shipsB.Count>0){
-										GameObject SelectShip =  Resources.Load("TextSelectBlue")as GameObject;
-										Vector3 vec =  planetStart.transform.position;
-									
-										vec.y = -20.22636f;
-									
-										GameObject instance = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
-										((TextMesh)instance.GetComponent<TextMesh>()).text = ""+0;
-										instance.transform.RotateAround(Vector3.up, -1.6f);
-										Vector3 vt = instance.transform.position;
-										vt.x -=5;
-										instance.transform.position = vt;
+										if(PlayerPrefs.GetString("GameType").Equals("versus")) {
+											GameObject SelectShip =  Resources.Load("TextSelectBlue")as GameObject;
+											Vector3 vec =  planetStart.transform.position;
 										
-										shipSelect.Add(fingerId,instance);
-										selectCount.Add(fingerId,0);
-										vitesseSelect.Add(fingerId, selectSpeed);
+											vec.y = -20.22636f;
+										
+											GameObject instance = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
+											((TextMesh)instance.GetComponent<TextMesh>()).text = ""+0;
+											instance.transform.RotateAround(Vector3.up, -1.6f);
+											Vector3 vt = instance.transform.position;
+											vt.x -=5;
+											instance.transform.position = vt;
+											
+											shipSelect.Add(fingerId,instance);
+											selectCount.Add(fingerId,0);
+											vitesseSelect.Add(fingerId, selectSpeed);
+										}
 									}
 									
 									
@@ -273,12 +273,14 @@ public class moveShip : MonoBehaviour {
 														Debug.Log("pas assez d'argent joueur rouge");	
 													}
 												}else if(shipE.tag == "blue"){
-													if(user.GetComponent<MoneyScript>().moneyPlayer2 >=50){
-														user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
-														((GestionLink)GetComponent<GestionLink>()).openRoad(listPlanetStart[fingerId],listPlanetEnd[fingerId]);
-														Debug.Log("route ouverte bleu");	
-													}else{
-														Debug.Log("pas assez d'argent joueur bleu");	
+													if(PlayerPrefs.GetString("GameType").Equals("versus")) {
+														if(user.GetComponent<MoneyScript>().moneyPlayer2 >=50){
+															user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+															((GestionLink)GetComponent<GestionLink>()).openRoad(listPlanetStart[fingerId],listPlanetEnd[fingerId]);
+															Debug.Log("route ouverte bleu");	
+														}else{
+															Debug.Log("pas assez d'argent joueur bleu");	
+														}
 													}
 												}
 											}
@@ -305,16 +307,18 @@ public class moveShip : MonoBehaviour {
 														Debug.Log("pas assez d'argent joueur rouge");	
 													}
 												}else if(shipS.tag == "blue"){
-													if(user.GetComponent<MoneyScript>().moneyPlayer2 >=50){
-														user.GetComponent<MoneyScript>().incomePlayer2 += 1;
-														user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
-														((GestionLink)GetComponent<GestionLink>()).openRoad(listPlanetStart[fingerId],listPlanetEnd[fingerId]);
-														Debug.Log("route ouverte bleu");
-														Debug.Log("Deplacement");
-														TextMesh mesh = shipSelect[fingerId].GetComponent<TextMesh>();
-														deplacement(listPlanetStart[fingerId],listPlanetEnd[fingerId], int.Parse(mesh.text));
-													}else{
-														Debug.Log("pas assez d'argent joueur bleu");	
+													if(PlayerPrefs.GetString("GameType").Equals("versus")) {
+														if(user.GetComponent<MoneyScript>().moneyPlayer2 >=50){
+															user.GetComponent<MoneyScript>().incomePlayer2 += 1;
+															user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+															((GestionLink)GetComponent<GestionLink>()).openRoad(listPlanetStart[fingerId],listPlanetEnd[fingerId]);
+															Debug.Log("route ouverte bleu");
+															Debug.Log("Deplacement");
+															TextMesh mesh = shipSelect[fingerId].GetComponent<TextMesh>();
+															deplacement(listPlanetStart[fingerId],listPlanetEnd[fingerId], int.Parse(mesh.text));
+														}else{
+															Debug.Log("pas assez d'argent joueur bleu");	
+														}
 													}
 												}
 											}
@@ -360,7 +364,6 @@ public class moveShip : MonoBehaviour {
 				}
 				
 			}
-		//}
 		if( verifEndGame()){
 			GetComponent<Launch_EndScript>().endGame = true;
 			if(bluePlayer) {

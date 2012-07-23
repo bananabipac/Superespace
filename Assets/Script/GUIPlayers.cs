@@ -122,36 +122,38 @@ public class GUIPlayers : MonoBehaviour {
 								}
 							}
 						}
-						if (hit.collider.tag == "UpgradePlayer2") {
-							if(hit.collider.name == "vie2") {
-								if(lvlLife2 < 4){
-									if( 100 * (lvlLife2+1) <= user.GetComponent<MoneyScript>().moneyPlayer2) {
-										(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).lifeShip += 2;
-										user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (lvlLife2+1));
-										lvlLife2++;
-										
+						if(PlayerPrefs.GetString("GameType").Equals("versus")) {
+							if (hit.collider.tag == "UpgradePlayer2") {
+								if(hit.collider.name == "vie2") {
+									if(lvlLife2 < 4){
+										if( 100 * (lvlLife2+1) <= user.GetComponent<MoneyScript>().moneyPlayer2) {
+											(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).lifeShip += 2;
+											user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (lvlLife2+1));
+											lvlLife2++;
+											
+										}
 									}
 								}
-							}
-							if(hit.collider.name == "attaque2") {
-								if(lvlAttack2 < 4) {
-									if( 100 * (lvlAttack2+1) <= user.GetComponent<MoneyScript>().moneyPlayer2) {
-										(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).powerMin += 2;
-										(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).powerMax += 2;
-										user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (lvlAttack2+1));
-										lvlAttack2++;
-										
+								if(hit.collider.name == "attaque2") {
+									if(lvlAttack2 < 4) {
+										if( 100 * (lvlAttack2+1) <= user.GetComponent<MoneyScript>().moneyPlayer2) {
+											(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).powerMin += 2;
+											(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).powerMax += 2;
+											user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (lvlAttack2+1));
+											lvlAttack2++;
+											
+										}
 									}
 								}
-							}
-							if(hit.collider.name == "vitesse2") {
-								if(lvlSpeed2 < 4) {
-									Debug.Log ("speed");
-									if( 100 * (lvlSpeed2+1) <= user.GetComponent<MoneyScript>().moneyPlayer2) {
-										(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).speedShip -= 0.2f;
-										user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (lvlSpeed2+1));
-										lvlSpeed2++;
-										Debug.Log ("upgraded");
+								if(hit.collider.name == "vitesse2") {
+									if(lvlSpeed2 < 4) {
+										Debug.Log ("speed");
+										if( 100 * (lvlSpeed2+1) <= user.GetComponent<MoneyScript>().moneyPlayer2) {
+											(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).speedShip -= 0.2f;
+											user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (lvlSpeed2+1));
+											lvlSpeed2++;
+											Debug.Log ("upgraded");
+										}
 									}
 								}
 							}
@@ -254,86 +256,88 @@ public class GUIPlayers : MonoBehaviour {
 										
 									}
 								}
-								if(bonus.tag == "GUIPlayer2"){
-									if(bonus.name == "crash2") {
-										if(user.GetComponent<MoneyScript>().moneyPlayer2 >= crashPrice) {
-											if(objet.GetComponent<PlanetScript>().ship.tag != "blue" && objet.GetComponent<PlanetScript>().ship.tag != "neutre") {
-												objet.GetComponent<PlanetScript>().repop += crash;
-												user.GetComponent<MoneyScript>().moneyPlayer2-= crashPrice;
-												GameObject expl = (GameObject)Instantiate(Resources.Load("crash")as GameObject);
-												expl.transform.position = objet.transform.position;
-											}
-											
-										}
-										
-									}
-									if(bonus.name == "sabotage2") {
-										if(user.GetComponent<MoneyScript>().moneyPlayer2 >= sabotagePrice) {
-											if(objet.GetComponent<PlanetScript>().ship.tag != "blue") {
-												if(objet.GetComponent<PlanetScript>().ship.tag == "neutre"){
-													int deleteShip = (int)Mathf.Floor(objet.GetComponent<PlanetScript>().shipsN.Count*sabotage/100);
-													for(int ships = 0; ships < deleteShip; ships++) {
-														GameObject temp = objet.GetComponent<PlanetScript>().shipsN[0];
-														objet.GetComponent<PlanetScript>().shipsN.RemoveAt(0);
-														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
-														expl.transform.position = temp.transform.position;
-														Destroy (temp);
-													}
-													user.GetComponent<MoneyScript>().moneyPlayer2-= sabotagePrice;
-												}
-												if(objet.GetComponent<PlanetScript>().ship.tag == "red"){
-													int deleteShip = (int)Mathf.Floor(objet.GetComponent<PlanetScript>().shipsR.Count*sabotage/100);
-													for(int ships = 0; ships < deleteShip; ships++) {
-														GameObject temp = objet.GetComponent<PlanetScript>().shipsR[0];
-														objet.GetComponent<PlanetScript>().shipsR.RemoveAt(0);
-														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
-														expl.transform.position = temp.transform.position;
-														Destroy (temp);
-													}
-													user.GetComponent<MoneyScript>().moneyPlayer2-= sabotagePrice;
-												}
-											}
-											
-										}
-										
-									}
-									if(bonus.name == "nuke2") {
-										if(user.GetComponent<MoneyScript>().moneyPlayer2 >= nukePrice) {
-											if(objet.GetComponent<PlanetScript>().ship.tag != "blue") {
-												if(objet.GetComponent<PlanetScript>().ship.tag == "neutre"){
-													int deleteShip = objet.GetComponent<PlanetScript>().shipsN.Count;
-													GameObject apo = (GameObject)Instantiate(Resources.Load("apocalypse")as GameObject);
-													apo.transform.position = objet.transform.position;
-													for(int ships = 0; ships < deleteShip; ships++) {
-														GameObject temp = objet.GetComponent<PlanetScript>().shipsN[0];
-														objet.GetComponent<PlanetScript>().shipsN.RemoveAt(0);
-														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
-														expl.transform.position = temp.transform.position;
-														Destroy (temp);
-													}
-													user.GetComponent<MoneyScript>().moneyPlayer2-= nukePrice;
-												}
-												if(objet.GetComponent<PlanetScript>().ship.tag == "red"){
-													int deleteShip = objet.GetComponent<PlanetScript>().shipsR.Count;
-													GameObject apo = (GameObject)Instantiate(Resources.Load("apocalypse")as GameObject);
-													apo.transform.position = objet.transform.position;
-													for(int ships = 0; ships < deleteShip; ships++) {
-														GameObject temp = objet.GetComponent<PlanetScript>().shipsR[0];
-														objet.GetComponent<PlanetScript>().shipsR.RemoveAt(0);
-														GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
-														expl.transform.position = temp.transform.position;
-														Destroy (temp);
-													}
-													objet.GetComponent<PlanetScript>().repop += apocalypse;
-													user.GetComponent<MoneyScript>().moneyPlayer2-= nukePrice;
-													Debug.Log ("Explosion");
-													//Instantiate(prefabNuke,hit.collider.gameObject.transform.position,Quaternion.identity);	
+								if(PlayerPrefs.GetString("GameType").Equals("versus")) {
+									if(bonus.tag == "GUIPlayer2"){
+										if(bonus.name == "crash2") {
+											if(user.GetComponent<MoneyScript>().moneyPlayer2 >= crashPrice) {
+												if(objet.GetComponent<PlanetScript>().ship.tag != "blue" && objet.GetComponent<PlanetScript>().ship.tag != "neutre") {
+													objet.GetComponent<PlanetScript>().repop += crash;
+													user.GetComponent<MoneyScript>().moneyPlayer2-= crashPrice;
+													GameObject expl = (GameObject)Instantiate(Resources.Load("crash")as GameObject);
+													expl.transform.position = objet.transform.position;
 												}
 												
 											}
 											
 										}
-										
+										if(bonus.name == "sabotage2") {
+											if(user.GetComponent<MoneyScript>().moneyPlayer2 >= sabotagePrice) {
+												if(objet.GetComponent<PlanetScript>().ship.tag != "blue") {
+													if(objet.GetComponent<PlanetScript>().ship.tag == "neutre"){
+														int deleteShip = (int)Mathf.Floor(objet.GetComponent<PlanetScript>().shipsN.Count*sabotage/100);
+														for(int ships = 0; ships < deleteShip; ships++) {
+															GameObject temp = objet.GetComponent<PlanetScript>().shipsN[0];
+															objet.GetComponent<PlanetScript>().shipsN.RemoveAt(0);
+															GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+															expl.transform.position = temp.transform.position;
+															Destroy (temp);
+														}
+														user.GetComponent<MoneyScript>().moneyPlayer2-= sabotagePrice;
+													}
+													if(objet.GetComponent<PlanetScript>().ship.tag == "red"){
+														int deleteShip = (int)Mathf.Floor(objet.GetComponent<PlanetScript>().shipsR.Count*sabotage/100);
+														for(int ships = 0; ships < deleteShip; ships++) {
+															GameObject temp = objet.GetComponent<PlanetScript>().shipsR[0];
+															objet.GetComponent<PlanetScript>().shipsR.RemoveAt(0);
+															GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+															expl.transform.position = temp.transform.position;
+															Destroy (temp);
+														}
+														user.GetComponent<MoneyScript>().moneyPlayer2-= sabotagePrice;
+													}
+												}
+												
+											}
+											
+										}
+										if(bonus.name == "nuke2") {
+											if(user.GetComponent<MoneyScript>().moneyPlayer2 >= nukePrice) {
+												if(objet.GetComponent<PlanetScript>().ship.tag != "blue") {
+													if(objet.GetComponent<PlanetScript>().ship.tag == "neutre"){
+														int deleteShip = objet.GetComponent<PlanetScript>().shipsN.Count;
+														GameObject apo = (GameObject)Instantiate(Resources.Load("apocalypse")as GameObject);
+														apo.transform.position = objet.transform.position;
+														for(int ships = 0; ships < deleteShip; ships++) {
+															GameObject temp = objet.GetComponent<PlanetScript>().shipsN[0];
+															objet.GetComponent<PlanetScript>().shipsN.RemoveAt(0);
+															GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+															expl.transform.position = temp.transform.position;
+															Destroy (temp);
+														}
+														user.GetComponent<MoneyScript>().moneyPlayer2-= nukePrice;
+													}
+													if(objet.GetComponent<PlanetScript>().ship.tag == "red"){
+														int deleteShip = objet.GetComponent<PlanetScript>().shipsR.Count;
+														GameObject apo = (GameObject)Instantiate(Resources.Load("apocalypse")as GameObject);
+														apo.transform.position = objet.transform.position;
+														for(int ships = 0; ships < deleteShip; ships++) {
+															GameObject temp = objet.GetComponent<PlanetScript>().shipsR[0];
+															objet.GetComponent<PlanetScript>().shipsR.RemoveAt(0);
+															GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
+															expl.transform.position = temp.transform.position;
+															Destroy (temp);
+														}
+														objet.GetComponent<PlanetScript>().repop += apocalypse;
+														user.GetComponent<MoneyScript>().moneyPlayer2-= nukePrice;
+														Debug.Log ("Explosion");
+														//Instantiate(prefabNuke,hit.collider.gameObject.transform.position,Quaternion.identity);	
+													}
+													
+												}
+												
+											}
+											
+										}
 									}
 								}
 							}
@@ -354,8 +358,15 @@ public class GUIPlayers : MonoBehaviour {
 				if(!user.GetComponent<PauseScript>().paused2) {
 					if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
 						if (hit.collider.tag == "GUIPlayer1" || hit.collider.tag == "GUIPlayer2") {
-							GameObject bonus = hit.collider.gameObject;
-							listBonusesTouched.Add(fingerId,bonus);
+							if(!PlayerPrefs.GetString("GameType").Equals("versus")) {
+								if(hit.collider.tag == "GUIPlayer1"){
+									GameObject bonus = hit.collider.gameObject;
+									listBonusesTouched.Add(fingerId,bonus);
+								}
+							}else{
+								GameObject bonus = hit.collider.gameObject;
+								listBonusesTouched.Add(fingerId,bonus);
+							}
 						}
 					}
 				}
