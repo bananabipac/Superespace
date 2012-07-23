@@ -6,7 +6,12 @@ public class GetSettings : MonoBehaviour {
 	private string paramHand2;
 	// Use this for initialization
 	void Start () {
-		
+		if(PlayerPrefs.GetString("Sound") == "Muted"){
+			Camera.main.gameObject.GetComponent<AudioListener>().enabled = false;
+		}else{
+			Camera.main.gameObject.GetComponent<AudioListener>().enabled = true;
+		}
+		Debug.Log(PlayerPrefs.GetString("Sound"));
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		if(PlayerPrefs.GetString("paramHand1") != "" ){
 			paramHand1 = PlayerPrefs.GetString("paramHand1");

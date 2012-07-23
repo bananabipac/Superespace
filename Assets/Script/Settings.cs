@@ -12,11 +12,8 @@ public class Settings : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		style.alignment = TextAnchor.MiddleCenter;
-		if(PlayerPrefs.GetString("Sound") == "Muted"){
-			Camera.main.gameObject.GetComponent<AudioListener>().enabled = true;
-		}else{
-			Camera.main.gameObject.GetComponent<AudioListener>().enabled = false;
-		}
+		
+		
 		if(PlayerPrefs.GetString("paramHand1") == "left" ){
 			paramHand1 = PlayerPrefs.GetString("paramHand1");
 			handPlayer1 = "Left-Handed";
