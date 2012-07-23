@@ -576,6 +576,10 @@ public class PlanetScript : MonoBehaviour {
 		
 	}
 	
+	public void playSound(){
+		audio.Play();	
+	}
+	
 	
 	
 }
