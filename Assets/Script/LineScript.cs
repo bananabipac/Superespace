@@ -74,8 +74,28 @@ public class LineScript : MonoBehaviour {
 								//Debug.Log (hit.collider.tag);
 								if ((hit.collider.tag == "planet" || hit.collider.tag == "BlackHole") && hit.collider.name != listPlanetStart[fingerId].name) {
 									if(GetComponent<GestionLink>().roadExist(listPlanetStart[fingerId],hit.collider.gameObject)) {
-										linet.SetPosition(1,hit.collider.gameObject.transform.position);
-										linet.SetColors(new Color(0,1,0,1),new Color(0,1,0,1));
+										if(GetComponent<GestionLink>().roadOpen(listPlanetStart[fingerId],hit.collider.gameObject)) {
+											linet.SetPosition(1,hit.collider.gameObject.transform.position);
+											linet.SetColors(new Color(0,1,0,1),new Color(0,1,0,1));
+										}else{
+											if(listPlanetStart[fingerId].GetComponent<PlanetScript>().ship.tag == "red") {
+												if(user.GetComponent<MoneyScript>().moneyPlayer1 >= 50) {
+													linet.SetPosition(1,hit.collider.gameObject.transform.position);
+													linet.SetColors(new Color(0,1,0,1),new Color(0,1,0,1));
+												}else{
+													linet.SetPosition(1,hit.collider.gameObject.transform.position);
+													linet.SetColors(new Color(1,0,0,1),new Color(1,0,0,1));
+												}
+											}else{
+												if(user.GetComponent<MoneyScript>().moneyPlayer2 >= 50) {
+													linet.SetPosition(1,hit.collider.gameObject.transform.position);
+													linet.SetColors(new Color(0,1,0,1),new Color(0,1,0,1));
+												}else{
+													linet.SetPosition(1,hit.collider.gameObject.transform.position);
+													linet.SetColors(new Color(1,0,0,1),new Color(1,0,0,1));
+												}
+											}
+										}
 									} else {
 										if(listPlanetStart[fingerId] == user.GetComponent<SpaceBridge>().planet1) {
 											if(hit.collider.name == "BlackHole1") {
