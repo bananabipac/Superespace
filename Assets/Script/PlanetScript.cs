@@ -176,7 +176,7 @@ public class PlanetScript : MonoBehaviour {
 							
 					if(CaptureTime >= CaptureCount){
 						ship =  Resources.Load("Shipred")as GameObject;
-						user.GetComponent<stats>().nbCrashRed++;
+						user.GetComponent<stats>().nbCaptureRed++;
 						gameObject.light.color = new Color(1,0,0,1);
 						CaptureTime = CaptureCount;
 						Debug.Log("Planete : "+gameObject.name + "capture red");

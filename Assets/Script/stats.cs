@@ -75,7 +75,7 @@ public class stats : MonoBehaviour {
 		
 		PlayerPrefs.SetInt("destroyShipBAll", (destroyShipBAsteroid + destroyShipBBattle + destroyShipBPower));
 		PlayerPrefs.SetInt("destroyShipNAll", (destroyShipNBattle + destroyShipNPower));
-		PlayerPrefs.SetInt("destroyShipNAll", (destroyShipRAsteroid + destroyShipRBattle + destroyShipRPower));
+		PlayerPrefs.SetInt("destroyShipRAll", (destroyShipRAsteroid + destroyShipRBattle + destroyShipRPower));
 		
 		PlayerPrefs.SetInt("nbCaptureBlue", nbCaptureBlue);
 		PlayerPrefs.SetInt("nbCaptureRed", nbCaptureRed);
@@ -98,7 +98,7 @@ public class stats : MonoBehaviour {
 		//Debug.Log(Mathf.FloorToInt(minutes));
 		//Debug.Log(Mathf.FloorToInt(secondes));
    		PlayerPrefs.SetInt("timeGameMin", Mathf.FloorToInt(minutes));
-		PlayerPrefs.SetInt("timeGameSecondes", Mathf.FloorToInt(secondes));
+		PlayerPrefs.SetInt("timeGameSec", Mathf.FloorToInt(secondes));
 		
 	}
 	
