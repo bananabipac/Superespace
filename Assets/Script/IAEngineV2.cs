@@ -601,7 +601,6 @@ public class IAEngineV2 : MonoBehaviour {
 					expl.transform.position = temp.transform.position;
 					user.GetComponent<stats>().destroyShipBPower ++;
 					Destroy (temp);
-					
 				}
 			}
 			

@@ -20,7 +20,7 @@ public class GameOverScript : MonoBehaviour {
 		winnerTextMesh = winnerText.GetComponent<TextMesh>();
 		float xPosExit = Screen.width * (1f/6.55f);
 		float yPosMulti = 10*Screen.height * (0.2f/6.3f);
-		posExit = new Rect(xPosExit,1.68f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));;
+		posExit = new Rect(xPosExit,2.5f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));;
 		
 		if(winner == "blue") {
 			blueShip.active = true;
@@ -35,6 +35,7 @@ public class GameOverScript : MonoBehaviour {
 			winnerText.renderer.material.color = Color.red;
 			ship = redShip;	
 		}
+		
 		iTween.MoveTo(ship,iTween.Hash("z",-15f,"time",3f,"oncomplete","Travel","oncompletetarget",gameObject));
 	}
 	
