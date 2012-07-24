@@ -49,8 +49,13 @@ public class IAEngineV2 : MonoBehaviour {
 	public int siCombatPlaneteIA; //si la planete d'arrivée est a L'IA en combat + pas assez de vaisseaux
 	public int notEnoughMoney; //si l'IA n'a pas assez d'argent pour ouvrir la route
 	public int trouNoir; //si le trou noir est ouvert et assez de vaisseaux 
+	public int chanceUsePower;
+	public int chanceUpgrade;
 	public bool stop ;
+	private int choseUpgrade;
 	
+	public bool upgrade;
+	private GUIPlayers script;
 	private Dictionary<string,int> ponderation = new Dictionary<string, int>();
 	
 	// Use this for initialization
@@ -63,11 +68,15 @@ public class IAEngineV2 : MonoBehaviour {
 			launchMove = false;
 			timer = Time.timeSinceLevelLoad;
 		}
+		upgrade = false;
+		script = user.GetComponent<GUIPlayers>();
+		
 	}
 	
 	
 	// Update is called once per frame
 	void Update () {
+	
 		if(Input.GetKeyDown(KeyCode.Space)){	
 			movePower("nuke", GameObject.Find("0"));
 			//user.GetComponent<stats>().SendData();
@@ -87,15 +96,115 @@ public class IAEngineV2 : MonoBehaviour {
 			}*/
 			if(!stop){ 
 				if(Time.timeSinceLevelLoad - timer >= speedIA) {
+					if(!upgrade){
+						if(IAPlayer =="red" && script.lvlAttack1<4 && script.lvlLife1<4 && script.lvlSpeed1<4 ){
+							int rand = Random.Range(0, 101);
+							if(rand <= chanceUpgrade){
+								upgrade = true;	
+								bool t = false;
+								while(!t){
+									choseUpgrade = Random.Range(1,4);
+									if(choseUpgrade == 1 && script.lvlAttack1<4){
+										t=true;		
+									}else if(choseUpgrade == 2 && script.lvlLife1<4){
+										t=true;	
+									}else if(choseUpgrade == 3 && script.lvlLife1<4){
+										t=true;	
+									}
+								}
+							}
+						}else if(IAPlayer == "blue" && script.lvlAttack1<4 && script.lvlLife1<4 && script.lvlSpeed1<4 ){
+							int rand = Random.Range(0, 101);
+							if(rand <= chanceUpgrade){
+								upgrade = true;	
+								bool t = false;
+								while(!t){
+									choseUpgrade = Random.Range(1,4);
+									if(choseUpgrade == 1 && script.lvlAttack2<4){
+										t=true;		
+									}else if(choseUpgrade == 2 && script.lvlLife2<4){
+										t=true;	
+									}else if(choseUpgrade == 3 && script.lvlLife2<4){
+										t=true;	
+									}
+								}
+							}
+							
+						}
+						
+					}
+					
+					
+					
 					checkPlanets();
 					findPossibleRoutes();
 					calculatePonderation();
 					
 					
+					if(upgrade){
+						
+						if(choseUpgrade == 2){
+							if(IAPlayer == "red"){
+								if( 100 * (script.lvlLife1+1) <= user.GetComponent<MoneyScript>().moneyPlayer1){
+									(GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).lifeShip += 2;
+									user.GetComponent<MoneyScript>().moneyPlayer1 -= (100 * (script.lvlLife1+1));
+									script.lvlLife1++;
+									upgrade = false;
+								}
+							}else{
+								if( 100 * (script.lvlLife2+1) <= user.GetComponent<MoneyScript>().moneyPlayer2){
+									(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).lifeShip += 2;
+									user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (script.lvlLife2+1));
+									script.lvlLife2++;
+									upgrade = false;
+								}
+							}
+						}else if(choseUpgrade == 1){
+							if(IAPlayer == "red"){
+								if( 100 * (script.lvlAttack1+1) <= user.GetComponent<MoneyScript>().moneyPlayer1) {
+									(GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).powerMin += 2;
+									(GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).powerMax += 2;
+									user.GetComponent<MoneyScript>().moneyPlayer1 -= (100 * (script.lvlAttack1+1));
+									script.lvlAttack1++;
+									upgrade = false;
+									
+								}
+							}else{
+								if( 100 * (script.lvlAttack2+1) <= user.GetComponent<MoneyScript>().moneyPlayer2) {
+									(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).powerMin += 2;
+									(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).powerMax += 2;
+									user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (script.lvlAttack2+1));
+									script.lvlAttack2++;
+									upgrade = false;
+									
+								}
+							}
+							
+						
+						}else if(choseUpgrade ==3){
+							if(IAPlayer=="red") {
+								if( 100 * (script.lvlSpeed1+1) <= user.GetComponent<MoneyScript>().moneyPlayer1) {
+									(GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).speedShip -= 0.2f;
+									user.GetComponent<MoneyScript>().moneyPlayer1 -= (100 * (script.lvlSpeed1+1));
+									script.lvlSpeed1++;
+									upgrade = false;
+								}
+							}else{
+								if( 100 * (script.lvlSpeed2+1) <= user.GetComponent<MoneyScript>().moneyPlayer2) {
+									(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).speedShip -= 0.2f;
+									user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (script.lvlSpeed2+1));
+									script.lvlSpeed2++;
+									upgrade = false;
+								}
+							}
+						}
+							
+					}
+					
 					if(!powerLaunch){
 						chooseRoad();
-					}					
-
+					}
+					
 					reinitVar();
 					
 					
@@ -265,12 +374,11 @@ public class IAEngineV2 : MonoBehaviour {
 						if(scriptE.shipsR.Count>0 && (scriptE.shipsB.Count>0 || scriptE.shipsN.Count > 0)){//combat en cour
 							if(scriptE.shipsB.Count> scriptE.shipsR.Count ){
 								pond += siCombatPlanetAD;
-								Debug.Log("CombatPlanetAD");
+								//Debug.Log("CombatPlanetAD");
 								
-								Debug.Log(user.GetComponent<MoneyScript>().moneyPlayer1);
-								Debug.Log(power);
-								if(user.GetComponent<MoneyScript>().moneyPlayer1 >=200 && !powerLaunch){//L'IA Lance sabotage
-									Debug.Log("sabotage");
+								
+								if(user.GetComponent<MoneyScript>().moneyPlayer1 >=200 && !powerLaunch && !upgrade && Random.Range(0,101) <= chanceUsePower){//L'IA Lance sabotage
+									//Debug.Log("sabotage");
 									movePower("sabotage", planetEnd);
 								}else{//l'IA n'a pas Assez d'argent
 									nbShip += Mathf.FloorToInt((scriptE.shipsB.Count + (scriptE.shipsB.Count*marge)/100)- scriptE.shipsR.Count);
@@ -278,12 +386,11 @@ public class IAEngineV2 : MonoBehaviour {
 							
 							}else if(scriptE.shipsN.Count> scriptE.shipsR.Count ){
 								pond += siCombatPlanetAD;
-								Debug.Log("CombatPlanetAD");
+								//Debug.Log("CombatPlanetAD");
 								
-								Debug.Log(user.GetComponent<MoneyScript>().moneyPlayer1);
-								Debug.Log(power);
-								if(user.GetComponent<MoneyScript>().moneyPlayer1 >=200 && !powerLaunch){//L'IA lance sabotage
-									Debug.Log("sabotage");
+								
+								if(user.GetComponent<MoneyScript>().moneyPlayer1 >=200 && !powerLaunch && !upgrade && Random.Range(0,101) <= chanceUsePower){//L'IA lance sabotage
+									//Debug.Log("sabotage")
 									movePower("sabotage", planetEnd);
 								}else{//l'IA n'a pas assez d'argent
 									nbShip += Mathf.FloorToInt((scriptE.shipsN.Count + (scriptE.shipsN.Count*marge)/100)- scriptE.shipsR.Count);
@@ -298,19 +405,18 @@ public class IAEngineV2 : MonoBehaviour {
 									nbShip += Mathf.FloorToInt(scriptE.shipsB.Count + scriptE.shipsB.Count*marge/100);
 								}else{//si IA pas assez de vaisseaux 
 									pond += siPlanetPasIAPasAssezShip;
-									Debug.Log("PlanetPasIAPasAssezShip");
-									Debug.Log(user.GetComponent<MoneyScript>().moneyPlayer1);
-									Debug.Log(power);
-									if(user.GetComponent<MoneyScript>().moneyPlayer1 >=800 && !powerLaunch){//L'IA lance nuke
-										Debug.Log("nuke");
+									//Debug.Log("PlanetPasIAPasAssezShip");
+									
+									if(user.GetComponent<MoneyScript>().moneyPlayer1 >=800 && !powerLaunch && !upgrade){//L'IA lance nuke
+										//Debug.Log("nuke");
 										movePower("nuke", planetEnd);
-									}else if(user.GetComponent<MoneyScript>().moneyPlayer1 >=200 && !powerLaunch){
+									}else if(user.GetComponent<MoneyScript>().moneyPlayer1 >=200 && !powerLaunch && !upgrade && Random.Range(0,101) <= chanceUsePower){
 										//movePower("crash", planetEnd);
 											if(scriptE.shipsB.Count <= 10){
-												Debug.Log("crash");
+												//Debug.Log("crash");
 												movePower("crash", planetEnd);
 											}else{
-												Debug.Log("sabotage");
+												//Debug.Log("sabotage");
 												movePower("sabotage", planetEnd);
 											}
 										
@@ -326,14 +432,12 @@ public class IAEngineV2 : MonoBehaviour {
 									nbShip += Mathf.FloorToInt(scriptE.shipsN.Count +scriptE.shipsN.Count*marge/100);
 								}else{//si IA pas assez de vaisseaux 
 									pond += siPlanetPasIAPasAssezShip;
-									Debug.Log("PlanetPasIAPasAssezShip");
-									Debug.Log(user.GetComponent<MoneyScript>().moneyPlayer1);
-									Debug.Log(power);
-									if(user.GetComponent<MoneyScript>().moneyPlayer1 >=800 && !powerLaunch){//L'IA lance nuke
-										Debug.Log("nuke");
+									//Debug.Log("PlanetPasIAPasAssezShip");
+									if(user.GetComponent<MoneyScript>().moneyPlayer1 >=800 && !powerLaunch  && !upgrade){//L'IA lance nuke
+										//Debug.Log("nuke");
 										movePower("nuke", planetEnd);
-									}else if(user.GetComponent<MoneyScript>().moneyPlayer1 >=200 && !powerLaunch){
-										Debug.Log("sabotage");
+									}else if(user.GetComponent<MoneyScript>().moneyPlayer1 >=200 && !powerLaunch && !upgrade && Random.Range(0,101) <= chanceUsePower){
+										//Debug.Log("sabotage");
 										movePower("sabotage", planetEnd);
 									}
 								}
@@ -354,11 +458,9 @@ public class IAEngineV2 : MonoBehaviour {
 						if(scriptE.shipsB.Count>0 && (scriptE.shipsR.Count>0 || scriptE.shipsN.Count > 0)){//combat en cour
 							if(scriptE.shipsR.Count> scriptE.shipsB.Count ){
 								pond += siCombatPlanetAD;
-								Debug.Log("CombatPlanetAD");
-								Debug.Log(user.GetComponent<MoneyScript>().moneyPlayer2);
-								Debug.Log(power);
-								if(user.GetComponent<MoneyScript>().moneyPlayer2 >=200 && !powerLaunch){//L'IA lance sabotage
-									Debug.Log("sabotage");
+								//Debug.Log("CombatPlanetAD");
+								if(user.GetComponent<MoneyScript>().moneyPlayer2 >=200 && !powerLaunch && !upgrade && Random.Range(0,101) <= chanceUsePower){//L'IA lance sabotage
+									//Debug.Log("sabotage");
 									movePower("sabotage", planetEnd);
 								}else{//l'IA n'a pas assez d'argent
 									nbShip += Mathf.FloorToInt((scriptE.shipsR.Count + (scriptE.shipsR.Count*marge)/100)- scriptE.shipsB.Count);	
@@ -366,11 +468,9 @@ public class IAEngineV2 : MonoBehaviour {
 									
 							}else if(scriptE.shipsN.Count> scriptE.shipsB.Count ){
 								pond += siCombatPlanetAD;
-								Debug.Log("CombatPlanetAD");
-								Debug.Log(user.GetComponent<MoneyScript>().moneyPlayer2);
-								Debug.Log(power);
-								if(user.GetComponent<MoneyScript>().moneyPlayer2 >=200 && !powerLaunch){//L'IA lance sabotage
-									Debug.Log("sabotage");
+								//Debug.Log("CombatPlanetAD");
+								if(user.GetComponent<MoneyScript>().moneyPlayer2 >=200 && !powerLaunch && !upgrade && Random.Range(0,101) <= chanceUsePower){//L'IA lance sabotage
+									//Debug.Log("sabotage");
 									movePower("sabotage", planetEnd);
 								}else{
 									nbShip += Mathf.FloorToInt((scriptE.shipsN.Count + (scriptE.shipsN.Count*marge)/100)- scriptE.shipsB.Count);	
@@ -384,20 +484,18 @@ public class IAEngineV2 : MonoBehaviour {
 									nbShip += Mathf.FloorToInt(scriptE.shipsR.Count + scriptE.shipsR.Count*marge/100);
 								}else{//si IA pas assez de vaisseaux 
 									pond += siPlanetPasIAPasAssezShip;
-									Debug.Log("PlanetPasIAPasAssezShip");
-									Debug.Log(user.GetComponent<MoneyScript>().moneyPlayer2);
-									Debug.Log(power);
-									if(user.GetComponent<MoneyScript>().moneyPlayer2 >=800 && !powerLaunch){//L'IA lance nuke
-										Debug.Log("nuke");
+									//Debug.Log("PlanetPasIAPasAssezShip");
+									if(user.GetComponent<MoneyScript>().moneyPlayer2 >=800 && !powerLaunch && !upgrade){//L'IA lance nuke
+										//Debug.Log("nuke");
 										movePower("nuke", planetEnd);
-									}else if(user.GetComponent<MoneyScript>().moneyPlayer2 >=200 && !powerLaunch){
+									}else if(user.GetComponent<MoneyScript>().moneyPlayer2 >=200 && !powerLaunch && !upgrade && Random.Range(0,101) <= chanceUsePower){
 										//movePower("crash", planetEnd);
 										
 										if(scriptE.shipsR.Count <= 10){
-											Debug.Log("crash");
+											//Debug.Log("crash");
 											movePower("crash", planetEnd);
 										}else{
-											Debug.Log("sabotage");
+											//Debug.Log("sabotage");
 											movePower("sabotage", planetEnd);
 										}
 										
@@ -411,14 +509,12 @@ public class IAEngineV2 : MonoBehaviour {
 									nbShip += Mathf.FloorToInt(scriptE.shipsN.Count + scriptE.shipsN.Count*marge/100);
 								}else{//si IA pas assez de vaisseaux 
 									pond += siPlanetPasIAPasAssezShip;
-									Debug.Log("PlanetPasIAPasAssezShip");
-									Debug.Log(user.GetComponent<MoneyScript>().moneyPlayer2);
-									Debug.Log(power);
-									if(user.GetComponent<MoneyScript>().moneyPlayer2 >=800 && !powerLaunch){//L'IA lance nuke
-										Debug.Log("nuke");
+									//Debug.Log("PlanetPasIAPasAssezShip");
+									if(user.GetComponent<MoneyScript>().moneyPlayer2 >=800 && !powerLaunch && !upgrade ){//L'IA lance nuke
+										//Debug.Log("nuke");
 										movePower("nuke", planetEnd);
-									}else if(user.GetComponent<MoneyScript>().moneyPlayer2 >=200 && !powerLaunch){
-										Debug.Log("sabotage");
+									}else if(user.GetComponent<MoneyScript>().moneyPlayer2 >=200 && !powerLaunch && !upgrade && Random.Range(0,101) <= chanceUsePower){
+										//Debug.Log("sabotage");
 										movePower("sabotage", planetEnd);
 										
 									}
@@ -583,6 +679,7 @@ public class IAEngineV2 : MonoBehaviour {
 				}
 			}else if(plaE.GetComponent<PlanetScript>().ship.tag =="red"){
 				int deleteShip = (int)Mathf.Floor(plaE.GetComponent<PlanetScript>().shipsR.Count*info.sabotage/100);
+				Debug.Log("DELETESHIP :"+deleteShip);
 				for(int ships = 0; ships < deleteShip; ships++) {
 					GameObject temp = plaE.GetComponent<PlanetScript>().shipsR[0];
 					plaE.GetComponent<PlanetScript>().shipsR.RemoveAt(0);
@@ -659,6 +756,7 @@ public class IAEngineV2 : MonoBehaviour {
 				user.GetComponent<stats>().nbNukeRed ++;
 			}else{
 				user.GetComponent<MoneyScript>().moneyPlayer2-= info.nukePrice;
+				power.transform.position = info.posNuke2;
 				user.GetComponent<stats>().nbNukeBlue ++;
 			}
 		}
@@ -689,75 +787,77 @@ public class IAEngineV2 : MonoBehaviour {
 		
 		int rand = Random.Range(0, l.Count);	
 		SpaceBridge bridge = user.GetComponent<SpaceBridge>();
-		string[] val = l[rand].Split('-');
-		//Debug.Log("deplacement choisit: "+val[0]);
-		GameObject ps = GameObject.Find(""+val[0][0]);
-		GameObject pe = GameObject.Find(""+val[0][1]);
-		//Debug.Log(
-		
-		if(val[1] != null && val[1] != ""){
+		if( l[rand] != null){
+			string[] val = l[rand].Split('-');
+			//Debug.Log("deplacement choisit: "+val[0]);
+			GameObject ps = GameObject.Find(""+val[0][0]);
+			GameObject pe = GameObject.Find(""+val[0][1]);
+			//Debug.Log(
 			
-			
-			if(int.Parse(val[1])>0){
-			
-				Count.Add(int.Parse(val[1]));
-				CountTmp.Add(0);
-				speed.Add(0.2f);
-				speedTmp.Add(0);
+			if(val[1] != null && val[1] != ""){
 				
-				listPlanetStart.Add(ps);
 				
-				if(bridge.planet1.name == ps.name && bridge.planet2.name == pe.name){
-					listPlanetEnd.Add(bridge.blackHole1);
-				}else if(bridge.planet2.name == ps.name && bridge.planet1.name == pe.name){
-					listPlanetEnd.Add(bridge.blackHole2);
-				}else{
-					listPlanetEnd.Add(pe);
+				if(int.Parse(val[1])>0){
+				
+					Count.Add(int.Parse(val[1]));
+					CountTmp.Add(0);
+					speed.Add(0.2f);
+					speedTmp.Add(0);
+					
+					listPlanetStart.Add(ps);
+					
+					if(bridge.planet1.name == ps.name && bridge.planet2.name == pe.name){
+						listPlanetEnd.Add(bridge.blackHole1);
+					}else if(bridge.planet2.name == ps.name && bridge.planet1.name == pe.name){
+						listPlanetEnd.Add(bridge.blackHole2);
+					}else{
+						listPlanetEnd.Add(pe);
+					}
+					
+					
+					GameObject instance =(GameObject) Instantiate(Resources.Load("Line")as GameObject);
+					instance.transform.position = new Vector3(0,0,0);
+					LineRenderer linet = instance.GetComponent<LineRenderer>();
+					linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));
+					linet.SetPosition(0,ps.transform.position);
+					linet.SetPosition(1,ps.transform.position);
+					
+					listLines.Add(instance);
+					
+					if(IAPlayer == "red"){
+						GameObject SelectShip =  Resources.Load("TextSelectRed")as GameObject;
+						Vector3 vec =  ps.transform.position;
+					
+						vec.y = -20.22636f;
+					
+						GameObject instanceSelect = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
+						((TextMesh)instanceSelect.GetComponent<TextMesh>()).text = ""+0;
+						
+						instanceSelect.transform.RotateAround(Vector3.up, 1.6f);
+						Vector3 vt = instanceSelect.transform.position;
+						vt.x +=5;
+						instanceSelect.transform.position = vt;
+						GuiSelect.Add(instanceSelect);
+					}else{
+						GameObject SelectShip =  Resources.Load("TextSelectBlue")as GameObject;
+						Vector3 vec =  ps.transform.position;
+					
+						vec.y = -20.22636f;
+					
+						GameObject instanceSelect = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
+						((TextMesh)instanceSelect.GetComponent<TextMesh>()).text = ""+0;
+						instanceSelect.transform.RotateAround(Vector3.up, -1.6f);
+						Vector3 vt = instanceSelect.transform.position;
+						vt.x -=5;
+						instanceSelect.transform.position = vt;
+						GuiSelect.Add(instanceSelect);
+						
+					}
 				}
 				
 				
-				GameObject instance =(GameObject) Instantiate(Resources.Load("Line")as GameObject);
-				instance.transform.position = new Vector3(0,0,0);
-				LineRenderer linet = instance.GetComponent<LineRenderer>();
-				linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));
-				linet.SetPosition(0,ps.transform.position);
-				linet.SetPosition(1,ps.transform.position);
 				
-				listLines.Add(instance);
-				
-				if(IAPlayer == "red"){
-					GameObject SelectShip =  Resources.Load("TextSelectRed")as GameObject;
-					Vector3 vec =  ps.transform.position;
-				
-					vec.y = -20.22636f;
-				
-					GameObject instanceSelect = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
-					((TextMesh)instanceSelect.GetComponent<TextMesh>()).text = ""+0;
-					
-					instanceSelect.transform.RotateAround(Vector3.up, 1.6f);
-					Vector3 vt = instanceSelect.transform.position;
-					vt.x +=5;
-					instanceSelect.transform.position = vt;
-					GuiSelect.Add(instanceSelect);
-				}else{
-					GameObject SelectShip =  Resources.Load("TextSelectBlue")as GameObject;
-					Vector3 vec =  ps.transform.position;
-				
-					vec.y = -20.22636f;
-				
-					GameObject instanceSelect = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
-					((TextMesh)instanceSelect.GetComponent<TextMesh>()).text = ""+0;
-					instanceSelect.transform.RotateAround(Vector3.up, -1.6f);
-					Vector3 vt = instanceSelect.transform.position;
-					vt.x -=5;
-					instanceSelect.transform.position = vt;
-					GuiSelect.Add(instanceSelect);
-					
-				}
 			}
-			
-			
-			
 		}
 		
 	}

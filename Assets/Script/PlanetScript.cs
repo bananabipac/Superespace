@@ -20,7 +20,7 @@ public class PlanetScript : MonoBehaviour {
 	private int CaptureCount; //temps de capture requis
 	private int CaptureTmp;
 	private int SpeedCapture; //vitesse de capture
-	private float CaptureTime; //temps e capture en cour
+	public float CaptureTime; //temps e capture en cour
 	private GameObject user;
 	//pulsation
 	/*private bool pul;//triger pour la pulsation	
