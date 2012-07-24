@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: d1e7205322a0648b3adfa435868a6bc5
+labels:
+- pool
+- resource
+- swarm
+- horde
+- group
+- memory
+- ios
+- iphone
+- ipod
+- mobile
+- recycle
+- reuse
+- reduce
+- object
+- instantiate
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}

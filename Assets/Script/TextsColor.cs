@@ -28,9 +28,9 @@ public class TextsColor : MonoBehaviour {
 		if (gameObject.tag == "UpgradePlayer2") {
 			if(gameObject.name == "attaque2") {
 				if(user.GetComponent<GUIPlayers>().lvlAttack2 == 3){
-					text.text += "\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack2;
+					text.text += "Up Attack\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack2;
 				}else{
-					text.text += "\n" + 100 * (user.GetComponent<GUIPlayers>().lvlAttack2+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack2;
+					text.text += "Up Attack\n" + 100 * (user.GetComponent<GUIPlayers>().lvlAttack2+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack2;
 				}
 				
 			}
@@ -38,18 +38,18 @@ public class TextsColor : MonoBehaviour {
 		if (gameObject.tag == "UpgradePlayer2") {
 			if(gameObject.name == "vie2") {
 				if(user.GetComponent<GUIPlayers>().lvlLife2 == 3){
-					text.text += "\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife2;
+					text.text += "Up Life\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife2;
 				}else{
-					text.text += "\n" + 100 * (user.GetComponent<GUIPlayers>().lvlLife2+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife2;	
+					text.text += "Up Life\n" + 100 * (user.GetComponent<GUIPlayers>().lvlLife2+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife2;	
 				}
 			}
 		}
 		if (gameObject.tag == "UpgradePlayer2") {
 			if(gameObject.name == "vitesse2") {
 				if(user.GetComponent<GUIPlayers>().lvlSpeed2 == 3){
-					text.text += "\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed2;
+					text.text += "Up Speed\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed2;
 				}else{
-					text.text += "\n" + 100 * (user.GetComponent<GUIPlayers>().lvlSpeed2+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed2;
+					text.text += "Up Speed\n" + 100 * (user.GetComponent<GUIPlayers>().lvlSpeed2+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed2;
 				}
 				
 			}
@@ -57,9 +57,9 @@ public class TextsColor : MonoBehaviour {
 		if (gameObject.tag == "UpgradePlayer1") {
 			if(gameObject.name == "attaque1") {
 				if(user.GetComponent<GUIPlayers>().lvlAttack1 == 3){
-					text.text += "\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack1;
+					text.text += "Up Attack\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack1;
 				}else{
-					text.text += "\n" + 100 * (user.GetComponent<GUIPlayers>().lvlAttack1+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack1;
+					text.text += "Up Attack\n" + 100 * (user.GetComponent<GUIPlayers>().lvlAttack1+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack1;
 				}
 				
 			}
@@ -67,9 +67,9 @@ public class TextsColor : MonoBehaviour {
 		if (gameObject.tag == "UpgradePlayer1") {
 			if(gameObject.name == "vie1") {
 				if(user.GetComponent<GUIPlayers>().lvlLife1 == 3){
-					text.text += "\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife1;
+					text.text += "Up Life\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife1;
 				}else{
-					text.text += "\n" + 100 * (user.GetComponent<GUIPlayers>().lvlLife1+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife1;
+					text.text += "Up Life\n" + 100 * (user.GetComponent<GUIPlayers>().lvlLife1+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife1;
 				}
 				
 			}
@@ -77,9 +77,9 @@ public class TextsColor : MonoBehaviour {
 		if (gameObject.tag == "UpgradePlayer1") {
 			if(gameObject.name == "vitesse1") {
 				if(user.GetComponent<GUIPlayers>().lvlSpeed1 == 3){
-					text.text += "\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed1;
+					text.text += "Up Speed\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed1;
 				}else{
-					text.text += "\n" + 100 * (user.GetComponent<GUIPlayers>().lvlSpeed1+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed1;
+					text.text += "Up Speed\n" + 100 * (user.GetComponent<GUIPlayers>().lvlSpeed1+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed1;
 				}
 				
 			}
@@ -111,9 +111,9 @@ public class TextsColor : MonoBehaviour {
 						renderer.material.color = Color.green;	
 					}
 					if(user.GetComponent<GUIPlayers>().lvlAttack2 == 3){
-						text.text += "\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack2;
+						text.text = "Up Attack\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack2;
 					}else{
-						text.text += "\n" + 100 * (user.GetComponent<GUIPlayers>().lvlAttack2+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack2;
+						text.text = "Up Attack\n" + 100 * (user.GetComponent<GUIPlayers>().lvlAttack2+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack2;
 					}
 				}
 				if(gameObject.name == "vie2") {
@@ -123,9 +123,9 @@ public class TextsColor : MonoBehaviour {
 						renderer.material.color = Color.green;	
 					}
 					if(user.GetComponent<GUIPlayers>().lvlLife2 == 3){
-						text.text += "\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife2;
+						text.text = "Up Life\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife2;
 					}else{
-						text.text += "\n" + 100 * (user.GetComponent<GUIPlayers>().lvlLife2+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife2;	
+						text.text = "Up Life\n" + 100 * (user.GetComponent<GUIPlayers>().lvlLife2+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife2;	
 					}
 				}
 				if(gameObject.name == "vitesse2") {
@@ -135,9 +135,9 @@ public class TextsColor : MonoBehaviour {
 						renderer.material.color = Color.green;	
 					}
 					if(user.GetComponent<GUIPlayers>().lvlSpeed2 == 3){
-						text.text += "\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed2;
+						text.text = "Up Speed\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed2;
 					}else{
-						text.text += "\n" + 100 * (user.GetComponent<GUIPlayers>().lvlSpeed2+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed2;
+						text.text = "Up Speed\n" + 100 * (user.GetComponent<GUIPlayers>().lvlSpeed2+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed2;
 					}
 				}
 			} else {
@@ -148,9 +148,9 @@ public class TextsColor : MonoBehaviour {
 						renderer.material.color = Color.green;	
 					}
 					if(user.GetComponent<GUIPlayers>().lvlAttack1 == 3){
-						text.text += "\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack1;
+						text.text = "Up Attack\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack1;
 					}else{
-						text.text += "\n" + 100 * (user.GetComponent<GUIPlayers>().lvlAttack1+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack1;
+						text.text = "Up Attack\n" + 100 * (user.GetComponent<GUIPlayers>().lvlAttack1+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlAttack1;
 					}
 				}
 				if(gameObject.name == "vie1") {
@@ -160,9 +160,9 @@ public class TextsColor : MonoBehaviour {
 						renderer.material.color = Color.green;	
 					}
 					if(user.GetComponent<GUIPlayers>().lvlLife1 == 3){
-						text.text += "\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife1;
+						text.text = "Up Life\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife1;
 					}else{
-						text.text += "\n" + 100 * (user.GetComponent<GUIPlayers>().lvlLife1+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife1;
+						text.text = "Up Life\n" + 100 * (user.GetComponent<GUIPlayers>().lvlLife1+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlLife1;
 					}
 				}
 				if(gameObject.name == "vitesse1") {
@@ -172,9 +172,9 @@ public class TextsColor : MonoBehaviour {
 						renderer.material.color = Color.green;	
 					}
 					if(user.GetComponent<GUIPlayers>().lvlSpeed1 == 3){
-						text.text += "\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed1;
+						text.text = "Up Speed\nMax\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed1;
 					}else{
-						text.text += "\n" + 100 * (user.GetComponent<GUIPlayers>().lvlSpeed1+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed1;
+						text.text = "Up SPeed\n" + 100 * (user.GetComponent<GUIPlayers>().lvlSpeed1+1) + " Cr.\nLevel : " + user.GetComponent<GUIPlayers>().lvlSpeed1;
 					}
 				}
 			}

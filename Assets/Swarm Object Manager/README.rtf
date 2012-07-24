@@ -1,0 +1,80 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fcharset0 Arial;}}
+{\*\generator Msftedit 5.41.15.1515;}\viewkind4\uc1\pard\b\f0\fs28 Swarm Object Manager \b0\fs20\par
+\b v 1.6\par
+\b0\par
+(c) Midnight Ware 2011 - All Rights Reserved\par
+\par
+\b WARNING!!  \b0 If you are upgrading from version 1.4, take note that you will need to set your prefabs for your SwarmItemManagers in the editor again. This is because several enhancements have been added that allow you to limit your object creation and prune when neccessary. This change will cause the editor to reset your lists.\par
+\par
+\b Overview\b0\par
+------------------------------\par
+\par
+The Swarm Object Manager is a system designed to allow the creation and recycling of game objects. Instead of constantly destroying game objects, the manager moves them to inactive stacks to be recycled later, allowing more efficient use of memory and negating the need for the garbage collector to constantly run. This is especially useful on mobile devices as memory management can tax the processor.\par
+\par
+The manager also has the ability to prune back inactive lists of objects based on thresholds, timers, and prune percentages that you supply on a per list basis. This can be useful to protect against spikes in the object creation that may never be used again. Instead of leaving these new objects in memory, unlikely to ever be recycled, the prune functions will take them out, freeing up the memory.\par
+\par
+The manager can limit the maximum number of items in a list. This can be useful if you want to avoid spikes of object creation all at one time, or you want to limit the amount of objects that may normally tax the processor.\par
+\par
+The Swarm Object Manager system is comprised of at least one SwarmItemManager and Many SwarmItems. A scene can have multiple SwarmItemManagers. For instance, you may want to have one manager for enemies, another for weapons, and another for explosions.\par
+\par
+A single manager can handle multiple types of SwarmItems. For example, a weapon swarm manager might have bullets, missiles, and grenades.\par
+\par
+SwarmItems can be given a life span. When the life span is reached, the SwarmItem will kill itself and its manager will recycle the object. Without a life span, a SwarmItem will persist until it is manually killed. Lifespans are particularly useful for particle system SwarmItems such as explosions since after they run their course they should be removed from the scene.\par
+\par
+\b Usage\b0\par
+------------------------------\par
+\par
+Copy the Plugins directory from the demo to the root of your project.\par
+\par
+To use the Swarm Object Manager system, you must add at least one SwarmItemManager in a scene.The manager creates SwarmItems from prefabs, so you must have at least one prefab with a SwarmItem (or class inherited from SwarmItem) component attached to it.The manager will reference this (or these) prefabs.\par
+\par
+To activate an SwarmItem, simply call the ActivateItem method on the SwarmItemManager from code using the index of the SwarmItem prefab to utilize. To kill a SwarmItem, simply call the Kill method on the SwarmItem.\par
+\par
+The SwarmItemManager does not use reflection with an Update function. Instead the FrameUpdate method must be called every frame from another MonoDevelop inherited class. This is more efficient than having many Update functions spread throughout your scene. The manager calls its children SwarmItem's FrameUpdate methods from its own FrameUpdate method.\par
+\par
+You can create classes inherited from the SwarmItemManager and SwarmItem classes for more specific behaviors.\par
+\par
+\b Demo\b0\par
+------------------------------\par
+\par
+To see the Swarm Object Manager system in practice, check out the Asteroids project scene. This demonstration shows the different ways the managers and items can be used. The pruning functionality is set on the various managers to show how pruning can be utilized. Keep in mind that normally for a small project such as this, pruning would probably be unneccessary, but for demonstration purposes it has be turned on with different levels for all the objects.\par
+\par
+The Main class ties everything together by initializing and updating each of the managers and the space ship. Any manager can be accessed from any component by referencing the Main.Instance singleton.\par
+\par
+There are three SwarmItemManagers in this demo: Asteroid Manager, Bullet Manager, and Explosion Manager.\par
+\par
+AsteroidManager is an inherited class from SwarmItemManager that creates a field of asteroids. Asteroid is an inherited class from SwarmItem that this manager controls. The asteroid manager can create three types of asteroids: Large, Medium, and Small. When an asteroid is destroyed, the manager creates two smaller asteroids in its place, giving the illusion of the asteroid breaking up into smaller pieces. When the asteroids are created, the manager will try to recycle previously deactivated asteroids. If none are available, it will create a new object.\par
+\par
+The asteroid manager has its debugging option turned on so that you can see the events that are taking place within. You can turn this option off in the editor if you don't want to see the messages.\par
+\par
+The asteroid manager's pruning is set as follows:\par
+\par
+Small asteroids:\par
+small asteroids will be set to be permanently destroyed (sent to the garbage collector) when the inactive count of the small asteroids reaches 80% of the total small asteroids. When this threshold is reached, the prune timer will begin counting down from 10 seconds. If this timer expires without dropping back below the threshold, the manager will prune 60% of the small, inactive asteroids. The small asteroids have no limit to the total number of objects that can be created because the max item count is set to 0.\par
+\par
+Medium asteroids:\par
+When 80% of the medium asteroids are inactive, a timer of 10 seconds will be set to prune 50% of the inactive medium asteroids.The medium asteroids have no limit to the total number of objects that can be created because the max item count is set to 0.\par
+\par
+Large asteroids:\par
+When 0% of the large asteroids are inactive, 100% of the inactive large asteroids will be immediately pruned. What this means is that when a large asteroid is deactivated, it is immediately sent to the garbage collector. This is extremely aggressive pruning and most likely won't be used in your project. We use it here to demonstrate the flexibility of the pruner. Also, since large asteroids will never come back (because asteroids can only break into smaller asteroids), there is no need to keep them around in memory.The large asteroids have no limit to the total number of objects that can be created because the max item count is set to 0.\par
+\par
+The bullet and explosion SwarmItems don't have a special manager. Instead they just use the base SwarmItemManager class with a minimum of calls. Bullets are killed if they hit an asteroid or reach the boundary of the asteroid field. Explosions have a set lifespan of half a second. When this time is reached, the explosion kills itself.\par
+\par
+The bullet manager's is set to prune when 80% of the bullets are inactive, at which time the countdown will start with 5 seconds to prune 50% of the inactive bullets.The bullets have no limit to the total number of objects that can be created because the max item count is set to 0.\par
+\par
+The explosion manager will not prune its lists because the inactive prune percentage is set to 0%. It does however, limit the maximum number of explosions to 5 at one time. This can be useful for effects that may choke the processor when too many are present at once.\par
+\par
+\b Documentation\b0\par
+------------------------------\par
+\par
+You can find a zipped collection of documentation files for both the Swarm Object Manager plugin and the Demo scene in the "Docs and Demo" folder. The code is also documented internally for better understanding of the process and usage of this system.\par
+\par
+\b Version History:\par
+\b0 ------------------------------\par
+\par
+1.6\par
+- Added maximum item list counts to optionally limit the number of items a list can instantiate.\par
+- Added pruning capabilities to optionally destroy objects that are not being used.\par
+- Added debugging at the manager level to optionally see what the manager is doing.\par
+}
+ 

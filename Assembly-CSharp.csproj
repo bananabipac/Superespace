@@ -44,6 +44,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Script\ColorScoreScreen.cs" />
      <Compile Include="Assets\Script\GUIFPS.cs" />
      <Compile Include="Assets\Script\GUIMoney.cs" />
      <Compile Include="Assets\Script\GUIPlanet.cs" />
@@ -73,6 +74,14 @@
      <Compile Include="Assets\Script\moveShip.cs" />
      <Compile Include="Assets\Script\rotationShip.cs" />
      <Compile Include="Assets\Script\stats.cs" />
+     <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Plugins\MidnightWare\Swarm\SwarmItem.cs" />
+     <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Plugins\MidnightWare\Swarm\SwarmItemManager.cs" />
+     <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Scripts\Asteroid.cs" />
+     <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Scripts\AsteroidManager.cs" />
+     <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Scripts\Bullet.cs" />
+     <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Scripts\Explosion.cs" />
+     <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Scripts\Main.cs" />
+     <Compile Include="Assets\Swarm Object Manager\Swarm Plugin with Demo\Scripts\Ship.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\Standard Assets\Glass Refraction (Pro Only)\Sources\Shaders\Glass-Stained-BumpDistort.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
