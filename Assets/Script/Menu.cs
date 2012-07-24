@@ -67,6 +67,10 @@ public class Menu : MonoBehaviour {
 	private Rect finalQuick;
 	private Rect tempQuick;
 	
+	private Vector3 initialTutoScreen;
+	private Vector3 posTutoScreen;
+	private Vector3 finalTutoScreen;
+	
 	public GUIStyle style2;
 	public GUIStyle style3;
 	public string handPlayer1 = "Right-Handed";
@@ -136,10 +140,10 @@ public class Menu : MonoBehaviour {
 		posLevel2 = initialLevel2;
 		finalLevel2 = new Rect(xPosMulti,1.5f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
-		initialBack = new Rect(xPosExit+1500,yPosExit,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		initialBack = new Rect(xPosExit+1500,1.05f*yPosExit,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posBack = initialBack;
-		finalBack = new Rect(xPosExit,yPosExit,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
-		tempBack = new Rect(xPosExit-1500,yPosExit,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		finalBack = new Rect(xPosExit,1.05f*yPosExit,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		tempBack = new Rect(xPosExit-1500,1.05f*yPosExit,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
 		initialClassic = new Rect(xPosMulti+1500,yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posClassic = initialClassic;
@@ -150,6 +154,8 @@ public class Menu : MonoBehaviour {
 		posQuick = initialQuick;
 		finalQuick = new Rect(xPosMulti,1.5f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		tempQuick = new Rect(xPosMulti-1500,1.5f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		
+		
 		
 		style.alignment = TextAnchor.MiddleCenter;
 		if(PlayerPrefs.GetString("paramHand1") == "left" ){
