@@ -39,8 +39,8 @@ public class IAEngine : MonoBehaviour {
 					checkPlanets();
 					findPossibleRoutes();
 					/*foreach(GameObject[] pair in pairs) {
-						Debug.Log ("Planet0 "+pair[0].name);	
-						Debug.Log ("Planet1 "+pair[1].name);
+						//Debug.Log ("Planet0 "+pair[0].name);	
+						//Debug.Log ("Planet1 "+pair[1].name);
 					}*/
 					checkRoutes(false);
 					checkMoney();
@@ -348,10 +348,10 @@ public class IAEngine : MonoBehaviour {
 		for(int i = 0; i < planets.Length; i++){
 			GameObject planet = planets[i];
 			if(planet.GetComponent<PlanetScript>().ship.tag == IAPlayer) {
-				//Debug.Log(planet.tag);
+				////Debug.Log(planet.tag);
 				planetsIA.Add(planet);
 				indice++;
-				//Debug.Log("planete IA: "+planet.name);
+				////Debug.Log("planete IA: "+planet.name);
 			}
 		}	
 

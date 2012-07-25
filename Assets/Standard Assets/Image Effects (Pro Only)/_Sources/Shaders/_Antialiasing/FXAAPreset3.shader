@@ -173,41 +173,41 @@ FXAA_SRGB_ROP - Set to 1 when applying FXAA to an sRGB back buffer (DX10/11).
 #define FXAA_SRGB_ROP 0
 
 /*============================================================================
-                                DEBUG KNOBS
+                                Debug KNOBS
 ------------------------------------------------------------------------------
-All debug knobs draw FXAA-untouched pixels in FXAA computed luma (monochrome).
+All Debug knobs draw FXAA-untouched pixels in FXAA computed luma (monochrome).
  
-FXAA_DEBUG_PASSTHROUGH - Red for pixels which are filtered by FXAA with a
+FXAA_Debug_PASSTHROUGH - Red for pixels which are filtered by FXAA with a
                          yellow tint on sub-pixel aliasing filtered by FXAA.
-FXAA_DEBUG_HORZVERT    - Blue for horizontal edges, gold for vertical edges. 
-FXAA_DEBUG_PAIR        - Blue/green for the 2 pixel pair choice. 
-FXAA_DEBUG_NEGPOS      - Red/blue for which side of center of span.
-FXAA_DEBUG_OFFSET      - Red/blue for -/+ x, gold/skyblue for -/+ y.
+FXAA_Debug_HORZVERT    - Blue for horizontal edges, gold for vertical edges. 
+FXAA_Debug_PAIR        - Blue/green for the 2 pixel pair choice. 
+FXAA_Debug_NEGPOS      - Red/blue for which side of center of span.
+FXAA_Debug_OFFSET      - Red/blue for -/+ x, gold/skyblue for -/+ y.
 ============================================================================*/
-#ifndef     FXAA_DEBUG_PASSTHROUGH
-    #define FXAA_DEBUG_PASSTHROUGH 0
+#ifndef     FXAA_Debug_PASSTHROUGH
+    #define FXAA_Debug_PASSTHROUGH 0
 #endif    
-#ifndef     FXAA_DEBUG_HORZVERT
-    #define FXAA_DEBUG_HORZVERT    0
+#ifndef     FXAA_Debug_HORZVERT
+    #define FXAA_Debug_HORZVERT    0
 #endif    
-#ifndef     FXAA_DEBUG_PAIR   
-    #define FXAA_DEBUG_PAIR        0
+#ifndef     FXAA_Debug_PAIR   
+    #define FXAA_Debug_PAIR        0
 #endif    
-#ifndef     FXAA_DEBUG_NEGPOS
-    #define FXAA_DEBUG_NEGPOS      0
+#ifndef     FXAA_Debug_NEGPOS
+    #define FXAA_Debug_NEGPOS      0
 #endif
-#ifndef     FXAA_DEBUG_OFFSET
-    #define FXAA_DEBUG_OFFSET      0
+#ifndef     FXAA_Debug_OFFSET
+    #define FXAA_Debug_OFFSET      0
 #endif    
 /*--------------------------------------------------------------------------*/
-#if FXAA_DEBUG_PASSTHROUGH || FXAA_DEBUG_HORZVERT || FXAA_DEBUG_PAIR
-    #define FXAA_DEBUG 1
+#if FXAA_Debug_PASSTHROUGH || FXAA_Debug_HORZVERT || FXAA_Debug_PAIR
+    #define FXAA_Debug 1
 #endif    
-#if FXAA_DEBUG_NEGPOS || FXAA_DEBUG_OFFSET
-    #define FXAA_DEBUG 1
+#if FXAA_Debug_NEGPOS || FXAA_Debug_OFFSET
+    #define FXAA_Debug 1
 #endif
-#ifndef FXAA_DEBUG
-    #define FXAA_DEBUG 0
+#ifndef FXAA_Debug
+    #define FXAA_Debug 0
 #endif
   
 /*============================================================================
@@ -424,11 +424,11 @@ to avoid processing in really dark areas.
     float rangeMin = min(lumaM, min(min(lumaN, lumaW), min(lumaS, lumaE)));
     float rangeMax = max(lumaM, max(max(lumaN, lumaW), max(lumaS, lumaE)));
     float range = rangeMax - rangeMin;
-    #if FXAA_DEBUG
+    #if FXAA_Debug
         float lumaO = lumaM / (1.0 + (0.587/0.299));
     #endif        
     if(range < max(FXAA_EDGE_THRESHOLD_MIN, rangeMax * FXAA_EDGE_THRESHOLD)) {
-        #if FXAA_DEBUG
+        #if FXAA_Debug
             return FxaaFilterReturn(FxaaToFloat3(lumaO));
         #endif
         return FxaaFilterReturn(rgbM); }
@@ -467,7 +467,7 @@ of a lowpass value (computed in the next section) to the final result.
     #if FXAA_SUBPIX == 2
         float blendL = rangeL / range; 
     #endif
-    #if FXAA_DEBUG_PASSTHROUGH
+    #if FXAA_Debug_PASSTHROUGH
         #if FXAA_SUBPIX == 0
             float blendL = 0.0;
         #endif
@@ -517,7 +517,7 @@ flow in parallel (reusing the horizontal variables).
         abs((0.50 * lumaN ) + (-1.0 * lumaM) + (0.50 * lumaS )) +
         abs((0.25 * lumaNE) + (-0.5 * lumaE) + (0.25 * lumaSE));
     bool horzSpan = edgeHorz >= edgeVert;
-    #if FXAA_DEBUG_HORZVERT
+    #if FXAA_Debug_HORZVERT
         if(horzSpan) return FxaaFilterReturn(FxaaFloat3(1.0, 0.75, 0.0));
         else         return FxaaFilterReturn(FxaaFloat3(0.0, 0.50, 1.0));
     #endif
@@ -548,7 +548,7 @@ until edge status changes
 (or the maximum number of search steps is reached).
 ----------------------------------------------------------------------------*/    
     bool pairN = gradientN >= gradientS;
-    #if FXAA_DEBUG_PAIR
+    #if FXAA_Debug_PAIR
         if(pairN) return FxaaFilterReturn(FxaaFloat3(0.0, 0.0, 1.0));
         else      return FxaaFilterReturn(FxaaFloat3(0.0, 1.0, 0.0));
     #endif
@@ -642,7 +642,7 @@ On negative side if dstN < dstP,
     float dstN = horzSpan ? pos.x - posN.x : pos.y - posN.y;
     float dstP = horzSpan ? posP.x - pos.x : posP.y - pos.y;
     bool directionN = dstN < dstP;
-    #if FXAA_DEBUG_NEGPOS
+    #if FXAA_Debug_NEGPOS
         if(directionN) return FxaaFilterReturn(FxaaFloat3(1.0, 0.0, 0.0));
         else           return FxaaFilterReturn(FxaaFloat3(0.0, 0.0, 1.0));
     #endif
@@ -770,7 +770,7 @@ Position on span is used to compute sub-pixel filter offset using simple ramp,
     float spanLength = (dstP + dstN);
     dstN = directionN ? dstN : dstP;
     float subPixelOffset = (0.5 + (dstN * (-1.0/spanLength))) * lengthSign;
-    #if FXAA_DEBUG_OFFSET
+    #if FXAA_Debug_OFFSET
         float ox = horzSpan ? 0.0 : subPixelOffset*2.0/rcpFrame.x;
         float oy = horzSpan ? subPixelOffset*2.0/rcpFrame.y : 0.0;
         if(ox < 0.0) return FxaaFilterReturn(

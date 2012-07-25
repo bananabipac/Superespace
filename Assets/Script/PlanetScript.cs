@@ -50,7 +50,7 @@ public class PlanetScript : MonoBehaviour {
 		CaptureCount = 1;
 		SpeedCapture = 50;
 		
-		//END Debug
+		//END //Debug
 		
 		
 		CaptureTmp = 0;	
@@ -141,7 +141,7 @@ public class PlanetScript : MonoBehaviour {
 						int[] links = ((GestionLink)user.GetComponent<GestionLink>()).nbRoad();
 						user.GetComponent<MoneyScript>().incomePlayer1 = 1 + links[0];
 						user.GetComponent<MoneyScript>().incomePlayer2 = 1 + links[1];
-						//Debug.Log("Planete : "+gameObject.name + "capture blue");
+						////Debug.Log("Planete : "+gameObject.name + "capture blue");
 						
 					}
 				}
@@ -179,7 +179,7 @@ public class PlanetScript : MonoBehaviour {
 						user.GetComponent<stats>().nbCaptureRed++;
 						gameObject.light.color = new Color(1,0,0,1);
 						CaptureTime = CaptureCount;
-						Debug.Log("Planete : "+gameObject.name + "capture red");
+						//Debug.Log("Planete : "+gameObject.name + "capture red");
 						((GestionLink)user.GetComponent<GestionLink>()).changeColor(gameObject);
 						int[] links = ((GestionLink)user.GetComponent<GestionLink>()).nbRoad();
 						user.GetComponent<MoneyScript>().incomePlayer1 = 1 + links[0];
@@ -246,7 +246,7 @@ public class PlanetScript : MonoBehaviour {
 		}
 		
 		/*if(ship.tag == "blue"){
-			//Debug.Log(shipsBS.Count);
+			////Debug.Log(shipsBS.Count);
 			if(shipsB.Count >= 10*shipsBS.Count + 10){
 				GameObject shipGros = (GameObject)Instantiate(Resources.Load("ShipblueG")as GameObject, vec ,transform.rotation); 
 				//GameObject instanceS = Resources.Load("Shipred")as GameObject;

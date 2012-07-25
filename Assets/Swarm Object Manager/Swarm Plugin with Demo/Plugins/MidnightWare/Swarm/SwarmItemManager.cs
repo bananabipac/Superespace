@@ -147,7 +147,7 @@ public class SwarmItemManager : MonoBehaviour
 	/// <summary>
 	/// flag to show important events happening in this manager 
 	/// </summary>
-	public bool debugEvents;
+	public bool DebugEvents;
 	
 	/// <summary>
 	/// the array of prefabs with their maximum item counts. This is set in the editor
@@ -219,7 +219,7 @@ public class SwarmItemManager : MonoBehaviour
 		// so return nothing
 		if (_prefabItemLists[itemPrefabIndex].activeItems.Count == itemPrefabs[itemPrefabIndex].maxItemCount && itemPrefabs[itemPrefabIndex].maxItemCount > 0)
 		{
-			if (debugEvents)
+			if (DebugEvents)
 				Debug.Log("Could not activate item because the count [" + _prefabItemLists[itemPrefabIndex].activeItems.Count + "] is at the maximum number for this item type at frame: " + Time.frameCount);
 
 			return null;
@@ -235,7 +235,7 @@ public class SwarmItemManager : MonoBehaviour
 			// queue to the end of the active list
 			_prefabItemLists[itemPrefabIndex].activeItems.AddLast(_item);
 			
-			if (debugEvents)
+			if (DebugEvents)
 				Debug.Log("Recycled item " + _item.name + " at frame: " + Time.frameCount);
 		}
 		else
@@ -248,7 +248,7 @@ public class SwarmItemManager : MonoBehaviour
 			// queue to the end of the active list
 			_prefabItemLists[itemPrefabIndex].activeItems.AddLast(_item);
 			
-			if (debugEvents)
+			if (DebugEvents)
 				Debug.Log("Instantiated a new item " + _go.name + " at frame: " + Time.frameCount);
 		}
 		
@@ -265,7 +265,7 @@ public class SwarmItemManager : MonoBehaviour
 			// if the inactive item count dropped below the threshold
 			if (((float)_prefabItemLists[itemPrefabIndex].inactiveItems.Count / (float)_prefabItemLists[itemPrefabIndex].itemCount) < itemPrefabs[itemPrefabIndex].inactiveThreshold)
 			{
-				if (debugEvents)
+				if (DebugEvents)
 					Debug.Log("Dropped below inactive threshold [" + (itemPrefabs[itemPrefabIndex].inactiveThreshold * 100) + "%] for " + itemPrefabs[itemPrefabIndex].prefab.name + " list before timer expired. Stopping prune timer at frame: " + Time.frameCount);
 				
 				// turn the prune timer off
@@ -291,7 +291,7 @@ public class SwarmItemManager : MonoBehaviour
 		// this is mainly just for visual reference in the editor
 		SetItemParentTransform(item, _inactiveParentTransform);
 		
-		if (debugEvents)
+		if (DebugEvents)
 			Debug.Log("Deactivated " + item.name + " at frame: " + Time.frameCount);
 
 		// if the prune timer is not currently running and we actually want to prune
@@ -300,7 +300,7 @@ public class SwarmItemManager : MonoBehaviour
 			// if the inactive item count exceeds the threshold
 			if (((float)(_prefabItemLists[item.PrefabIndex].inactiveItems.Count) / (float)_prefabItemLists[item.PrefabIndex].itemCount) >= itemPrefabs[item.PrefabIndex].inactiveThreshold)
 			{
-				if (debugEvents)
+				if (DebugEvents)
 					Debug.Log("Inactive threshold [" + (itemPrefabs[item.PrefabIndex].inactiveThreshold * 100) + "%] reached for " + itemPrefabs[item.PrefabIndex].prefab.name + " list. Starting prune timer [" + itemPrefabs[item.PrefabIndex].inactivePruneTimer + " seconds] at frame: " + Time.frameCount);
 				
 				// if the prune timer is set to expire immediately
@@ -335,7 +335,7 @@ public class SwarmItemManager : MonoBehaviour
 		// get the SwarmItem component from the gameobject
 		item = (SwarmItem)_go.GetComponent(typeof(SwarmItem));
 		// initialize the SwarmItem
-		item.Initialize(this, itemPrefabIndex, debugEvents);
+		item.Initialize(this, itemPrefabIndex, DebugEvents);
 		
 		// increase the item count for this prefab
 		_prefabItemLists[itemPrefabIndex].itemCount++;
@@ -438,7 +438,7 @@ public class SwarmItemManager : MonoBehaviour
 		int pruneCount = Mathf.FloorToInt(prunePercentage * (float)_prefabItemLists[itemPrefabIndex].inactiveItems.Count);
 		SwarmItem item;
 		
-		if (debugEvents)
+		if (DebugEvents)
 			Debug.Log("Pruning " + pruneCount + " items [" + (itemPrefabs[itemPrefabIndex].inactivePrunePercentage*100) + "% of " + _prefabItemLists[itemPrefabIndex].inactiveItems.Count + "] from inactive " + itemPrefabs[itemPrefabIndex].prefab.name + " list at frame: " + Time.frameCount);
 		
 		// prune each item
@@ -451,7 +451,7 @@ public class SwarmItemManager : MonoBehaviour
 			// free any memory
 			item.PreDestroy();
 			
-			if (debugEvents)
+			if (DebugEvents)
 				Debug.Log("Destroyed " + item.name + " at frame: " + Time.frameCount);
 			
 			// destroy the item

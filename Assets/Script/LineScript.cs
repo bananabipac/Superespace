@@ -26,7 +26,7 @@ public class LineScript : MonoBehaviour {
 					// however, IMO there should only be five finger IDs max.
 					if ( !warnedAboutMaxTouches )
 					{
-						Debug.Log( "Oops! We got a finderId greater than maxTouches: " + touch.fingerId );
+						//Debug.Log( "Oops! We got a finderId greater than maxTouches: " + touch.fingerId );
 						warnedAboutMaxTouches = true;
 					}
 				}
@@ -71,7 +71,7 @@ public class LineScript : MonoBehaviour {
 							touched.y = listPlanetStart[fingerId].transform.position.y;
 							LineRenderer linet = listLines[fingerId].GetComponent<LineRenderer>();
 							if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
-								//Debug.Log (hit.collider.tag);
+								////Debug.Log (hit.collider.tag);
 								if ((hit.collider.tag == "planet" || hit.collider.tag == "BlackHole") && hit.collider.name != listPlanetStart[fingerId].name) {
 									if(GetComponent<GestionLink>().roadExist(listPlanetStart[fingerId],hit.collider.gameObject)) {
 										if(GetComponent<GestionLink>().roadOpen(listPlanetStart[fingerId],hit.collider.gameObject)) {

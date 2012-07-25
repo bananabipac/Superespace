@@ -19,9 +19,9 @@ public class Explosion : SwarmItem
 	/// <summary>
 	/// Overrides SwarmItem's Initialize Method and caches the emitter 
 	/// </summary>
-	public override void Initialize(SwarmItemManager swarmItemManager, int prefabIndex, bool debugEvents)
+	public override void Initialize(SwarmItemManager swarmItemManager, int prefabIndex, bool DebugEvents)
 	{
-		base.Initialize(swarmItemManager, prefabIndex, debugEvents);
+		base.Initialize(swarmItemManager, prefabIndex, DebugEvents);
 
 		// cache the emitter for later use
 		emitter = (ParticleEmitter)gameObject.GetComponent(typeof(ParticleEmitter));

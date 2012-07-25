@@ -95,8 +95,8 @@ public class stats : MonoBehaviour {
 		float minutes = time / 60;
 		float secondes = time % 60;
 		
-		//Debug.Log(Mathf.FloorToInt(minutes));
-		//Debug.Log(Mathf.FloorToInt(secondes));
+		////Debug.Log(Mathf.FloorToInt(minutes));
+		////Debug.Log(Mathf.FloorToInt(secondes));
    		PlayerPrefs.SetInt("timeGameMin", Mathf.FloorToInt(minutes));
 		PlayerPrefs.SetInt("timeGameSec", Mathf.FloorToInt(secondes));
 		
@@ -106,6 +106,6 @@ public class stats : MonoBehaviour {
 	void Update () {
 		time +=  Time.deltaTime;
 		
-		//Debug.Log(time);
+		////Debug.Log(time);
 	}
 }

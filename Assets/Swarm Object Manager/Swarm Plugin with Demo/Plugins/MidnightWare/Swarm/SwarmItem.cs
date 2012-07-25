@@ -38,9 +38,9 @@ public class SwarmItem : MonoBehaviour
 	protected float _lifeSpanLeft;
 	
 	/// <summary>
-	/// debug events that occur with this item (set in manager) 
+	/// Debug events that occur with this item (set in manager) 
 	/// </summary>
-	protected bool _debugEvents;
+	protected bool _DebugEvents;
 	
 	/// <summary>
 	/// An item can only be active or inactive 
@@ -154,11 +154,11 @@ public class SwarmItem : MonoBehaviour
 	/// </summary>
 	/// <param name="swarmItemManager">The item's manager</param>
 	/// <param name="prefabIndex">The index of the manager's prefab</param>
-	public virtual void Initialize(SwarmItemManager swarmItemManager, int prefabIndex, bool debugEvents)
+	public virtual void Initialize(SwarmItemManager swarmItemManager, int prefabIndex, bool DebugEvents)
 	{
 		_swarmItemManager = swarmItemManager;
 		_prefabIndex = prefabIndex;
-		_debugEvents = debugEvents;
+		_DebugEvents = DebugEvents;
 		
 		_thisTransform = this.transform;
 		
@@ -208,7 +208,7 @@ public class SwarmItem : MonoBehaviour
 			{
 				Kill();
 				
-				if (_debugEvents)
+				if (_DebugEvents)
 					Debug.Log("Lifespan expired for item " + name + " at frame: " + Time.frameCount);
 			}
 		}

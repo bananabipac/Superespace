@@ -136,31 +136,31 @@ public class GUIPlanet : MonoBehaviour {
 				//rouge contre bleu
 				if(shipsR >0 && shipsB >0 ){
 					if(boolR || !boolRT ||  textN.active || !textR.active || textN.active){
-						//Debug.Log("red/blue modif red");
+						////Debug.Log("red/blue modif red");
 						GUIplanet(1,1);	
 					}
 					if(boolB || boolBT || !boolBT2 || !textB.active  || !textVs.active){
-						Debug.Log("red/blue modif blue");
+						//Debug.Log("red/blue modif blue");
 						GUIplanet(0,2);	
 					}
 				//rouge contre blanc
 				}else if(shipsR >0 && shipsN >0 ){
 					if(boolR || !boolRT || textB.active || !textR.active){
-						//Debug.Log("red/neutre modif red");
+						////Debug.Log("red/neutre modif red");
 						GUIplanet(1,1);	
 					}
 					if(!boolNT || !textN.active || !textVs.active ){
-						//Debug.Log("red/neutre modif neutre");
+						////Debug.Log("red/neutre modif neutre");
 						GUIplanet(2,2);	
 					}
 				//bleu contre blanc
 				}else if(shipsN >0 && shipsB >0 ){
 					if(boolB || boolBT2 || !boolBT || !textB.active || textR.active){
-						//Debug.Log("blue/neutre modif blue");
+						////Debug.Log("blue/neutre modif blue");
 						GUIplanet(0,1);	
 					}
 					if(!boolNT || !textN.active || !textVs.active){
-						//Debug.Log("blue/neutre modif neutre");
+						////Debug.Log("blue/neutre modif neutre");
 						GUIplanet(2,2);	
 					}
 				}else{

@@ -49,10 +49,10 @@ public class Asteroid : SwarmItem
 	/// <summary>
 	/// Overrides the SwarmItem Initialize method, setting the originalScale member 
 	/// </summary>
-	public override void Initialize(SwarmItemManager swarmItemManager, int prefabIndex, bool debugEvents)
+	public override void Initialize(SwarmItemManager swarmItemManager, int prefabIndex, bool DebugEvents)
 	{
 		// initialize the SwarmItem base first
-		base.Initialize(swarmItemManager, prefabIndex, debugEvents);
+		base.Initialize(swarmItemManager, prefabIndex, DebugEvents);
 		
 		// set the scale to be used after parenting to the active list
 		_originalScale = _thisTransform.localScale;
