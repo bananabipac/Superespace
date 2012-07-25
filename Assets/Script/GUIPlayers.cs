@@ -181,7 +181,7 @@ public class GUIPlayers : MonoBehaviour {
 												GameObject expl = (GameObject)Instantiate(Resources.Load("crash")as GameObject);
 												expl.transform.position = objet.transform.position;
 											
-												GameObject.FindGameObjectWithTag("User").GetComponent<stats>().nbCrashBlue ++;
+												GameObject.FindGameObjectWithTag("User").GetComponent<stats>().nbCrashRed ++;
 											
 											}
 										}
