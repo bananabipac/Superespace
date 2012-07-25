@@ -96,6 +96,11 @@ public class GUIPlayers : MonoBehaviour {
 										(GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).lifeShip += 2;
 										user.GetComponent<MoneyScript>().moneyPlayer1 -= (100 * (lvlLife1+1));
 										lvlLife1++;
+										GameObject upgradeFeedBack = (GameObject)Instantiate(Resources.Load("upgradeRed")as GameObject);
+										Vector3 vec = GameObject.Find("vie1").transform.position;
+										vec.x -= 1.5f;
+										vec.z -= 1.4f;
+										upgradeFeedBack.transform.position = vec;
 										
 									}
 								}
@@ -107,6 +112,11 @@ public class GUIPlayers : MonoBehaviour {
 										(GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).powerMax += 2;
 										user.GetComponent<MoneyScript>().moneyPlayer1 -= (100 * (lvlAttack1+1));
 										lvlAttack1++;
+										GameObject upgradeFeedBack = (GameObject)Instantiate(Resources.Load("upgradeRed")as GameObject);
+										Vector3 vec = GameObject.Find("attaque1").transform.position;
+										vec.x -= 1.5f;
+										vec.z -= 1.4f;
+										upgradeFeedBack.transform.position = vec;
 										
 									}
 								}
@@ -117,6 +127,11 @@ public class GUIPlayers : MonoBehaviour {
 										(GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>()).speedShip -= 0.2f;
 										user.GetComponent<MoneyScript>().moneyPlayer1 -= (100 * (lvlSpeed1+1));
 										lvlSpeed1++;
+										GameObject upgradeFeedBack = (GameObject)Instantiate(Resources.Load("upgradeRed")as GameObject);
+										Vector3 vec = GameObject.Find("vitesse1").transform.position;
+										vec.x -= 1.5f;
+										vec.z -= 1.4f;
+										upgradeFeedBack.transform.position = vec;
 										
 									}
 								}
@@ -130,6 +145,11 @@ public class GUIPlayers : MonoBehaviour {
 											(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).lifeShip += 2;
 											user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (lvlLife2+1));
 											lvlLife2++;
+											GameObject upgradeFeedBack = (GameObject)Instantiate(Resources.Load("upgradeBlue")as GameObject);
+											Vector3 vec = GameObject.Find("vie2").transform.position;
+											vec.x += 1.5f;
+											vec.z += 1.4f;
+											upgradeFeedBack.transform.position = vec;
 											
 										}
 									}
@@ -141,6 +161,11 @@ public class GUIPlayers : MonoBehaviour {
 											(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).powerMax += 2;
 											user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (lvlAttack2+1));
 											lvlAttack2++;
+											GameObject upgradeFeedBack = (GameObject)Instantiate(Resources.Load("upgradeBlue")as GameObject);
+											Vector3 vec = GameObject.Find("attaque2").transform.position;
+											vec.x += 1.5f;
+											vec.z += 1.4f;
+											upgradeFeedBack.transform.position = vec;
 											
 										}
 									}
@@ -152,6 +177,11 @@ public class GUIPlayers : MonoBehaviour {
 											(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).speedShip -= 0.2f;
 											user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (lvlSpeed2+1));
 											lvlSpeed2++;
+											GameObject upgradeFeedBack = (GameObject)Instantiate(Resources.Load("upgradeBlue")as GameObject);
+											Vector3 vec = GameObject.Find("vitesse2").transform.position;
+											vec.x += 1.5f;
+											vec.z += 1.4f;
+											upgradeFeedBack.transform.position = vec;
 											//Debug.Log ("upgraded");
 										}
 									}
