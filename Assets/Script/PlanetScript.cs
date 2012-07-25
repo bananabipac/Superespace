@@ -134,6 +134,8 @@ public class PlanetScript : MonoBehaviour {
 					
 					if(CaptureTime <= -1*CaptureCount){
 						ship =  Resources.Load("Shipblue")as GameObject;
+						GameObject captureFeedBack = (GameObject)Instantiate(Resources.Load("captureBlue")as GameObject);
+						captureFeedBack.transform.position = gameObject.transform.position;
 						user.GetComponent<stats>().nbCaptureBlue ++;
 						gameObject.light.color = new Color(0,0,1,1);
 						CaptureTime = -1*CaptureCount;
@@ -176,6 +178,8 @@ public class PlanetScript : MonoBehaviour {
 							
 					if(CaptureTime >= CaptureCount){
 						ship =  Resources.Load("Shipred")as GameObject;
+						GameObject captureFeedBack = (GameObject)Instantiate(Resources.Load("captureRed")as GameObject);
+						captureFeedBack.transform.position = gameObject.transform.position;
 						user.GetComponent<stats>().nbCaptureRed++;
 						gameObject.light.color = new Color(1,0,0,1);
 						CaptureTime = CaptureCount;
