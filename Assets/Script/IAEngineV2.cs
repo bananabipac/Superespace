@@ -150,6 +150,11 @@ public class IAEngineV2 : MonoBehaviour {
 									user.GetComponent<MoneyScript>().moneyPlayer1 -= (100 * (script.lvlLife1+1));
 									script.lvlLife1++;
 									upgrade = false;
+									GameObject upgradeFeedBack = (GameObject)Instantiate(Resources.Load("upgradeRed")as GameObject);
+									Vector3 vec = GameObject.Find("vie1").transform.position;
+									vec.x -= 1.5f;
+									vec.z -= 1.4f;
+									upgradeFeedBack.transform.position = vec;
 								}
 							}else{
 								if( 100 * (script.lvlLife2+1) <= user.GetComponent<MoneyScript>().moneyPlayer2){
@@ -157,6 +162,11 @@ public class IAEngineV2 : MonoBehaviour {
 									user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (script.lvlLife2+1));
 									script.lvlLife2++;
 									upgrade = false;
+									GameObject upgradeFeedBack = (GameObject)Instantiate(Resources.Load("upgradeBlue")as GameObject);
+									Vector3 vec = GameObject.Find("vie2").transform.position;
+									vec.x += 1.5f;
+									vec.z += 1.4f;
+									upgradeFeedBack.transform.position = vec;
 								}
 							}
 						}else if(choseUpgrade == 1){
@@ -167,6 +177,11 @@ public class IAEngineV2 : MonoBehaviour {
 									user.GetComponent<MoneyScript>().moneyPlayer1 -= (100 * (script.lvlAttack1+1));
 									script.lvlAttack1++;
 									upgrade = false;
+									GameObject upgradeFeedBack = (GameObject)Instantiate(Resources.Load("upgradeRed")as GameObject);
+									Vector3 vec = GameObject.Find("attaque1").transform.position;
+									vec.x -= 1.5f;
+									vec.z -= 1.4f;
+									upgradeFeedBack.transform.position = vec;
 									
 								}
 							}else{
@@ -176,6 +191,11 @@ public class IAEngineV2 : MonoBehaviour {
 									user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (script.lvlAttack2+1));
 									script.lvlAttack2++;
 									upgrade = false;
+									GameObject upgradeFeedBack = (GameObject)Instantiate(Resources.Load("upgradeBlue")as GameObject);
+									Vector3 vec = GameObject.Find("attaque2").transform.position;
+									vec.x += 1.5f;
+									vec.z += 1.4f;
+									upgradeFeedBack.transform.position = vec;
 									
 								}
 							}
@@ -188,6 +208,11 @@ public class IAEngineV2 : MonoBehaviour {
 									user.GetComponent<MoneyScript>().moneyPlayer1 -= (100 * (script.lvlSpeed1+1));
 									script.lvlSpeed1++;
 									upgrade = false;
+									GameObject upgradeFeedBack = (GameObject)Instantiate(Resources.Load("upgradeRed")as GameObject);
+									Vector3 vec = GameObject.Find("vitesse1").transform.position;
+									vec.x -= 1.5f;
+									vec.z -= 1.4f;
+									upgradeFeedBack.transform.position = vec;
 								}
 							}else{
 								if( 100 * (script.lvlSpeed2+1) <= user.GetComponent<MoneyScript>().moneyPlayer2) {
@@ -195,6 +220,11 @@ public class IAEngineV2 : MonoBehaviour {
 									user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (script.lvlSpeed2+1));
 									script.lvlSpeed2++;
 									upgrade = false;
+									GameObject upgradeFeedBack = (GameObject)Instantiate(Resources.Load("upgradeBlue")as GameObject);
+									Vector3 vec = GameObject.Find("vitesse2").transform.position;
+									vec.x += 1.5f;
+									vec.z += 1.4f;
+									upgradeFeedBack.transform.position = vec;
 								}
 							}
 						}
