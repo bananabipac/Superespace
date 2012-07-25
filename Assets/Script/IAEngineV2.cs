@@ -256,7 +256,6 @@ public class IAEngineV2 : MonoBehaviour {
 		}
 		
 	}
-	
 	void delacementFinish(int i){
 		//int i = 0;
 		////Debug.Log(i);
@@ -303,7 +302,9 @@ public class IAEngineV2 : MonoBehaviour {
 		}	
 
 	}
-	
+	/// <summary>
+	/// Finds the possible routes.
+	/// </summary>
 	void findPossibleRoutes() {
 		SpaceBridge bridge = user.GetComponent<SpaceBridge>();
 		if(bridge.bridgeOpen){
@@ -331,7 +332,9 @@ public class IAEngineV2 : MonoBehaviour {
 		}
 		
 	}
-	
+	/// <summary>
+	/// Calculates the ponderation.
+	/// </summary>
 	void calculatePonderation() {
 		for(int i = 0; i < pairs.Count; i++) {
 			

@@ -37,6 +37,9 @@ public class PlanetScript : MonoBehaviour {
 	
 	
 	// Use this for initialization
+	/// <summary>
+	/// Start this instance.
+	/// </summary>
 	void Start () {
 		
 		/*pul = false;
@@ -93,6 +96,9 @@ public class PlanetScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
+	/// <summary>
+	/// Update this instance.
+	/// </summary>
 	void Update () {
 		
 		if(sr != shipsR.Count){
@@ -249,6 +255,9 @@ public class PlanetScript : MonoBehaviour {
 	}
 	
 	//fonction qui gere la creation des vaisseaux 
+	/// <summary>
+	/// Creates the ship.
+	/// </summary>
 	public void createShip (){
 		infoUser infoRed = GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>();
 		infoUser infoBlue = GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>();
@@ -284,7 +293,12 @@ public class PlanetScript : MonoBehaviour {
 		
 		
 	}
-	
+	/// <summary>
+	/// Creates the super ship.
+	/// </summary>
+	/// <param name='color'>
+	/// Color.
+	/// </param>
 	void createSuperShip(int color){
 		float scal = this.transform.localScale.x ;
 			
@@ -349,6 +363,9 @@ public class PlanetScript : MonoBehaviour {
 	}
 	
 	//fonction qui gere le combat entre les vaisseaux
+	/// <summary>
+	/// Starts the fights.
+	/// </summary>
 	void startFights(){
 		infoUser infoUserB =(infoUser) GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>();
 		infoUser infoUserR =(infoUser) GameObject.FindGameObjectWithTag("infoUserRed").GetComponent<infoUser>();
@@ -422,7 +439,6 @@ public class PlanetScript : MonoBehaviour {
 				((rotationShip)sb.GetComponent<rotationShip>()).life -= Random.Range(2,7); 
 				((rotationShip)sn.GetComponent<rotationShip>()).life -= Random.Range(infoUserB.powerMin,infoUserB.powerMax);
 			}
-			
 			if(((rotationShip)sb.GetComponent<rotationShip>()).life<=0){
 				shipsB.RemoveAt(iB);
 				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
@@ -443,7 +459,9 @@ public class PlanetScript : MonoBehaviour {
 		//refreshShip();
 		
 	}
-	
+	/// <summary>
+	/// Refreshs the ship.
+	/// </summary>
 	public void refreshShip(){
 	
 		int t = 1 ;
@@ -579,7 +597,9 @@ public class PlanetScript : MonoBehaviour {
 		}
 		
 	}
-	
+	/// <summary>
+	/// Plays the sound.
+	/// </summary>
 	public void playSound(){
 		audio.Play();	
 	}
