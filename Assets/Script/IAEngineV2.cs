@@ -789,76 +789,75 @@ public class IAEngineV2 : MonoBehaviour {
 		
 		int rand = Random.Range(0, l.Count);	
 		SpaceBridge bridge = user.GetComponent<SpaceBridge>();
-		if( l[rand] != null && rand < l.Count){
-			string[] val = l[rand].Split('-');
-			////Debug.Log("deplacement choisit: "+val[0]);
-			GameObject ps = GameObject.Find(""+val[0][0]);
-			GameObject pe = GameObject.Find(""+val[0][1]);
-			////Debug.Log(
-			
-			if(val[1] != null && val[1] != ""){
+		if( rand < l.Count){
+			if( l[rand] != null ){
+				string[] val = l[rand].Split('-');
+				////Debug.Log("deplacement choisit: "+val[0]);
+				GameObject ps = GameObject.Find(""+val[0][0]);
+				GameObject pe = GameObject.Find(""+val[0][1]);
+				////Debug.Log(
 				
-				
-				if(int.Parse(val[1])>0){
-				
-					Count.Add(int.Parse(val[1]));
-					CountTmp.Add(0);
-					speed.Add(0.2f);
-					speedTmp.Add(0);
-					
-					listPlanetStart.Add(ps);
-					
-					if(bridge.planet1.name == ps.name && bridge.planet2.name == pe.name){
-						listPlanetEnd.Add(bridge.blackHole1);
-					}else if(bridge.planet2.name == ps.name && bridge.planet1.name == pe.name){
-						listPlanetEnd.Add(bridge.blackHole2);
-					}else{
-						listPlanetEnd.Add(pe);
-					}
+				if(val[1] != null && val[1] != ""){
 					
 					
-					GameObject instance =(GameObject) Instantiate(Resources.Load("Line")as GameObject);
-					instance.transform.position = new Vector3(0,0,0);
-					LineRenderer linet = instance.GetComponent<LineRenderer>();
-					linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));
-					linet.SetPosition(0,ps.transform.position);
-					linet.SetPosition(1,ps.transform.position);
+					if(int.Parse(val[1])>0){
 					
-					listLines.Add(instance);
-					
-					if(IAPlayer == "red"){
-						GameObject SelectShip =  Resources.Load("TextSelectRed")as GameObject;
-						Vector3 vec =  ps.transform.position;
-					
-						vec.y = -20.22636f;
-					
-						GameObject instanceSelect = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
-						((TextMesh)instanceSelect.GetComponent<TextMesh>()).text = ""+0;
+						Count.Add(int.Parse(val[1]));
+						CountTmp.Add(0);
+						speed.Add(0.2f);
+						speedTmp.Add(0);
 						
-						instanceSelect.transform.RotateAround(Vector3.up, 1.6f);
-						Vector3 vt = instanceSelect.transform.position;
-						vt.x +=5;
-						instanceSelect.transform.position = vt;
-						GuiSelect.Add(instanceSelect);
-					}else{
-						GameObject SelectShip =  Resources.Load("TextSelectBlue")as GameObject;
-						Vector3 vec =  ps.transform.position;
-					
-						vec.y = -20.22636f;
-					
-						GameObject instanceSelect = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
-						((TextMesh)instanceSelect.GetComponent<TextMesh>()).text = ""+0;
-						instanceSelect.transform.RotateAround(Vector3.up, -1.6f);
-						Vector3 vt = instanceSelect.transform.position;
-						vt.x -=5;
-						instanceSelect.transform.position = vt;
-						GuiSelect.Add(instanceSelect);
+						listPlanetStart.Add(ps);
 						
+						if(bridge.planet1.name == ps.name && bridge.planet2.name == pe.name){
+							listPlanetEnd.Add(bridge.blackHole1);
+						}else if(bridge.planet2.name == ps.name && bridge.planet1.name == pe.name){
+							listPlanetEnd.Add(bridge.blackHole2);
+						}else{
+							listPlanetEnd.Add(pe);
+						}
+						
+						
+						GameObject instance =(GameObject) Instantiate(Resources.Load("Line")as GameObject);
+						instance.transform.position = new Vector3(0,0,0);
+						LineRenderer linet = instance.GetComponent<LineRenderer>();
+						linet.SetColors(new Color(1,1,1,1),new Color(1,1,1,1));
+						linet.SetPosition(0,ps.transform.position);
+						linet.SetPosition(1,ps.transform.position);
+						
+						listLines.Add(instance);
+						
+						if(IAPlayer == "red"){
+							GameObject SelectShip =  Resources.Load("TextSelectRed")as GameObject;
+							Vector3 vec =  ps.transform.position;
+						
+							vec.y = -20.22636f;
+						
+							GameObject instanceSelect = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
+							((TextMesh)instanceSelect.GetComponent<TextMesh>()).text = ""+0;
+							
+							instanceSelect.transform.RotateAround(Vector3.up, 1.6f);
+							Vector3 vt = instanceSelect.transform.position;
+							vt.x +=5;
+							instanceSelect.transform.position = vt;
+							GuiSelect.Add(instanceSelect);
+						}else{
+							GameObject SelectShip =  Resources.Load("TextSelectBlue")as GameObject;
+							Vector3 vec =  ps.transform.position;
+						
+							vec.y = -20.22636f;
+						
+							GameObject instanceSelect = (GameObject) Instantiate(SelectShip,vec, SelectShip.transform.rotation);
+							((TextMesh)instanceSelect.GetComponent<TextMesh>()).text = ""+0;
+							instanceSelect.transform.RotateAround(Vector3.up, -1.6f);
+							Vector3 vt = instanceSelect.transform.position;
+							vt.x -=5;
+							instanceSelect.transform.position = vt;
+							GuiSelect.Add(instanceSelect);
+							
+						}
 					}
 				}
-				
-				
-				
 			}
 		}
 		

@@ -149,11 +149,26 @@ public class PlanetScript : MonoBehaviour {
 				}
 			}else{
 				if(ship.tag == "blue"){
-					timePop += 10*Time.deltaTime;
-					if(timePop >= repop){
-						timePop = 0;
-						if(shipsB.Count < LimitPop){
-							createShip();
+					if(CaptureTime > -1*CaptureCount && Time.deltaTime>0){
+						CaptureTmp += 1*shipsB.Count;
+						if(CaptureTmp >=SpeedCapture){
+							CaptureTmp = 0;
+							CaptureTime -= 0.7f*Time.deltaTime;
+							//changement de couleur du halo
+							if(CaptureTime <0){
+								gameObject.light.color = new Color(1+CaptureTime,1+CaptureTime,1,1);
+							}else{
+								gameObject.light.color = new Color(1,1-CaptureTime,1-CaptureTime,1);
+								
+							}
+						}
+					}else{
+						timePop += 10*Time.deltaTime;
+						if(timePop >= repop){
+							timePop = 0;
+							if(shipsB.Count < LimitPop){
+								createShip();
+							}
 						}
 					}
 				}
@@ -193,11 +208,28 @@ public class PlanetScript : MonoBehaviour {
 				}
 			}else{
 				if(ship.tag == "red"){
-					timePop += 10*Time.deltaTime;
-					if(timePop >= repop){
-						timePop = 0;
-						if(shipsR.Count < LimitPop){
-							createShip();
+					if(CaptureTime < CaptureCount && Time.deltaTime>0){
+						CaptureTmp += 1*shipsR.Count;
+						if(CaptureTmp >=SpeedCapture){
+								
+							CaptureTmp = 0;
+							CaptureTime += 0.7f*Time.deltaTime;
+								
+							if(CaptureTime <0){
+								gameObject.light.color = new Color(1+CaptureTime,1+CaptureTime,1,1);
+									
+							}else{
+								gameObject.light.color = new Color(1,1-CaptureTime,1-CaptureTime,1);
+									
+							}
+						}
+					}else{
+						timePop += 10*Time.deltaTime;
+						if(timePop >= repop){
+							timePop = 0;
+							if(shipsR.Count < LimitPop){
+								createShip();
+							}
 						}
 					}
 				}
@@ -249,59 +281,7 @@ public class PlanetScript : MonoBehaviour {
 			shipsN.Add(instance);
 		}
 		
-		/*if(ship.tag == "blue"){
-			////Debug.Log(shipsBS.Count);
-			if(shipsB.Count >= 10*shipsBS.Count + 10){
-				GameObject shipGros = (GameObject)Instantiate(Resources.Load("ShipblueG")as GameObject, vec ,transform.rotation); 
-				//GameObject instanceS = Resources.Load("Shipred")as GameObject;
-				shipGros.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
-				((rotationShip)shipGros.GetComponent<rotationShip>()).planet = this.gameObject;
-				((rotationShip)shipGros.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
-				shipGros.transform.localScale = new Vector3(0.4f,0.4f,0.4f);
-				for(int i = 0 + 10*shipsBS.Count; i<10 + 10*shipsBS.Count; i++){		
-					shipsB[i].GetComponent<rotationShip>().speed = 0;
-					shipsB[i].GetComponent<MeshRenderer>().enabled = false;
-				}
-				shipsBS.Add(shipGros);
-			}
-		}
 		
-		if(ship.tag == "red"){
-			if(shipsR.Count >= 10*shipsRS.Count + 10){
-				GameObject shipGros = (GameObject)Instantiate(Resources.Load("ShipredG")as GameObject, vec ,transform.rotation); 
-				//GameObject instanceS = Resources.Load("Shipred")as GameObject;
-				shipGros.GetComponent<rotationShip>().super = true;
-				shipGros.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
-				((rotationShip)shipGros.GetComponent<rotationShip>()).planet = this.gameObject;
-				((rotationShip)shipGros.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
-				shipGros.transform.localScale = new Vector3(0.4f,0.4f,0.4f);
-				
-				for(int i = 0 + 10*shipsRS.Count; i<10 + 10*shipsRS.Count; i++){		
-					shipsR[i].GetComponent<rotationShip>().speed = 0;
-					shipsR[i].GetComponent<MeshRenderer>().enabled = false;
-				}
-				shipsRS.Add(shipGros);
-			}
-		}
-		
-		if(ship.tag == "neutre"){
-			if(shipsN.Count >= 10*shipsNS.Count + 10){
-				GameObject shipGros = (GameObject)Instantiate(Resources.Load("ShipNG")as GameObject, vec ,transform.rotation); 
-				//GameObject instanceS = Resources.Load("Shipred")as GameObject;
-				shipGros.GetComponent<rotationShip>().super = true;
-				shipGros.transform.RotateAround(this.transform.position,Vector3.up, Random.Range(0f,360f));
-				((rotationShip)shipGros.GetComponent<rotationShip>()).planet = this.gameObject;
-				((rotationShip)shipGros.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
-				shipGros.transform.localScale = new Vector3(0.4f,0.4f,0.4f);
-				
-				for(int i = 0 + 10*shipsNS.Count; i<10 + 10*shipsNS.Count; i++){		
-					shipsN[i].GetComponent<rotationShip>().speed = 0;
-					shipsN[i].GetComponent<MeshRenderer>().enabled = false;
-				}
-				shipsNS.Add(shipGros);
-			}
-		}*/
-		//refreshShip();
 		
 	}
 	
@@ -339,9 +319,11 @@ public class PlanetScript : MonoBehaviour {
 			((rotationShip)shipGros.GetComponent<rotationShip>()).speed = Random.Range(5f,30f);
 			shipGros.transform.localScale = new Vector3(0.4f,0.4f,0.4f);
 			
-			for(int i = 0 + 10*shipsRS.Count; i<10 + 10*shipsRS.Count; i++){		
-				shipsR[i].GetComponent<rotationShip>().speed = 0;
-				shipsR[i].GetComponent<MeshRenderer>().enabled = false;
+			for(int i = 0 + 10*shipsRS.Count; i<10 + 10*shipsRS.Count; i++){
+				if(shipsR[i] != null){
+					shipsR[i].GetComponent<rotationShip>().speed = 0;
+					shipsR[i].GetComponent<MeshRenderer>().enabled = false;
+				}
 			}
 			shipsRS.Add(shipGros);
 			
@@ -374,14 +356,18 @@ public class PlanetScript : MonoBehaviour {
 		if(shipsB.Count>0 && shipsR.Count>0){
 			int iB = Random.Range(0,shipsB.Count-1);
 			int iR = Random.Range(0,shipsR.Count-1);
-			GameObject sb = shipsB[iB];
-			GameObject sr = shipsR[iR];
+			GameObject sb = new GameObject();
+			GameObject sr = new GameObject();
+			if(shipsB[iB] != null && shipsR[iR] != null){
+				sb = shipsB[iB];
+				sr = shipsR[iR];
+				
+				
+				((rotationShip)sb.GetComponent<rotationShip>()).life -= Random.Range(infoUserR.powerMin,infoUserR.powerMax);
+				
+				((rotationShip)sr.GetComponent<rotationShip>()).life -= Random.Range(infoUserB.powerMin,infoUserB.powerMax); 
+			}
 			
-			
-			((rotationShip)sb.GetComponent<rotationShip>()).life -= Random.Range(infoUserR.powerMin,infoUserR.powerMax);
-			
-			((rotationShip)sr.GetComponent<rotationShip>()).life -= Random.Range(infoUserB.powerMin,infoUserB.powerMax); 
-		
 			if(((rotationShip)sb.GetComponent<rotationShip>()).life<=0){
 				shipsB.RemoveAt(iB);
 				GameObject expl = (GameObject)Instantiate(Resources.Load("explosion")as GameObject);
@@ -397,15 +383,18 @@ public class PlanetScript : MonoBehaviour {
 				user.GetComponent<stats>().destroyShipRBattle ++;
 				Destroy(sr);
 			}
+			
 		}else if(shipsB.Count <= 0){
 			int iN = Random.Range(0,shipsN.Count-1);
 			int iR = Random.Range(0,shipsR.Count-1);
-			GameObject sn = shipsN[iN];
-			GameObject sr = shipsR[iR];
-			
-			
-			((rotationShip)sn.GetComponent<rotationShip>()).life -= Random.Range(infoUserR.powerMin,infoUserR.powerMax); 
-			((rotationShip)sr.GetComponent<rotationShip>()).life -= Random.Range(2,7); 
+			GameObject sn = new GameObject(); 
+			GameObject sr = new GameObject();
+			if(shipsN[iN] != null && shipsR[iR] != null){
+				sn = shipsN[iN];
+				sr = shipsR[iR];
+				((rotationShip)sn.GetComponent<rotationShip>()).life -= Random.Range(infoUserR.powerMin,infoUserR.powerMax); 
+				((rotationShip)sr.GetComponent<rotationShip>()).life -= Random.Range(2,7); 
+			}
 			
 			if(((rotationShip)sn.GetComponent<rotationShip>()).life<=0){
 				shipsN.RemoveAt(iN);
@@ -425,12 +414,14 @@ public class PlanetScript : MonoBehaviour {
 		}else if(shipsR.Count <= 0){
 			int iN = Random.Range(0,shipsN.Count-1);
 			int iB = Random.Range(0,shipsB.Count-1);
-			GameObject sb = shipsB[iB];
-			GameObject sn = shipsN[iN];
-			
-			
-			((rotationShip)sb.GetComponent<rotationShip>()).life -= Random.Range(2,7); 
-			((rotationShip)sn.GetComponent<rotationShip>()).life -= Random.Range(infoUserB.powerMin,infoUserB.powerMax); 
+			GameObject sb = new GameObject();
+			GameObject sn = new GameObject();
+			if(shipsB[iB] != null && shipsN[iN] != null){
+				sb = shipsB[iB];
+				sn = shipsN[iN];
+				((rotationShip)sb.GetComponent<rotationShip>()).life -= Random.Range(2,7); 
+				((rotationShip)sn.GetComponent<rotationShip>()).life -= Random.Range(infoUserB.powerMin,infoUserB.powerMax);
+			}
 			
 			if(((rotationShip)sb.GetComponent<rotationShip>()).life<=0){
 				shipsB.RemoveAt(iB);
@@ -446,6 +437,7 @@ public class PlanetScript : MonoBehaviour {
 				user.GetComponent<stats>().destroyShipNBattle ++;
 				Destroy(sn);
 			}
+		
 		}
 		
 		//refreshShip();
