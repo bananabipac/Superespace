@@ -260,31 +260,33 @@ public class IAEngineV2 : MonoBehaviour {
 	void delacementFinish(int i){
 		//int i = 0;
 		//Debug.Log(i);
-		if(user.GetComponent<GestionLink>().roadExist(listPlanetStart[i], listPlanetEnd[i]) && !user.GetComponent<GestionLink>().roadOpen(listPlanetStart[i], listPlanetEnd[i])){
-			user.GetComponent<GestionLink>().openRoad(listPlanetStart[i],listPlanetEnd[i]);
-			if(IAPlayer =="red"){
-				user.GetComponent<MoneyScript>().moneyPlayer1 -= 50;
-			}else{
-				user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+		if(i<listPlanetStart.Count && i<listPlanetEnd.Count){
+			if(user.GetComponent<GestionLink>().roadExist(listPlanetStart[i], listPlanetEnd[i]) && !user.GetComponent<GestionLink>().roadOpen(listPlanetStart[i], listPlanetEnd[i])){
+				user.GetComponent<GestionLink>().openRoad(listPlanetStart[i],listPlanetEnd[i]);
+				if(IAPlayer =="red"){
+					user.GetComponent<MoneyScript>().moneyPlayer1 -= 50;
+				}else{
+					user.GetComponent<MoneyScript>().moneyPlayer2 -= 50;
+				}
 			}
+			
+			user.GetComponent<moveShip>().deplacement(listPlanetStart[i],listPlanetEnd[i],Count[i]);
+			listPlanetStart.RemoveAt(i);
+			listPlanetEnd.RemoveAt(i);
+			
+			GameObject tmp = listLines[i];
+			Destroy(tmp);
+			listLines.RemoveAt(i);
+			
+			tmp = GuiSelect[i];
+			Destroy(tmp);
+			GuiSelect.RemoveAt(i);
+			
+			Count.RemoveAt(i);
+			CountTmp.RemoveAt(i);
+			speed.RemoveAt(i);
+			speedTmp.RemoveAt(i);
 		}
-		
-		user.GetComponent<moveShip>().deplacement(listPlanetStart[i],listPlanetEnd[i],Count[i]);
-		listPlanetStart.RemoveAt(i);
-		listPlanetEnd.RemoveAt(i);
-		
-		GameObject tmp = listLines[i];
-		Destroy(tmp);
-		listLines.RemoveAt(i);
-		
-		tmp = GuiSelect[i];
-		Destroy(tmp);
-		GuiSelect.RemoveAt(i);
-		
-		Count.RemoveAt(i);
-		CountTmp.RemoveAt(i);
-		speed.RemoveAt(i);
-		speedTmp.RemoveAt(i);
 	
 	}
 	void checkPlanets() {
@@ -787,7 +789,7 @@ public class IAEngineV2 : MonoBehaviour {
 		
 		int rand = Random.Range(0, l.Count);	
 		SpaceBridge bridge = user.GetComponent<SpaceBridge>();
-		if( l[rand] != null){
+		if( l[rand] != null && rand < l.Count){
 			string[] val = l[rand].Split('-');
 			//Debug.Log("deplacement choisit: "+val[0]);
 			GameObject ps = GameObject.Find(""+val[0][0]);
