@@ -17,9 +17,9 @@ public class PlanetScript : MonoBehaviour {
 	private float timePop; //timer entre chaque creation de vaisseaux
 	//public GameObject explosion; //object de l'explosion a instantié
 	public int LimitPop ;//Limite de population
-	private int CaptureCount; //temps de capture requis
-	private int CaptureTmp;
-	private int SpeedCapture; //vitesse de capture
+	public int CaptureCount; //temps de capture requis
+	public int CaptureTmp;
+	public int SpeedCapture; //vitesse de capture
 	public float CaptureTime; //temps e capture en cour
 	private GameObject user;
 	//pulsation
@@ -118,38 +118,40 @@ public class PlanetScript : MonoBehaviour {
 				CaptureTmp = 0;
 			}
 			
-		}else if (shipsB.Count>0 && ship.tag != "blue"){//vaisseau bleu present sur la planete
-			if(CaptureTime > -1*CaptureCount && Time.deltaTime>0){
-				CaptureTmp += 1*shipsB.Count;
-				if(CaptureTmp >=SpeedCapture){
-					CaptureTmp = 0;
-					CaptureTime -= 0.7f*Time.deltaTime;
-					//changement de couleur du halo
-					if(CaptureTime <0){
-						gameObject.light.color = new Color(1+CaptureTime,1+CaptureTime,1,1);
-					}else{
-						gameObject.light.color = new Color(1,1-CaptureTime,1-CaptureTime,1);
+		}else{
+			if (shipsB.Count>0 && ship.tag != "blue"){//vaisseau bleu present sur la planete
+				if(CaptureTime > -1*CaptureCount && Time.deltaTime>0){
+					CaptureTmp += 1*shipsB.Count;
+					if(CaptureTmp >=SpeedCapture){
+						CaptureTmp = 0;
+						CaptureTime -= 0.7f*Time.deltaTime;
+						//changement de couleur du halo
+						if(CaptureTime <0){
+							gameObject.light.color = new Color(1+CaptureTime,1+CaptureTime,1,1);
+						}else{
+							gameObject.light.color = new Color(1,1-CaptureTime,1-CaptureTime,1);
+							
+						}
 						
-					}
-					
-					if(CaptureTime <= -1*CaptureCount){
-						ship =  Resources.Load("Shipblue")as GameObject;
-						GameObject captureFeedBack = (GameObject)Instantiate(Resources.Load("captureBlue")as GameObject);
-						captureFeedBack.transform.position = gameObject.transform.position;
-						user.GetComponent<stats>().nbCaptureBlue ++;
-						gameObject.light.color = new Color(0,0,1,1);
-						CaptureTime = -1*CaptureCount;
-						((GestionLink)user.GetComponent<GestionLink>()).changeColor(gameObject);
-						int[] links = ((GestionLink)user.GetComponent<GestionLink>()).nbRoad();
-						user.GetComponent<MoneyScript>().incomePlayer1 = 1 + links[0];
-						user.GetComponent<MoneyScript>().incomePlayer2 = 1 + links[1];
-						////Debug.Log("Planete : "+gameObject.name + "capture blue");
-						
+						if(CaptureTime <= -1*CaptureCount){
+							ship =  Resources.Load("Shipblue")as GameObject;
+							GameObject captureFeedBack = (GameObject)Instantiate(Resources.Load("captureBlue")as GameObject);
+							captureFeedBack.transform.position = gameObject.transform.position;
+							user.GetComponent<stats>().nbCaptureBlue ++;
+							gameObject.light.color = new Color(0,0,1,1);
+							CaptureTime = -1*CaptureCount;
+							((GestionLink)user.GetComponent<GestionLink>()).changeColor(gameObject);
+							int[] links = ((GestionLink)user.GetComponent<GestionLink>()).nbRoad();
+							user.GetComponent<MoneyScript>().incomePlayer1 = 1 + links[0];
+							user.GetComponent<MoneyScript>().incomePlayer2 = 1 + links[1];
+							////Debug.Log("Planete : "+gameObject.name + "capture blue");
+							
+						}
 					}
 				}
 			}else{
 				if(ship.tag == "blue"){
-					if(CaptureTime > -1*CaptureCount && Time.deltaTime>0){
+					if(CaptureTime > -1*CaptureCount && Time.deltaTime>0 && shipsB.Count >0){
 						CaptureTmp += 1*shipsB.Count;
 						if(CaptureTmp >=SpeedCapture){
 							CaptureTmp = 0;
@@ -161,8 +163,13 @@ public class PlanetScript : MonoBehaviour {
 								gameObject.light.color = new Color(1,1-CaptureTime,1-CaptureTime,1);
 								
 							}
+							
+							if(CaptureTime <= -1*CaptureCount){
+								GameObject captureFeedBack = (GameObject)Instantiate(Resources.Load("captureBlue")as GameObject);
+								captureFeedBack.transform.position = gameObject.transform.position;
+							}
 						}
-					}else{
+					}else if(shipsR.Count==0){
 						timePop += 10*Time.deltaTime;
 						if(timePop >= repop){
 							timePop = 0;
@@ -172,43 +179,44 @@ public class PlanetScript : MonoBehaviour {
 						}
 					}
 				}
+			}				
 				
-			}
-		}else if (shipsR.Count>0 && ship.tag != "red"){//vaisseau rouge present sur la planete
-			
-			if(CaptureTime < CaptureCount && Time.deltaTime>0){
-				CaptureTmp += 1*shipsR.Count;
-				if(CaptureTmp >=SpeedCapture){
-						
-					CaptureTmp = 0;
-					CaptureTime += 0.7f*Time.deltaTime;
-						
-					if(CaptureTime <0){
-						gameObject.light.color = new Color(1+CaptureTime,1+CaptureTime,1,1);
+			if (shipsR.Count>0 && ship.tag != "red"){//vaisseau rouge present sur la planete
+				
+				if(CaptureTime < CaptureCount && Time.deltaTime>0){
+					CaptureTmp += 1*shipsR.Count;
+					if(CaptureTmp >=SpeedCapture){
 							
-					}else{
-						gameObject.light.color = new Color(1,1-CaptureTime,1-CaptureTime,1);
+						CaptureTmp = 0;
+						CaptureTime += 0.7f*Time.deltaTime;
 							
-					}
-							
-					if(CaptureTime >= CaptureCount){
-						ship =  Resources.Load("Shipred")as GameObject;
-						GameObject captureFeedBack = (GameObject)Instantiate(Resources.Load("captureRed")as GameObject);
-						captureFeedBack.transform.position = gameObject.transform.position;
-						user.GetComponent<stats>().nbCaptureRed++;
-						gameObject.light.color = new Color(1,0,0,1);
-						CaptureTime = CaptureCount;
-						//Debug.Log("Planete : "+gameObject.name + "capture red");
-						((GestionLink)user.GetComponent<GestionLink>()).changeColor(gameObject);
-						int[] links = ((GestionLink)user.GetComponent<GestionLink>()).nbRoad();
-						user.GetComponent<MoneyScript>().incomePlayer1 = 1 + links[0];
-						user.GetComponent<MoneyScript>().incomePlayer2 = 1 + links[1];
-						//pul = true;	
+						if(CaptureTime <0){
+							gameObject.light.color = new Color(1+CaptureTime,1+CaptureTime,1,1);
+								
+						}else{
+							gameObject.light.color = new Color(1,1-CaptureTime,1-CaptureTime,1);
+								
+						}
+								
+						if(CaptureTime >= CaptureCount){
+							ship =  Resources.Load("Shipred")as GameObject;
+							GameObject captureFeedBack = (GameObject)Instantiate(Resources.Load("captureRed")as GameObject);
+							captureFeedBack.transform.position = gameObject.transform.position;
+							user.GetComponent<stats>().nbCaptureRed++;
+							gameObject.light.color = new Color(1,0,0,1);
+							CaptureTime = CaptureCount;
+							//Debug.Log("Planete : "+gameObject.name + "capture red");
+							((GestionLink)user.GetComponent<GestionLink>()).changeColor(gameObject);
+							int[] links = ((GestionLink)user.GetComponent<GestionLink>()).nbRoad();
+							user.GetComponent<MoneyScript>().incomePlayer1 = 1 + links[0];
+							user.GetComponent<MoneyScript>().incomePlayer2 = 1 + links[1];
+							//pul = true;	
+						}
 					}
 				}
 			}else{
 				if(ship.tag == "red"){
-					if(CaptureTime < CaptureCount && Time.deltaTime>0){
+					if(CaptureTime < CaptureCount && Time.deltaTime>0 && shipsR.Count >0){
 						CaptureTmp += 1*shipsR.Count;
 						if(CaptureTmp >=SpeedCapture){
 								
@@ -222,8 +230,13 @@ public class PlanetScript : MonoBehaviour {
 								gameObject.light.color = new Color(1,1-CaptureTime,1-CaptureTime,1);
 									
 							}
+							
+							if(CaptureTime >= CaptureCount){
+								GameObject captureFeedBack = (GameObject)Instantiate(Resources.Load("captureRed")as GameObject);
+								captureFeedBack.transform.position = gameObject.transform.position;	
+							}
 						}
-					}else{
+					}else if(shipsB.Count==0){
 						timePop += 10*Time.deltaTime;
 						if(timePop >= repop){
 							timePop = 0;
@@ -235,7 +248,8 @@ public class PlanetScript : MonoBehaviour {
 				}
 				
 			}
-		}else{
+		}
+		/*}else{
 			timePop += 10*Time.deltaTime;
 			if(timePop >= repop){
 				timePop = 0;
@@ -245,7 +259,7 @@ public class PlanetScript : MonoBehaviour {
 					createShip();
 				}
 			}
-		}
+		}*/
 	}
 	
 	//fonction qui gere la creation des vaisseaux 
