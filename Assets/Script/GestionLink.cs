@@ -136,7 +136,7 @@ public class GestionLink : MonoBehaviour {
 									Vector3 st = planetStart.transform.position;
 									Vector3 en = planetEnd.transform.position;
 									Vector3 m = st + (0.5f*(en-st));
-									Debug.Log ("Asteroid");
+									//Debug.Log ("Asteroid");
 									instanceAstero.transform.position = m;
 									instanceAstero.name = "a"+nameS+""+nameE;
 									instanceAstero.active = true;

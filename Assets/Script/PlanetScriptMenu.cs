@@ -64,7 +64,7 @@ public class PlanetScriptMenu : MonoBehaviour {
 				}else if(shipsR.Count >0){
 				
 					ship = shipsR[0];	
-					Debug.Log ( Resources.Load("Shipred") );
+					//Debug.Log ( Resources.Load("Shipred") );
 				}
 				
 			}

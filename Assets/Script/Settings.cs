@@ -34,8 +34,8 @@ public class Settings : MonoBehaviour {
 			paramHand2 = "right";
 			handPlayer2 = "Right-Handed";
 		}
-		Debug.Log(paramHand1);
-		Debug.Log(paramHand2);
+		//Debug.Log(paramHand1);
+		//Debug.Log(paramHand2);
 		
 		QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("graphParam"));
 		if(QualitySettings.GetQualityLevel() == 0) {

@@ -217,7 +217,7 @@ class DepthOfField34 extends PostEffectsBase {
 			AddBokeh (bokehSource2, bokehSource, finalDefocus);
 		
 		dofMaterial.SetTexture ("_TapLowBackground", finalDefocus); 
-		dofMaterial.SetTexture ("_TapMedium", mediumRezWorkTexture); // needed for debugging/visualization
+		dofMaterial.SetTexture ("_TapMedium", mediumRezWorkTexture); // needed for Debugging/visualization
 						
 		// FINAL DEFOCUS (background)
 		Graphics.Blit (source, blurForeground ? foregroundTexture : destination, dofMaterial, visualize ? 2 : 0); 

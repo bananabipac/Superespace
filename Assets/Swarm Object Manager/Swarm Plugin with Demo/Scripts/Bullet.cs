@@ -24,9 +24,9 @@ public class Bullet : SwarmItem
 	/// <summary>
 	/// Overrides the SwarmItem's Initialize method and sets the originalScale 
 	/// </summary>
-	public override void Initialize(SwarmItemManager swarmItemManager, int prefabIndex, bool debugEvents)
+	public override void Initialize(SwarmItemManager swarmItemManager, int prefabIndex, bool DebugEvents)
 	{
-		base.Initialize(swarmItemManager, prefabIndex, debugEvents);
+		base.Initialize(swarmItemManager, prefabIndex, DebugEvents);
 		
 		_originalScale = _thisTransform.localScale;
 	}

@@ -178,8 +178,8 @@ public class Menu : MonoBehaviour {
 			paramHand2 = "right";
 			handPlayer2 = "Right-Handed";
 		}
-		Debug.Log(paramHand1);
-		Debug.Log(paramHand2);
+		//Debug.Log(paramHand1);
+		//Debug.Log(paramHand2);
 		//QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("graphParam"));
 		if(QualitySettings.GetQualityLevel() == 0) {
 			paramQualitySettings = "Low";
@@ -197,7 +197,7 @@ public class Menu : MonoBehaviour {
 		int heightLogo = isartLogo.texture.height;
 		isartLogo.pixelInset = new Rect(-Screen.width/2,-Screen.height/2-heightLogo+100,widthLogo,heightLogo);
 		//isartLogo.pixelInset = new Rect(-500,200,widthLogo,heightLogo);
-		//Debug.Log(isartLogo.pixelInset);
+		////Debug.Log(isartLogo.pixelInset);
 		if(rotateToEnd) {
 			this.transform.RotateAround	(planet.transform.position,Vector3.up,speed*Time.deltaTime);
 		}

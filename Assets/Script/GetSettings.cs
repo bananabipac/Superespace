@@ -11,7 +11,7 @@ public class GetSettings : MonoBehaviour {
 		}else{
 			Camera.main.gameObject.GetComponent<AudioListener>().enabled = true;
 		}
-		Debug.Log(PlayerPrefs.GetString("Sound"));
+		//Debug.Log(PlayerPrefs.GetString("Sound"));
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		if(PlayerPrefs.GetString("paramHand1") != "" ){
 			paramHand1 = PlayerPrefs.GetString("paramHand1");
@@ -23,13 +23,13 @@ public class GetSettings : MonoBehaviour {
 		}else {
 			paramHand2 = "right";
 		}
-		//Debug.Log(paramHand1);
-		//Debug.Log(paramHand2);
+		////Debug.Log(paramHand1);
+		////Debug.Log(paramHand2);
 		if(paramHand1 == "right") {
 			GameObject.FindWithTag("Droitier1").active = true;
 			GameObject.FindWithTag("Gaucher1").active = false;
 		} else {
-			//Debug.Log (GameObject.FindGameObjectWithTag("Droitier1").active);
+			////Debug.Log (GameObject.FindGameObjectWithTag("Droitier1").active);
 			GameObject.FindWithTag("Droitier1").active = false;
 			GameObject.FindWithTag("Gaucher1").active = true;
 		}

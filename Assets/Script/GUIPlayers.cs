@@ -80,7 +80,7 @@ public class GUIPlayers : MonoBehaviour {
 				// however, IMO there should only be five finger IDs max.
 				if ( !warnedAboutMaxTouches )
 				{
-					Debug.Log( "Oops! We got a finderId greater than maxTouches: " + touch.fingerId );
+					//Debug.Log( "Oops! We got a finderId greater than maxTouches: " + touch.fingerId );
 					warnedAboutMaxTouches = true;
 				}
 			}
@@ -147,12 +147,12 @@ public class GUIPlayers : MonoBehaviour {
 								}
 								if(hit.collider.name == "vitesse2") {
 									if(lvlSpeed2 < 4) {
-										Debug.Log ("speed");
+										//Debug.Log ("speed");
 										if( 100 * (lvlSpeed2+1) <= user.GetComponent<MoneyScript>().moneyPlayer2) {
 											(GameObject.FindGameObjectWithTag("infoUserBlue").GetComponent<infoUser>()).speedShip -= 0.2f;
 											user.GetComponent<MoneyScript>().moneyPlayer2 -= (100 * (lvlSpeed2+1));
 											lvlSpeed2++;
-											Debug.Log ("upgraded");
+											//Debug.Log ("upgraded");
 										}
 									}
 								}
@@ -254,7 +254,7 @@ public class GUIPlayers : MonoBehaviour {
 													}
 													objet.GetComponent<PlanetScript>().repop += apocalypse;
 													user.GetComponent<MoneyScript>().moneyPlayer1-= nukePrice;
-													Debug.Log ("Explosion");
+													//Debug.Log ("Explosion");
 													//Instantiate(prefabNuke,hit.collider.gameObject.transform.position,Quaternion.identity);
 												}
 												GameObject.FindGameObjectWithTag("User").GetComponent<stats>().nbNukeRed ++;
@@ -344,7 +344,7 @@ public class GUIPlayers : MonoBehaviour {
 														}
 														objet.GetComponent<PlanetScript>().repop += apocalypse;
 														user.GetComponent<MoneyScript>().moneyPlayer2-= nukePrice;
-														Debug.Log ("Explosion");
+														//Debug.Log ("Explosion");
 														//Instantiate(prefabNuke,hit.collider.gameObject.transform.position,Quaternion.identity);	
 													}
 													GameObject.FindGameObjectWithTag("User").GetComponent<stats>().nbNukeBlue ++;

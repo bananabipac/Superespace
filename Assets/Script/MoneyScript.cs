@@ -22,8 +22,8 @@ public class MoneyScript : MonoBehaviour {
 			moneyPlayer1 += incomePlayer1;
 			moneyPlayer2 += incomePlayer2;
 			timer = Time.timeSinceLevelLoad;
-			//Debug.Log(moneyPlayer1.ToString());
-			//Debug.Log(moneyPlayer2.ToString());
+			////Debug.Log(moneyPlayer1.ToString());
+			////Debug.Log(moneyPlayer2.ToString());
 		}
 	}
 }

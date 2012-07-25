@@ -337,7 +337,7 @@ public class ParticleSpiralEffect : MonoBehaviour
         // we want to destroy.
         ParticleEmitter[] emitters = this.transform.GetComponentsInChildren<ParticleEmitter>();
         foreach (ParticleEmitter emitter in emitters) {
-            Debug.Log("resetEffect killing: " + emitter.name);
+            //Debug.Log("resetEffect killing: " + emitter.name);
             // Make sure autodestruct is on.
             ParticleAnimator animator = emitter.transform.GetComponent<ParticleAnimator>();
             if (animator != null)

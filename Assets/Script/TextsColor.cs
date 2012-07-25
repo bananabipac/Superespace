@@ -105,7 +105,7 @@ public class TextsColor : MonoBehaviour {
 				}
 			} else if (gameObject.tag == "UpgradePlayer2") {
 				if(gameObject.name == "attaque2") {
-					if(100 * (user.GetComponent<GUIPlayers>().lvlAttack2 + 1) > user.GetComponent<MoneyScript>().moneyPlayer2) {
+					if(100 * (user.GetComponent<GUIPlayers>().lvlAttack2 + 1) > user.GetComponent<MoneyScript>().moneyPlayer2 || user.GetComponent<GUIPlayers>().lvlAttack2 >= 3) {
 						renderer.material.color = Color.red;	
 					} else {
 						renderer.material.color = Color.green;	
@@ -117,7 +117,7 @@ public class TextsColor : MonoBehaviour {
 					}
 				}
 				if(gameObject.name == "vie2") {
-					if(100 * (user.GetComponent<GUIPlayers>().lvlLife2 + 1) > user.GetComponent<MoneyScript>().moneyPlayer2) {
+					if(100 * (user.GetComponent<GUIPlayers>().lvlLife2 + 1) > user.GetComponent<MoneyScript>().moneyPlayer2 || user.GetComponent<GUIPlayers>().lvlLife2 >= 3) {
 						renderer.material.color = Color.red;	
 					} else {
 						renderer.material.color = Color.green;	
@@ -129,7 +129,7 @@ public class TextsColor : MonoBehaviour {
 					}
 				}
 				if(gameObject.name == "vitesse2") {
-					if(100 * (user.GetComponent<GUIPlayers>().lvlSpeed2 + 1) > user.GetComponent<MoneyScript>().moneyPlayer2) {
+					if(100 * (user.GetComponent<GUIPlayers>().lvlSpeed2 + 1) > user.GetComponent<MoneyScript>().moneyPlayer2 || user.GetComponent<GUIPlayers>().lvlSpeed2 >= 3) {
 						renderer.material.color = Color.red;	
 					} else {
 						renderer.material.color = Color.green;	
@@ -142,7 +142,7 @@ public class TextsColor : MonoBehaviour {
 				}
 			} else {
 				if(gameObject.name == "attaque1") {
-					if(100 * (user.GetComponent<GUIPlayers>().lvlAttack1 + 1) > user.GetComponent<MoneyScript>().moneyPlayer1) {
+					if(100 * (user.GetComponent<GUIPlayers>().lvlAttack1 + 1) > user.GetComponent<MoneyScript>().moneyPlayer1 || user.GetComponent<GUIPlayers>().lvlAttack1 >= 3) {
 						renderer.material.color = Color.red;	
 					} else {
 						renderer.material.color = Color.green;	
@@ -154,7 +154,7 @@ public class TextsColor : MonoBehaviour {
 					}
 				}
 				if(gameObject.name == "vie1") {
-					if(100 * (user.GetComponent<GUIPlayers>().lvlLife1 + 1) > user.GetComponent<MoneyScript>().moneyPlayer1) {
+					if(100 * (user.GetComponent<GUIPlayers>().lvlLife1 + 1) > user.GetComponent<MoneyScript>().moneyPlayer1 || user.GetComponent<GUIPlayers>().lvlLife1 >= 3) {
 						renderer.material.color = Color.red;	
 					} else {
 						renderer.material.color = Color.green;	
@@ -166,7 +166,7 @@ public class TextsColor : MonoBehaviour {
 					}
 				}
 				if(gameObject.name == "vitesse1") {
-					if(100 * (user.GetComponent<GUIPlayers>().lvlSpeed1 + 1) > user.GetComponent<MoneyScript>().moneyPlayer1) {
+					if(100 * (user.GetComponent<GUIPlayers>().lvlSpeed1 + 1) > user.GetComponent<MoneyScript>().moneyPlayer1 || user.GetComponent<GUIPlayers>().lvlSpeed1 >= 3) {
 						renderer.material.color = Color.red;	
 					} else {
 						renderer.material.color = Color.green;	

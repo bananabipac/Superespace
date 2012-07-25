@@ -26,7 +26,7 @@ public class moveShip : MonoBehaviour {
 	private Dictionary<int,float> vitesseSelect = new Dictionary<int,float>();
 	//public Transform prefabNuke;
 	
-	//debug
+	//Debug
 	private int p = -1;
 	private int pe = -1;
 	
@@ -142,7 +142,7 @@ public class moveShip : MonoBehaviour {
 			
 		}
 
-		/////END DEBUG!!!!!!!!///			
+		/////END Debug!!!!!!!!///			
 			foreach(Touch touch in Input.touches) {
 				
 				int fingerId  = touch.fingerId;
@@ -158,12 +158,12 @@ public class moveShip : MonoBehaviour {
 				}
 				Ray cursorRay = Camera.main.ScreenPointToRay(touch.position);
 				RaycastHit hit;
-				//Pour connaitre la planète de départ, le gameobject est représenté par la variable collider.
+				//Pour connaitre la planï¿½te de dï¿½part, le gameobject est reprï¿½sentï¿½ par la variable collider.
 				if(touch.phase == TouchPhase.Began) {
 					if(!user.GetComponent<PauseScript>().paused2) {
 						if(Physics.Raycast(cursorRay, out hit, 1000.0f)) {
 							if (hit.collider.tag == "planet") {
-								Debug.Log ("Planete de départ" + fingerId);
+								Debug.Log ("Planete de dï¿½part" + fingerId);
 								planetStart = hit.collider.gameObject;
 								listPlanetStart.Add(fingerId,planetStart);	
 								if(((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="red" ||((PlanetScript)planetStart.GetComponent<PlanetScript>()).ship.tag =="blue" ){
@@ -249,7 +249,7 @@ public class moveShip : MonoBehaviour {
 						}
 					}
 				}
-				//Pour connaitre la planète de d'arrivée, le gameobject est représenté par la variable collider.
+				//Pour connaitre la planï¿½te de d'arrivï¿½e, le gameobject est reprï¿½sentï¿½ par la variable collider.
 				if(touch.phase == TouchPhase.Ended) {
 					
 					if(listPlanetStart.ContainsKey(fingerId)){
@@ -415,7 +415,7 @@ public class moveShip : MonoBehaviour {
 		}
 	}
 	
-	//ajoute les vaisseaux au tableau de la planete d'arrivé
+	//ajoute les vaisseaux au tableau de la planete d'arrivï¿½
 	void valideDeplacement(GameObject shipT){
 		
 		if(shipT != null){
@@ -435,7 +435,7 @@ public class moveShip : MonoBehaviour {
 
 	}
 	
-	//ajoute les  gros vaisseaux au tableau de la planete d'arrivé
+	//ajoute les  gros vaisseaux au tableau de la planete d'arrivï¿½
 	void valideDeplacementHugeShip(GameObject shipG){
 		
 		List<GameObject> ships = shipG.GetComponent<rotationShip>().ships;
