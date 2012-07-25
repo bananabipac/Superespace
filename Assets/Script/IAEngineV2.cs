@@ -97,34 +97,34 @@ public class IAEngineV2 : MonoBehaviour {
 			if(!stop){ 
 				if(Time.timeSinceLevelLoad - timer >= speedIA) {
 					if(!upgrade){
-						if(IAPlayer =="red" && script.lvlAttack1<4 && script.lvlLife1<4 && script.lvlSpeed1<4 ){
+						if(IAPlayer =="red" && (script.lvlAttack1 != 3 || script.lvlLife1 != 3 || script.lvlSpeed1 != 3)){
 							int rand = Random.Range(0, 101);
 							if(rand <= chanceUpgrade){
 								upgrade = true;	
 								bool t = false;
 								while(!t){
 									choseUpgrade = Random.Range(1,4);
-									if(choseUpgrade == 1 && script.lvlAttack1<4){
+									if(choseUpgrade == 1 && script.lvlAttack1<3){
 										t=true;		
-									}else if(choseUpgrade == 2 && script.lvlLife1<4){
+									}else if(choseUpgrade == 2 && script.lvlLife1<3){
 										t=true;	
-									}else if(choseUpgrade == 3 && script.lvlLife1<4){
+									}else if(choseUpgrade == 3 && script.lvlSpeed1<3){
 										t=true;	
 									}
 								}
 							}
-						}else if(IAPlayer == "blue" && script.lvlAttack1<4 && script.lvlLife1<4 && script.lvlSpeed1<4 ){
+						}else if(IAPlayer == "blue" && (script.lvlAttack2 != 3 || script.lvlLife2 != 3 || script.lvlSpeed2 != 3) ){
 							int rand = Random.Range(0, 101);
 							if(rand <= chanceUpgrade){
 								upgrade = true;	
 								bool t = false;
 								while(!t){
 									choseUpgrade = Random.Range(1,4);
-									if(choseUpgrade == 1 && script.lvlAttack2<4){
+									if(choseUpgrade == 1 && script.lvlAttack2<3){
 										t=true;		
-									}else if(choseUpgrade == 2 && script.lvlLife2<4){
+									}else if(choseUpgrade == 2 && script.lvlLife2<3){
 										t=true;	
-									}else if(choseUpgrade == 3 && script.lvlLife2<4){
+									}else if(choseUpgrade == 3 && script.lvlSpeed2<3){
 										t=true;	
 									}
 								}
