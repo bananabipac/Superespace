@@ -72,7 +72,7 @@ public class PauseScript : MonoBehaviour {
 			Matrix4x4 matrixBackup = GUI.matrix;
 			
 			GUIUtility.RotateAroundPivot(90f, new Vector2(20,50));
-			if(GUI.Button(new Rect(-30,30,100,40),"Pause",stylePause)) {
+			if(GUI.Button(new Rect(0,30,100,40),"Pause",stylePause)) {
 				paused2 = true;
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosResume,"to",finalPosResume,"onupdate","MoveResume","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopGame"));					
 				iTween.ValueTo(gameObject,iTween.Hash("from",initialPosExit,"to",finalPosExit,"onupdate","MoveExit","easetype",iTween.EaseType.easeInOutSine));

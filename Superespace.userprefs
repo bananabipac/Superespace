@@ -1,20 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\ScoreScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\PauseScript.cs">
     <Files>
-      <File FileName="Assets\Script\ScoreScript.cs" Line="18" Column="22" />
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\GUIPlayers.cs">
-    <Files>
-      <File FileName="Assets\Script\PlanetScript.cs" Line="139" Column="75" />
-      <File FileName="Assets\Script\GUIPlayers.cs" Line="180" Column="12" />
-      <File FileName="Assets\Script\stats.cs" Line="1" Column="1" />
-<<<<<<< HEAD
->>>>>>> e6f50e3b1057ba9018c56308c69787298049c107
-=======
-      <File FileName="Assets\Script\IAEngineV2.cs" Line="165" Column="107" />
->>>>>>> 2bd25240e146033c9a014e76c638215ddfdab457
+      <File FileName="Assets\Script\PauseScript.cs" Line="75" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
