@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: a01a926e307923a498fe1f5d176cb5fd
+TrueTypeFontImporter:
+  serializedVersion: 2
+  fontSize: 30
+  fontColor: {r: 0, g: 0, b: 1, a: 1}
+  forceTextureCase: -2
+  renderMode: 0
+  style: 0
+  includeFontData: 1
+  use2xBehaviour: 0
+  fontNames: []
+  customCharacters: 
