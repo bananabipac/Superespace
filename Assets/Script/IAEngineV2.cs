@@ -67,9 +67,10 @@ public class IAEngineV2 : MonoBehaviour {
 			user = GameObject.FindGameObjectWithTag("User");
 			launchMove = false;
 			timer = Time.timeSinceLevelLoad;
+			script = user.GetComponent<GUIPlayers>();
 		}
 		upgrade = false;
-		script = user.GetComponent<GUIPlayers>();
+		
 		
 	}
 	
