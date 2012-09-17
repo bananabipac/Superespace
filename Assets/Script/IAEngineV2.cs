@@ -649,7 +649,7 @@ public class IAEngineV2 : MonoBehaviour {
 					nbShip = scriptS.shipsB.Count;	
 				}
 			}
-			ponderation.Add(""+planetStart.name+planetEnd.name+"-"+nbShip, pond);
+			ponderation.Add(""+planetStart.name+"-"+planetEnd.name+"-"+nbShip, pond);
 			
 			////Debug.Log(""+planetStart.name+planetEnd.name+" pond : "+pond);
 		}
@@ -827,16 +827,16 @@ public class IAEngineV2 : MonoBehaviour {
 			if( l[rand] != null ){
 				string[] val = l[rand].Split('-');
 				////Debug.Log("deplacement choisit: "+val[0]);
-				GameObject ps = GameObject.Find(""+val[0][0]);
-				GameObject pe = GameObject.Find(""+val[0][1]);
+				GameObject ps = GameObject.Find(""+val[0]);
+				GameObject pe = GameObject.Find(""+val[1]);
 				////Debug.Log(
 				
-				if(val[1] != null && val[1] != ""){
+				if(val[2] != null && val[2] != ""){
 					
 					
-					if(int.Parse(val[1])>0){
+					if(int.Parse(val[2])>0){
 					
-						Count.Add(int.Parse(val[1]));
+						Count.Add(int.Parse(val[2]));
 						CountTmp.Add(0);
 						speed.Add(0.2f);
 						speedTmp.Add(0);

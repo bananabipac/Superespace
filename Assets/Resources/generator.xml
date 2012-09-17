@@ -410,6 +410,18 @@
 			<planet>
 				<name>5</name>
 				<x>0</x>
+				<z>0</z>
+				<color>neutre</color>
+				<nb>10</nb>
+				<size>5</size>
+				<texture>4</texture>
+				<repop>10</repop>
+				<hole>null</hole>
+				<population>50</population>
+			</planet>
+			<planet>
+				<name>6</name>
+				<x>0</x>
 				<z>-12</z>
 				<color>neutre</color>
 				<nb>10</nb>
@@ -420,7 +432,7 @@
 				<population>50</population>
 			</planet>
 			<planet>
-				<name>6</name>
+				<name>7</name>
 				<x>10</x>
 				<z>12</z>
 				<color>neutre</color>
@@ -432,7 +444,7 @@
 				<population>40</population>
 			</planet>
 			<planet>
-				<name>7</name>
+				<name>8</name>
 				<x>10</x>
 				<z>0</z>
 				<color>neutre</color>
@@ -444,7 +456,7 @@
 				<population>40</population>
 			</planet>
 			<planet>
-				<name>8</name>
+				<name>9</name>
 				<x>10</x>
 				<z>-12</z>
 				<color>neutre</color>
@@ -456,7 +468,7 @@
 				<population>40</population>
 			</planet>
 			<planet>
-				<name>9</name>
+				<name>10</name>
 				<x>20</x>
 				<z>0</z>
 				<color>blue</color>
@@ -815,15 +827,15 @@
 			<planet>
 				<name>2</name>
 				<planet>
-					<name>7</name>
+					<name>5</name>
 					<value>0</value>
-					<asteroid>1</asteroid>
+					<asteroid>0</asteroid>
 				</planet>
 			</planet>
 			<planet>
 				<name>3</name>
 				<planet>
-					<name>5</name>
+					<name>6</name>
 					<value>0</value>
 					<asteroid>0</asteroid>
 				</planet>
@@ -831,7 +843,7 @@
 			<planet>
 				<name>4</name>
 				<planet>
-					<name>6</name>
+					<name>7</name>
 					<value>0</value>
 					<asteroid>0</asteroid>
 				</planet>
@@ -855,7 +867,7 @@
 			<planet>
 				<name>7</name>
 				<planet>
-					<name>9</name>
+					<name>10</name>
 					<value>0</value>
 					<asteroid>0</asteroid>
 				</planet>
@@ -863,7 +875,15 @@
 			<planet>
 				<name>8</name>
 				<planet>
-					<name>9</name>
+					<name>10</name>
+					<value>0</value>
+					<asteroid>0</asteroid>
+				</planet>
+			</planet>
+			<planet>
+				<name>9</name>
+				<planet>
+					<name>10</name>
 					<value>0</value>
 					<asteroid>0</asteroid>
 				</planet>
