@@ -114,6 +114,8 @@ public class Menu : MonoBehaviour {
 	
 	public bool moving = false;
 	private bool displaySettings = false;
+	
+	private int decalage = 3000;
 	// Use this for initialization
 	void Start () {
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
@@ -127,78 +129,78 @@ public class Menu : MonoBehaviour {
 		
 		initialPosSolo = new Rect(xPosMulti,0.8f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posSolo = initialPosSolo;
-		finalPosSolo = new Rect(xPosMulti-1500,0.8f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		finalPosSolo = new Rect(xPosMulti-decalage,0.8f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
 		initialPosMulti = new Rect(xPosMulti,1.33f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posMulti = initialPosMulti;
-		finalPosMulti = new Rect(xPosMulti-1500,1.33f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		finalPosMulti = new Rect(xPosMulti-decalage,1.33f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
 		initialPosSettings = new Rect(xPosExit,1.88f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posSettings = initialPosSettings;
-		finalPosSettings = new Rect(xPosExit-1500,1.88f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		finalPosSettings = new Rect(xPosExit-decalage,1.88f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
 		initialPosExit = new Rect(xPosExit,yPosExit,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posExit = initialPosExit;
-		finalPosExit = new Rect(xPosExit-1500,yPosExit,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		finalPosExit = new Rect(xPosExit-decalage,yPosExit,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
 		initialPlayerOne = new Rect(xPosExit,1.88f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
 		posPlayerOne = finalPlayerOne;
-		finalPlayerOne = new Rect(xPosExit-1500,1.88f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
+		finalPlayerOne = new Rect(xPosExit-decalage,1.88f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
 		
 		initialPlayerTwo = new Rect(3.55f*xPosExit,1.88f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
 		posPlayerTwo = finalPlayerTwo;
-		finalPlayerTwo = new Rect(3.55f*xPosExit-1500,1.88f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
+		finalPlayerTwo = new Rect(3.55f*xPosExit-decalage,1.88f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
 		
 		initialQuality = new Rect(xPosExit,2.12f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
 		posQuality = finalQuality;
-		finalQuality = new Rect(xPosExit-1500,2.12f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
+		finalQuality = new Rect(xPosExit-decalage,2.12f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
 		
 		initialSound = new Rect(3.55f*xPosExit,2.12f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
 		posSound = finalSound;
-		finalSound = new Rect(3.55f*xPosExit-1500,2.12f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
+		finalSound = new Rect(3.55f*xPosExit-decalage,2.12f*yPosMulti,Screen.width * (4.8f/14f),0.5f*Screen.height * (0.85f/8.5f));
 		
-		initialLevel1 = new Rect(xPosMulti+1500,0.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		initialLevel1 = new Rect(xPosMulti+decalage,0.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posLevel1 = initialLevel1;
 		finalLevel1 = new Rect(xPosMulti,0.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
-		initialLevel2 = new Rect(xPosMulti+1500,1.1f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		initialLevel2 = new Rect(xPosMulti+decalage,1.1f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posLevel2 = initialLevel2;
 		finalLevel2 = new Rect(xPosMulti,1.1f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
-		initialLevel3 = new Rect(xPosMulti+1500,1.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		initialLevel3 = new Rect(xPosMulti+decalage,1.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posLevel3 = initialLevel3;
 		finalLevel3 = new Rect(xPosMulti,1.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
-		initialLevel4 = new Rect(xPosMulti+1500,0.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
-		posLevel4 = initialLevel4;
+		initialLevel4 = new Rect(xPosMulti+decalage,0.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		finalLevel4 = new Rect(xPosMulti,0.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		posLevel4 = finalLevel4;
 		
-		initialLevel5 = new Rect(xPosMulti+1500,1.1f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		initialLevel5 = new Rect(xPosMulti+decalage,1.1f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posLevel5 = initialLevel5;
 		finalLevel5 = new Rect(xPosMulti,1.1f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
-		initialPrevious = new Rect(xPosMulti+1500,2.1f*yPosMulti,Screen.width * (4.8f/14f),Screen.height * (0.85f/6.3f));
+		initialPrevious = new Rect(xPosMulti+decalage,2.1f*yPosMulti,Screen.width * (4.8f/14f),Screen.height * (0.85f/6.3f));
 		posPrevious = initialPrevious;
 		finalPrevious = new Rect(xPosMulti,2.1f*yPosMulti,Screen.width * (4.8f/14f),Screen.height * (0.85f/6.3f));
 		
-		initialNext = new Rect(3.55f*xPosMulti+1500,2.1f*yPosMulti,Screen.width * (4.8f/14f),Screen.height * (0.85f/6.3f));
+		initialNext = new Rect(3.55f*xPosMulti+decalage,2.1f*yPosMulti,Screen.width * (4.8f/14f),Screen.height * (0.85f/6.3f));
 		posNext = initialNext;
 		finalNext = new Rect(3.55f*xPosMulti,2.1f*yPosMulti,Screen.width * (4.8f/14f),Screen.height * (0.85f/6.3f));
 		
-		initialBack = new Rect(xPosExit+1500,2.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		initialBack = new Rect(xPosExit+decalage,2.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posBack = initialBack;
 		finalBack = new Rect(xPosExit,2.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
-		tempBack = new Rect(xPosExit-1500,2.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		tempBack = new Rect(xPosExit-decalage,2.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
-		initialClassic = new Rect(xPosMulti+1500,yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		initialClassic = new Rect(xPosMulti+decalage,yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posClassic = initialClassic;
 		finalClassic = new Rect(xPosMulti,yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
-		tempClassic = new Rect(xPosMulti-1500,yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		tempClassic = new Rect(xPosMulti-decalage,yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
-		initialQuick = new Rect(xPosMulti+1500,1.5f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		initialQuick = new Rect(xPosMulti+decalage,1.5f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posQuick = initialQuick;
 		finalQuick = new Rect(xPosMulti,1.5f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
-		tempQuick = new Rect(xPosMulti-1500,1.5f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		tempQuick = new Rect(xPosMulti-decalage,1.5f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
 		
 		
@@ -334,16 +336,16 @@ public class Menu : MonoBehaviour {
 				}
 				break;
 			case 2:
-				if(GUI.Button(finalLevel4,"Level 4",style)) {
+				if(GUI.Button(posLevel4,"Level 4",style)) {
 					audio.Play();
 					PlayerPrefs.SetInt("paramLevel", 4);
 					Application.LoadLevel(1);
 				}
-				if(GUI.Button(finalLevel5,"Level 5",style)) {
+				/*if(GUI.Button(finalLevel5,"Level 5",style)) {
 					audio.Play();
 					PlayerPrefs.SetInt("paramLevel", 5);
 					Application.LoadLevel(1);
-				}
+				}*/
 				break;
 		}
 		if(pageActuelle != 1){
@@ -422,6 +424,7 @@ public class Menu : MonoBehaviour {
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalLevel1,"to",initialLevel1,"onupdate","MoveButtonLevel1","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopMoving"));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalLevel2,"to",initialLevel2,"onupdate","MoveButtonLevel2","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopRotationBegin"));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalLevel3,"to",initialLevel3,"onupdate","MoveButtonLevel3","easetype",iTween.EaseType.easeInOutSine));
+					iTween.ValueTo(gameObject,iTween.Hash("from",finalLevel4,"to",initialLevel4,"onupdate","MoveButtonLevel4","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalPrevious,"to",initialPrevious,"onupdate","MoveButtonPrevious","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalNext,"to",initialNext,"onupdate","MoveButtonNext","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",tempClassic,"to",finalClassic,"onupdate","MoveButtonClassic","easetype",iTween.EaseType.easeInOutSine));
@@ -525,6 +528,9 @@ public class Menu : MonoBehaviour {
 	void MoveButtonLevel3(Rect newCoordinates) {
 		posLevel3 = newCoordinates;
 	}
+	void MoveButtonLevel4(Rect newCoordinates) {
+		posLevel4 = newCoordinates;
+	}
 	void MoveButtonPrevious(Rect newCoordinates) {
 		posPrevious = newCoordinates;
 	}
@@ -570,6 +576,7 @@ public class Menu : MonoBehaviour {
 			pageActuelle = 0;
 			page1 = true;
 		}else{
+			posLevel4 = finalLevel4;
 			page1 = false;	
 		}
 		moving = false;	

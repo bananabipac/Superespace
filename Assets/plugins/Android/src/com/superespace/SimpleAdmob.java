@@ -23,7 +23,7 @@ public class SimpleAdmob extends UnityPlayerActivity implements AdListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setupAdmob();
+		//setupAdmob();
 		
 	}
 	
