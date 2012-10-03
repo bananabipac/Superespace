@@ -68,6 +68,10 @@ public class Menu : MonoBehaviour {
 	private Rect posLevel5;
 	private Rect finalLevel5;
 	
+	private Rect initialLevel6;
+	private Rect posLevel6;
+	private Rect finalLevel6;
+	
 	private Rect initialPrevious;
 	private Rect posPrevious;
 	private Rect finalPrevious;
@@ -178,6 +182,10 @@ public class Menu : MonoBehaviour {
 		initialLevel5 = new Rect(xPosMulti+decalage,1.1f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		posLevel5 = initialLevel5;
 		finalLevel5 = new Rect(xPosMulti,1.1f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		
+		initialLevel6 = new Rect(xPosMulti+decalage,1.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		posLevel6 = initialLevel6;
+		finalLevel6 = new Rect(xPosMulti,1.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
 		
 		initialPrevious = new Rect(xPosMulti+decalage,2.1f*yPosMulti,Screen.width * (4.8f/14f),Screen.height * (0.85f/6.3f));
 		posPrevious = initialPrevious;
@@ -341,11 +349,16 @@ public class Menu : MonoBehaviour {
 					PlayerPrefs.SetInt("paramLevel", 4);
 					Application.LoadLevel(1);
 				}
-				/*if(GUI.Button(finalLevel5,"Level 5",style)) {
+				if(GUI.Button(finalLevel5,"Level 5",style)) {
 					audio.Play();
 					PlayerPrefs.SetInt("paramLevel", 5);
 					Application.LoadLevel(1);
-				}*/
+				}
+				if(GUI.Button(finalLevel6,"Level 6",style)) {
+					audio.Play();
+					PlayerPrefs.SetInt("paramLevel", 6);
+					Application.LoadLevel(1);
+				}
 				break;
 		}
 		if(pageActuelle != 1){
@@ -425,6 +438,8 @@ public class Menu : MonoBehaviour {
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalLevel2,"to",initialLevel2,"onupdate","MoveButtonLevel2","easetype",iTween.EaseType.easeInOutSine,"oncomplete","StopRotationBegin"));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalLevel3,"to",initialLevel3,"onupdate","MoveButtonLevel3","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalLevel4,"to",initialLevel4,"onupdate","MoveButtonLevel4","easetype",iTween.EaseType.easeInOutSine));
+					iTween.ValueTo(gameObject,iTween.Hash("from",finalLevel5,"to",initialLevel5,"onupdate","MoveButtonLevel5","easetype",iTween.EaseType.easeInOutSine));
+					iTween.ValueTo(gameObject,iTween.Hash("from",finalLevel6,"to",initialLevel6,"onupdate","MoveButtonLevel6","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalPrevious,"to",initialPrevious,"onupdate","MoveButtonPrevious","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",finalNext,"to",initialNext,"onupdate","MoveButtonNext","easetype",iTween.EaseType.easeInOutSine));
 					iTween.ValueTo(gameObject,iTween.Hash("from",tempClassic,"to",finalClassic,"onupdate","MoveButtonClassic","easetype",iTween.EaseType.easeInOutSine));
@@ -530,6 +545,12 @@ public class Menu : MonoBehaviour {
 	}
 	void MoveButtonLevel4(Rect newCoordinates) {
 		posLevel4 = newCoordinates;
+	}
+	void MoveButtonLevel5(Rect newCoordinates) {
+		posLevel5 = newCoordinates;
+	}
+	void MoveButtonLevel6(Rect newCoordinates) {
+		posLevel6 = newCoordinates;
 	}
 	void MoveButtonPrevious(Rect newCoordinates) {
 		posPrevious = newCoordinates;
