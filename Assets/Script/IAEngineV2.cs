@@ -389,7 +389,7 @@ public class IAEngineV2 : MonoBehaviour {
 				pe = planetEnd.name;
 				ps = planetStart.name;
 			}
-			if(GameObject.Find("a"+ps+pe) != null){//si des asteroides sont sur la route
+			if(GameObject.Find("a"+ps+"."+pe) != null){//si des asteroides sont sur la route
 				pond += siAsteroid;
 				ast = true;
 				////Debug.Log("Asteroid");
@@ -649,7 +649,7 @@ public class IAEngineV2 : MonoBehaviour {
 					nbShip = scriptS.shipsB.Count;	
 				}
 			}
-			ponderation.Add(""+planetStart.name+"-"+planetEnd.name+"-"+nbShip, pond);
+			ponderation.Add(""+planetStart.name+"."+planetEnd.name+"."+nbShip, pond);
 			
 			////Debug.Log(""+planetStart.name+planetEnd.name+" pond : "+pond);
 		}
@@ -825,7 +825,7 @@ public class IAEngineV2 : MonoBehaviour {
 		SpaceBridge bridge = user.GetComponent<SpaceBridge>();
 		if( rand < l.Count){
 			if( l[rand] != null ){
-				string[] val = l[rand].Split('-');
+				string[] val = l[rand].Split('.');
 				////Debug.Log("deplacement choisit: "+val[0]);
 				GameObject ps = GameObject.Find(""+val[0]);
 				GameObject pe = GameObject.Find(""+val[1]);
