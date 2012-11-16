@@ -352,7 +352,7 @@
 				<x>-20</x>
 				<z>0</z>
 				<color>red</color>
-				<nb>30</nb>
+				<nb>25</nb>
 				<size>5</size>
 				<texture>1</texture>
 				<repop>10</repop>
@@ -472,7 +472,7 @@
 				<x>20</x>
 				<z>0</z>
 				<color>blue</color>
-				<nb>30</nb>
+				<nb>25</nb>
 				<size>5</size>
 				<texture>1</texture>
 				<repop>10</repop>
@@ -595,7 +595,7 @@
 				<x>20</x>
 				<z>0</z>
 				<color>blue</color>
-				<nb>30</nb>
+				<nb>25</nb>
 				<size>5</size>
 				<texture>1</texture>
 				<repop>10</repop>
@@ -766,7 +766,7 @@
 				<x>20</x>
 				<z>0</z>
 				<color>blue</color>
-				<nb>30</nb>
+				<nb>25</nb>
 				<size>5</size>
 				<texture>1</texture>
 				<repop>10</repop>
