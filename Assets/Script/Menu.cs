@@ -6,7 +6,6 @@ public class Menu : MonoBehaviour {
 	
 	public GUITexture isartLogo;
 	
-	
 	private int pageActuelle = 0;
 	private int nbPages = 2;
 	private bool page1 = true;
@@ -180,12 +179,12 @@ public class Menu : MonoBehaviour {
 		posLevel4 = finalLevel4;
 		
 		initialLevel5 = new Rect(xPosMulti+decalage,1.1f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
-		posLevel5 = initialLevel5;
 		finalLevel5 = new Rect(xPosMulti,1.1f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		posLevel5 = finalLevel5;
 		
 		initialLevel6 = new Rect(xPosMulti+decalage,1.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
-		posLevel6 = initialLevel6;
 		finalLevel6 = new Rect(xPosMulti,1.6f*yPosMulti,Screen.width * (4.8f/6.55f),Screen.height * (0.85f/6.3f));
+		posLevel6 = finalLevel6;
 		
 		initialPrevious = new Rect(xPosMulti+decalage,2.1f*yPosMulti,Screen.width * (4.8f/14f),Screen.height * (0.85f/6.3f));
 		posPrevious = initialPrevious;
@@ -349,12 +348,12 @@ public class Menu : MonoBehaviour {
 					PlayerPrefs.SetInt("paramLevel", 4);
 					Application.LoadLevel(1);
 				}
-				if(GUI.Button(finalLevel5,"Level 5",style)) {
+				if(GUI.Button(posLevel5,"Level 5",style)) {
 					audio.Play();
 					PlayerPrefs.SetInt("paramLevel", 5);
 					Application.LoadLevel(1);
 				}
-				if(GUI.Button(finalLevel6,"Level 6",style)) {
+				if(GUI.Button(posLevel6,"Level 6",style)) {
 					audio.Play();
 					PlayerPrefs.SetInt("paramLevel", 6);
 					Application.LoadLevel(1);
@@ -598,6 +597,8 @@ public class Menu : MonoBehaviour {
 			page1 = true;
 		}else{
 			posLevel4 = finalLevel4;
+			posLevel5 = finalLevel5;
+			posLevel6 = finalLevel6;
 			page1 = false;	
 		}
 		moving = false;	
