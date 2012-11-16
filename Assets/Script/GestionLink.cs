@@ -96,7 +96,7 @@ public class GestionLink : MonoBehaviour {
 								string nameE = planetEndInfos[0].InnerText;
 								GameObject planetEnd = GameObject.Find(nameE);
 								GameObject instanceLink = (GameObject)Instantiate(Resources.Load("Line")as GameObject);
-								instanceLink.name = nameS+""+nameE;
+								instanceLink.name = nameS+"."+nameE;
 								LineRenderer line = instanceLink.GetComponent<LineRenderer>();
 								
 								line.SetPosition(0,planetStart.transform.position);
@@ -138,7 +138,7 @@ public class GestionLink : MonoBehaviour {
 									Vector3 m = st + (0.5f*(en-st));
 									//Debug.Log ("Asteroid");
 									instanceAstero.transform.position = m;
-									instanceAstero.name = "a"+nameS+""+nameE;
+									instanceAstero.name = "a"+nameS+"."+nameE;
 									instanceAstero.active = true;
 								}
 								
@@ -235,7 +235,7 @@ public class GestionLink : MonoBehaviour {
 				if((string)((Hashtable)link[ps])[pe]  == "0"){
 					((Hashtable)link[ps])[pe] = "1";
 					for(int i = 0; i<l.Count; i++){
-						if(l[i].name == ""+ps+""+pe){
+						if(l[i].name == ""+ps+"."+pe){
 							l[i].active=true;
 						}
 					}
@@ -249,8 +249,8 @@ public class GestionLink : MonoBehaviour {
 	public void changeColor(GameObject planet){
 		
 		for(int i=0; i<l.Count; i++){
-			
-			if(l[i].name[0] == planet.name[0]){
+			string[] split = l[i].name.Split('.');
+			if(""+split[0] == ""+planet.name){
 				LineRenderer line = l[i].GetComponent<LineRenderer>();
 				Color c1;	
 				if(((PlanetScript)planet.GetComponent<PlanetScript>()).ship.tag =="blue"){
@@ -258,7 +258,7 @@ public class GestionLink : MonoBehaviour {
 				}else{
 					c1 = new Color(1,0,0,0.5f);
 				}
-				GameObject planet2 = GameObject.Find(""+l[i].name[1]);
+				GameObject planet2 = GameObject.Find(""+split[1]);
 				Color c2;
 				if(((PlanetScript)planet2.GetComponent<PlanetScript>()).ship.tag =="blue"){
 					c2 = new Color(0,0,1,0.5f);
@@ -269,7 +269,7 @@ public class GestionLink : MonoBehaviour {
 				}
 				line.SetColors(c1,c2);
 				
-			}else if(l[i].name[1] == planet.name[0]){
+			}else if(""+split[1] == ""+planet.name){
 				LineRenderer line = l[i].GetComponent<LineRenderer>();
 				Color c2;	
 				if(((PlanetScript)planet.GetComponent<PlanetScript>()).ship.tag =="blue"){
@@ -277,7 +277,7 @@ public class GestionLink : MonoBehaviour {
 				}else{
 					c2 = new Color(1,0,0,0.5f);
 				}
-				GameObject planet2 = GameObject.Find(""+l[i].name[0]);
+				GameObject planet2 = GameObject.Find(""+split[0]);
 				Color c1;
 				if(((PlanetScript)planet2.GetComponent<PlanetScript>()).ship.tag =="blue"){
 					c1 = new Color(0,0,1,0.5f);
@@ -299,21 +299,22 @@ public class GestionLink : MonoBehaviour {
 		
 		for(int i = 0 ; i<l.Count; i++){
 			if(l[i].active == true){
-				PlanetScript tmp = GameObject.Find(""+l[i].name[0]).GetComponent<PlanetScript>();
+				string[] split = l[i].name.Split('.');
+				PlanetScript tmp = GameObject.Find(""+split[0]).GetComponent<PlanetScript>();
 				
 				if(tmp.ship.tag == "blue"){
-					PlanetScript tmp2 = GameObject.Find(""+l[i].name[1]).GetComponent<PlanetScript>();
+					PlanetScript tmp2 = GameObject.Find(""+split[1]).GetComponent<PlanetScript>();
 					if(tmp2.ship.tag != "red"){
 						ib +=1;	
 					}
 				}else if(tmp.ship.tag =="red"){
-					PlanetScript tmp2 = GameObject.Find(""+l[i].name[1]).GetComponent<PlanetScript>();
+					PlanetScript tmp2 = GameObject.Find(""+split[1]).GetComponent<PlanetScript>();
 					if(tmp2.ship.tag != "blue"){
 						ir +=1;	
 					}
 					
 				}else{
-					PlanetScript tmp2 = GameObject.Find(""+l[i].name[1]).GetComponent<PlanetScript>();
+					PlanetScript tmp2 = GameObject.Find(""+split[1]).GetComponent<PlanetScript>();
 					if(tmp2.ship.tag == "blue"){
 						ib +=1;	
 					}
@@ -344,7 +345,7 @@ public class GestionLink : MonoBehaviour {
 			ps = planetS.name;
 		}
 		
-		GameObject asteroid = GameObject.Find("a"+ps+pe);
+		GameObject asteroid = GameObject.Find("a"+ps+"."+pe);
 			if(asteroid != null){
 				asteroidScript asteroScript = asteroid.GetComponent<asteroidScript>();
 				for(int i=0 ; i<shipsT.Count; i++){
